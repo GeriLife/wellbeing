@@ -49,3 +49,15 @@ var ResidentsSchema = new SimpleSchema({
 });
 
 Residents.attachSchema(ResidentsSchema);
+
+Residents.helpers({
+  home: function() {
+    return Homes.findOne(this.homeId);
+  },
+  createdUser: function() {
+      return Meteor.users.findOne(this.createdUserId);
+  },
+  updatedUser: function() {
+      return Meteor.users.findOne(this.updatedUserId);
+  }
+});
