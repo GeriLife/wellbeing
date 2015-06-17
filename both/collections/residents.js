@@ -47,3 +47,5 @@ var ResidentsSchema = new SimpleSchema({
     optional: true
   }
 });
+
+Residents.attachSchema(ResidentsSchema);
