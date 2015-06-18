@@ -9,6 +9,16 @@ var ResidentsSchema = new SimpleSchema({
   homeId:{
     type:String,
     label: 'Home',
+    autoform: {
+      options: function() {
+        return _.map(Homes.find().fetch(), function(home) {
+          return {
+            label: home.name,
+            value: home._id
+          };
+        });
+      }
+    }
   },
   createdAt: {
     type: Date,
