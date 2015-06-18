@@ -10,6 +10,12 @@ AdminConfig = {
         {label: "First name", name: "firstName"}
       ]
     },
-    Homes: {}
+    Homes: {
+      icon: "home",
+      color: "blue",
+      tableColumns: [
+        {label: "Name", name: "name"}
+      ]
+    }
   }
 }
