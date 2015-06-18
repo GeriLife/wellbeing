@@ -11,3 +11,4 @@ aldeed:simple-schema
 aldeed:autoform
 dburles:collection-helpers
 accounts-ui
+iron:router
