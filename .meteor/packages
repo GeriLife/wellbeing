@@ -15,3 +15,7 @@ iron:router
 aldeed:collection2
 yogiben:admin
 accounts-password
+twbs:bootstrap
+useraccounts:bootstrap
+alanning:roles
+fortawesome:fontawesome
