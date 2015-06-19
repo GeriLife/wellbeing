@@ -5,14 +5,14 @@ AdminConfig = {
   {
     Residents: {
       icon: "users",
-      color: "green",
+      color: "red",
       tableColumns: [
         {label: "First name", name: "firstName"}
       ]
     },
     Homes: {
       icon: "home",
-      color: "blue",
+      color: "yellow",
       tableColumns: [
         {label: "Name", name: "name"}
       ]
