@@ -6,9 +6,12 @@ AdminConfig = {
     Residents: {
       icon: "users",
       color: "red",
+      auxCollections: ['Homes'],
       tableColumns: [
-        {label: "First name", name: "firstName"}
-      ]
+        {label: "First name", name: "firstName"},
+        {label: "Home", name: "homeName()"}
+      ],
+      extraFields: ['homeId']
     },
     Homes: {
       icon: "home",
@@ -17,5 +20,4 @@ AdminConfig = {
         {label: "Name", name: "name"}
       ]
     }
-  }
 }
