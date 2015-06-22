@@ -19,5 +19,14 @@ AdminConfig = {
       tableColumns: [
         {label: "Name", name: "name"}
       ]
+    },
+    'Meteor.roles': {
+      label: 'Roles',
+      color: 'green',
+      icon: 'briefcase',
+      tableColumns: [
+        {label: 'Name', name: 'name'}
+      ]
     }
+  }
 }
