@@ -1,13 +1,13 @@
 Residents = new Mongo.Collection('residents');
 
 var ResidentsSchema = new SimpleSchema({
-  firstName:{
-    type:String,
+  firstName: {
+    type: String,
     label: 'First Name',
-    optional: true,
+    optional: true
   },
-  homeId:{
-    type:String,
+  homeId: {
+    type: String,
     label: 'Home',
     autoform: {
       options: function() {
@@ -26,6 +26,8 @@ Residents.attachSchema(ResidentsSchema);
 
 Residents.helpers({
   homeName: function () {
-    console.log(this);
+    var homeId = this.homeId;
+    var home = Homes.findOne(homeId);
+    return home.name;
   }
 });
