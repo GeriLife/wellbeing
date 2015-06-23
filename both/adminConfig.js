@@ -13,17 +13,17 @@ AdminConfig = {
       ],
       extraFields: ['homeId']
     },
-    Homes: {
-      icon: "home",
-      color: "yellow",
-      tableColumns: [
-        {label: "Name", name: "name"}
-      ]
-    },
     ActivityTypes: {
       icon: "heart-o",
       label: "Activity Types",
       color: "green",
+      tableColumns: [
+        {label: "Name", name: "name"}
+      ]
+    },
+    Homes: {
+      icon: "home",
+      color: "yellow",
       tableColumns: [
         {label: "Name", name: "name"}
       ]
