@@ -20,19 +20,19 @@ AdminConfig = {
         {label: "Name", name: "name"}
       ]
     },
-    'Meteor.roles': {
-      label: 'Roles',
-      color: 'green',
-      icon: 'briefcase',
-      tableColumns: [
-        {label: 'Name', name: 'name'}
-      ]
-    },
     ActivityTypes: {
       icon: "home",
       color: "yellow",
       tableColumns: [
         {label: "Name", name: "name"}
+      ]
+    },
+    'Meteor.roles': {
+      label: 'Roles',
+      color: 'blue',
+      icon: 'user-md',
+      tableColumns: [
+        {label: 'Name', name: 'name'}
       ]
     }
   }
