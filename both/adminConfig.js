@@ -27,6 +27,13 @@ AdminConfig = {
       tableColumns: [
         {label: 'Name', name: 'name'}
       ]
+    },
+    ActivityTypes: {
+      icon: "home",
+      color: "yellow",
+      tableColumns: [
+        {label: "Name", name: "name"}
+      ]
     }
   }
 }
