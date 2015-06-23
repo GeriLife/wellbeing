@@ -21,8 +21,9 @@ AdminConfig = {
       ]
     },
     ActivityTypes: {
-      icon: "home",
-      color: "yellow",
+      icon: "heart-o",
+      label: "Activity Types",
+      color: "green",
       tableColumns: [
         {label: "Name", name: "name"}
       ]
