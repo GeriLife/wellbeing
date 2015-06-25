@@ -9,18 +9,33 @@ var ActivitiesSchema = new SimpleSchema({
     type: String,
     autoform: {
       options: function() {
-        // Get all activity types from db
-        var residents = Residents.find().fetch();
+        // Get all Homes
+        var homes = Homes.find().fetch();
 
-        // Create an options array of activity types with label and value pairs
-        var residentsOptions = _.map(residents, function(resident) {
-          return {
-            label: resident.firstName,
-            value: resident._id
-          };
+        // Create an array of Home IDs
+        var homeIDs = _.map(homes, function (home) {
+          return home._id;
         });
 
-        return residentsOptions;
+        // Create select options for residents input
+        // Grouping residents by home
+        var residentSelectOptions = _.map(homeIDs, function (homeID) {
+          // Find the name of this home
+          var homeName = Homes.findOne(homeID).name;
+
+          // Get all residents of this home
+          var homeResidents = Residents.find({homeId: homeID}).fetch();
+
+          // Create a residents array with name/ID pairs for label/value
+          var residentOptions = _.map(homeResidents, function (homeResident) {
+            return {label: homeResident.firstName, value: homeResident._id};
+          });
+
+          // Return residents and home as option group
+          return {optgroup: homeName, options: residentOptions};
+        });
+
+        return residentSelectOptions;
       }
     }
   },
