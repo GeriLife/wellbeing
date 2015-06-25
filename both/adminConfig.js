@@ -35,6 +35,15 @@ AdminConfig = {
     Homes: {
       icon: "home",
       color: "yellow",
+      auxCollections: ['Groups'],
+      tableColumns: [
+        {label: "Name", name: "name"}
+      ],
+      extraFields: ['groupId']
+    },
+    Groups: {
+      icon: "sitemap",
+      color: "yellow",
       tableColumns: [
         {label: "Name", name: "name"}
       ]
