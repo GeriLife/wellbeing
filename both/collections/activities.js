@@ -1,11 +1,11 @@
 Activities = new Mongo.Collection('activities');
 
 var ActivitiesSchema = new SimpleSchema({
-  residentId: {
+  residentIds: {
     type: Array,
     label: 'Resident'
   },
-  'residentId.$': {
+  'residentIds.$': {
     type: String,
     autoform: {
       options: function() {
@@ -53,15 +53,20 @@ var ActivitiesSchema = new SimpleSchema({
 Activities.attachSchema(ActivitiesSchema);
 
 Activities.helpers({
-  residentName: function () {
-    // Get the Resident ID
-    var residentId = this.residentId;
-    console.log(residentId);
-    // Get Resident from Residents collection, by ID
-    var resident = Residents.findOne(residentId);
-    console.log(resident);
-    // Return the Activity Type name
-    return resident.firstName;
+  residentNames: function () {
+    // Get the Resident ID;
+    var residentIds = this.residentIds;
+
+    // Get Resident(s) from Residents collection, by ID(s)
+    var residents = Residents.find({'_id': {$in: residentIds}}).fetch();
+
+    // Create an array of resident names
+    var residentNamesArray = _.map(residents, function (resident) {
+      return resident.firstName;
+    });
+
+    // Return the resident name(s), joining with ", "
+    return residentNamesArray.join(", ");
   },
   activityType: function () {
     // Get the Activity Type ID
