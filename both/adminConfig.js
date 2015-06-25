@@ -43,6 +43,7 @@ AdminConfig = {
     },
     Groups: {
       icon: "sitemap",
+      label: "Home Groups",
       color: "yellow",
       tableColumns: [
         {label: "Name", name: "name"}
