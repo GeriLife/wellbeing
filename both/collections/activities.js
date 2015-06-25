@@ -2,8 +2,11 @@ Activities = new Mongo.Collection('activities');
 
 var ActivitiesSchema = new SimpleSchema({
   residentId: {
+    type: Array,
+    label: 'Resident'
+  },
+  'residentId.$': {
     type: String,
-    label: 'Resident',
     autoform: {
       options: function() {
         // Get all activity types from db
