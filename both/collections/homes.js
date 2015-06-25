@@ -22,3 +22,16 @@ var HomesSchema = new SimpleSchema({
 });
 
 Homes.attachSchema(HomesSchema);
+
+Homes.helpers({
+  groupName: function () {
+    // Get the Group ID;
+    var groupId = this.groupId;
+
+    // Get Group from Groups collection, by ID(s)
+    var group = Groups.findOne(groupId);
+
+    // Return the Group name
+    return group.name;
+  }
+});
