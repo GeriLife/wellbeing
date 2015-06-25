@@ -17,12 +17,12 @@ AdminConfig = {
       icon: "heartbeat",
       color: "green",
       tableColumns: [
-        {label: "Resident", name: "residentName()"},
+        {label: "Resident(s)", name: "residentNames()"},
         {label: "Activity Type", name: "activityType()"},
         {label: "Duration", name: "duration"}
       ],
       auxCollections: ['Residents', 'ActivityTypes'],
-      extraFields: ['residentId', 'activityTypeId']
+      extraFields: ['residentIds', 'activityTypeId']
     },
     ActivityTypes: {
       icon: "heart-o",
