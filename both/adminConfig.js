@@ -19,6 +19,7 @@ AdminConfig = {
       tableColumns: [
         {label: "Resident(s)", name: "residentNames()"},
         {label: "Activity Type", name: "activityType()"},
+        {label: "Activity Date", name: "activityDate"},
         {label: "Duration", name: "duration"}
       ],
       auxCollections: ['Residents', 'ActivityTypes'],
