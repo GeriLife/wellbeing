@@ -59,6 +59,14 @@ var ActivitiesSchema = new SimpleSchema({
       }
     }
   },
+  activityDate: {
+    type: Date,
+    autoform: {
+      afFieldInput: {
+        type: "bootstrap-datepicker"
+      }
+    }
+  },
   duration: {
     type: Number,
     label: "Duration (in minutes)"
