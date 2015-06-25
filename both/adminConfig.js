@@ -37,7 +37,8 @@ AdminConfig = {
       color: "yellow",
       auxCollections: ['Groups'],
       tableColumns: [
-        {label: "Name", name: "name"}
+        {label: "Name", name: "name"},
+        {label: "Group", name: "groupName()"}
       ],
       extraFields: ['groupId']
     },
