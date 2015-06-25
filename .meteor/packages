@@ -5,7 +5,6 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
 insecure
 aldeed:simple-schema
 aldeed:autoform
@@ -19,4 +18,5 @@ useraccounts:bootstrap
 alanning:roles
 fortawesome:fontawesome
 aldeed:autoform-select2
-rajit:bootstrap3-datepicker
+autopublish
+aldeed:autoform-bs-datepicker
