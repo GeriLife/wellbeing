@@ -1,6 +1,7 @@
 AdminConfig = {
   name: "Juhani Wellbeing",
   adminEmails: ['test@test.com'],
+  skin: "blue-light",
   collections:
   {
     Residents: {
