@@ -59,6 +59,14 @@ var ActivitiesSchema = new SimpleSchema({
       }
     }
   },
+  activityDate: {
+    type: Date,
+    autoform: {
+      afFieldInput: {
+        type: "bootstrap-datepicker"
+      }
+    }
+  },
   duration: {
     type: Number,
     label: "Duration (in minutes)"
@@ -92,5 +100,14 @@ Activities.helpers({
 
     // Return the Activity Type name
     return activityType.name;
+  },
+  activityDateFormatted: function () {
+    // Get activity date
+    var activityDate = this.activityDate;
+
+    // Format activity date
+    var activityDateFormatted = moment(activityDate).format("d.M.YYYY");
+
+    return activityDateFormatted;
   }
 });
