@@ -3,8 +3,12 @@ Residents = new Mongo.Collection('residents');
 var ResidentsSchema = new SimpleSchema({
   firstName: {
     type: String,
-    label: 'First Name',
-    optional: true
+    label: 'First Name'
+  },
+  lastInitial: {
+    type: String,
+    label: 'Last Initial',
+    max: 1,
   },
   homeId: {
     type: String,
