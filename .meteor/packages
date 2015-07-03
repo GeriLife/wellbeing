@@ -18,7 +18,6 @@ useraccounts:bootstrap
 alanning:roles
 fortawesome:fontawesome
 aldeed:autoform-select2
-aldeed:autoform-bs-datepicker
 momentjs:moment
 mrt:flash-messages
 autopublish
