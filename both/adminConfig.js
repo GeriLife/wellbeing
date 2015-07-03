@@ -25,7 +25,7 @@ AdminConfig = {
         {label: "Duration", name: "duration"}
       ],
       auxCollections: ['Residents', 'ActivityTypes'],
-      extraFields: ['residentIds', 'activityTypeId']
+      extraFields: ['residentIds', 'activityTypeId', 'activityDate']
     },
     ActivityTypes: {
       icon: "heart-o",
