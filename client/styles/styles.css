@@ -1,3 +1,4 @@
+/* Set the pickadate field background color to white for consistency */
 .picker__input {
   background-color: #fff !important;
 }
