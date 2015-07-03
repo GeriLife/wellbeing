@@ -74,6 +74,26 @@ var ActivitiesSchema = new SimpleSchema({
   duration: {
     type: Number,
     label: "Duration (in minutes)"
+  },
+  facilitatorRole : {
+    type: String,
+    label: "Facilitator role",
+    autoform: {
+      options: function() {
+        // Get all roles from db
+        var roles = Meteor.roles.find().fetch();
+
+        // Create an options array of roles with label (name) and value (id) pairs
+        var rolesOptions = _.map(roles, function(role) {
+          return {
+            label: role.name,
+            value: role._id
+          };
+        });
+
+        return rolesOptions;
+      }
+    }
   }
 });
 
