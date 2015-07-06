@@ -80,11 +80,13 @@ var ActivitiesSchema = new SimpleSchema({
     label: "Facilitator role",
     autoform: {
       options: function() {
-        // Get all roles from db
-        var roles = Meteor.roles.find().fetch();
+        // Get all roles, except admin, from db
+        var roles = Meteor.roles.find({name: {$not: "admin"}}).fetch();
 
         // Create an options array of roles with label (name) and value (id) pairs
         var rolesOptions = _.map(roles, function(role) {
+          // Don't return the admin role
+          // Return role name and ID object
           return {
             label: role.name,
             value: role._id
