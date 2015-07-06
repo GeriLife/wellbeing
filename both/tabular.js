@@ -6,6 +6,6 @@ TabularTables.Residents = new Tabular.Table({
   name: "Residents",
   collection: Residents,
   columns: [
-    {data: "firstName", title: "First name"}
+    {data: "fullName()", title: "Full Name"}
   ]
 });
