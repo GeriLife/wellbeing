@@ -75,7 +75,7 @@ var ActivitiesSchema = new SimpleSchema({
     type: Number,
     label: "Duration (in minutes)"
   },
-  facilitatorRole : {
+  facilitatorRoleId: {
     type: String,
     label: "Facilitator role",
     autoform: {
