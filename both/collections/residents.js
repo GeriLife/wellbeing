@@ -62,6 +62,12 @@ var ResidentsSchema = new SimpleSchema({
 Residents.attachSchema(ResidentsSchema);
 
 Residents.helpers({
+  fullName: function () {
+    // First name and last initial
+    var firstName = this.firstName;
+    var lastInitial = this.lastInitial;
+    return firstName + " " + lastInitial;
+  },
   homeName: function () {
     var homeId = this.homeId;
     var home = Homes.findOne(homeId);
