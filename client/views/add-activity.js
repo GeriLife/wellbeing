@@ -4,3 +4,9 @@ AutoForm.addHooks('add-activity-form', {
         FlashMessages.sendSuccess('<i class="fa fa-check"></i> Activity added!');
     }
 });
+
+Template.addActivity.created = function () {
+  this.subscribe('allResidents');
+  this.subscribe('allHomes');
+  this.subscribe('allActivityTypes');
+}
