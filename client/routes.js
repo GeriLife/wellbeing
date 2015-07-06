@@ -14,6 +14,12 @@ Router.route('/residents', function () {
   name: 'residents'
 });
 
+Router.route('/resident/:residentId', function () {
+  this.render('resident');
+}, {
+  name: 'resident'
+});
+
 Router.route('/graph', function () {
   this.render('graph');
 }, {
