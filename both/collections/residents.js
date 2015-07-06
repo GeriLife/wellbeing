@@ -48,6 +48,14 @@ var ResidentsSchema = new SimpleSchema({
         return homeSelectOptions;
       }
     }
+  },
+  interestsDescription: {
+    type: String,
+    label: "Description of Interests",
+    optional: true,
+    autoform: {
+      type: 'textarea'
+    }
   }
 });
 
