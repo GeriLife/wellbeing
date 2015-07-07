@@ -1,0 +1,10 @@
+<template name="groups">
+  <h2 class="page-header">Groups</h2>
+  <div class="list-group">
+    {{# each groups}}
+    <a href="/group/{{ _id }}" title="{{ name }}" class="list-group-item">
+      {{ name }}
+    </a>
+    {{/ each }}
+  </div>
+</template>
