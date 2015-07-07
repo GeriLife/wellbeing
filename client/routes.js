@@ -71,4 +71,4 @@ var requiresUserLogin = function () {
 };
 
 // User login required for event registration
-Router.onBeforeAction(requiresUserLogin, {only: ['front']});
+Router.onBeforeAction(requiresUserLogin, {only: ['front', 'groups', 'group', 'homes', 'home', 'resident']});
