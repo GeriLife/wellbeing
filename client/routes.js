@@ -26,6 +26,18 @@ Router.route('/groups', function () {
   name: 'groups'
 });
 
+Router.route('/group/:groupId', function () {
+  var controller = this;
+  var groupId = controller.params.groupId;
+  this.render('group', {
+    data:function(){
+      return Groups.findOne(groupId);
+    }
+  });
+}, {
+  name: 'group'
+});
+
 Router.route('/graph', function () {
   this.render('graph');
 }, {
