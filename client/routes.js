@@ -20,6 +20,12 @@ Router.route('/resident/:residentId', function () {
   name: 'resident'
 });
 
+Router.route('/groups', function () {
+  this.render('groups');
+}, {
+  name: 'groups'
+});
+
 Router.route('/graph', function () {
   this.render('graph');
 }, {
