@@ -30,7 +30,7 @@ Router.route('/group/:groupId', function () {
   var controller = this;
   var groupId = controller.params.groupId;
   this.render('group', {
-    data:function(){
+    data: function() {
       return Groups.findOne(groupId);
     }
   });
@@ -42,7 +42,7 @@ Router.route('/home/:homeId', function () {
   var controller = this;
   var homeId = controller.params.homeId;
   this.render('home', {
-    data: function(){
+    data: function() {
       return Homes.findOne(homeId);
     }
   });
