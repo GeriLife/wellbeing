@@ -38,6 +38,18 @@ Router.route('/group/:groupId', function () {
   name: 'group'
 });
 
+Router.route('/home/:homeId', function () {
+  var controller = this;
+  var homeId = controller.params.homeId;
+  this.render('home', {
+    data: function(){
+      return Homes.findOne(homeId);
+    }
+  });
+}, {
+  name: 'home'
+});
+
 Router.route('/graph', function () {
   this.render('graph');
 }, {
