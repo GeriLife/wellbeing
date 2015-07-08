@@ -10,6 +10,7 @@ Template.residentActivityChart.rendered = function () {
 
   //TODO: Make sure there can be multiple activities in a single day.
 
+  // Render the chart using MetricsGraphics charting library
   MG.data_graphic({
     title: "Daily activity in minutes.",
     description: "Showing daily activity minutes for " + residentName,
