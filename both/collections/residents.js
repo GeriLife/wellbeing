@@ -73,12 +73,27 @@ Residents.helpers({
     var residentId = this._id;
 
     // Get today's date
-    var now = new Date();
+    var now = moment().toDate();
 
     // Get all activities involving resident
     // make sure activities are in the past (i.e. not planned)
     //  sort in reverse order by activity date
     return Activities.find({'residentIds': residentId, activityDate: {$lte: now}}, {sort : {activityDate:  -1} });
+  },
+  'recentActivities': function () {
+    // Get resident ID
+    var residentId = this._id;
+
+    // Date two weeks ago
+    var twoWeeksAgo = moment().subtract(2, "weeks").toDate();
+
+    // Date today
+    var now = new Date();
+
+    // Get all activities involving resident
+    // make sure activities are in the past (i.e. not planned)
+    //  sort in reverse order by activity date
+    return Activities.find({'residentIds': residentId, activityDate: {$gte: twoWeeksAgo, $lte: now}}, {sort : {activityDate:  -1} });
   },
   homeName: function () {
     var homeId = this.homeId;
