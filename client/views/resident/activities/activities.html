@@ -6,7 +6,7 @@
         <tr>
           <th>Activity Type</th>
           <th>Duration</th>
-          <th>Date</th>
+          <th>When</th>
         </tr>
       </thead>
       <tbody>
@@ -14,7 +14,7 @@
         <tr>
           <td>{{ activityType }}</td>
           <td>{{ duration }} minutes</td>
-          <td>{{ activityDate }}</td>
+          <td>{{ timeAgo activityDate }}</td>
         </tr>
         {{/ each }}
       </tbody>
