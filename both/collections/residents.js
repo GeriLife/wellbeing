@@ -77,9 +77,15 @@ Residents.helpers({
 
 Residents.helpers({
   'activities': function () {
+    // Get resident ID
     var residentId = this._id;
 
-    // Get all activities involving resident, sorting in reverse order
-    return Activities.find({'residentIds': residentId}, {sort : {activityDate:  -1} });
+    // Get today's date
+    var now = new Date();
+
+    // Get all activities involving resident
+    // make sure activities are in the past (i.e. not planned)
+    //  sort in reverse order by activity date
+    return Activities.find({'residentIds': residentId, activityDate: {$lte: now}}, {sort : {activityDate:  -1} });
   }
 });
