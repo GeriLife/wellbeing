@@ -74,3 +74,12 @@ Residents.helpers({
     return home.name;
   }
 });
+
+Residents.helpers({
+  'activities': function () {
+    var residentId = this._id;
+
+    // Get all activities involving resident, sorting in reverse order
+    return Activities.find({'residentIds': residentId});
+  }
+});
