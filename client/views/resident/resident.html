@@ -1,5 +1,5 @@
 <template name="resident">
-  <h1 class="page-header">{{ firstName }} {{ lastInitial }}</h1>
+  <h1 class="page-header">{{ firstName }} {{ lastInitial }} <small>({{ homeName }})</small></h1>
 
   {{# if interestsDescription }}
   {{> residentInterests }}
