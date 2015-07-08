@@ -1,0 +1,21 @@
+<template name="residentActivities">
+  <h2>Activities</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Activity Type</th>
+        <th>Duration</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{# each activities }}
+      <tr>
+        <td>{{ activityType }}</td>
+        <td>{{ duration }} minutes</td>
+        <td>{{ activityDate }}</td>
+      </tr>
+      {{/ each }}
+    </tbody>
+  </table>
+</template>
