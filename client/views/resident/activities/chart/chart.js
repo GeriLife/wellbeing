@@ -1,6 +1,8 @@
 Template.residentActivityChart.rendered = function () {
   // Get resident id
   var residentId = this.data._id;
+
+  // Get resident name
   var residentName = this.data.firstName + " " + this.data.lastInitial;
 
   // Get the resident activities
