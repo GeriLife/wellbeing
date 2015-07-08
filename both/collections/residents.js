@@ -80,6 +80,6 @@ Residents.helpers({
     var residentId = this._id;
 
     // Get all activities involving resident, sorting in reverse order
-    return Activities.find({'residentIds': residentId});
+    return Activities.find({'residentIds': residentId}, {sort : {activityDate:  -1} });
   }
 });
