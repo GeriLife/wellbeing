@@ -68,14 +68,6 @@ Residents.helpers({
     var lastInitial = this.lastInitial;
     return firstName + " " + lastInitial;
   },
-  homeName: function () {
-    var homeId = this.homeId;
-    var home = Homes.findOne(homeId);
-    return home.name;
-  }
-});
-
-Residents.helpers({
   'activities': function () {
     // Get resident ID
     var residentId = this._id;
@@ -87,5 +79,10 @@ Residents.helpers({
     // make sure activities are in the past (i.e. not planned)
     //  sort in reverse order by activity date
     return Activities.find({'residentIds': residentId, activityDate: {$lte: now}}, {sort : {activityDate:  -1} });
+  },
+  homeName: function () {
+    var homeId = this.homeId;
+    var home = Homes.findOne(homeId);
+    return home.name;
   }
 });
