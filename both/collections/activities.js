@@ -96,19 +96,6 @@ var ActivitiesSchema = new SimpleSchema({
         return rolesOptions;
       }
     }
-  },
-  createdById: {
-    type: String,
-    label: "Created by user ID",
-    autoValue: function () {
-      if (this.isInsert) {
-        // return the active user ID
-        return this.userId;
-      }
-    },
-    autoform: {
-      type: "hidden"
-    }
   }
 });
 
