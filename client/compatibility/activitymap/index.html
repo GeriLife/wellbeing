@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Example Activity Map</title>
+        <link rel="stylesheet" type="text/css" href="activitymap.css"/>
+    </head>
+    <body>
+        <div id="activitymap-container" style="width: 700px; height: 500px;"></div>
+        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="activitymap.js"></script>
+        <script>
+            d3.csv("dji.csv", function(data) {
+                var activityMap = new ActivityMap(data, {
+                    "id": "dji-volume-map",
+                    "parent": "#activitymap-container",
+                    "title": "Dow Jones Index - Trading Volume ",
+                    "timeColumn": "Timestamp",
+                    "valueColumn": "Volume"
+            });
+            activityMap.render();
+        });
+        </script>
+    </body>
+</html>
