@@ -2,6 +2,7 @@ homeActivitiesData = function () {
   return Activities.find().fetch().map(function (activity) {
     return {
       residents: activity.residentNames(),
+      type: activity.activityType(),
       duration: activity.duration
     }
   });
@@ -13,6 +14,11 @@ var optionsObject = {
       title: 'Residents',
       data: 'residents',
       className: 'residentsColumn'
+    },
+    {
+      title: 'Activity Type',
+      data: 'type',
+      className: 'activityTypeColumn'
     },
     {
       title: 'Duration',
