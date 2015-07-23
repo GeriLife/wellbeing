@@ -1,6 +1,7 @@
 homeActivitiesData = function () {
   return Activities.find().fetch().map(function (activity) {
     return {
+      residents: activity.residentNames(),
       duration: activity.duration
     }
   });
@@ -8,6 +9,11 @@ homeActivitiesData = function () {
 
 var optionsObject = {
   columns: [
+    {
+      title: 'Residents',
+      data: 'residents',
+      className: 'residentsColumn'
+    },
     {
       title: 'Duration',
       data: 'duration',
