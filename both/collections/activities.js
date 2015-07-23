@@ -135,5 +135,12 @@ Activities.helpers({
     var activityDateFormatted = moment(activityDate).format("D.M.YYYY");
 
     return activityDateFormatted;
+  },
+  timeAgo: function () {
+    var activityDate = this.activityDate;
+
+    var timeAgo = moment(activityDate).fromNow();
+
+  return timeAgo;
   }
 });
