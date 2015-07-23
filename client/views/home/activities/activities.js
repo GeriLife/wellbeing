@@ -3,7 +3,8 @@ homeActivitiesData = function () {
     return {
       residents: activity.residentNames(),
       type: activity.activityType(),
-      duration: activity.duration
+      duration: activity.duration,
+      timeAgo: activity.timeAgo()
     }
   });
 };
@@ -24,7 +25,12 @@ var optionsObject = {
       title: 'Duration',
       data: 'duration',
       className: 'nameColumn'
-    }
+    },
+    {
+      title: 'Time Ago',
+      data: 'timeAgo',
+      className: 'activityTimeAgoColumn'
+    },
   ]
 };
 
