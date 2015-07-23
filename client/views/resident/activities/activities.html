@@ -2,25 +2,5 @@
   <h2>Activities</h2>
   {{> residentActivityChart }}
   {{> activityCalendar }}
-
-  <div class="table-responsive">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Activity Type</th>
-          <th>Duration</th>
-          <th>When</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{# each activities }}
-        <tr>
-          <td>{{ activityType }}</td>
-          <td>{{ duration }} minutes</td>
-          <td>{{ timeAgo activityDate }}</td>
-        </tr>
-        {{/ each }}
-      </tbody>
-    </table>
-  </div>
+  {{> activityTable }}
 </template>
