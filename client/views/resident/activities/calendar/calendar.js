@@ -5,29 +5,41 @@ Template.activityCalendar.rendered = function () {
   // Get all activities for current resident
   var residentActivities = Residents.findOne(residentId).activities().fetch();
 
-  // Create an array of activities with properly formatted timestamps
-  var timestampedActivities = _.map(residentActivities, function (activity) {
-    // Create empty placeholder object
-    var activityObject = {};
+  // Create a nest of activities grouped by activity date
+  var nestedActivities = d3.nest()
+    .key(function (activity) {
+      return activity.activityDate;
+    })
 
-    // Timestamp the activity
-    activityObject.timestamp = activity.activityDate.getTime();
+  // Get a sum of activities
+  var summedActivities = nestedActivities.rollup(function (activity) {
+      return {
+        duration: d3.sum(activity, function (activity) {
+          return activity.duration;
+        })
+      }
+    })
+    .entries(residentActivities);
 
-    // Set activity duration
-    activityObject.duration = activity.duration;
+    summedActivities.map(function (activity) {
+      // Create date and duration attributes with proper data types
+      activity.timestamp = new Date(activity.key).getTime();
+      activity.duration = parseInt(activity.values.duration);
 
-    return activityObject;
-  })
+      // Delete unused key and values
+      delete activity.values
+      delete activity.key;
+    })
 
   // Set up the activity map graphic
-  var activityMap = new ActivityMap(timestampedActivities, {
+  var activityMap = new ActivityMap(summedActivities, {
     "id": "#activity-calendar",
     "parent": "#activity-calendar-container",
     "title": "Activity Calendar ",
     "timeColumn": "timestamp",
     "valueColumn": "duration"
   });
-  
+
   // Render the activity map
   activityMap.render();
 }
