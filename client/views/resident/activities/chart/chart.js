@@ -50,6 +50,13 @@ Template.residentActivityChart.rendered = function () {
     right: 40,
     target: document.getElementById('activity-chart'),
     x_accessor: 'date',
-    y_accessor: 'duration'
+    y_accessor: 'duration',
+    mouseover: function (d, i) {
+      var date = d.point.date;
+      var formattedDate = moment(date).format("D.M.YYYY");
+      var minutes = d.point.duration;
+      d3.select('#activity-chart svg .mg-active-datapoint')
+        .text(formattedDate + ' ' + minutes + ' minutes');
+    }
   });
 }
