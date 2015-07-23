@@ -1,5 +1,12 @@
 homeActivitiesData = function () {
-  return Activities.find().fetch().map(function (activity) {
+  //Get today's date.
+  var today = new Date();
+
+  // Get an array of activities for this home
+  var homeActivities = Activities.find({'activityDate': {$lte: today}}).fetch();
+
+  // Create a custom activities array using collection helpers for resident names, activity type, and time ago
+  var homeActivitiesArray =homeActivities.map(function (activity) {
     return {
       residents: activity.residentNames(),
       type: activity.activityType(),
@@ -7,6 +14,8 @@ homeActivitiesData = function () {
       timeAgo: activity.timeAgo()
     }
   });
+
+  return homeActivitiesArray;
 };
 
 var optionsObject = {
