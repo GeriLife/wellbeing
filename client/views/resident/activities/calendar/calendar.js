@@ -35,9 +35,11 @@ Template.activityCalendar.rendered = function () {
   var activityMap = new ActivityMap(summedActivities, {
     "id": "#activity-calendar",
     "parent": "#activity-calendar-container",
+    "fit": true,
     "title": "Activity Calendar ",
     "timeColumn": "timestamp",
-    "valueColumn": "duration"
+    "valueColumn": "duration",
+    "compact": false
   });
 
   // Render the activity map
