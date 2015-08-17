@@ -49,7 +49,7 @@ Template.latestActivitiesByTypeTable.created = function () {
           firstName: resident.firstName,
           lastName: resident.lastName,
           lastActive: activityTimeAgo
-        }
+        };
 
         return residentDetails;
     });
