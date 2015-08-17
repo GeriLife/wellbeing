@@ -1,0 +1,14 @@
+<template name="latestActivitiesByType">
+  <form class="form-inline">
+      <div class="form-group">
+          <label class="sr-only" for="inputEmail">Activity type</label>
+          <select class="form-control">
+            <option value="" selected disabled>Select activity type</option>
+            {{# each activityTypeOptions }}
+              <option value="{{ _id }}">{{ name }}</option>
+            {{/ each }}
+          </select>
+      </div>
+      <button class="btn btn-primary">Show Activities</button>
+  </form>
+</template>
