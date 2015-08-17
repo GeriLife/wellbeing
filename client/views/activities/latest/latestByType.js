@@ -30,6 +30,16 @@ Template.latestActivitiesByType.created = function () {
         });
     };
   });
+
+  instance.autorun(function () {
+    var latestResidentActivities = instance.latestResidentsActivityByType.get();
+
+    var residentIds = _.map(latestResidentActivities, function (residentActivity) {
+      return residentActivity._id;
+    });
+
+    instance.subscribe('selectResidents', residentIds);
+  });
 };
 
 Template.latestActivitiesByType.helpers({
@@ -49,5 +59,12 @@ Template.latestActivitiesByType.events({
     var selectedActivityType = event.target.value;
 
     instance.activityTypeSelection.set(selectedActivityType);
+  },
+  'latestResidentsActivity' : function () {
+    var instance = Template.instance();
+
+    var latestResidentsActivities = instance.latestResidentsActivityByType.get();
+
+    console.log(latestResidentsActivities);
   }
 });
