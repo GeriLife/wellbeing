@@ -1,7 +1,7 @@
 Meteor.methods({
   'getResidentsLatestActivityByType': function (activityTypeId) {
     // Get resident latest activity by type
-    var residentLastActivityByType = Activities.aggregate([
+    var residentLatestActivityByType = Activities.aggregate([
       {$match:
         {activityTypeId: 'ccuz85YWbfAx4Yg7B'}
       },
@@ -12,12 +12,12 @@ Meteor.methods({
       {$group:
         {
           _id: "$residentIds",
-          activities: {$push: '$activityDate'}
+          latestActivity: {$first: '$activityDate'}
         }
       }
     ]);
 
-    return residentLastActivityByType;
+    return residentLatestActivityByType;
   },
   'getResidentsWithoutActivityByType': function (activityTypeId) {
     // Get resident latest activity by type
