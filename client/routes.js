@@ -56,6 +56,12 @@ Router.route('/home/:homeId', function () {
   name: 'home'
 });
 
+Router.route('/latest-activities', function () {
+  this.render('latestActivitiesByType');
+}, {
+  name: 'latestActivitiesByType'
+});
+
 Router.route('/graph', function () {
   this.render('graph');
 }, {
