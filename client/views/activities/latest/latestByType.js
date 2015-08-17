@@ -17,3 +17,14 @@ Template.latestActivitiesByType.helpers({
     return activityTypes;
   }
 });
+
+Template.latestActivitiesByType.events({
+  'change #activity-type-select': function (event, template) {
+    // Create instance variable for consistency
+    var instance = Template.instance();
+
+    var selectedActivityType = event.target.value;
+
+    instance.activityTypeSelection.set(selectedActivityType);
+  }
+});
