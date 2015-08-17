@@ -7,6 +7,9 @@ Template.latestActivitiesByType.created = function () {
 
   // Create variable to hold activity type selection
   instance.activityTypeSelection = new ReactiveVar();
+
+  // Create latest resident activity placeholder
+  instance.latestResidentsActivityByType = new ReactiveVar();
 };
 
 Template.latestActivitiesByType.helpers({
