@@ -3,16 +3,21 @@ Template.latestActivitiesByTypeTable.helpers({
     // Set instance variable for consistency
     var instance = Template.instance();
 
-    // Get the parent template
-    var parent = instance.parent();
-
-    // Get latest residents activity from parent template
-    var latestResidentActivities = parent.latestResidentsActivityByType.get();
+    var latestResidentActivities = instance.parent().latestResidentsActivityByType.get();
 
     if (latestResidentActivities) {
       return latestResidentActivities;
+    } else {
+      return [];
     }
-
-    // Columns name, timeAgo
   }
 });
+
+Template.latestActivitiesByTypeTable.created = function () {
+  // Set instance variable for consistency
+  instance = Template.instance();
+
+  instance.autorun(function () {
+
+  });
+};
