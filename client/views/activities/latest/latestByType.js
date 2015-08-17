@@ -1,6 +1,9 @@
 Template.latestActivitiesByType.created = function () {
+  // Create 'instance' variable for use througout template logic
+  var instance = this;
+
   // Subscribe to all activity types
-  this.subscribe('allActivityTypes');
+  instance.subscribe('allActivityTypes'); 
 };
 
 Template.latestActivitiesByType.helpers({
