@@ -10,6 +10,26 @@ Template.latestActivitiesByType.created = function () {
 
   // Create latest resident activity placeholder
   instance.latestResidentsActivityByType = new ReactiveVar();
+
+  instance.autorun(function () {
+    // Get activity type selection
+    var activityTypeSelection = instance.activityTypeSelection.get();
+
+    if (activityTypeSelection) {
+      // Get latest resident activities for selected activity type
+      Meteor.call(
+        'getResidentsLatestActivityByType',
+        activityTypeSelection,
+        function (error, latestActivity) {
+          if (error) {
+            console.log(error);
+          } else {
+            // Update the reactive variable with latest resident activity
+            instance.latestResidentsActivityByType.set(latestActivity);
+          }
+        });
+    };
+  });
 };
 
 Template.latestActivitiesByType.helpers({
