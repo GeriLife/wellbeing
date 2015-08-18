@@ -19,13 +19,8 @@ Template.latestActivitiesByTypeTable.created = function () {
 
     if (activityTypeId) {
       Meteor.call('getResidentsNameHomeAndLatestActivityByType',activityTypeId,function(error,residentLatestActivity) {
-        if (error) {
-          return false;
-        } else {
-          instance.residentLatestActivityDetails.set(residentLatestActivity);
-          return true;
-        };
+        instance.residentLatestActivityDetails.set(residentLatestActivity);
       });
-    };
+    }
   });
 };
