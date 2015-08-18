@@ -66,7 +66,13 @@ Residents.helpers({
     // First name and last initial
     var firstName = this.firstName;
     var lastInitial = this.lastInitial;
-    return firstName + " " + lastInitial;
+
+    if (firstName && lastInitial) {
+      return firstName + " " + lastInitial;
+    } else {
+      return firstName;
+    }
+
   },
   'activities': function () {
     // Get resident ID
