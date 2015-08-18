@@ -1,3 +1,5 @@
 <template name="latestActivitiesByTypeTable">
-  {{> reactiveTable collection=tableData }}
+    {{# if residentsLatestActivities }}
+      {{> reactiveTable collection=residentsLatestActivities }}
+    {{/ if }}
 </template>
