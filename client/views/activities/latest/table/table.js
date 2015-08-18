@@ -19,7 +19,7 @@ Template.latestActivitiesByTypeTable.created = function () {
 
     if (activityTypeId) {
       Meteor.call(
-        'getResidentsNameHomeAndLastActivityByType',
+        'getResidentsNameHomeAndLatestActivityByType',
         activityTypeId,
         function (error, residentLatestActivity) {
           if (error) {
