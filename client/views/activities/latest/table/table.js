@@ -9,7 +9,7 @@ Template.latestActivitiesByTypeTable.helpers({
 
 Template.latestActivitiesByTypeTable.created = function () {
   // Set instance variable for consistency
-  instance = Template.instance();
+  instance = this;
 
   instance.residentLatestActivityDetails = new ReactiveVar();
 
@@ -18,16 +18,14 @@ Template.latestActivitiesByTypeTable.created = function () {
     var activityTypeId = instance.parent().activityTypeSelection.get();
 
     if (activityTypeId) {
-      Meteor.call(
-        'getResidentsNameHomeAndLatestActivityByType',
-        activityTypeId,
-        function (error, residentLatestActivity) {
-          if (error) {
-            console.log(error);
-          } else {
-            instance.residentLatestActivityDetails.set(residentLatestActivity);
-          }
-        });
-      }
+      Meteor.call('getResidentsNameHomeAndLatestActivityByType',activityTypeId,function(error,residentLatestActivity) {
+        if (error) {
+          return false;
+        } else {
+          instance.residentLatestActivityDetails.set(residentLatestActivity);
+          return true;
+        };
+      });
+    };
   });
 };
