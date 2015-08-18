@@ -19,6 +19,30 @@ Meteor.methods({
 
     return residentLatestActivityByType;
   },
+  'getResidentsNameHomeAndLatestActivityByType': function (activityTypeId) {
+    // Get resident latest activity by type
+    var residentLatestActivityByType = Meteor.call('getResidentsLatestActivityByType', activityTypeId);
+
+    // Set up array of residents with name, home, and activity fields
+    var residentNamesWithLatestActivity = _.map(residentLatestActivityByType, function (residentLatestActivity) {
+      // Get the resident ID
+      var residentId = residentLatestActivity._id;
+
+      // Get resident from collection
+      var resident = Residents.findOne(residentId);
+
+      // Construct object containing resident name, home name, and last activity date
+      var residentNameAndLatestActivity = {
+        residentName: resident.fullName(),
+        homeName: resident.homeName(),
+        lastActivityDate: residentLatestActivity.latestActivity
+      };
+
+      return residentNameAndLatestActivity;
+    });
+
+    return residentNamesWithLatestActivity;
+  },
   'getResidentsWithoutActivityByType': function (activityTypeId) {
     // Get resident latest activity by type
     var residentLastActivityByType = Meteor.call('getResidentsLatestActivityByType', activityTypeId);
