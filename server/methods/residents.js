@@ -12,7 +12,7 @@ Meteor.methods({
       {$group:
         {
           _id: "$residentIds",
-          latestActivity: {$first: '$activityDate'}
+          activityDate: {$first: '$activityDate'}
         }
       }
     ]);
@@ -20,13 +20,16 @@ Meteor.methods({
     return residentLatestActivityByType;
   },
   'getResidentsNameHomeAndLatestActivityByType': function (activityTypeId) {
+    // Create placeholder array for resident names with latest activity
+    var residentNamesWithLatestActivity = [];
+
     // Get resident latest activity by type
-    var residentLatestActivityByType = Meteor.call('getResidentsLatestActivityByType', activityTypeId);
+    var latestActivities = Meteor.call('getResidentsLatestActivityByType', activityTypeId);
 
     // Set up array of residents with name, home, and activity fields
-    var residentNamesWithLatestActivity = _.map(residentLatestActivityByType, function (residentLatestActivity) {
+    latestActivities.forEach(function (latestActivity) {
       // Get the resident ID
-      var residentId = residentLatestActivity._id;
+      var residentId = latestActivity._id;
 
       // Get resident from collection
       var resident = Residents.findOne(residentId);
@@ -35,10 +38,10 @@ Meteor.methods({
       var residentNameAndLatestActivity = {
         residentName: resident.fullName(),
         homeName: resident.homeName(),
-        lastActivityDate: residentLatestActivity.latestActivity
+        lastActivityDate: latestActivity.activityDate
       };
 
-      return residentNameAndLatestActivity;
+      residentNamesWithLatestActivity.push(residentNameAndLatestActivity);
     });
 
     return residentNamesWithLatestActivity;
