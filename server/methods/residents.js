@@ -27,7 +27,7 @@ Meteor.methods({
     var latestActivities = Meteor.call('getResidentsLatestActivityByType', activityTypeId);
 
     // Set up array of residents with name, home, and activity fields
-    latestActivities.forEach(function (latestActivity) {
+    var residentNamesWithLatestActivity = _.map(latestActivities, function (latestActivity) {
       // Get the resident ID
       var residentId = latestActivity._id;
 
@@ -41,7 +41,7 @@ Meteor.methods({
         lastActivityDate: latestActivity.activityDate
       };
 
-      residentNamesWithLatestActivity.push(residentNameAndLatestActivity);
+      return residentNameAndLatestActivity;
     });
 
     return residentNamesWithLatestActivity;
