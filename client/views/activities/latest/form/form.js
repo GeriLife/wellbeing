@@ -19,3 +19,11 @@ Template.latestActivitiesByTypeSelectForm.helpers({
     return activityTypes;
   }
 });
+
+Template.latestActivitiesByTypeSelectForm.created = function () {
+  // Create instance variable for consistency
+  var instance = this;
+
+  // Subscribe to all activity types
+  instance.
+};
