@@ -25,5 +25,5 @@ Template.latestActivitiesByTypeSelectForm.created = function () {
   var instance = this;
 
   // Subscribe to all activity types
-  instance.
+  instance.subscribe('allActivityTypes');
 };
