@@ -29,56 +29,51 @@ Meteor.methods({
     }
   },
   'getResidentsNameHomeAndLatestActivityByType': function (activityTypeId) {
-    // // Create placeholder array for resident names with latest activity
-    // var residentNamesWithLatestActivity = [];
-    //
-    // // Get resident latest activity by type
-    // var latestActivities = Meteor.call('getResidentsLatestActivityByType', activityTypeId);
-    //
-    // // Set up array of residents with name, home, and activity fields
-    // var residentNamesWithLatestActivity = _.map(latestActivities, function (latestActivity) {
-    //   // Get the resident ID
-    //   var residentId = latestActivity._id;
-    //
-    //   // Get resident from collection
-    //   var resident = Residents.findOne(residentId);
-    //
-    //   // Construct object containing resident name, home name, and last activity date
-    //   var residentNameAndLatestActivity = {
-    //     residentName: resident.fullName(),
-    //     homeName: resident.homeName(),
-    //     lastActivityDate: latestActivity.activityDate
-    //   };
-    //
-    //   return residentNameAndLatestActivity;
-    // });
-
+    // Get all resident IDs
     var residentIds = Meteor.call('getAllResidentIds');
 
+    // Placeholder for residents latest activity
+    var residentsLatestActivityByType = [];
+
+    // Loop through all resident IDs
     residentIds.forEach(function (residentId) {
-      Meteor.call('getResidentLatestActivityByType', residentId, activityTypeId);
+      // Return resident latest activity
+      var residentLatestActivity = Meteor.call('getResidentLatestActivityByType', residentId, activityTypeId);
+
+      // If resident activity exists
+      if (residentLatestActivity !== undefined) {
+        // Get resident from collection
+        var resident = Residents.findOne(residentId);
+
+        // Construct an object with resident name and last activity date
+        var residentActivityObject = {
+          residentName: resident.fullName(),
+          homeName: resident.homeName(),
+          latestActivityDate: residentLatestActivity.activityDate
+        };
+
+        // Add resident latest activity to residents latest activity array
+        residentsLatestActivityByType.push(residentActivityObject);
+      }
     });
 
-    return [
-      {name: 'First Resident', home: 'Home Name'},
-      {name: 'Second Resident', home: 'Home Name'},
-    ];
+    return residentsLatestActivityByType;
   },
   'getResidentsWithoutActivityByType': function (activityTypeId) {
-    // Get resident latest activity by type
-    var residentLastActivityByType = Meteor.call('getResidentsLatestActivityByType', activityTypeId);
-
-    // Get all resident IDs
-    var residentIds = Residents.find({}, {fields: {_id: 1}}).fetch();
-
-    // Get residents who have participated in the activity type
-    var residentsWithPreviousActivity = _.map(residentLastActivityByType, function (resident) {
-      return resident._id;
-    });
-
-    // Get residents who have not participated in activity type
-    var residentsWithoutPreviousActivity = _.difference(residentIds, residentsWithPreviousActivity);
-
-    return residentsWithoutPreviousActivity;
+    // // Get resident latest activity by type
+    // var residentLastActivityByType = Meteor.call('getResidentsLatestActivityByType', activityTypeId);
+    //
+    // // Get all resident IDs
+    // var residentIds = Residents.find({}, {fields: {_id: 1}}).fetch();
+    //
+    // // Get residents who have participated in the activity type
+    // var residentsWithPreviousActivity = _.map(residentLastActivityByType, function (resident) {
+    //   return resident._id;
+    // });
+    //
+    // // Get residents who have not participated in activity type
+    // var residentsWithoutPreviousActivity = _.difference(residentIds, residentsWithPreviousActivity);
+    //
+    // return residentsWithoutPreviousActivity;
   }
 });
