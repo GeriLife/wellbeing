@@ -9,9 +9,25 @@ Template.latestActivitiesByTypeTable.helpers({
     var tableSettings = {
       showFilter: false,
       fields: [
-        {key: 'residentName', label: 'Resident Name'},
-        {key: 'homeName', label: 'Home Name'},
-        {key: 'latestActivityDate', label: 'Latest Activity Date', tmpl: Template.dateCell},
+        {
+          key: 'residentName',
+          label: 'Resident Name',
+          sortOrder:2,
+          sortDirection: 'ascending'
+        },
+        {
+          key: 'homeName',
+          label: 'Home Name',
+          sortOrder: 1,
+          sortDirection: 'ascending'
+        },
+        {
+          key: 'latestActivityDate',
+          label: 'Latest Activity Date',
+          tmpl: Template.dateCell,
+          sortOrder: 0,
+          sortDirection: 'descending'
+        },
       ]
     };
 
