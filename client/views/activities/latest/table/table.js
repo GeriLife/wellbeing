@@ -11,7 +11,7 @@ Template.latestActivitiesByTypeTable.helpers({
       fields: [
         {key: 'residentName', label: 'Resident Name'},
         {key: 'homeName', label: 'Home Name'},
-        {key: 'latestActivityDate', label: 'Latest Activity Date'},
+        {key: 'latestActivityDate', label: 'Latest Activity Date', tmpl: Template.dateCell},
       ]
     };
 
