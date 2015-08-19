@@ -4,6 +4,13 @@ Template.latestActivitiesByTypeTable.helpers({
     var residentsLatestActivities = instance.residentLatestActivityDetails.get();
 
     return residentsLatestActivities;
+  },
+  tableSettings: function () {
+    var tableSettings = {
+      showFilter: false
+    };
+
+    return tableSettings;
   }
 });
 
