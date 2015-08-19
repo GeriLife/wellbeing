@@ -1,8 +1,8 @@
 Template.dateCell.helpers({
   'formattedDate': function () {
     // Load the Finnish locale
-    //moment.locale('fi');
-    
+    moment.locale('fi');
+
     // Create resident latest activity variable
     var residentLatestActivity = this;
 
