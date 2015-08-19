@@ -7,7 +7,12 @@ Template.latestActivitiesByTypeTable.helpers({
   },
   tableSettings: function () {
     var tableSettings = {
-      showFilter: false
+      showFilter: false,
+      fields: [
+        {key: 'residentName', label: 'Resident Name'},
+        {key: 'homeName', label: 'Home Name'},
+        {key: 'latestActivityDate', label: 'Latest Activity Date'},
+      ]
     };
 
     return tableSettings;
