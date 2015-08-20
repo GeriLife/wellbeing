@@ -49,7 +49,7 @@ Meteor.methods({
         var residentActivityObject = {
           residentName: resident.fullName(),
           homeName: resident.homeName(),
-          latestActivityDate: residentLatestActivity.activityDate
+          activityDate: residentLatestActivity.activityDate
         };
 
         // Add resident latest activity to residents latest activity array
