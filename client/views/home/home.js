@@ -14,4 +14,7 @@ Template.home.created = function () {
 
   // Set current Home ID from router
   instance.homeId = Router.current().params.homeId;
+
+  // Subscribe to current home
+  instance.subscribe('singleHome', homeId);
 };
