@@ -10,8 +10,7 @@ AdminConfig = {
       auxCollections: ['Homes'],
       tableColumns: [
         {label: "First name", name: "firstName"},
-        {label: "Last Initial", name: "lastInitial"},
-        {label: "Home", name: "homeName()"}
+        {label: "Last Initial", name: "lastInitial"}
       ],
       extraFields: ['homeId']
     },
