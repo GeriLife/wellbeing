@@ -1,5 +1,6 @@
 <template name="groups">
-  <h2 class="page-header">Groups {{> addGroupButton }}</h2>
+  {{> autoformModals}}
+  <h2 class="page-header">Groups {{> addGroup }}</h2>
   <div class="list-group">
     {{# each groups}}
     <a href="/group/{{ _id }}" title="{{ name }}" class="list-group-item">
