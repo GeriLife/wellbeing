@@ -6,6 +6,6 @@ Template.groups.created = function () {
 
 Template.groups.helpers({
   'groups': function () {
-    return Groups.find();
+    return Groups.find({}, {sort: {name: 1}});
   }
 });
