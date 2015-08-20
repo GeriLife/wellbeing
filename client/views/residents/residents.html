@@ -1,4 +1,6 @@
 <template name="residents">
-  <p>Residents template.</p>
-  {{> tabular table=TabularTables.Residents class="table table-striped table-bordered table-condensed"}}
+  <div class="page-header">
+    <h1>Residents</h1>
+  </div>
+  {{> reactiveTable collection=residents settings=tableSettings }}
 </template>
