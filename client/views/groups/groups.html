@@ -1,5 +1,5 @@
 <template name="groups">
-  <h2 class="page-header">Groups</h2>
+  <h2 class="page-header">Groups <a class="btn btn-success pull-right" href="/groups/add">Add Group</a></h2>
   <div class="list-group">
     {{# each groups}}
     <a href="/group/{{ _id }}" title="{{ name }}" class="list-group-item">
