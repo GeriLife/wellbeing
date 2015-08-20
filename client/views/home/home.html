@@ -1,11 +1,11 @@
 <template name="home">
-  <h2 class="page-header">{{ name }}</h2>
+  <h2 class="page-header">{{ home.name }}</h2>
   <div class="list-group">
     {{# each residents }}
     <a href="/resident/{{ _id }}" title="{{ name }}" class="list-group-item">{{ firstName }} {{ lastInitial }}</a>
     {{/ each }}
   </div>
   <div>
-    {{> homeActivities }}
+    <!--{{> homeActivities }}-->
   </div>
 </template>
