@@ -3,6 +3,11 @@ Meteor.publish('allResidents', function () {
   return Residents.find();
 });
 
+Meteor.publish('singleResident', function (residentId) {
+  // Publish all residents
+  return Residents.find(residentId);
+});
+
 Meteor.publish('selectResidents', function (residentIdsArray) {
   // Publish residents indicated by array of IDs
   return Residents.find({_id: {$in: residentIdsArray}});
