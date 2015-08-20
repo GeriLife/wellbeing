@@ -8,6 +8,10 @@ Router.route('/', function () {
   name: 'front'
 });
 
+/*
+  Residents
+*/
+
 Router.route('/residents', function () {
   this.render('residents');
 }, {
@@ -25,6 +29,10 @@ Router.route('/resident/:residentId', function () {
 }, {
   name: 'resident'
 });
+
+/*
+  Groups
+*/
 
 Router.route('/groups', function () {
   this.render('groups');
@@ -50,6 +58,10 @@ Router.route('/group/:groupId', function () {
   name: 'group'
 });
 
+/*
+  Homes
+*/
+
 Router.route('/home/:homeId', function () {
   var controller = this;
   var homeId = controller.params.homeId;
@@ -68,11 +80,19 @@ Router.route('/latest-activities', function () {
   name: 'latestActivitiesByType'
 });
 
+/*
+  Misc
+*/
+
 Router.route('/graph', function () {
   this.render('graph');
 }, {
   name: 'graph'
 });
+
+/*
+  Actions
+*/
 
 var requiresUserLogin = function () {
   if (!Meteor.user()) {
