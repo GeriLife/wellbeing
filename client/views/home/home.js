@@ -1,10 +1,22 @@
 Template.home.helpers({
-  'residents': function () {
+  'home': function () {
+    // Create reference to template instance
     var instance = Template.instance();
 
-    // Get all residents for current home
+    // Get Home ID from template instance
     var homeId = instance.homeId;
 
+    // Return current Home
+    return Homes.findOne(homeId);
+  },
+  'residents': function () {
+    // Create reference to template instance
+    var instance = Template.instance();
+
+    // Get Home ID from template instance
+    var homeId = instance.homeId;
+
+    // Return all residents for current home
     return Residents.find({'homeId': homeId});
   }
 });
@@ -16,5 +28,8 @@ Template.home.created = function () {
   instance.homeId = Router.current().params.homeId;
 
   // Subscribe to current home
-  instance.subscribe('singleHome', homeId);
+  instance.subscribe('singleHome', instance.homeId);
+
+  // Subscribe to Home Residents
+  instance.subscribe('homeResidents', instance.homeId);
 };
