@@ -15,18 +15,6 @@ AdminConfig = {
       ],
       extraFields: ['homeId']
     },
-    Activities: {
-      icon: "heartbeat",
-      color: "green",
-      tableColumns: [
-        {label: "Resident(s)", name: "residentNames()"},
-        {label: "Activity Type", name: "activityType()"},
-        {label: "Activity Date", name: "activityDateFormatted()"},
-        {label: "Duration", name: "duration"}
-      ],
-      auxCollections: ['Residents', 'ActivityTypes'],
-      extraFields: ['residentIds', 'activityTypeId', 'activityDate']
-    },
     ActivityTypes: {
       icon: "heart-o",
       label: "Activity Types",
