@@ -1,4 +1,8 @@
 <template name="homeActivities">
   <h2>Activities</h2>
-  {{> ReactiveDatatable tableData=homeActivitiesFunction options=options }}
+  {{# if Template.subscriptionsReady }}
+  {{> reactiveTable collection=homeActivities settings=tableSettings }}
+  {{ else }}
+  {{> spinner }}
+  {{/ if }}
 </template>
