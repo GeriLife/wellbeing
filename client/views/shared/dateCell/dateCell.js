@@ -4,11 +4,11 @@ Template.dateCell.helpers({
     moment.locale('fi');
 
     // Create resident latest activity variable
-    var residentLatestActivity = this;
+    var activity = this;
 
     // Convert latest activity date to 'from now' format
-    var latestActivityDate = moment(residentLatestActivity.latestActivityDate).fromNow();
+    var activityDateFormatted = moment(activity.activityDate).fromNow();
 
-    return latestActivityDate;
+    return activityDateFormatted;
   }
 });
