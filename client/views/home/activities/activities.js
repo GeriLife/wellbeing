@@ -1,61 +1,64 @@
-homeActivitiesData = function () {
-  //Get today's date.
-  var today = new Date();
-
-  // Get an array of activities for this home
-  var homeActivities = Activities.find({'activityDate': {$lte: today}}).fetch();
-
-  // Create a custom activities array using collection helpers for resident names, activity type, and time ago
-  var homeActivitiesArray =homeActivities.map(function (activity) {
-    return {
-      residents: activity.residentNames(),
-      type: activity.activityType(),
-      duration: activity.duration,
-      timeAgo: activity.timeAgo()
-    }
-  });
-
-  return homeActivitiesArray;
-};
-
-var optionsObject = {
-  columns: [
-    {
-      title: 'Residents',
-      data: 'residents',
-      className: 'residentsColumn'
-    },
-    {
-      title: 'Activity Type',
-      data: 'type',
-      className: 'activityTypeColumn'
-    },
-    {
-      title: 'Duration',
-      data: 'duration',
-      className: 'nameColumn'
-    },
-    {
-      title: 'Time Ago',
-      data: 'timeAgo',
-      className: 'activityTimeAgoColumn'
-    },
-  ]
-};
-
 Template.homeActivities.created = function () {
+  // Create reference to template instance
+  var instance = this;
+
   // Get the home id from data context
-  var homeId = this.data._id;
+  instance.homeId = Router.current().params.homeId;
 
   // Subscribe to all activities for residents of this home
-  this.subscribe('homeActivities', homeId);
+  //instance.subscribe('homeActivities', instance.homeId);
+
+  instance.activities = new ReactiveVar();
+
+  Meteor.call('getHomeActivities', instance.homeId, function (error, activities) {
+    console.log('getHomeActivities result!');
+    console.log(activities);
+    instance.activities.set(activities);
+  });
 };
 
 Template.homeActivities.helpers({
-  'homeActivitiesFunction': function () {
-    return homeActivitiesData;
+  homeActivities: function () {
+    // Get reference to template instance
+    var instance = Template.instance();
+
+    // Get all activities, from template subscription
+    var activities = instance.activities.get();
+
+    console.log(activities);
+
+    return activities;
   },
-  'options': function () {
-    return optionsObject;
+  tableSettings: function () {
+    var tableSettings = {
+      showFilter: false,
+      fields: [
+        {
+          key: 'residents',
+          label: 'Residents',
+          sortOrder:2,
+          sortDirection: 'ascending'
+        },
+        {
+          key: 'type',
+          label: 'Activity Type',
+          sortOrder: 1,
+          sortDirection: 'ascending'
+        },
+        {
+          key: 'duration',
+          label: 'Duration'
+        },
+        {
+          key: 'activityDate',
+          label: 'Activity Date',
+          tmpl: Template.dateCell,
+          sortOrder: 0,
+          sortDirection: 'descending'
+        },
+      ]
+    };
+
+    return tableSettings;
   }
 });
