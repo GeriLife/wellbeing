@@ -1,11 +1,16 @@
 <template name="resident">
-  <h1 class="page-header">{{ firstName }} {{ lastInitial }} <small>({{ homeName }})</small></h1>
-
-  {{# if interestsDescription }}
+  {{#if Template.subscriptionsReady}}
+  <h1 class="page-header">{{ resident.firstName }} {{ resident.lastInitial }}</h1>
+<!--
+  {{# if resident.interestsDescription }}
   {{> residentInterests }}
   {{/ if }}
 
-  {{# if activities }}
+  {{# if residentActivities }}
   {{> residentActivities }}
   {{/ if }}
+-->
+{{ else }}
+{{> spinner }}
+{{/ if }}
 </template>
