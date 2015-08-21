@@ -2,5 +2,19 @@
   <div class="page-header">
     <h1>Residents</h1>
   </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title">Filter residents by ...</h2>
+    </div>
+    <div class="panel-body">
+      <div class="col-xs-6 col-sm-6">
+        {{> reactiveTableFilter id="nameFilter" label="Name" fields=['fullName'] }}
+      </div>
+      <div class="col-xs-6 col-sm-6">
+        {{> reactiveTableFilter id="nameFilter" label="Home" fields=['homeName'] }}
+      </div>
+    </div>
+  </div>
+
   {{> reactiveTable collection=residents settings=tableSettings }}
 </template>
