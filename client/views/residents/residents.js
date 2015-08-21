@@ -15,7 +15,8 @@ Template.residents.helpers({
     residents.forEach(function (resident) {
       var residentObject = {
         fullName: resident.fullName(),
-        homeName: resident.homeName()
+        homeName: resident.homeName(),
+        residentId: resident._id
       };
 
       // Add resident object to residents list
@@ -46,5 +47,17 @@ Template.residents.helpers({
     };
 
     return tableSettings;
+  }
+});
+
+Template.residents.events({
+  'click .reactive-table tbody tr': function (event) {
+    event.preventDefault();
+
+    // Get Resident ID from table
+    var residentId = this.residentId;
+
+    // Show view for selected resident
+    Router.go('resident', {residentId: residentId})
   }
 });
