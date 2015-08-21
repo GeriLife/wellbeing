@@ -39,7 +39,7 @@ Template.activityCalendar.rendered = function () {
     "title": "Activity Calendar ",
     "timeColumn": "timestamp",
     "valueColumn": "duration",
-    "compact": true
+    "compact": false
   });
 
   // Render the activity map
