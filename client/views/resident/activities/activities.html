@@ -1,6 +1,22 @@
 <template name="residentActivities">
   <h2>Activities</h2>
-  {{> residentActivityChart }}
-  {{> activityCalendar }}
-  {{> activityTable }}
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#chart" aria-controls="chart" role="tab" data-toggle="tab">Chart</a></li>
+    <li role="presentation"><a href="#calendar" aria-controls="calendar" role="tab" data-toggle="tab">Calendar</a></li>
+    <li role="presentation"><a href="#table" aria-controls="table" role="tab" data-toggle="tab">Table</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="chart">
+      {{> residentActivityChart }}
+    </div>
+    <div role="tabpanel" class="tab-pane" id="calendar">
+      {{> activityCalendar }}
+    </div>
+    <div role="tabpanel" class="tab-pane" id="table">
+      {{> activityTable }}
+    </div>
+  </div>
 </template>
