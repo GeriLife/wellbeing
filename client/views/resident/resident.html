@@ -1,15 +1,8 @@
 <template name="resident">
   {{#if Template.subscriptionsReady}}
   <h1 class="page-header">{{ resident.firstName }} {{ resident.lastInitial }}</h1>
-<!--
-  {{# if resident.interestsDescription }}
   {{> residentInterests }}
-  {{/ if }}
-
-  {{# if residentActivities }}
   {{> residentActivities }}
-  {{/ if }}
--->
 {{ else }}
 {{> spinner }}
 {{/ if }}
