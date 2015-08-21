@@ -1,7 +1,6 @@
 <template name="resident">
   {{#if Template.subscriptionsReady}}
   <h1 class="page-header">{{ resident.firstName }} {{ resident.lastInitial }}</h1>
-  {{> residentInterests }}
   {{> residentActivities }}
 {{ else }}
 {{> spinner }}
