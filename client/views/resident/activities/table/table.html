@@ -1,22 +1,13 @@
 <template name="activityTable">
-  <div class="table-responsive">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Activity Type</th>
-          <th>Duration</th>
-          <th>When</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{# each activities }}
-        <tr>
-          <td>{{ activityType }}</td>
-          <td>{{ duration }} minutes</td>
-          <td>{{ timeAgo activityDate }}</td>
-        </tr>
-        {{/ each }}
-      </tbody>
-    </table>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title">Filter activities by ...</h2>
+    </div>
+    <div class="panel-body">
+      <div class="col-xs-6 col-sm-6">
+        {{> reactiveTableFilter id="activityTypeFilter" label="Activity Type" fields=['activityType'] }}
+      </div>
+    </div>
   </div>
+{{> reactiveTable collection=activities settings=tableSettings }}
 </template>
