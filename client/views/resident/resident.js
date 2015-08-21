@@ -4,7 +4,8 @@ Template.resident.created = function () {
 
   instance.residentId = Router.current().params.residentId;
 
-  instance.subscribe('singleResident', instance.residentId);
+  // Subscribe to current resident
+  instance.subscribe('residentComposite', instance.residentId);
 };
 
 Template.resident.helpers({
