@@ -43,7 +43,7 @@ Template.residents.helpers({
           sortDirection: 'ascending'
         }
       ],
-      filters: ['nameFilter', 'homefilter']
+      filters: ['nameFilter', 'homeFilter']
     };
 
     return tableSettings;
