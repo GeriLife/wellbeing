@@ -1,4 +1,5 @@
 <template name="residents">
+  {{# if Template.subscriptionsReady }}
   <div class="page-header">
     <h1>Residents</h1>
   </div>
@@ -17,4 +18,7 @@
   </div>
 
   {{> reactiveTable collection=residents settings=tableSettings }}
+  {{ else }}
+  {{> spinner }}
+  {{/ if }}
 </template>
