@@ -51,7 +51,7 @@ Template.allActivities.helpers({
   'tableSettings': function () {
     var tableSettings = {
       showFilter: false,
-      filters: ['residentFilter', 'typeFilter'],
+      filters: ['residentFilter', 'homeNames', 'typeFilter'],
       fields: [
         {
           key: 'residents',
