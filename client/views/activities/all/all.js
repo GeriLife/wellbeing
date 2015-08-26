@@ -21,7 +21,7 @@ Template.allActivities.helpers({
         residents: activity.residentNames(),
         type: activity.activityType(),
         duration: activity.duration,
-        date: activity.activityDate
+        activityDate: activity.activityDate
       };
 
       // Add activity object to residents list
@@ -33,7 +33,32 @@ Template.allActivities.helpers({
   'tableSettings': function () {
     var tableSettings = {
       showFilter: false,
-      filters: ['residentFilter', 'typeFilter']
+      filters: ['residentFilter', 'typeFilter'],
+      fields: [
+        {
+          key: 'residents',
+          label: 'Resident(s)',
+          sortOrder: 1,
+          sortDirection: 'ascending'
+        },
+        {
+          key: 'type',
+          label: 'Activity Type',
+          sortOrder: 2,
+          sortDirection: 'ascending'
+        },
+        {
+          key: 'duration',
+          label: 'Duration',
+        },
+        {
+          key: 'activityDate',
+          label: 'Activity Date',
+          sortOrder: 0,
+          sortDirection: 'descending',
+          tmpl: Template.dateCell,
+        }
+      ],
     };
 
     return tableSettings;
