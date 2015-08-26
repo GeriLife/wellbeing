@@ -14,5 +14,5 @@ var requiresUserLogin = function () {
   }
 };
 
-// User login required for event registration
-Router.onBeforeAction(requiresUserLogin, {only: ['front', 'groups', 'group', 'homes', 'home', 'resident']});
+// User login required for all areas of site
+Router.onBeforeAction(requiresUserLogin, {except: ['login']});
