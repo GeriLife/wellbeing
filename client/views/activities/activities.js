@@ -24,3 +24,16 @@ Template.activities.events({
     instance.showLatestActivities.set(instance.allOrLatestToggle.checked);
   }
 });
+
+
+Template.activities.helpers({
+  "showLatestActivities": function () {
+    // Get reference to template instance
+    var instance = Template.instance();
+
+    // Get value of show latest activities switch
+    var showOnlyLatestActivities = instance.showLatestActivities.get();
+
+    return showOnlyLatestActivities;
+  }
+});
