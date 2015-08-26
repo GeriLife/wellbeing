@@ -3,7 +3,13 @@
     <h1 class="page-header">Activities</h1>
     <div class="form-group">
       <label for="all-or-latest">Showing all activities</label>
-      <input type="checkbox" name="all-or-latest" class="form-control" checked>
+      <input type="checkbox" name="all-or-latest" class="form-control" >
+
+      {{# if showLatestActivities }}
+      {{> latestActivitiesByType }}
+      {{ else }}
+      <p>All activities table</p>
+      {{/ if }}
     </div>
   </div>
 </template>
