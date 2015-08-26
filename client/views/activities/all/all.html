@@ -1,12 +1,11 @@
 <template name="allActivities">
-  <h2>All Activities</h2>
   <div class="panel panel-default">
     <div class="panel-heading">
       <h2 class="panel-title">Filter activities by ...</h2>
     </div>
     <div class="panel-body">
       <div class="col-sm-6 col-xs-12">
-        {{> reactiveTableFilter id="residentsFilter" label="Resident" fields=['residents'] }}
+        {{> reactiveTableFilter id="residentFilter" label="Resident" fields=['residents'] }}
       </div>
       <div class="col-sm-6 col-xs-12">
         {{> reactiveTableFilter id="typeFilter" label="Type" fields=['type'] }}
