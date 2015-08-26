@@ -32,7 +32,8 @@ Template.allActivities.helpers({
   },
   'tableSettings': function () {
     var tableSettings = {
-      showFilter: false
+      showFilter: false,
+      filters: ['residentFilter', 'typeFilter']
     };
 
     return tableSettings;
