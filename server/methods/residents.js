@@ -12,22 +12,6 @@ Meteor.methods({
 
     return residentIds;
   },
-  'getResidentLatestActivityByType': function (residentId, activityTypeId) {
-    var query = {
-      activityTypeId: activityTypeId,
-      residentIds: residentId
-    };
-
-    var sort = {sort: {activityDate: -1}};
-
-    // Get resident latest activity by type
-    var residentLatestActivityByType = Activities.findOne(query,sort);
-
-    // Return activity, if exists
-    if (residentLatestActivityByType) {
-      return residentLatestActivityByType;
-    }
-  },
   'getResidentsNameHomeAndLatestActivityByType': function (activityTypeId) {
     // Get all resident IDs
     var residentIds = Meteor.call('getAllResidentIds');
