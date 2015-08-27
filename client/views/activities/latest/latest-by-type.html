@@ -1,8 +1,3 @@
 <template name="latestActivitiesByType">
-  <div class="row">
-  {{> latestActivitiesByTypeSelectForm }}
-  </div>
-  <div class="row">
-  {{> latestActivitiesByTypeTable }}
-  </div>
+  {{> reactiveTable collection=latestActivitiesByType }}
 </template>
