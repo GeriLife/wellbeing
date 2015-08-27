@@ -27,15 +27,6 @@ Template.activities.events({
 
 
 Template.activities.helpers({
-  "showLatestActivities": function () {
-    // Get reference to template instance
-    var instance = Template.instance();
-
-    // Get value of show latest activities switch
-    var showOnlyLatestActivities = instance.showLatestActivities.get();
-
-    return showOnlyLatestActivities;
-  },
   "activities": function () {
     // Query Activities collection for all activities
     var activities = Activities.find().fetch();
