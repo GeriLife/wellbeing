@@ -21,11 +21,20 @@ Template.latestActivitiesByType.helpers({
 
     var latestResidentActivityIdsByType = instance.latestActivityIdsByTypeData.get();
 
-    //console.log(latestResidentActivitiesByType);
-    if (latestResidentActivityIdsByType) {
-      console.log(latestResidentActivityIdsByType);
-      return latestResidentActivityIdsByType;
+    // Create an array of activities
+    var activities = _.map(latestResidentActivityIdsByType, function (activityId) {
+      // Find a single activity by ID
+      var activity = Activities.findOne(activityId);
+
+      return activity;
+    });
+
+    // If activities exist
+    if (activities) {
+      // Return the activities to template
+      return activities;
     } else {
+      // Return an empty array
       return [];
     }
   }
