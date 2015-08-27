@@ -5,14 +5,11 @@ Template.homeActivities.created = function () {
   // Get the home id from data context
   instance.homeId = Router.current().params.homeId;
 
-  // Subscribe to all activities for residents of this home
-  //instance.subscribe('homeActivities', instance.homeId);
-
+  // Create activities reactive variable
   instance.activities = new ReactiveVar();
 
   Meteor.call('getHomeActivities', instance.homeId, function (error, activities) {
-    console.log('getHomeActivities result!');
-    console.log(activities);
+    // Update the activities reactive variable
     instance.activities.set(activities);
   });
 };
