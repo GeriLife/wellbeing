@@ -3,6 +3,17 @@ Template.activities.created = function () {
   var instance = this;
 
   instance.showLatestActivities = new ReactiveVar();
+
+  instance.autorun(function () {
+    // Determine whether to show only latest activities
+    if (instance.showLatestActivities.get()) {
+      // Subscribe to all activities and related collections
+      instance.subscribe("latestActivitiesComposite");
+    } else {
+      // Subscribe to all activities and related collections
+      instance.subscribe("activitiesComposite");
+    }
+  });
 };
 
 Template.activities.rendered = function () {
