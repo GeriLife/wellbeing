@@ -4,16 +4,22 @@ Template.activities.created = function () {
 
   instance.showLatestActivities = new ReactiveVar();
 
+  // Instance subscriptions
+  // Activity types, residents, and homes
+  instance.subscribe('allActivityTypes');
+  instance.subscribe('allResidents');
+  instance.subscribe('allHomes');
+
   instance.autorun(function () {
     // Determine whether to show only latest activities
     if (instance.showLatestActivities.get() === true) {
       // If show latest activities is true
       // subscribe to latest activities and related collections
-      instance.subscribe("latestActivitiesComposite");
+      instance.subscribe("residentLatestActivities");
     } else if (instance.showLatestActivities.get() === false) {
       // If show latest activities is false
       // subscribe to all activities and related collections
-      instance.subscribe("activitiesComposite");
+      instance.subscribe("allActivities");
     }
   });
 };
