@@ -24,5 +24,7 @@
   </div>
   {{# if Template.subscriptionsReady }}
   {{> reactiveTable collection=activities settings=tableSettings }}
+  {{ else }}
+  {{> spinner }}
   {{/ if }}
 </template>
