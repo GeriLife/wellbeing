@@ -57,7 +57,7 @@ Meteor.methods({
         // append activity ID to residentsLatestActivityIdsByType
         residentsLatestActivityIdsByType.push(residentLatestActivityIdByType._id);
       }, residentId);
-    });
+    }, activityTypeIds);
 
     return residentsLatestActivityIdsByType
   }
