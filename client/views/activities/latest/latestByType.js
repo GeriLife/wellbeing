@@ -2,6 +2,10 @@ Template.latestActivitiesByType.created = function () {
   // Create 'instance' variable for use througout template logic
   var instance = this;
 
+  // Subscribe to all activities composite
+  // TODO: Subscribe only to latest activities, returned from getAllResidentsLatestActivityIdsByType
+  instance.subscribe('activitiesComposite');
+
   // Create variable to hold activity type selection
   instance.activityTypeSelection = new ReactiveVar();
 
