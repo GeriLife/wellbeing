@@ -5,9 +5,11 @@ Meteor.methods({
     // Get all Activity Types
     var activityTypes = ActivityTypes.find().fetch();
 
+    var activityTypeIds = [];
+
     // Create an array of Activity Type IDs
-    var activityTypeIds = _.map(activityTypes, function (activityType) {
-      return activityType._id;
+    activityTypes.forEach(function (activityType) {
+      activityTypeIds.push(activityType._id);
     });
 
     return activityTypeIds;
