@@ -19,7 +19,7 @@ Meteor.methods({
       return residentLatestActivityByType;
     }
   },
-   'getAllResidentsLatestActivitiesByType': function () {
+   'getAllResidentsLatestActivityIdsByType': function () {
     /*
     Return an array of Activity IDs
     where each activity type has at most one entry per resident
@@ -32,13 +32,12 @@ Meteor.methods({
     var activityTypeIds = Meteor.call('getAllActivityTypeIds');
 
     // Placeholder for residents latest activity
-    var residentsLatestActivitiesByType = [];
+    var residentsLatestActivityIdsByType = [];
 
     // Iterate through resident IDs
     residentIds.forEach(function (residentId) {
       // for each resident ID
       // Iterate through activity types
-      console.log(residentId);
       activityTypeIds.forEach(function (activityTypeId) {
         // Get a reference to Resident ID (as array-like object apparently)
         var residentIdObject = this;
@@ -53,13 +52,13 @@ Meteor.methods({
 
         // for each activity type,
         // get resident latest activity
-        var residentLatestActivityByType = Meteor.call('getResidentLatestActivityByType', residentId, activityTypeId);
+        var residentLatestActivityIdByType = Meteor.call('getResidentLatestActivityByType', residentId, activityTypeId);
 
-        // append activity ID to residentsLatestActivitiesByType
-        residentsLatestActivitiesByType.push(residentLatestActivityByType);
+        // append activity ID to residentsLatestActivityIdsByType
+        residentsLatestActivityIdsByType.push(residentLatestActivityIdByType._id);
       }, residentId);
     });
-    console.log(residentsLatestActivitiesByType);
-    return residentsLatestActivitiesByType
+
+    return residentsLatestActivityIdsByType
   }
 });
