@@ -1,4 +1,21 @@
 Meteor.methods({
+  'getResidentLatestActivityByType': function (residentId, activityTypeId) {
+    var query = {
+      activityTypeId: activityTypeId,
+      residentIds: residentId
+    };
+
+    // Set up sort by activity date, in descending order
+    var sort = {sort: {activityDate: -1}};
+
+    // Get resident latest activity by type
+    var residentLatestActivityByType = Activities.findOne(query, sort);
+
+    // Return activity, if exists
+    if (residentLatestActivityByType) {
+      return residentLatestActivityByType;
+    }
+  },
    'getAllResidentsLatestActivitiesByType': function () {
     /*
     Return an array of Activity IDs
