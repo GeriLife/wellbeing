@@ -11,5 +11,5 @@ Meteor.methods({
     });
 
     return activityTypeIds;
-  },
+  }
 });
