@@ -6,11 +6,13 @@ Template.activities.created = function () {
 
   instance.autorun(function () {
     // Determine whether to show only latest activities
-    if (instance.showLatestActivities.get()) {
-      // Subscribe to all activities and related collections
+    if (instance.showLatestActivities.get() === true) {
+      // If show latest activities is true
+      // subscribe to latest activities and related collections
       instance.subscribe("latestActivitiesComposite");
-    } else {
-      // Subscribe to all activities and related collections
+    } else if (instance.showLatestActivities.get() === false) {
+      // If show latest activities is false
+      // subscribe to all activities and related collections
       instance.subscribe("activitiesComposite");
     }
   });
@@ -24,6 +26,12 @@ Template.activities.rendered = function () {
   var options = {secondaryColor: 'silver'};
   instance.allOrLatestToggle = document.querySelector("[name='all-or-latest']");
   instance.switch = new Switchery(instance.allOrLatestToggle, options);
+
+  // Get the value of latest activities toggle
+  var allOrLatestToggle = instance.allOrLatestToggle.checked;
+
+  // Set the value of show latest activities reactive variable
+  instance.showLatestActivities.set(allOrLatestToggle);
 };
 
 Template.activities.events({
