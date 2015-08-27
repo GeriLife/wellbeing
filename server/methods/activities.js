@@ -1,5 +1,8 @@
 Meteor.methods({
   'getResidentLatestActivityByType': function (residentId, activityTypeId) {
+    /*
+    Get the resident's most recent activity by type
+    */
     var query = {
       activityTypeId: activityTypeId,
       residentIds: residentId
