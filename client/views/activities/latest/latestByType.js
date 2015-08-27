@@ -6,11 +6,11 @@ Template.latestActivitiesByType.created = function () {
   instance.activityTypeSelection = new ReactiveVar();
 
   // Create a reactive var to hold data containing latest activities by type
-  instance.latestActivitiesByTypeData = new ReactiveVar();
+  instance.latestActivityIdsByTypeData = new ReactiveVar();
 
-  Meteor.call('getAllResidentsLatestActivitiesByType', function (error, latestResidentActivitiesByType) {
+  Meteor.call('getAllResidentsLatestActivityIdsByType', function (error, latestResidentActivityIdsByType) {
     // Set latest activities by type
-    instance.latestActivitiesByTypeData.set(latestResidentActivitiesByType);
+    instance.latestActivityIdsByTypeData.set(latestResidentActivityIdsByType);
   });
 };
 
@@ -19,11 +19,12 @@ Template.latestActivitiesByType.helpers({
     // Get a reference to template instance
     var instance = Template.instance();
 
-    var latestResidentActivitiesByType = instance.latestActivitiesByTypeData.get();
+    var latestResidentActivityIdsByType = instance.latestActivityIdsByTypeData.get();
 
     //console.log(latestResidentActivitiesByType);
-    if (latestResidentActivitiesByType) {
-      return latestResidentActivitiesByType;
+    if (latestResidentActivityIdsByType) {
+      console.log(latestResidentActivityIdsByType);
+      return latestResidentActivityIdsByType;
     } else {
       return [];
     }
