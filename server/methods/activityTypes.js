@@ -10,6 +10,6 @@ Meteor.methods({
       return activityType._id;
     });
 
-    return ActivityTypeIds;
+    return activityTypeIds;
   },
 });
