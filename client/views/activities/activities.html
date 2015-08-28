@@ -6,9 +6,26 @@
     </div>
     <h1 class="page-header">Activities</h1>
   </div>
-  {{# if showLatestActivities }}
-  {{> latestActivities }}
+  {{# if Template.subscriptionsReady }}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title">Filter activities by ...</h2>
+    </div>
+    <div class="panel-body">
+      <div class="col-sm-4 col-xs-12">
+        {{> reactiveTableFilter id="residentFilter" label="Resident" fields=residentFilterFields }}
+      </div>
+      <div class="col-sm-4 col-xs-12">
+        {{> reactiveTableFilter id="homeFilter" label="Home" fields=homeFilterFields }}
+      </div>
+      <div class="col-sm-4 col-xs-12">
+        {{> reactiveTableFilter id="typeFilter" label="Type" fields=activityTypeFilterFields }}
+      </div>
+    </div>
+  </div>
+
+  {{> reactiveTable collection=activities settings=tableSettings }}
   {{ else }}
-  {{> allActivities }}
+  {{> spinner }}
   {{/ if }}
 </template>
