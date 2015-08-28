@@ -1,5 +1,6 @@
 <template name="latestActivities">
-<div class="panel panel-default">
+  {{# if Template.subscriptionsReady }}
+  <div class="panel panel-default">
     <div class="panel-heading">
       <h2 class="panel-title">Filter activities by ...</h2>
     </div>
@@ -15,7 +16,7 @@
       </div>
     </div>
   </div>
-  {{# if Template.subscriptionsReady }}
+
   {{> reactiveTable collection=activities settings=tableSettings }}
   {{ else }}
   {{> spinner }}
