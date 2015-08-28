@@ -7,3 +7,9 @@ Router.route('/graph', function () {
 }, {
   name: 'graph'
 });
+
+Router.route('/toggle', function () {
+  this.render('subscriptionToggle');
+}, {
+  name: 'subscriptionToggle'
+});

@@ -12,53 +12,38 @@ Meteor.methods({
     var sort = {sort: {activityDate: -1}};
 
     // Get resident latest activity by type
-    var residentLatestActivityByType = Activities.findOne(query, sort);
+    var residentsLatestActivityIdsByType = Activities.findOne(query, sort);
 
     // Return activity, if exists
     if (residentLatestActivityByType) {
       return residentLatestActivityByType;
     }
   },
-   'getAllResidentsLatestActivityIdsByType': function () {
-    /*
-    Return an array of Activity IDs
-    where each activity type has at most one entry per resident
-    containing the most recent activity of that type/resident
-    */
+  'getAllResidentsLatestActivityIdsByType': function (activityTypeId) {
     // Get all resident IDs
     var residentIds = Meteor.call('getAllResidentIds');
 
-    // Get all Activity Type IDs
-    var activityTypeIds = Meteor.call('getAllActivityTypeIds');
-
-    // Placeholder for residents latest activity
+    // Placeholder for residents latest activity IDs
     var residentsLatestActivityIdsByType = [];
 
-    // Iterate through resident IDs
+    // Loop through all resident IDs
     residentIds.forEach(function (residentId) {
-      // for each resident ID
-      // Iterate through activity types
-      activityTypeIds.forEach(function (activityTypeId) {
-        // Get a reference to Resident ID (as array-like object apparently)
-        var residentIdObject = this;
+      // Return resident latest activity
+      var residentLatestActivity = Meteor.call('getResidentLatestActivityByType', residentId, activityTypeId);
 
-        // Convert the resident ID array-like object to an array
-        var residentIdArray = Array.prototype.slice.call(residentIdObject);
+      // If resident activity exists
+      if (residentLatestActivity !== undefined) {
+        // Get the ID of the Resident Latest activity
+        var residentLatestActivityId = residentLatestActivity._id;
 
-        // Convert the resident ID array to a string
-        var residentId = residentIdArray.join("");
+        // Add resident latest activity ID to residents latest activity IDs array
+        residentsLatestActivityIdsByType.push(residentLatestActivityId);
+      }
+    })
 
-        // TODO: see if there is a simple way to accept a callback argument as string
-
-        // for each activity type,
-        // get resident latest activity
-        var residentLatestActivityIdByType = Meteor.call('getResidentLatestActivityByType', residentId, activityTypeId);
-
-        // append activity ID to residentsLatestActivityIdsByType
-        residentsLatestActivityIdsByType.push(residentLatestActivityIdByType._id);
-      }, residentId);
-    }, activityTypeIds);
-
-    return residentsLatestActivityIdsByType
+    if (residentsLatestActivityIdsByType) {
+      // Return the array of Resident Activity IDs
+      return residentsLatestActivityIdsByType;
+    }
   }
 });
