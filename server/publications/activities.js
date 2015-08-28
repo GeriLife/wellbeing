@@ -14,8 +14,11 @@ Meteor.publish('residentActivities', function (residentId) {
 
 Meteor.publish('residentLatestActivities', function () {
   // Get latest activity IDs
-  var latestActivityIds = Meteor.call('getAllResidentsLatestActivityIdsByType');
+  var latestActivityIds = Meteor.call('getLatestActivityIds');
+
+  // Get activities from Activities collection
+  var activities = Activities.find({_id: {$in: latestActivityIds}});
 
   // Get cursor to latest activities
-  return Activities.find({_id: {$in: latestActivityIds}});
+  return activities;
 });
