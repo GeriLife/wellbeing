@@ -1,5 +1,5 @@
 Meteor.methods({
-  'getResidentLatestActivityByType': function (residentId, activityTypeId) {
+  'getResidentLatestActivityIdByType': function (residentId, activityTypeId) {
     /*
     Get the resident's most recent activity by type
     */
@@ -7,16 +7,15 @@ Meteor.methods({
       activityTypeId: activityTypeId,
       residentIds: residentId
     };
-
     // Set up sort by activity date, in descending order
     var sort = {sort: {activityDate: -1}};
 
     // Get resident latest activity by type
-    var residentsLatestActivityIdsByType = Activities.findOne(query, sort);
+    var residentLatestActivityByType = Activities.findOne(query, sort);
 
     // Return activity, if exists
     if (residentLatestActivityByType) {
-      return residentLatestActivityByType;
+      return residentLatestActivityByType._id;
     }
   },
   'getAllResidentsLatestActivityIdsByType': function (activityTypeId) {
@@ -29,21 +28,38 @@ Meteor.methods({
     // Loop through all resident IDs
     residentIds.forEach(function (residentId) {
       // Return resident latest activity
-      var residentLatestActivity = Meteor.call('getResidentLatestActivityByType', residentId, activityTypeId);
-
+      var residentLatestActivityId = Meteor.call('getResidentLatestActivityIdByType', residentId, activityTypeId);
       // If resident activity exists
-      if (residentLatestActivity !== undefined) {
-        // Get the ID of the Resident Latest activity
-        var residentLatestActivityId = residentLatestActivity._id;
-
+      if (residentLatestActivityId !== undefined) {
         // Add resident latest activity ID to residents latest activity IDs array
         residentsLatestActivityIdsByType.push(residentLatestActivityId);
       }
-    })
+    });
 
     if (residentsLatestActivityIdsByType) {
-      // Return the array of Resident Activity IDs
+      // Return the array
       return residentsLatestActivityIdsByType;
     }
+  },
+  'getLatestActivityIds': function () {
+    // Get all activity type IDs
+    var activityTypeIds = Meteor.call('getAllActivityTypeIds');
+
+    // Placeholder array for latest activity IDs
+    var latestActivityIds = [];
+
+    // Go through all activity types
+    activityTypeIds.forEach(function (activityTypeId) {
+      // Get latest activities for activity type
+      var latestActivityIdsByType = Meteor.call('getAllResidentsLatestActivityIdsByType', activityTypeId);
+
+      // Add latest activity IDs to array
+      latestActivityIds.push(latestActivityIdsByType);
+    });
+
+    // Flatten the latestActivityIds array
+    var latestActivityIdsFlat = _.flatten(latestActivityIds);
+    
+    return latestActivityIdsFlat;
   }
 });
