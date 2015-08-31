@@ -90,7 +90,7 @@ Meteor.methods({
     });
   },
   'getSumOfResidentRecentActivitiesByType': function (residentId, activityTypeId) {
-    var activities = Meteor.call('getSumOfResidentRecentActivitiesByType', residentId, ActivityTypeId);
+    var activities = Meteor.call('getResidentRecentActivitiesByType', residentId, ActivityTypeId);
     // Placeholder for sum of activities
     var sumOfActivities = 0;
 
@@ -101,5 +101,31 @@ Meteor.methods({
     });
 
     return sumOfACtivities;
+  },
+  'getSumOfAllResidentRecentActivitiesByType': function (residentId) {
+    // Get all activity type IDs
+    var activityTypeIds = Meteor.call('getAllActivityTypeIds');
+
+    // Placeholder for resident activity sums
+    var residentActivitySumsByType = [];
+
+    activityTypeIds.forEach(function (activityTypeId) {
+      // Get the activity type
+      var activityType = ActivityTypes.find(activityTypeId).fetch();
+
+      // Get sum of activity type
+      var activitySum = Meteor.call('getSumOfResidentRecentActivitiesByType', residentId, activityTypeId);
+
+      // Create an object with the activity type name and sum
+      var activityTypeSum = {
+        name: activityType.name,
+        sum: activitySum
+      }
+
+      // Add the resident activity type sum to the resident activity sums array
+      residentActivitySumsByType.push(activityTypeSum);
+    });
+
+    return residentActivitySumsByType;
   }
 });
