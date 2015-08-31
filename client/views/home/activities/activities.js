@@ -22,8 +22,6 @@ Template.homeActivities.helpers({
     // Get all activities, from template subscription
     var activities = instance.activities.get();
 
-    console.log(activities);
-
     return activities;
   },
   tableSettings: function () {
