@@ -71,5 +71,35 @@ Meteor.methods({
     // make sure activities are in the past (i.e. not planned)
     //  sort in reverse order by activity date
     return Activities.find({'residentIds': residentId, activityDate: {$gte: twoWeeksAgo, $lte: now}}, {sort : {activityDate:  -1} });
+  },
+  'getResidentRecentActivitiesByType': function (residentId, activityTypeId) {
+    // Date two weeks ago
+    var twoWeeksAgo = moment().subtract(2, "weeks").toDate();
+
+    // Date today
+    var now = new Date();
+
+    // Get all activities of a specific type involving resident
+    // make sure activities are in the past (i.e. not planned)
+    //  sort in reverse order by activity date
+    return Activities.find({
+      'residentIds': residentId,
+      'activityTypeId': activityTypeId,
+      activityDate: {$gte: twoWeeksAgo, $lte: now}},
+      {sort : {activityDate:  -1}
+    });
+  },
+  'getSumOfResidentRecentActivitiesByType': function (residentId, activityTypeId) {
+    var activities = Meteor.call('getSumOfResidentRecentActivitiesByType', residentId, ActivityTypeId);
+    // Placeholder for sum of activities
+    var sumOfActivities = 0;
+
+    // Count each activity
+    activites.forEach(function (activity) {
+      // Count the resident activity
+      sumOfActivites += 1;
+    });
+
+    return sumOfACtivities;
   }
 });
