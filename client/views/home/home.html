@@ -5,8 +5,25 @@
     <a href="/resident/{{ _id }}" title="{{ name }}" class="list-group-item">{{ firstName }} {{ lastInitial }}</a>
     {{/ each }}
   </div>
-  <div>
-    {{> homeResidentActivitySumsByType }}
-    {{> homeActivities }}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-header">Activities</h2>
+    </div>
+    <div class="panel-body">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#activity-chart" aria-controls="chart" role="tab" data-toggle="tab">Resident Activity Types</a></li>
+        <li role="presentation"><a href="#activity-table" aria-controls="calendar" role="tab" data-toggle="tab">Activity Table</a></li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="activity-chart">
+          {{> homeResidentActivitySumsByType }}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="activity-table">
+          {{> homeActivities }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
