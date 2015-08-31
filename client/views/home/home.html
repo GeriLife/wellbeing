@@ -1,9 +1,12 @@
 <template name="home">
   <h1 class="page-header">{{ home.name }}</h1>
-  <div class="list-group">
-    {{# each residents }}
-    <a href="/resident/{{ _id }}" title="{{ name }}" class="list-group-item">{{ firstName }} {{ lastInitial }}</a>
-    {{/ each }}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-header">Residents</h2>
+    </div>
+    <div class="panel-body">
+      {{> homeResidents residents=residents }}
+    </div>
   </div>
   <div class="panel panel-default">
     <div class="panel-heading">
