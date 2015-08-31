@@ -39,7 +39,7 @@ Meteor.methods({
   },
   'getHomeResidentsActivitySumsByType': function (homeId) {
     // Get all resident IDs
-    var residentIds = Meteor.call('getHomeResidentIds');
+    var residentIds = Meteor.call('getHomeResidentIds', homeId);
 
     // Placeholder for all resident activity sums by type
     var allResidentActivitySumsByType = [];
@@ -53,7 +53,8 @@ Meteor.methods({
       allResidentActivitySumsByType.push(residentActivitiesSumByType);
     });
 
-    allResidentActivitySumsByTypeFlattened = _.flatten(allResidentActivitySumsByType)
+    // Flatten the activities array
+    allResidentActivitySumsByTypeFlattened = _.flatten(allResidentActivitySumsByType);
 
     return allResidentActivitySumsByTypeFlattened;
   }
