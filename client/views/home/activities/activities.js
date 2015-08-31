@@ -22,7 +22,12 @@ Template.homeActivities.helpers({
     // Get all activities, from template subscription
     var activities = instance.activities.get();
 
-    return activities;
+    // Return activities if available, otherwise return an empty array
+    if (activities ) {
+     return activities;
+    } else {
+      return [];
+    }
   },
   tableSettings: function () {
     var tableSettings = {
