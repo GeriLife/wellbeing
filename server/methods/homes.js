@@ -36,5 +36,25 @@ Meteor.methods({
     });
 
     return homeActivitiesArray;
+  },
+  'getHomeResidentsActivitySumsByType': function (homeId) {
+    // Get all resident IDs
+    var residentIds = Meteor.call('getHomeResidentIds');
+
+    // Placeholder for all resident activity sums by type
+    var allResidentActivitySumsByType = [];
+
+    // Iterate through all residents and get sum of resident recent activities by type
+    residentIds.forEach(function (residentId) {
+      // Get the sum of all activities by type for a given resident
+       var residentActivitiesSumByType = Meteor.call('getSumOfAllResidentRecentActivitiesByType', residentId);
+
+      // Add the resident activity sums to all resident activity sums array
+      allResidentActivitySumsByType.push(residentActivitiesSumByType);
+    });
+
+    allResidentActivitySumsByTypeFlattened = _.flatten(allResidentActivitySumsByType)
+
+    return allResidentActivitySumsByTypeFlattened;
   }
 });
