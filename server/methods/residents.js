@@ -74,7 +74,7 @@ Meteor.methods({
   },
   'getResidentRecentActivitiesByType': function (residentId, activityTypeId) {
     // Date two weeks ago
-    var twoWeeksAgo = moment().subtract(2, "weeks").toDate();
+    var twoWeeksAgo = moment().subtract(4, "weeks").toDate();
 
     // Date today
     var now = new Date();
@@ -95,6 +95,7 @@ Meteor.methods({
   },
   'getSumOfResidentRecentActivitiesByType': function (residentId, activityTypeId) {
     var activities = Meteor.call('getResidentRecentActivitiesByType', residentId, activityTypeId);
+
     // Placeholder for sum of activities
     var sumOfActivities = 0;
 
