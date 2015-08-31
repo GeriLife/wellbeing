@@ -1,4 +1,7 @@
 Template.homeResidentActivitySumsByType.created = function () {
+  // Get reference to template instance
+  var instance = this;
+
   // set up home resident activity sums by type reactive variable
   var homeResidentsActivitySumsByType = new ReactiveVar();
 
