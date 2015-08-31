@@ -82,25 +82,31 @@ Meteor.methods({
     // Get all activities of a specific type involving resident
     // make sure activities are in the past (i.e. not planned)
     //  sort in reverse order by activity date
-    return Activities.find({
+    var activities = Activities.find({
       'residentIds': residentId,
       'activityTypeId': activityTypeId,
       activityDate: {$gte: twoWeeksAgo, $lte: now}},
       {sort : {activityDate:  -1}
-    });
+    }).fetch();
+
+    if (activities) {
+      return activities;
+    };
   },
   'getSumOfResidentRecentActivitiesByType': function (residentId, activityTypeId) {
     var activities = Meteor.call('getResidentRecentActivitiesByType', residentId, activityTypeId);
     // Placeholder for sum of activities
     var sumOfActivities = 0;
 
-    // Count each activity
-    activites.forEach(function (activity) {
-      // Count the resident activity
-      sumOfActivites += 1;
-    });
+    if (activities) {
+      // Count each activity
+      activities.forEach(function (activity) {
+        // Count the resident activity
+        sumOfActivities += 1;
+      });
+    };
 
-    return sumOfACtivities;
+    return sumOfActivities;
   },
   'getSumOfAllResidentRecentActivitiesByType': function (residentId) {
     // Get all activity type IDs
@@ -111,14 +117,18 @@ Meteor.methods({
 
     activityTypeIds.forEach(function (activityTypeId) {
       // Get the activity type
-      var activityType = ActivityTypes.find(activityTypeId).fetch();
+      var activityType = ActivityTypes.findOne(activityTypeId);
 
-      // Get sum of activity type
+      // Get the resident
+      var resident = Residents.findOne(residentId);
+
+      // Get sum of activity type for the current resident
       var activitySum = Meteor.call('getSumOfResidentRecentActivitiesByType', residentId, activityTypeId);
 
       // Create an object with the activity type name and sum
       var activityTypeSum = {
-        name: activityType.name,
+        residentName: resident.fullName(),
+        activityTypeName: activityType.name,
         sum: activitySum
       }
 
@@ -137,14 +147,15 @@ Meteor.methods({
 
     // Iterate through all residents and get sum of resident recent activities by type
     residentIds.forEach(function (residentId) {
-      var residentActivitiesSumByType = Meteor.call('getSumOfAllResidentRecentActivitiesByType', residentId);
+      // Get the sum of all activities by type for a given resident
+       var residentActivitiesSumByType = Meteor.call('getSumOfAllResidentRecentActivitiesByType', residentId);
 
       // Add the resident activity sums to all resident activity sums array
       allResidentActivitySumsByType.push(residentActivitiesSumByType);
     });
 
-    console.log(allResidentActivitySumsByType);
+    allResidentActivitySumsByTypeFlattened = _.flatten(allResidentActivitySumsByType)
 
-    return allResidentActivitySumsByType;
+    return allResidentActivitySumsByTypeFlattened;
   }
 });
