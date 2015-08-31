@@ -20,13 +20,13 @@ Template.homeResidentActivitySumsByType.created = function () {
    if (instance.view.isRendered && homeResidentsActivitySumsByType) {
       // Draw the chart
       var activityChart = new dimple.chart(instance.chartSvg, homeResidentsActivitySumsByType);
-      activityChart.setBounds(60, 45, 510, 315)
+      activityChart.setBounds("5%", "10%", "57%", "80%")
       var residentAxis = activityChart.addCategoryAxis("x", "residentName");
      residentAxis.title = "Resident Name / Activity Count";
       var activitiesAxis = activityChart.addMeasureAxis("y", "sum");
      activitiesAxis.title = "Number of Activities";
       activityChart.addSeries("activityTypeName", dimple.plot.bar);
-      activityChart.addLegend(200, 10, 380, 20, "right");
+      activityChart.addLegend("62%", "1%", "38%", "80%", "right");
       activityChart.draw();
     };
   });
@@ -37,5 +37,5 @@ Template.homeResidentActivitySumsByType.rendered = function () {
   var instance = this;
 
   // Get reference to chart div
- instance.chartSvg = dimple.newSvg("#residentActivitiesSummary", 600, 400);
+ instance.chartSvg = dimple.newSvg("#residentActivitiesSummary", "100%", 400);
 };
