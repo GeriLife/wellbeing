@@ -1,3 +1,8 @@
+h2.panel-header {
+  font-size: 1.5em !important;
+  margin: 0 !important;
+}
+
 /* Set the pickadate field background color to white for consistency */
 .picker__input {
   background-color: #fff !important;
