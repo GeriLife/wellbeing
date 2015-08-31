@@ -1,0 +1,7 @@
+<template name="homeResidents">
+  <div class="list-group">
+    {{# each residents }}
+    <a href="/resident/{{ _id }}" title="{{ name }}" class="list-group-item">{{ firstName }} {{ lastInitial }}</a>
+    {{/ each }}
+  </div>
+</template>
