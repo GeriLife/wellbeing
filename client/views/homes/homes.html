@@ -1,0 +1,29 @@
+<template name="homes">
+  <div class="page-header">
+    <h1>Homes</h1>
+  </div>
+  {{# if Template.subscriptionsReady }}
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    {{# each groups }}
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="{{ name }}-panel">
+        <h4 class="panel-title">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{ name }}" aria-expanded="true" aria-controls="collapseOne">
+            {{ name }}
+          </a>
+        </h4>
+      </div>
+      <div id="{{ name }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+          <ul class="list-group">
+            {{# each homes }}
+            <a href="home/{{ _id }}"><li class="list-group-item">{{ name  }}</li></a>
+            {{/ each }}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {{/ each }}
+  </div>
+  {{/ if }}
+</template>
