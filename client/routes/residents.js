@@ -19,3 +19,9 @@ Router.route('/resident/:residentId', function () {
 }, {
   name: 'resident'
 });
+
+Router.route('/residents/new', function () {
+  this.render('addResident');
+}, {
+  name: 'addResident'
+});
