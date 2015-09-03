@@ -1,0 +1,8 @@
+<template name="newHome">
+  <div class="page-header">
+      <h1>New Home</h1>
+  </div>
+   {{# if Template.subscriptionsReady }}
+  {{> quickForm collection="Homes" id="newHomeForm" type="insert"}}
+  {{/ if }}
+</template>
