@@ -1,5 +1,19 @@
 <template name="homes">
   <div class="page-header">
+    {{# if isInRole 'admin' }}
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Add New <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <a href="homes/new">
+            <i class="fa fa-home"></i> Home
+          </a>
+        </li>
+      </ul>
+    </div>
+    {{/ if }}
     <h1>Homes</h1>
   </div>
   {{# if Template.subscriptionsReady }}
