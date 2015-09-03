@@ -1,5 +1,4 @@
 <template name="residents">
-  {{# if Template.subscriptionsReady }}
   <div class="page-header">
     {{# if isInRole 'admin' }}
     <a href="residents/new" class="btn btn-primary pull-right">
@@ -22,7 +21,7 @@
       </div>
     </div>
   </div>
-
+  {{# if Template.subscriptionsReady }}
   {{> reactiveTable collection=residents settings=tableSettings }}
   {{ else }}
   {{> spinner }}
