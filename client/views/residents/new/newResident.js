@@ -1,4 +1,4 @@
-Template.addResident.created = function () {
+Template.newResident.created = function () {
   // Create reference to template instance
   var instance = this;
 
