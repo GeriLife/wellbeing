@@ -1,4 +1,4 @@
-Template.addHome.created = function () {
+Template.newHome.created = function () {
   // Create reference to template instance
   var instance = this;
 
