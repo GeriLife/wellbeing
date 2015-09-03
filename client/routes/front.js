@@ -2,7 +2,7 @@
   Index route
 */
 Router.route('/', function () {
-  this.render('newActivity');
+  this.render('front');
 }, {
   name: 'front'
 });
