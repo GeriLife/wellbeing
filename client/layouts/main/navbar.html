@@ -16,9 +16,9 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         {{# if currentUser }}
         <ul class="nav navbar-nav">
-          <li><a href="{{ pathFor route='residents' }}">Residents</a></li>
-          <li><a href="{{ pathFor route='activities' }}">Activities</a></li>
-          <li><a href="{{ pathFor route='homes' }}">Homes</a></li>
+          <li><a href="{{ pathFor route='residents' }}"><i class="fa fa-users"></i> Residents</a></li>
+          <li><a href="{{ pathFor route='activities' }}"><i class="fa fa-heartbeat"></i> Activities</a></li>
+          <li><a href="{{ pathFor route='homes' }}"><i class="fa fa-home"></i> Homes</a></li>
           {{# if isInRole 'admin' }}
           <li><a href="/admin">Dashboard</a></li>
           {{/ if }}
