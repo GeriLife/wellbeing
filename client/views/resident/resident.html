@@ -1,8 +1,13 @@
 <template name="resident">
   {{#if Template.subscriptionsReady}}
-  <h1 class="page-header">{{ resident.firstName }} {{ resident.lastInitial }}</h1>
+  <h1 class="page-header">
+    {{ resident.firstName }} {{ resident.lastInitial }}
+    {{# if isInRole 'admin' }}
+    <button id="edit-resident" class="btn btn-default">Edit</button>
+    {{/ if }}
+  </h1>
   {{> residentActivities }}
-{{ else }}
-{{> spinner }}
-{{/ if }}
+  {{ else }}
+  {{> spinner }}
+  {{/ if }}
 </template>
