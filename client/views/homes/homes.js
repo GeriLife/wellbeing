@@ -13,6 +13,10 @@ Template.homes.events({
   'click #new-home': function () {
     // Show the edit home modal
     Modal.show('newHome');
+  },
+  'click #new-group': function () {
+    // Show the edit home modal
+    Modal.show('newGroup');
   }
 });
 
