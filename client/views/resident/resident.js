@@ -10,7 +10,6 @@ Template.resident.created = function () {
 
 Template.resident.events({
   'click #edit-resident': function () {
-    console.log('clicked');
     // Get reference to template instance
     var instance = Template.instance();
 
