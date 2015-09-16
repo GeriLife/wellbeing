@@ -49,9 +49,12 @@ Template.activities.events({
 
     // Set reactive variable with value of all-or-latest toggle
     instance.showLatestActivities.set(instance.allOrLatestToggle.checked);
+  },
+  'click #add-activity': function () {
+    // Show the add activity modal
+    Modal.show('newActivity');
   }
 });
-
 
 Template.activities.helpers({
   "activities": function () {
