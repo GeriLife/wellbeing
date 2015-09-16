@@ -59,5 +59,9 @@ Template.residents.events({
 
     // Show view for selected resident
     Router.go('resident', {residentId: residentId})
-  }
+  },
+  'click #new-resident': function () {
+    // Show the edit home modal
+    Modal.show('newResident');
+  },
 });
