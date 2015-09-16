@@ -20,3 +20,9 @@ Groups.helpers({
     return homes;
   }
 });
+
+Groups.allow({
+  insert: function () {
+    return true;
+  }
+});
