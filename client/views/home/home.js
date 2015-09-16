@@ -1,3 +1,18 @@
+Template.home.events({
+  'click #edit-home': function () {
+    // Get reference to template instance
+    var instance = Template.instance();
+
+    // Get Home ID
+    var homeId = instance.homeId;
+
+    // Get home
+    var home = Homes.findOne(homeId);
+
+    // Show the edit home modal
+    Modal.show('editHome', home);
+  }
+});
 Template.home.helpers({
   'home': function () {
     // Create reference to template instance
