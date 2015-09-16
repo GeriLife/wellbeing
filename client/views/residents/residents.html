@@ -1,9 +1,9 @@
 <template name="residents">
   <div class="page-header">
     {{# if isInRole 'admin' }}
-    <a href="residents/new" class="btn btn-primary pull-right">
+    <button id="new-resident" class="btn btn-primary pull-right">
       Add New Resident
-    </a>
+    </button>
     {{/ if }}
     <h1><i class="fa fa-users"></i> Residents</h1>
   </div>
