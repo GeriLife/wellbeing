@@ -6,7 +6,7 @@
         <div class="modal-header">
           <h4 class="modal-title">Edit home {{ this.name }}</h4>
         </div>
-        {{#autoForm id="editHomeForm" type="update" collection="Homes" doc=home  }}
+        {{#autoForm id="editHomeForm" type="update" collection="Homes" doc=this  }}
 
         <div class="modal-body">
           {{> afQuickField name="name"}}
