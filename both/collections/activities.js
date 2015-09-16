@@ -67,7 +67,7 @@ var ActivitiesSchema = new SimpleSchema({
     type: Date,
     autoform: {
       afFieldInput: {
-        type: "pickadate"
+        type: "bootstrap-datepicker"
       }
     }
   },
