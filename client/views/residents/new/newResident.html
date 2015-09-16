@@ -1,6 +1,28 @@
 <template name="newResident">
-   <div class="page-header">
-    <h1><i class="fa fa-user"></i> New Resident</h1>
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {{# if Template.subscriptionsReady }}
+        <div class="modal-header">
+          <h4 class="modal-title"><i class="fa fa-user"></i> Create new resident</h4>
+        </div>
+        {{#autoForm id="newResidentForm" type="insert" collection="Residents"  }}
+
+        <div class="modal-body">
+          {{> afQuickField name="firstName"}}
+          {{> afQuickField name="lastInitial"}}
+          {{> afQuickField name="homeId"}}
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        </div>
+        {{/ autoForm }}
+        {{ else }}
+        {{> spinner }}
+        {{/ if }}
+      </div>
+    </div>
   </div>
-  {{> quickForm collection="Residents" id="addResidentForm" type="insert"}}
 </template>
