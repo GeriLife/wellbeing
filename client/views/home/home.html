@@ -1,5 +1,10 @@
 <template name="home">
-  <h1 class="page-header">{{ home.name }}</h1>
+  <h1 class="page-header">
+    {{ home.name }}
+    {{# if isInRole 'admin' }}
+    <button id="edit-home" class="btn btn-default">Edit</button>
+    {{/ if }}
+  </h1>
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="label label-default pull-right">Activity level (last 7 days)</span>
