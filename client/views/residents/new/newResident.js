@@ -8,3 +8,10 @@ Template.newResident.created = function () {
   // Subscribe to all Homes
   instance.subscribe('allHomes');
 };
+
+AutoForm.addHooks(['newResidentForm'], {
+  'onSuccess': function () {
+    // Hide the modal dialogue
+    Modal.hide('newResident');
+  }
+});
