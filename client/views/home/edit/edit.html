@@ -1,0 +1,27 @@
+<template name="editHome">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {{# if Template.subscriptionsReady }}
+        <div class="modal-header">
+          <h4 class="modal-title">Edit home {{ this.name }}</h4>
+        </div>
+        {{#autoForm id="editHomeForm" type="update" collection="Homes" doc=home  }}
+
+        <div class="modal-body">
+          {{> afQuickField name="name"}}
+          {{> afQuickField name="groupId"}}
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        </div>
+        {{/ autoForm }}
+        {{ else }}
+        {{> spinner }}
+        {{/ if }}
+      </div>
+    </div>
+  </div>
+</template>
