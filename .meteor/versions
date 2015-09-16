@@ -66,6 +66,7 @@ observe-sequence@1.0.6
 ordered-dict@1.0.3
 peppelg:bootstrap-3-modal@1.0.3
 raix:handlebar-helpers@0.2.4
+rajit:bootstrap3-datepicker@1.4.1
 random@1.0.3
 reactive-dict@1.1.0
 reactive-var@1.0.5
