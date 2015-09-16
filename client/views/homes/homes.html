@@ -17,19 +17,27 @@
     <h1><i class="fa fa-home"></i> Homes</h1>
   </div>
   {{# if Template.subscriptionsReady }}
-  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
     {{# each groups }}
     <div class="panel panel-default">
-      <div class="panel-heading" id="{{ name }}-panel" role="tab" data-toggle="collapse" data-parent="#accordion" href="#{{ name }}" aria-expanded="true" aria-controls="collapseOne">
-        <h4 class="panel-title">
+      <div
+         class="panel-heading"
+         id="{{ name }}-panel"
+         role="tab"
+         data-toggle="collapse"
+         data-parent="#accordion"
+         data-target="#{{ name }}"
+         aria-expanded="true"
+         aria-controls="#{{ name }}">
+        <h4 id="{{ name }}-title" class="panel-title">
             {{ name }}
         </h4>
       </div>
-      <div id="{{ name }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div id="{{ name }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{ name }}-title">
         <div class="panel-body">
           <div class="list-group">
             {{# each homes }}
-            <a href="home/{{ _id }}" class="list-group-item">{{ name  }}</a>
+            <a href="/home/{{ _id }}" class="list-group-item">{{ name  }}</a>
             {{/ each }}
           </div>
         </div>
