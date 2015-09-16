@@ -1,6 +1,30 @@
 <template name="newActivity">
-  <div class="page-header">
-    <h1><i class="fa fa-heartbeat"></i>  New activity</h1>
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {{# if Template.subscriptionsReady }}
+        <div class="modal-header">
+          <h4 class="modal-title"><i class="fa fa-user"></i> Create new activity</h4>
+        </div>
+        {{# autoForm id="newActivityForm" type="insert" collection="Activities"  }}
+
+        <div class="modal-body">
+          {{> afQuickField name="residentIds"}}
+          {{> afQuickField name="activityTypeId"}}
+          {{> afQuickField name="activityDate"}}
+          {{> afQuickField name="duration"}}
+          {{> afQuickField name="facilitatorRoleId"}}
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        </div>
+        {{/ autoForm }}
+        {{ else }}
+        {{> spinner }}
+        {{/ if }}
+      </div>
+    </div>
   </div>
-  {{> quickForm collection="Activities" id="new-activity-form" type="insert"}}
 </template>
