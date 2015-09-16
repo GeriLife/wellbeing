@@ -141,6 +141,12 @@ Activities.helpers({
 
     var timeAgo = moment(activityDate).fromNow();
 
-  return timeAgo;
+    return timeAgo;
+  }
+});
+
+Activities.allow({
+  insert: function () {
+    return true;
   }
 });
