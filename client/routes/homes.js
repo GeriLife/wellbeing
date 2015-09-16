@@ -7,12 +7,6 @@ Router.route('/homes', function () {
   name: 'homes'
 });
 
-Router.route('/homes/new', function () {
-  this.render('newHome');
-}, {
-  name: 'newHome'
-});
-
 Router.route('/home/:homeId', function () {
   var controller = this;
   var homeId = controller.params.homeId;
