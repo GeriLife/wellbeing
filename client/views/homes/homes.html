@@ -27,11 +27,11 @@
       </div>
       <div id="{{ name }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
         <div class="panel-body">
-          <ul class="list-group">
+          <div class="list-group">
             {{# each homes }}
-            <a href="home/{{ _id }}"><li class="list-group-item">{{ name  }}</li></a>
+            <a href="home/{{ _id }}" class="list-group-item">{{ name  }}</a>
             {{/ each }}
-          </ul>
+          </div>
         </div>
       </div>
     </div>
