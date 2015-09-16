@@ -19,7 +19,6 @@ fortawesome:fontawesome
 aldeed:autoform-select2
 momentjs:moment
 mrt:flash-messages
-robertlowe:autoform-pickadate
 aldeed:tabular
 d3js:d3
 ephemer:reactive-datatables
