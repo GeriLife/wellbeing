@@ -59,7 +59,6 @@ mobile-status-bar@1.0.3
 momentjs:moment@2.10.6
 mongo@1.1.0
 mongo-livedata@1.0.8
-mpowaga:string-template@0.1.0
 mquandalle:jade@0.4.3_1
 mquandalle:jade-compiler@0.4.3
 mrt:flash-messages@1.0.1
@@ -96,5 +95,4 @@ useraccounts:core@1.12.3
 webapp@1.2.0
 webapp-hashing@1.0.3
 yogiben:admin@1.2.2
-yogiben:autoform-modals@0.3.6
 zimme:active-route@2.0.4_1
