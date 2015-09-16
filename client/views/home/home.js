@@ -13,6 +13,7 @@ Template.home.events({
     Modal.show('editHome', home);
   }
 });
+
 Template.home.helpers({
   'home': function () {
     // Create reference to template instance
