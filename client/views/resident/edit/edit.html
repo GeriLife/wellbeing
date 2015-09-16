@@ -1,0 +1,28 @@
+<template name="editResident">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {{# if Template.subscriptionsReady }}
+        <div class="modal-header">
+          <h4 class="modal-title">Edit resident {{ this.firstName }} {{ this.lastInitial }}</h4>
+        </div>
+        {{#autoForm id="editResidentForm" type="update" collection="Residents" doc=this  }}
+
+        <div class="modal-body">
+          {{> afQuickField name="firstName"}}
+          {{> afQuickField name="lastInitial"}}
+          {{> afQuickField name="homeId"}}
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        </div>
+        {{/ autoForm }}
+        {{ else }}
+        {{> spinner }}
+        {{/ if }}
+      </div>
+    </div>
+  </div>
+</template>
