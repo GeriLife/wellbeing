@@ -1,8 +1,27 @@
 <template name="newHome">
-  <div class="page-header">
-      <h1><i class="fa fa-home"></i> New Home</h1>
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {{# if Template.subscriptionsReady }}
+        <div class="modal-header">
+          <h4 class="modal-title">Create new home</h4>
+        </div>
+        {{#autoForm id="newHomeForm" type="insert" collection="Homes"  }}
+
+        <div class="modal-body">
+          {{> afQuickField name="name"}}
+          {{> afQuickField name="groupId"}}
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        </div>
+        {{/ autoForm }}
+        {{ else }}
+        {{> spinner }}
+        {{/ if }}
+      </div>
+    </div>
   </div>
-   {{# if Template.subscriptionsReady }}
-  {{> quickForm collection="Homes" id="newHomeForm" type="insert"}}
-  {{/ if }}
 </template>
