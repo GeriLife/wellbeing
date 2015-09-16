@@ -35,3 +35,9 @@ Homes.helpers({
     return group.name;
   }
 });
+
+Homes.allow({
+  update: function () {
+    return true;
+  }
+});
