@@ -1,0 +1,26 @@
+<template name="newGroup">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {{# if Template.subscriptionsReady }}
+        <div class="modal-header">
+          <h4 class="modal-title">Create new home</h4>
+        </div>
+        {{#autoForm id="newGroupForm" type="insert" collection="Groups"  }}
+
+        <div class="modal-body">
+          {{> afQuickField name="name"}}
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        </div>
+        {{/ autoForm }}
+        {{ else }}
+        {{> spinner }}
+        {{/ if }}
+      </div>
+    </div>
+  </div>
+</template>
