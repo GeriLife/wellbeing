@@ -1,24 +1,17 @@
-Template.editHome.helpers({
-  'home': function () {
-    // Get Home ID from template data context
-    // convert the 'String' object to a string for the DB query
-    var homeId = this._id;
-
-    // Get home document
-    var home = Homes.findOne(homeId);
-
-    return home;
-  }
-});
-
 Template.editHome.created = function () {
+  // Get reference to template instance
   var instance = this;
 
+  // Get reference to router
   var router = Router.current();
 
+  // Get Home ID from router parameter
   var homeId = router.params.homeId;
 
+  // Subscribe to single home, based on Home ID
   instance.subscribe('singleHome', homeId);
+
+  // Subscribe to all groups, for the group select options
   instance.subscribe('allGroups');
 };
 
