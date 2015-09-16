@@ -9,6 +9,13 @@ Template.homes.created = function () {
   instance.subscribe('allGroups');
 };
 
+Template.homes.events({
+  'click #new-home': function () {
+    // Show the edit home modal
+    Modal.show('newHome');
+  }
+});
+
 Template.homes.helpers({
   'groups': function () {
     // Get all Groups
