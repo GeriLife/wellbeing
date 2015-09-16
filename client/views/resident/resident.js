@@ -8,6 +8,23 @@ Template.resident.created = function () {
   instance.subscribe('residentComposite', instance.residentId);
 };
 
+Template.resident.events({
+  'click #edit-resident': function () {
+    console.log('clicked');
+    // Get reference to template instance
+    var instance = Template.instance();
+
+    // Get Home ID
+    var residentId = instance.residentId;
+
+    // Get home
+    var resident = Residents.findOne(residentId);
+
+    // Show the edit home modal
+    Modal.show('editResident', resident);
+  }
+});
+
 Template.resident.helpers({
   'resident': function () {
     // Get reference to template instance
