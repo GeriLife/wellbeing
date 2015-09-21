@@ -1,5 +1,5 @@
 # Juhani wellbeing
-Welbeing activity log for residents at Juhani.
+Welbeing activity log and visualization tool.
 
 #Features
 ## Record activities
