@@ -1,4 +1,4 @@
-# Juhani wellbeing
+# GeriLife wellbeing
 Welbeing activity log and visualization tool.
 
 #Features
