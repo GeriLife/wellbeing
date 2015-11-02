@@ -24,5 +24,5 @@ so that I can spend quality time with the residents
 ```
 As a family member
 I want to know that my relative is active
-so that I know they are living an enjoyable life at Jukola
+so that I know they are living an enjoyable life
 ```
