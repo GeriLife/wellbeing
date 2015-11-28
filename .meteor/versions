@@ -17,6 +17,8 @@ binary-heap@1.0.3
 blaze@2.1.2
 blaze-tools@1.0.3
 boilerplate-generator@1.0.3
+brylie:create-role-if-undefined@0.1.0
+brylie:first-user-admin@0.1.9
 callback-hook@1.0.3
 check@1.0.5
 coffeescript@1.0.6
