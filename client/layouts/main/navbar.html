@@ -19,13 +19,15 @@
           <li><a href="{{ pathFor route='residents' }}"><i class="fa fa-users"></i> Residents</a></li>
           <li><a href="{{ pathFor route='activities' }}"><i class="fa fa-heartbeat"></i> Activities</a></li>
           <li><a href="{{ pathFor route='homes' }}"><i class="fa fa-home"></i> Homes</a></li>
-          {{# if isInRole 'admin' }}
-          <li><a href="/admin">Dashboard</a></li>
-          {{/ if }}
         </ul>
 
 
-        <ul class="nav navbar-right">{{> logout }}</ul>
+        <ul class="nav navbar-nav navbar-right">
+          {{# if isInRole 'admin' }}
+            <li><a href="/admin"><i class="fa fa-cog"></i> Settings</a></li>
+          {{/ if }}
+          <li>{{> logout }}</li>
+        </ul>
         {{/ if }}
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
