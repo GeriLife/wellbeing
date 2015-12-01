@@ -12,6 +12,14 @@ AdminConfig = {
         {label: "Name", name: "name"}
       ]
     },
+    Groups: {
+      icon: "cubes",
+      label: "Groups",
+      color: "purple",
+      tableColumns: [
+        {label: "Name", name: "name"}
+      ]
+    },
     'Meteor.roles': {
       label: 'Roles',
       color: 'blue',
