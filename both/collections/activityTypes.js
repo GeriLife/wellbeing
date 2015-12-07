@@ -6,4 +6,10 @@ var ActivityTypesSchema = new SimpleSchema({
   }
 });
 
+ActivityTypes.allow({
+  insert: function () {
+    return true;
+  }
+});
+
 ActivityTypes.attachSchema(ActivityTypesSchema);
