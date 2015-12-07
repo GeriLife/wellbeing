@@ -1,5 +1,10 @@
 <template name="activityTypesList">
-  <h2 class="page-header">Activity Types</h2>
+  <div class="page-heading">
+    <button id="add-activity-type" class="btn btn-primary pull-right">
+      Add Activity Type
+    </button>
+    <h2 class="page-header">Activity Types</h2>
+  </div>
   <ul class="list-group">
     {{# each activityTypes }}
     <li class="list-group-item">{{ name }}</li>
