@@ -4,3 +4,12 @@ Template.activityTypes.created = function () {
 
   instance.subscribe('allActivityTypes');
 };
+
+Template.activityTypes.helpers({
+  "activityTypes": function () {
+    // Get all activity types
+    var activityTypes = ActivityTypes.find().fetch();
+
+    return activityTypes;
+  }
+});
