@@ -2,14 +2,10 @@
   <div class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-
         <div class="modal-header">
-          <h4 class="modal-title">
-            <i class="fa fa-heart"></i>&nbsp;
-            Create new Activity Type
-          </h4>
+          <h4 class="modal-title"><i class="fa fa-user"></i> Create new Activity Type</h4>
         </div>
-        {{# autoForm id="newActivityTypeForm" type="insert" collection="ActivitieTypes"  }}
+        {{# autoForm id="newActivityTypeForm" type="insert" collection="ActivityTypes"  }}
 
         <div class="modal-body">
           {{> afQuickField name="name"}}
