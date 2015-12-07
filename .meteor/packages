@@ -4,7 +4,6 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
 aldeed:simple-schema
 aldeed:autoform
 dburles:collection-helpers
@@ -28,3 +27,17 @@ peppelg:bootstrap-3-modal
 aldeed:autoform-bs-datepicker
 rajit:bootstrap3-datepicker
 brylie:first-user-admin
+standard-minifiers
+meteor-base
+mobile-experience
+mongo
+blaze-html-templates
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+spacebars
+check
