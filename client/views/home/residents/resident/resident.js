@@ -52,5 +52,14 @@ Template.homeResident.helpers({
     } else if ( activityCount === 0 ) {
       return 'Inactive';
     }
+  },
+  'activityCount': function () {
+    // Get reference to template instance
+    var instance = Template.instance();
+
+    // Get resident activity count
+    var activityCount = instance.residentActivityCount.get();
+
+    return activityCount;
   }
 });
