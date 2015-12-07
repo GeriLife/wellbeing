@@ -13,3 +13,10 @@ Template.activityTypesList.helpers({
     return activityTypes;
   }
 });
+
+Template.activityTypesList.events({
+  'click #add-activity-type': function () {
+    // Show the add activity modal
+    Modal.show('newActivityType');
+  }
+});
