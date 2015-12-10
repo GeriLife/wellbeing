@@ -1,0 +1,9 @@
+<template name="singleHomeActivityStatus">
+  {{# with activityLevelCounts}}
+  <div class="pull-right">
+    <span class="label label-danger">{{ inactive }}</span>
+    <span class="label label-warning">{{ semiActive }}</span>
+    <span class="label label-success">{{ active }}</span>
+  </div>
+  {{/ with }}
+</template>
