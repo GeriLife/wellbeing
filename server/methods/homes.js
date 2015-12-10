@@ -57,5 +57,30 @@ Meteor.methods({
     allResidentActivitySumsByTypeFlattened = _.flatten(allResidentActivitySumsByType);
 
     return allResidentActivitySumsByTypeFlattened;
+  },
+  "getHomeActivityLevelCounts": function (homeId) {
+    // // Get home residents by calling getHomeResidentIds
+    // Meteor.call("getHomeResidentIds",homeId, function (error, result) {
+    //   residentIdsVar.set(result);
+    // });
+    // console.log(residentIdsVar.get());
+
+    // if (residentIdsVar.get()){
+    //   // Get activity level for each resident via getResidentRecentActivitiesCount
+    //   _.each(residentIds.get(), function (residentId) {
+    //     console.log(residentId);
+    //   });
+    // }
+
+    // Construct an object with the following structure
+
+
+    // return activityLevelCounts;
+
+    return {
+      inactive: 5,
+      semiActive: 3,
+      active: 2
+    };
   }
 });
