@@ -41,3 +41,4 @@ random
 ejson
 spacebars
 check
+simple:reactive-method
