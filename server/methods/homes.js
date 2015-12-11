@@ -60,27 +60,38 @@ Meteor.methods({
   },
   "getHomeActivityLevelCounts": function (homeId) {
     // // Get home residents by calling getHomeResidentIds
-    // Meteor.call("getHomeResidentIds",homeId, function (error, result) {
-    //   residentIdsVar.set(result);
-    // });
-    // console.log(residentIdsVar.get());
+    var residentIds = Meteor.call("getHomeResidentIds",homeId);
 
-    // if (residentIdsVar.get()){
-    //   // Get activity level for each resident via getResidentRecentActivitiesCount
-    //   _.each(residentIds.get(), function (residentId) {
-    //     console.log(residentId);
-    //   });
-    // }
-
-    // Construct an object with the following structure
-
-
-    // return activityLevelCounts;
-
-    return {
-      inactive: 5,
-      semiActive: 3,
-      active: 2
+    var residentActivityLevelCounts = {
+      inactive: 0,
+      semiActive: 0,
+      active: 0
     };
+
+    if (residentIds){
+      // Get activity level for each resident via getResidentRecentActivitiesCount
+      _.each(residentIds, function (residentId) {
+        var residentActivityCount = Meteor.call(
+          "getResidentRecentActivitiesCount",
+          residentId
+        );
+
+        // Check resident activity level
+        if (residentActivityCount === 0) {
+          // If zero activities, resident is inactive
+          residentActivityLevelCounts.inactive += 1;
+        } else if (residentActivityCount < 5) {
+          // If less than five activities, resident is semi-active
+          // TODO: refactor to use activity threshold variable
+          residentActivityLevelCounts.semiActive += 1;
+        } else if (residentActivityCount >= 5) {
+          // If greater than or equal to five activities, resident is active
+          // TODO: refactor to use activity threshold variable
+          residentActivityLevelCounts.active += 1;
+        }
+      });
+    }
+
+    return residentActivityLevelCounts;
   }
 });
