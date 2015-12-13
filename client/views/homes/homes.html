@@ -30,14 +30,30 @@
         </h2>
       </div>
       <div class="panel-body">
-        <div class="list-group">
-          {{# each homes }}
-          <a href="/home/{{ _id }}" class="list-group-item">
-            <i class="fa fa-home"></i>&nbsp;
-            {{ name  }}
-             {{> singleHomeActivityStatus }}</a>
-          {{/ each }}
-        </div>
+        <table class="table table-compact">
+          <caption>
+            Homes with count of residents per activiy level (inactive, semi-active, active).
+          </caption>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Inactive residents</th>
+              <th>Semi-active residents</th>
+              <th>Active residents</th>
+            </tr>
+          </thead>
+          <tbody>
+              {{# each homes }}
+              <tr id="home-{{ _id }}" class="home">
+                <td>
+                  <i class="fa fa-home"></i>&nbsp;
+                  {{ name  }}
+                </td>
+                 {{> singleHomeActivityStatus }}
+               </tr>
+              {{/ each }}
+          </tbody>
+        </table>
       </div>
     </div>
     {{/ each }}
