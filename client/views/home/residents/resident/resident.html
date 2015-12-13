@@ -1,8 +1,8 @@
 <template name="homeResident">
-  <a href="/resident/{{ _id }}" title="{{ name }}" class="list-group-item">
-    {{ firstName }} {{ lastInitial }}
-    <span class="label pull-right {{ activityLabelClass }}">
-      {{ activityCount }} <i class="fa fa-lg fa-heartbeat"></i> ({{ activityLabelText }})
-    </span>
-  </a>
+    <tr  id="resident-{{ _id }}" class="resident">
+      <td>{{ firstName }} {{ lastInitial }}</td>
+      <td class="activity-count {{ activityLabelClass }}">
+        {{ activityCount }} <i class="fa fa-lg fa-heartbeat"></i> ({{ activityLabelText }})
+      </td>
+    </tr>
 </template>
