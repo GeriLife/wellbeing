@@ -25,11 +25,11 @@ Template.homeResident.helpers({
 
     // Case for returning Bootstrap class based on activity level
     if (activityCount >= 5) {
-      return 'label-success';
+      return 'success';
     } else if ( activityCount > 0 && activityCount < 5 ) {
-      return 'label-warning';
+      return 'warning';
     } else if ( activityCount === 0 ) {
-      return 'label-danger';
+      return 'danger';
     }
   },
    'activityLabelText': function () {
@@ -61,5 +61,15 @@ Template.homeResident.helpers({
     var activityCount = instance.residentActivityCount.get();
 
     return activityCount;
+  }
+});
+
+Template.homeResident.events({
+  'click .resident': function () {
+    // Get ID of clicked resident
+    var residentId = this._id;
+
+    // Show page for clicked resident
+    Router.go('resident', {residentId: residentId});
   }
 });
