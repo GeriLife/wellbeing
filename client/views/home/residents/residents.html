@@ -1,7 +1,16 @@
 <template name="homeResidents">
-  <div class="list-group">
+  <table class="table table-striped">
+    <caption>Residents with activity for last seven days.</caption>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Activity Count</th>
+      </tr>
+    </thead>
+    <tbody>
     {{# each residents }}
     {{> homeResident }}
     {{/ each }}
-  </div>
+    </tbody>
+  </table>
 </template>
