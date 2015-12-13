@@ -1,24 +1,28 @@
 <template name="singleHomeActivityStatus">
   {{# with activityLevelCounts}}
-  <div class="pull-right">
     {{# if inactive }}
-    <span class="label label-danger">
+    <td class="danger">
       {{ inactive }}
       <i class="fa fa-user"></i>
-     </span>
-     {{/ if }}
-     {{# if semiActive }}
-    <span class="label label-warning">
+    </td>
+    {{ else }}
+    <td></td>
+    {{/ if }}
+    {{# if semiActive }}
+    <td class="warning">
       {{ semiActive }}
       <i class="fa fa-user"></i>
-    </span>
+    </td>
+    {{ else }}
+    <td></td>
     {{/ if }}
     {{# if active }}
-    <span class="label label-success">
+    <td class="success">
       {{ active }}
-      <i class="fa fa-user"></i>  
-    </span>
+      <i class="fa fa-user"></i>
+    </td>
+    {{ else }}
+    <td></td>
     {{/ if }}
-  </div>
   {{/ with }}
 </template>
