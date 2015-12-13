@@ -32,11 +32,11 @@
       <div class="panel-body">
         <table class="table table-compact">
           <caption>
-            Homes with count of residents per activiy level (inactive, semi-active, active).
+            Homes with count of residents per activiy level over last seven days.
           </caption>
           <thead>
             <tr>
-              <th>Name</th>
+              <th><i class="fa fa-home"></i> Name</th>
               <th>Inactive residents</th>
               <th>Semi-active residents</th>
               <th>Active residents</th>
@@ -46,7 +46,6 @@
               {{# each homes }}
               <tr id="home-{{ _id }}" class="home">
                 <td>
-                  <i class="fa fa-home"></i>&nbsp;
                   {{ name  }}
                 </td>
                  {{> singleHomeActivityStatus }}
