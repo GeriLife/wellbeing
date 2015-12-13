@@ -1,7 +1,7 @@
 <template name="singleHomeActivityStatus">
   {{# with activityLevelCounts}}
     {{# if inactive }}
-    <td class="danger">
+    <td class="resident-activity-class-count danger">
       {{ inactive }}
       <i class="fa fa-user"></i>
     </td>
@@ -9,7 +9,7 @@
     <td></td>
     {{/ if }}
     {{# if semiActive }}
-    <td class="warning">
+    <td class="resident-activity-class-count warning">
       {{ semiActive }}
       <i class="fa fa-user"></i>
     </td>
@@ -17,7 +17,7 @@
     <td></td>
     {{/ if }}
     {{# if active }}
-    <td class="success">
+    <td class="resident-activity-class-count success">
       {{ active }}
       <i class="fa fa-user"></i>
     </td>
