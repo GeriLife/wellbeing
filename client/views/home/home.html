@@ -1,14 +1,15 @@
 <template name="home">
   <h1 class="page-header">
-    {{ home.name }}
+    <i class="fa fa-lg fa-home"></i> {{ home.name }}
     {{# if isInRole 'admin' }}
     <button id="edit-home" class="btn btn-default">Edit</button>
     {{/ if }}
   </h1>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <span class="label label-default pull-right">Activity level (last 7 days)</span>
-      <h2 class="panel-header">Residents</h2>
+      <h2 class="panel-header">
+        <i class="fa fa-lg fa-users"></i> Residents
+      </h2>
     </div>
     <div class="panel-body">
       {{> homeResidents residents=residents }}
@@ -16,7 +17,9 @@
   </div>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h2 class="panel-header">Activities</h2>
+      <h2 class="panel-header">
+        <i class="fa fa-lg fa-heartbeat"></i> Activities
+      </h2>
     </div>
     <div class="panel-body">
       <!-- Nav tabs -->
