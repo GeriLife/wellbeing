@@ -1,15 +1,3 @@
-Template.homeResidentActivityLevelTrend.created = function () {
-  // Get reference to template instance
-  var instance = this;
-
-
-
-
-  instance.autorun(function () {
-
-  });
-};
-
 Template.homeResidentActivityLevelTrend.rendered = function () {
   // Get reference to template instance
   var instance = this;
@@ -23,7 +11,7 @@ Template.homeResidentActivityLevelTrend.rendered = function () {
 
     // Get data for trend line chart
     var data = ReactiveMethod.call("getHomeActivityCountTrend", homeId);
-    console.log(data);
+
     if (data) {
       MG.data_graphic({
           title: "Resident activity level trends for past seven days",
