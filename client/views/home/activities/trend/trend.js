@@ -18,6 +18,7 @@ Template.homeResidentActivityLevelTrend.rendered = function () {
           description: "Daily count of residents with inactive, semi-active, and active status.",
           data: data,
           x_axis: true,
+          y_label: "Number of residents",
           y_accessor: ['inactive', 'semiActive', 'active'],
           interpolate: 'basic',
           full_width: true,
@@ -25,7 +26,6 @@ Template.homeResidentActivityLevelTrend.rendered = function () {
           right: 49,
           target: '#trend-chart',
           legend: ['Inactive','Semi-active','Active'],
-
           colors: ['red', 'gold', 'green'],
           aggregate_rollover: true
       });
