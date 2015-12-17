@@ -8,9 +8,15 @@
       </tr>
     </thead>
     <tbody>
-    {{# each residents }}
-    {{> homeResident }}
-    {{/ each }}
+      {{# if residents }}
+        {{# each residents }}
+        {{> homeResident }}
+        {{/ each }}
+      {{ else }}
+      <tr>
+        <td>Loading residents list...</td>
+      </tr>
+      {{/ if }}
     </tbody>
   </table>
 </template>
