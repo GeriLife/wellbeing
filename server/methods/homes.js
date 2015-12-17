@@ -101,59 +101,38 @@ Meteor.methods({
     // Number of days to look back
     var numberOfDays = 7;
 
-    // Placeholder arrays for daily activity level counts
-    var allInactiveCounts = [];
-    var allSemiActiveCounts = [];
-    var allActiveCounts = [];
-
-    // Final array for all activity counts
-    var allActivityCounts = [];
+    // Placeholder array for daily activity level counts
+    var activityCountsArray = [];
 
     for (var i = 0; i < numberOfDays; i++) {
       // Get today's date
       var day = moment().subtract(i, "days");
 
-      // Set up placeholder objects for daily activity level counts
-      var inactiveCounts = {
-        date: day.toDate(),
-        value: 0
-      };
-
-      var semiActiveCounts = {
-        date: day.toDate(),
-        value: 0
-      };
-
-      var activeCounts = {
-        date: day.toDate(),
-        value: 0
+      // Set up placeholder activity counts object
+      var dailyActivityCounts = {
+        date: day.startOf("day").toDate(), // Set date to beginning of day
+        inactive: 0,
+        semiActive: 0,
+        active: 0
       };
 
       // Get activity level for each resident
       // Compare it against the baseline
       _.each(residentIds, function (residentId) {
         var result = Meteor.call("getResidentWeeklyActivitiesCountFromDate", residentId, day);
-
         if (result === 0) {
-          inactiveCounts.value += 1;
-        } else if (result < 5 && result > 0) {
-          semiActiveCounts.value += 1;
+          dailyActivityCounts.inactive =+ 1;
+        } else if (result < 5) {
+          dailyActivityCounts.semiActive += 1;
         } else if (result >= 5) {
-          activeCounts.value += 1;
+          dailyActivityCounts.active += 1;
         };
       });
 
       // Add daily activity levels to activity counts array
-      allInactiveCounts.push(inactiveCounts);
-      allSemiActiveCounts.push(semiActiveCounts);
-      allActiveCounts.push(activeCounts);
+      activityCountsArray.push(dailyActivityCounts);
     };
 
-    allActivityCounts.push(allInactiveCounts);
-    allActivityCounts.push(allSemiActiveCounts);
-    allActivityCounts.push(allActiveCounts);
-
-    //console.log(allActivityCounts);
-    return allActivityCounts;
+    return activityCountsArray;
   }
 });
