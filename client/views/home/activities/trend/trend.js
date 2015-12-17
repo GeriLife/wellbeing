@@ -14,7 +14,7 @@ Template.homeResidentActivityLevelTrend.rendered = function () {
 
     if (data) {
       MG.data_graphic({
-          title: "Resident activity level trends for past seven days",
+          title: "Count of residents per activity level for each of last seven days",
           description: "Daily count of residents with inactive, semi-active, and active status.",
           data: [data[0], data[1], data[2]],
           x_axis: false,
