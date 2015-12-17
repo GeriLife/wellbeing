@@ -16,15 +16,16 @@ Template.homeResidentActivityLevelTrend.rendered = function () {
       MG.data_graphic({
           title: "Count of residents per activity level for each of last seven days",
           description: "Daily count of residents with inactive, semi-active, and active status.",
-          data: [data[0], data[1], data[2]],
-          x_axis: false,
+          data: data,
+          x_axis: true,
+          y_accessor: ['inactive', 'semiActive', 'active'],
           interpolate: 'basic',
           full_width: true,
-          height: 200,
-          right: 40,
+          height: 333,
+          right: 49,
           target: '#trend-chart',
           legend: ['Inactive','Semi-active','Active'],
-          legend_target: '.legend',
+
           colors: ['red', 'gold', 'green'],
           aggregate_rollover: true
       });
