@@ -45,7 +45,6 @@ Template.residentActivityChart.rendered = function () {
     data: summedActivities,
     chart_type: 'point',
     least_squares: true,
-    xax_start_at_min: true,
     full_width: true,
     height: 200,
     right: 40,
