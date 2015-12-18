@@ -105,12 +105,13 @@ Meteor.methods({
     var activityCountsArray = [];
 
     for (var i = 0; i < numberOfDays; i++) {
-      // Get today's date
-      var day = moment().subtract(i, "days");
+      // Get date N days ago for daily activity counts and query
+      var day = moment().startOf("day").subtract(i, "days");
+      var queryDate = moment().endOf("day").subtract(i, "days");
 
       // Set up placeholder activity counts object
       var dailyActivityCounts = {
-        date: day.startOf("day").toDate(), // Set date to beginning of day
+        date: day.toDate(),
         inactive: 0,
         semiActive: 0,
         active: 0
@@ -119,10 +120,15 @@ Meteor.methods({
       // Get activity level for each resident
       // Compare it against the baseline
       _.each(residentIds, function (residentId) {
-        var result = Meteor.call("getResidentWeeklyActivitiesCountFromDate", residentId, day);
+        var result = Meteor.call(
+          "getResidentWeeklyActivitiesCountFromDate",
+          residentId,
+          queryDate.toDate()
+        );
+
         if (result === 0) {
-          dailyActivityCounts.inactive =+ 1;
-        } else if (result < 5) {
+          dailyActivityCounts.inactive += 1;
+        } else if (result < 5 && result > 0) {
           dailyActivityCounts.semiActive += 1;
         } else if (result >= 5) {
           dailyActivityCounts.active += 1;
