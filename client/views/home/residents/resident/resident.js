@@ -46,11 +46,11 @@ Template.homeResident.helpers({
 
     // Case for returning Bootstrap class based on activity level
     if (activityCount >= 5) {
-      return 'Active';
+      return '(Active)';
     } else if ( activityCount > 0 && activityCount < 5 ) {
-      return 'Semi-active';
+      return '(Semi-active)';
     } else if ( activityCount === 0 ) {
-      return 'Inactive';
+      return '(Inactive)';
     }
   },
   'activityCount': function () {
@@ -61,7 +61,7 @@ Template.homeResident.helpers({
     var activityCount = instance.residentActivityCount.get();
 
     // Return the activity count as a string
-    return activityCount.toString();
+    return activityCount;
   }
 });
 
