@@ -12,6 +12,7 @@ Template.homeResidentActivityLevelTrend.rendered = function () {
     // Get data for trend line chart
     var data = ReactiveMethod.call("getHomeActivityCountTrend", homeId);
 
+    // Render the chart, if data is available
     if (data) {
       MG.data_graphic({
           title: "Count of residents per activity level for each of last seven days",
