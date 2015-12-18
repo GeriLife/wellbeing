@@ -60,7 +60,8 @@ Template.homeResident.helpers({
     // Get resident activity count
     var activityCount = instance.residentActivityCount.get();
 
-    return activityCount;
+    // Return the activity count as a string
+    return activityCount.toString();
   }
 });
 
