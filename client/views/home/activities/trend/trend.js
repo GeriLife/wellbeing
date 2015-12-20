@@ -10,14 +10,29 @@ Template.homeResidentActivityLevelTrend.rendered = function () {
     var homeId = router.params.homeId;
 
     // Get data for trend line chart
-    var data = ReactiveMethod.call("getHomeActivityCountTrend", homeId);
+    var dailyActivityData = ReactiveMethod.call("getHomeActivityCountTrend", homeId);
 
     // Render the chart, if data is available
-    if (data) {
+    if (dailyActivityData) {
+      // Make sure all daily activity data is in user local timezone
+      // (fixes chart legend 'misalignment' due to timezone offset)
+      var userLocalTimezoneData = _.map(dailyActivityData, function (dailyActivity) {
+        // Format daily activity date in YYYY-MM-DD
+        // (stripping timezone and time from date object)
+        dateString = moment(dailyActivity.date).format("YYYY-MM-DD");
+
+        // Create new date object, based on cleaned date string
+        dailyActivity.date = moment(dateString).toDate();
+
+        return dailyActivity;
+      });
+
+      // Render the timezone adjusted data in a multi-line chart
+      // coloring activity levels to match the 'traffic lights' theme :-)
       MG.data_graphic({
           title: "Number of residents per activity level for past seven days.",
           description: "Daily count of residents with inactive, semi-active, and active status.",
-          data: data,
+          data: userLocalTimezoneData,
           x_axis: true,
           y_label: "Number of residents",
           y_accessor: ['inactive', 'semiActive', 'active'],
