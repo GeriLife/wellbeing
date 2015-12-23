@@ -3,6 +3,11 @@ Meteor.publish('allResidents', function () {
   return Residents.find();
 });
 
+Meteor.publish('allCurrentResidents', function () {
+  // Publish all residents who are not departed
+  return Residents.find({departed: false});
+});
+
 Meteor.publish('singleResident', function (residentId) {
   // Publish all residents
   return Residents.find(residentId);
