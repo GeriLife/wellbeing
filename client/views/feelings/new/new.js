@@ -36,5 +36,11 @@ Template.newFeeling.helpers({
     });
 
     return residentSelectOptions;
+  },
+  "selectedFeeling": function () {
+    //Get selected feeling from session variable
+    var selectedFeeling = Session.get("selectedFeeling");
+
+    return selectedFeeling;
   }
 });
