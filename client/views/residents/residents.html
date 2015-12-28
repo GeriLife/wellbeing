@@ -13,11 +13,14 @@
       <h2 class="panel-title">Filter residents by ...</h2>
     </div>
     <div class="panel-body">
-      <div class="col-xs-6 col-sm-6">
+      <div class="col-xs-12 col-sm-5">
         {{> reactiveTableFilter id="nameFilter" label="Name" fields=['fullName'] }}
       </div>
-      <div class="col-xs-6 col-sm-6">
+      <div class="col-xs-12 col-sm-5">
         {{> reactiveTableFilter id="homeFilter" label="Home" fields=['homeName'] }}
+      </div>
+      <div class="col-xs-12 col-sm-2">
+        <label><input id="include-departed" type="checkbox"> include departed</label>
       </div>
     </div>
   </div>

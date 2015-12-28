@@ -1,5 +1,5 @@
 Template.newActivity.created = function () {
-  this.subscribe('allResidents');
+  this.subscribe('allCurrentResidents');
   this.subscribe('allHomes');
   this.subscribe('allActivityTypes');
 };
