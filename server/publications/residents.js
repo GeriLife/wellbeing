@@ -22,3 +22,8 @@ Meteor.publish('homeResidents', function (homeId) {
   // Publish all residents of a given home
   return Residents.find({homeId: homeId});
 });
+
+Meteor.publish('homeCurrentResidents', function (homeId) {
+  // Publish all current residents of a given home
+  return Residents.find({homeId: homeId, departed: false});
+});
