@@ -2,16 +2,20 @@
   <div class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-        {{# if Template.subscriptionsReady }}
         <div class="modal-header">
           <h4 class="modal-title">
             <i class="fa fa-stethoscope"></i>&nbsp;
             Record new feeling</h4>
         </div>
+        {{# if Template.subscriptionsReady }}
         {{# autoForm id="newFeelingForm" type="insert" collection="Feelings"  }}
 
         <div class="modal-body">
-          {{> afQuickField name="residentId" options=residentOptions }}
+          {{> afQuickField
+            name="residentId"
+            options=residentOptions
+            label="Resident"
+           }}
           {{> afQuickField name="feeling" type="hidden" value="selectedFeeling"}}
         </div>
 
