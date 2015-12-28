@@ -11,9 +11,21 @@ Meteor.methods({
     // return the resident IDs array
     return residentIds;
   },
+  'getCurrentHomeResidentIds': function (homeId) {
+    // Get all residents of specific home
+    var residents = Residents.find({'homeId': homeId, departed: false}).fetch();
+
+    // Create an array containing only resident IDs
+    var residentIds = _.map(residents, function (resident) {
+      return resident._id;
+    });
+
+    // return the resident IDs array
+    return residentIds;
+  },
   'getHomeActivities': function (homeId) {
     // Get all resident of this home
-    var homeResidentIds = Meteor.call('getHomeResidentIds', homeId);
+    var homeResidentIds = Meteor.call('getCurrentHomeResidentIds', homeId);
 
     // Get an array of all activity Ids for residents of this home
     var homeResidentActivitiesQuery = Activities.find(
@@ -39,7 +51,7 @@ Meteor.methods({
   },
   'getHomeResidentsActivitySumsByType': function (homeId) {
     // Get all resident IDs
-    var residentIds = Meteor.call('getHomeResidentIds', homeId);
+    var residentIds = Meteor.call('getCurrentHomeResidentIds', homeId);
 
     // Placeholder for all resident activity sums by type
     var allResidentActivitySumsByType = [];
@@ -60,7 +72,7 @@ Meteor.methods({
   },
   "getHomeActivityLevelCounts": function (homeId) {
     // // Get home residents by calling getHomeResidentIds
-    var residentIds = Meteor.call("getHomeResidentIds",homeId);
+    var residentIds = Meteor.call("getCurrentHomeResidentIds",homeId);
 
     var residentActivityLevelCounts = {
       inactive: 0,
@@ -96,7 +108,7 @@ Meteor.methods({
   },
   "getHomeActivityCountTrend": function (homeId) {
     // Get home residents
-    var residentIds = Meteor.call("getHomeResidentIds",homeId);
+    var residentIds = Meteor.call("getCurrentHomeResidentIds",homeId);
 
     // Number of days to look back
     var numberOfDays = 7;

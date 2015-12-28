@@ -23,8 +23,11 @@ var ActivitiesSchema = new SimpleSchema({
           // Find the name of this home
           var homeName = Homes.findOne(homeID).name;
 
-          // Get all residents of this home
-          var homeResidents = Residents.find({homeId: homeID}).fetch();
+          // Get all current residents of this home
+          var homeResidents = Residents.find({
+            homeId: homeID,
+            departed: false
+          }).fetch();
 
           // Create a residents array with name/ID pairs for label/value
           var residentOptions = _.map(homeResidents, function (homeResident) {

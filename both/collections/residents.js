@@ -56,6 +56,10 @@ var ResidentsSchema = new SimpleSchema({
     autoform: {
       type: 'textarea'
     }
+  },
+  departed: {
+    type: Boolean,
+    optional: true
   }
 });
 

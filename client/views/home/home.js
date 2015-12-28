@@ -47,5 +47,5 @@ Template.home.created = function () {
   instance.subscribe('singleHome', instance.homeId);
 
   // Subscribe to Home Residents
-  instance.subscribe('homeResidents', instance.homeId);
+  instance.subscribe('homeCurrentResidents', instance.homeId);
 };

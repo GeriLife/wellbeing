@@ -12,9 +12,22 @@ Meteor.methods({
 
     return residentIds;
   },
+  'getCurrentResidentIds': function () {
+    // TODO: determine how to secure this method to prevent client abuse
+
+    // Get all residents
+    var residents = Residents.find({departed: false}).fetch();
+
+    // Create an array of resident IDs
+    var residentIds = _.map(residents, function (resident) {
+      return resident._id;
+    });
+
+    return residentIds;
+  },
   'getResidentsNameHomeAndLatestActivityByType': function (activityTypeId) {
     // Get all resident IDs
-    var residentIds = Meteor.call('getAllResidentIds');
+    var residentIds = Meteor.call('getCurrentAllResidentIds');
 
     // Placeholder for residents latest activity
     var residentsLatestActivityByType = [];
@@ -141,7 +154,7 @@ Meteor.methods({
   },
   'getAllResidentsActivitySumsByType': function () {
     // Get all resident IDs
-    var residentIds = Meteor.call('getAllResidentIds');
+    var residentIds = Meteor.call('getCurrentResidentIds');
 
     // Placeholder for all resident activity sums by type
     var allResidentActivitySumsByType = [];
