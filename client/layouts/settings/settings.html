@@ -1,10 +1,10 @@
 <template name="settingsLayout">
-
-      {{> settingsLayoutHeader }}
-      {{> settingsLayoutSidebar }}
-      <div class="container">
-        {{> flashMessages}}
-        {{> yield }}
-      </div>
-
+  <div class="wrapper">
+    {{> settingsLayoutHeader }}
+    {{> settingsLayoutSidebar }}
+    <div class="content-wrapper">
+      {{> flashMessages}}
+      {{> yield }}
+    </div>
+  </div>
 </template>
