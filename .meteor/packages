@@ -43,3 +43,4 @@ spacebars
 check
 simple:reactive-method
 percolate:migrations
+joshowens:timezone-picker
