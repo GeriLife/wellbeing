@@ -10,12 +10,19 @@ Template.usersSettings.helpers({
   "users": function () {
     // Get all users
     var users = Meteor.users.find().fetch();
-    console.log(users);
+
     return users;
   },
-  email: function () {
-		if (this.emails && this.emails.length) {
+  "email": function () {
+    if (this.emails && this.emails.length) {
+      // Return the user's first email address
       return this.emails[0].address;
     }
-  }    
+  },
+  "roles": function () {
+    if (this.roles && this.roles.length) {
+      // Return comma separated list of roles
+      return this.roles.join();
+    }
+  }
 });
