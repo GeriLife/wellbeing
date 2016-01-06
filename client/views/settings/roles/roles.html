@@ -1,0 +1,15 @@
+<template name="rolesSettings">
+  <section class="content-header">
+    <h2>Roles</h2>
+  </section>
+  <section class="content">
+    <button id="add-role" class="btn btn-primary">
+        Add Role
+    </button>
+    <ul class="list-group">
+      {{# each roles }}
+      <li class="list-group-item">{{ name }}</li>
+      {{/ each }}
+    </ul>
+  </section>
+</template>
