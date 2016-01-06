@@ -1,0 +1,26 @@
+<template name="dateTimeSettings">
+  <div class="container">
+    <section class="content-header">
+      <h1>Date/time settings</h1>
+    </section>
+    <section class="content">
+      <div class="row">
+        <div class="col-sm-5">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Timezone</h3>
+              <span class="label label-primary pull-right"><i class="fa fa-2x fa-globe"></i></span>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+              <p>Select timezone for use in scheduled reports.</p>
+              <form id="timezone-form" class="form-inline">
+                <select id="timezone-select" class="form-control"></select>
+                <button type="submit" class="btn btn-success">Save</button>
+              </form>
+            </div><!-- /.box-body -->
+          </div><!-- /.box -->
+        </div><!-- /.col-sm-6 -->
+      </div><!-- /.row -->
+    </section>
+  </div>
+</template>
