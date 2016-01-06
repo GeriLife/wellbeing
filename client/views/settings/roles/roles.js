@@ -9,7 +9,7 @@ Template.rolesSettings.created = function () {
 Template.rolesSettings.helpers({
   "roles": function () {
     // Get all roles except 'admin'
-    var roles = Meteor.roles.find({name: {$ne: "admin"}}).fetch();
+    var roles = Meteor.roles.find({name: {$ne: "admin"}}, {sort: {name: 1}}).fetch();
 
     return roles;
   }
