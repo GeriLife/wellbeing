@@ -24,7 +24,7 @@ Activity Types
 */
 Router.route('/settings/activity-types', function () {
   this.layout('settingsLayout');
-  this.render('activityTypesList');
+  this.render('activityTypesSettings');
 }, {
   name: 'activityTypesSettings'
 });
