@@ -10,6 +10,16 @@ Router.route('/settings', function () {
 });
 
 /*
+Activity Types
+*/
+Router.route('/settings/activity-types', function () {
+  this.layout('settingsLayout');
+  this.render('activityTypesSettings');
+}, {
+  name: 'activityTypesSettings'
+});
+
+/*
 Date/time
 */
 Router.route('/settings/datetime', function () {
@@ -20,11 +30,11 @@ Router.route('/settings/datetime', function () {
 });
 
 /*
-Activity Types
+Roles
 */
-Router.route('/settings/activity-types', function () {
+Router.route('/settings/roles', function () {
   this.layout('settingsLayout');
-  this.render('activityTypesSettings');
+  this.render('rolesSettings');
 }, {
-  name: 'activityTypesSettings'
+  name: 'rolesSettings'
 });
