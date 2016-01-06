@@ -38,3 +38,13 @@ Router.route('/settings/roles', function () {
 }, {
   name: 'rolesSettings'
 });
+
+/*
+Users
+*/
+Router.route('/settings/users', function () {
+  this.layout('settingsLayout');
+  this.render('usersSettings');
+}, {
+  name: 'usersSettings'
+});
