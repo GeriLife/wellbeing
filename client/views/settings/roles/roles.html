@@ -3,13 +3,27 @@
     <h1><i class="fa fa-user-md"></i> Roles</h1>
   </section>
   <section class="content">
-    <button id="add-role" class="btn btn-primary">
-        Add Role
-    </button>
-    <ul class="list-group">
-      {{# each roles }}
-      <li class="list-group-item">{{ name }}</li>
-      {{/ each }}
-    </ul>
+    <div class="box">
+      <div class="box-header">
+        <div class="box-toolbar">
+          <div class="pull-right">
+            <button id="add-role" class="btn btn-primary">
+                Add Role
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="box-body no-padding">
+        <table class="table table-striped">
+          <tbody>
+          {{# each roles }}
+          <tr>
+            <td>{{ name }}</td>
+          </tr>
+          {{/ each }}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </section>
 </template>
