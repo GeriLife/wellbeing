@@ -3,13 +3,27 @@
     <h1><i class="fa fa-heart-o"></i> Activity Types</h1>
   </section>
   <section class="content">
-    <button id="add-activity-type" class="btn btn-primary">
-        Add Activity Type
-    </button>
-    <ul class="list-group">
-      {{# each activityTypes }}
-      <li class="list-group-item">{{ name }}</li>
-      {{/ each }}
-    </ul>
+    <div class="box">
+      <div class="box-header">
+        <div class="box-toolbar">
+          <div class="pull-right">
+            <button id="add-activity-type" class="btn btn-primary">
+                Add Activity Type
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="box-body no-padding">
+        <table class="table table-striped">
+          <tbody>
+          {{# each activityTypes }}
+          <tr>
+            <td>{{ name }}</td>
+          </tr>
+          {{/ each }}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </section>
 </template>
