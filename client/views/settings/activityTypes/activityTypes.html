@@ -1,13 +1,15 @@
 <template name="activityTypesSettings">
-  <div class="page-heading">
-    <button id="add-activity-type" class="btn btn-primary pull-right">
-      Add Activity Type
+  <section class="content-header">
+    <button id="add-activity-type" class="btn btn-primary">
+        Add Activity Type
     </button>
-    <h2 class="page-header">Activity Types</h2>
-  </div>
-  <ul class="list-group">
-    {{# each activityTypes }}
-    <li class="list-group-item">{{ name }}</li>
-    {{/ each }}
-  </ul>
+    <h2>Activity Types</h2>
+  </section>
+  <section class="content">
+    <ul class="list-group">
+      {{# each activityTypes }}
+      <li class="list-group-item">{{ name }}</li>
+      {{/ each }}
+    </ul>
+  </section>
 </template>
