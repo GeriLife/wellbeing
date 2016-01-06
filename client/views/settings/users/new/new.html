@@ -1,0 +1,24 @@
+<template name="newUser">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {{# if Template.subscriptionsReady }}
+        <div class="modal-header">
+          <h4 class="modal-title"><i class="fa fa-user"></i> Create new User</h4>
+        </div>
+        {{# autoForm id="newUser" schema="NewUserSchema"  }}
+
+        <div class="modal-body">
+            {{> afQuickFields}}
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        </div>
+        {{/ autoForm }}
+        {{/ if }}
+      </div>
+    </div>
+  </div>
+</template>
