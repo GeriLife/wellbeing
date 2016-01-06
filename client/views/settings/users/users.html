@@ -18,12 +18,14 @@
           <thead>
             <tr>
               <th>Email</th>
+              <th>Role(s)</th>
             </tr>
           </thead>
           <tbody>
           {{# each users }}
           <tr>
             <td>{{ email }}</td>
+            <td>{{ roles }}</td>
           </tr>
           {{/ each }}
           </tbody>
