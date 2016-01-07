@@ -2,11 +2,10 @@
   <div class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-        {{# if Template.subscriptionsReady }}
         <div class="modal-header">
           <h4 class="modal-title"><i class="fa fa-user"></i> Create new User</h4>
         </div>
-        {{# autoForm id="newUser" schema="NewUserSchema"  }}
+        {{# autoForm id="newUserForm" schema="NewUserSchema" }}
 
         <div class="modal-body">
             {{> afQuickFields}}
@@ -17,7 +16,6 @@
           <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
         </div>
         {{/ autoForm }}
-        {{/ if }}
       </div>
     </div>
   </div>
