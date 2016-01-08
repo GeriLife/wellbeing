@@ -19,6 +19,7 @@
             <tr>
               <th>Email</th>
               <th>Role(s)</th>
+              <th>Edit</th>
             </tr>
           </thead>
           <tbody>
@@ -26,6 +27,11 @@
           <tr>
             <td>{{ email }}</td>
             <td>{{ roles }}</td>
+            <td>
+              <button class="edit-user btn btn-warning btn-sm">
+                <i class="fa fa-pencil-square-o"></i>
+              </button>
+            </td>
           </tr>
           {{/ each }}
           </tbody>
