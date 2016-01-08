@@ -21,6 +21,6 @@ AutoForm.addHooks("newUserForm", {
   },
   'onSuccess': function () {
     // Hide the modal dialogue
-    Modal.hide('newActivityType');
+    Modal.hide('newUser');
   }
 });
