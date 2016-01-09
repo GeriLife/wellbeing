@@ -24,7 +24,7 @@
 
         <ul class="nav navbar-nav navbar-right">
           {{# if isInRole 'admin' }}
-            <li><a href="/admin"><i class="fa fa-cog"></i> Settings</a></li>
+            <li><a href="{{ pathFor 'settings'}}"><i class="fa fa-cog"></i> Settings</a></li>
           {{/ if }}
           <li>{{> logout }}</li>
         </ul>
