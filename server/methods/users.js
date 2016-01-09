@@ -19,5 +19,9 @@ Meteor.methods({
   "addUserToAdminRole": function (userId) {
     // Add user to admin role
     Roles.addUsersToRoles(userId, "admin");
+  },
+  "removeUserFromAdminRole": function (userId) {
+    // Add user to admin role
+    Roles.removeUsersFromRoles(userId, "admin");
   }
 });
