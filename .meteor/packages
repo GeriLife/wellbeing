@@ -9,7 +9,6 @@ aldeed:autoform
 dburles:collection-helpers
 iron:router
 aldeed:collection2
-yogiben:admin
 accounts-password
 twbs:bootstrap
 useraccounts:bootstrap
