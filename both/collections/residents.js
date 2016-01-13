@@ -59,7 +59,8 @@ var ResidentsSchema = new SimpleSchema({
   },
   departed: {
     type: Boolean,
-    optional: true
+    optional: true,
+    defaultValue: false
   }
 });
 
