@@ -122,7 +122,7 @@ Residents.allow({
     // Only allow administrators
     return Roles.userIsInRole(userId, ['admin']);
   },
-  'delete': function () {
+  'remove': function () {
     // Only allow administrators
     return Roles.userIsInRole(userId, ['admin']);
   }
