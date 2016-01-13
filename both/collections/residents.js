@@ -114,9 +114,15 @@ Residents.helpers({
 
 Residents.allow({
   'insert': function () {
-    return true;
+    // Only allow administrators
+    return Roles.userIsInRole(userId, ['admin']);
   },
   'update': function () {
-    return true;
+    // Only allow administrators
+    return Roles.userIsInRole(userId, ['admin']);
+  },
+  'delete': function () {
+    // Only allow administrators
+    return Roles.userIsInRole(userId, ['admin']);
   }
 });
