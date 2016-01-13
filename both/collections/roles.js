@@ -6,3 +6,10 @@ var RolesSchema = new SimpleSchema({
 });
 
 Meteor.roles.attachSchema(RolesSchema);
+
+Meteor.roles.allow({
+  "insert": function (userId) {
+    // Only Administrators can insert
+    return Roles.userIsInRole(userId, ['admin']);
+  }
+});

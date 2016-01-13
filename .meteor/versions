@@ -7,8 +7,6 @@ aldeed:autoform-bs-datepicker@1.1.1
 aldeed:autoform-select2@1.0.5
 aldeed:collection2@2.7.0
 aldeed:simple-schema@1.5.2
-aldeed:tabular@1.4.2
-aldeed:template-extension@3.4.3
 anti:i18n@0.4.3
 aslagle:reactive-table@0.8.21
 autoupdate@1.2.4
@@ -58,16 +56,12 @@ iron:router@1.0.12
 iron:url@1.0.11
 jquery@1.11.4
 launch-screen@1.0.4
-less@2.5.1
 livedata@1.0.15
 localstorage@1.0.5
 logging@1.0.8
 mdg:validation-error@0.2.0
 meteor@1.1.10
 meteor-base@1.0.1
-meteorhacks:meteorx@1.0.2
-meteorhacks:unblock@1.1.0
-mfactory:admin-lte@0.0.2
 minifiers@1.1.7
 minimongo@1.0.10
 mobile-experience@1.0.1
@@ -85,7 +79,6 @@ peppelg:bootstrap-3-modal@1.0.4
 percolate:migrations@0.9.7
 promise@0.5.1
 raix:eventemitter@0.1.3
-raix:handlebar-helpers@0.2.5
 rajit:bootstrap3-datepicker@1.5.0
 random@1.0.5
 rate-limit@1.0.0
@@ -116,5 +109,4 @@ useraccounts:bootstrap@1.13.1
 useraccounts:core@1.13.1
 webapp@1.2.3
 webapp-hashing@1.0.5
-yogiben:admin@1.2.4
 zimme:active-route@2.3.2

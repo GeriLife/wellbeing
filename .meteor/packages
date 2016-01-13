@@ -9,7 +9,6 @@ aldeed:autoform
 dburles:collection-helpers
 iron:router
 aldeed:collection2
-yogiben:admin
 accounts-password
 twbs:bootstrap
 useraccounts:bootstrap
@@ -43,3 +42,5 @@ spacebars
 check
 simple:reactive-method
 percolate:migrations
+reywood:publish-composite
+zimme:active-route
