@@ -14,10 +14,10 @@
     </div>
     <div class="panel-body">
       <div class="col-xs-12 col-sm-5">
-        {{> reactiveTableFilter id="nameFilter" label="Name" fields=['fullName'] }}
+        {{> reactiveTableFilter id="nameFilter" label="Name" fields=nameFilterFields }}
       </div>
       <div class="col-xs-12 col-sm-5">
-        {{> reactiveTableFilter id="homeFilter" label="Home" fields=['homeName'] }}
+        {{> reactiveTableFilter id="homeFilter" label="Home" fields=homeFilterFields }}
       </div>
       <div class="col-xs-12 col-sm-2">
         <label><input id="include-departed" type="checkbox"> include departed</label>
