@@ -75,6 +75,14 @@ Template.residents.helpers({
     };
 
     return tableSettings;
+  },
+  "nameFilterFields": function () {
+    // Return relevant field name(s) for name filter
+    return ['fullName'];
+  },
+  "homeFilterFields": function () {
+    // Return relevant field name(s) for home filter
+    return ['homeName'];
   }
 });
 
