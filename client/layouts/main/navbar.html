@@ -23,6 +23,7 @@
 
 
         <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{ pathFor 'userProfile'}}"><i class="fa fa-user"></i> Profile</a></li>
           {{# if isInRole 'admin' }}
             <li><a href="{{ pathFor 'settings'}}"><i class="fa fa-cog"></i> Settings</a></li>
           {{/ if }}
