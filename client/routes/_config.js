@@ -14,5 +14,17 @@ var requiresUserLogin = function () {
   }
 };
 
+var anonymousRoutes = [
+  'login',
+  'atChangePwd',
+  'atEnrollAccount',
+  'atForgotPwd',
+  'atResetPwd',
+  'atSignIn',
+  'atSignUp',
+  'atVerifyEmail',
+  'atresendVerificationEmail'
+];
+
 // User login required for all areas of site
-Router.onBeforeAction(requiresUserLogin, {except: ['login']});
+Router.plugin('ensureSignedIn', {except: anonymousRoutes});
