@@ -2,6 +2,7 @@ Template.resident.created = function () {
   // Get reference to template instance
   var instance = this;
 
+  // Get Resident ID from router
   instance.residentId = Router.current().params.residentId;
 
   // Subscribe to current resident
