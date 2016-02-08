@@ -34,10 +34,12 @@ ddp-rate-limiter@1.0.0
 ddp-server@1.2.2
 deps@1.0.9
 diff-sequence@1.0.1
+digilord:faker@1.0.7
 ecmascript@0.1.6
 ecmascript-runtime@0.2.6
 ejson@1.0.7
 email@1.0.8
+erikpel:wellbeing-mock-data@0.0.1
 fastclick@1.0.7
 fortawesome:fontawesome@4.5.0
 geojson-utils@1.0.4
