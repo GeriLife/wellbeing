@@ -68,6 +68,15 @@ var ActivitiesSchema = new SimpleSchema({
   },
   activityDate: {
     type: Date,
+    min: function () {
+      // Only allow activities to be recorded for the past seven days
+      return moment().subtract(7, "days").toDate();
+
+    },
+    max: function () {
+      // Do not allow activity dates in the future
+      return new Date();
+    },
     autoform: {
       afFieldInput: {
         type: "bootstrap-datepicker"
