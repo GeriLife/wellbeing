@@ -140,10 +140,22 @@ Template.activities.helpers({
   'residentFilterFields': function () {
     return ['residents'];
   },
+  "residentFilterLabel": function () {
+    // Get internationalized resident filter string
+    return TAPi18n.__("activities-filterActivities-residentFilterLabel");
+  },
   'homeFilterFields': function () {
     return ['homeNames'];
   },
+  "homeFilterLabel": function () {
+    // Get internationalized resident filter string
+    return TAPi18n.__("activities-filterActivities-homeFilterLabel");
+  },
   'activityTypeFilterFields': function () {
     return ['type'];
-  }
+  },
+  "activityTypeFilterLabel": function () {
+    // Get internationalized resident filter string
+    return TAPi18n.__("activities-filterActivities-activityTypeFilterLabel");
+  },
 });
