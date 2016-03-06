@@ -6,8 +6,12 @@
     <button id="edit-resident" class="btn btn-default">Edit</button>
     {{/ if }}
   </h1>
-  {{> residentActivities }}
+  {{>
+    residentActivities
+    resident=resident
+    activities=activities
+  }}
   {{ else }}
-  {{> spinner }}
+    {{> spinner }}
   {{/ if }}
 </template>

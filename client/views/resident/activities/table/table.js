@@ -1,16 +1,16 @@
 Template.activityTable.helpers({
   'activities': function () {
-    // Get Resident ID from router
-    var residentId = Router.current().params.residentId;
+    // Get reference to template instance
+    const instance = Template.instance();
 
     // Get resident activities
-    var activities = Activities.find({residentIds: residentId}).fetch();
+    const activities = instance.data.activities;
 
-    var activitiesArray = [];
+    const activitiesArray = [];
 
     activities.forEach(function (activity) {
       // Create temporary object to get Activity values
-      var activityObject = {
+      const activityObject = {
         activityType: activity.activityType(),
         activityDate: activity.activityDate,
         duration: activity.duration
@@ -23,7 +23,7 @@ Template.activityTable.helpers({
     return activitiesArray;
   },
   'tableSettings': function () {
-    var tableSettings = {
+    const tableSettings = {
       showFilter: false,
       fields: [
         {

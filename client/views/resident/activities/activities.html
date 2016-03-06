@@ -10,13 +10,13 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="chart">
-      {{> residentActivityChart }}
+      {{> residentActivityChart activities=activities }}
     </div>
     <div role="tabpanel" class="tab-pane" id="calendar">
-      {{> activityCalendar }}
+      {{> activityCalendar activities=activities }}
     </div>
     <div role="tabpanel" class="tab-pane" id="table">
-      {{> activityTable }}
+      {{> activityTable activities=activities }}
     </div>
   </div>
 </template>

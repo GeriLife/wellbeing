@@ -1,47 +1,53 @@
 Template.activityCalendar.rendered = function () {
-  // Get current resident ID
-  var residentId = this.data._id;
+  // Get reference to template instance
+  const instance = this;
 
-  // Get all activities for current resident
-  var residentActivities = Residents.findOne(residentId).activities().fetch();
+  // Update the calendar when instance data changes
+  instance.autorun(function () {
+    const residentActivities = Template.currentData().activities;
+    //console.log(residentActivities);
 
-  // Create a nest of activities grouped by activity date
-  var nestedActivities = d3.nest()
-    .key(function (activity) {
-      return activity.activityDate;
-    })
+    // Group activities by activity date
+    const nestedActivities = d3.nest()
+      .key(function (activity) {
+        return activity.activityDate;
+      });
 
-  // Get a sum of activities
-  var summedActivities = nestedActivities.rollup(function (activity) {
-      return {
-        duration: d3.sum(activity, function (activity) {
-          return activity.duration;
-        })
-      }
-    })
-    .entries(residentActivities);
+    // Get a sum of activities
+    const summedActivities = nestedActivities.rollup(function (activity) {
+        return {
+          duration: d3.sum(activity, function (activity) {
+            return activity.duration;
+          })
+        }
+      })
+      .entries(residentActivities);
 
-    summedActivities.map(function (activity) {
-      // Create date and duration attributes with proper data types
-      activity.timestamp = new Date(activity.key).getTime();
-      activity.duration = parseInt(activity.values.duration);
+      summedActivities.map(function (activity) {
+        // Create date and duration attributes with proper data types
+        activity.timestamp = new Date(activity.key).getTime();
+        activity.duration = parseInt(activity.values.duration);
 
-      // Delete unused key and values
-      delete activity.values
-      delete activity.key;
-    })
+        // Delete unused key and values
+        delete activity.values
+        delete activity.key;
+      });
 
-  // Set up the activity map graphic
-  var activityMap = new ActivityMap(summedActivities, {
-    "id": "#activity-calendar",
-    "parent": "#activity-calendar-container",
-    "fit": true,
-    "title": "Activity Calendar ",
-    "timeColumn": "timestamp",
-    "valueColumn": "duration",
-    "compact": false
+    // Set up the activity map graphic
+    const activityMap = new ActivityMap(summedActivities, {
+      "id": "#activity-calendar",
+      "parent": "#activity-calendar-container",
+      "fit": true,
+      "title": "Activity Calendar ",
+      "timeColumn": "timestamp",
+      "valueColumn": "duration",
+      "compact": false
+    });
+
+    // Trying to figure out how to re-render the data
+    activityMap.process();
+
+    // Render the activity calendar
+    activityMap.render();
   });
-
-  // Render the activity map
-  activityMap.render();
-}
+};
