@@ -7,6 +7,14 @@ Template.resident.created = function () {
 
   // Subscribe to current resident
   instance.subscribe('residentComposite', instance.residentId);
+
+  instance.autorun(function () {
+    if (instance.subscriptionsReady()) {
+      instance.resident = Residents.findOne(instance.residentId);
+
+      instance.activities = Activities.find({residentIds: instance.residentId}).fetch();
+    }
+  });
 };
 
 Template.resident.events({
@@ -14,14 +22,8 @@ Template.resident.events({
     // Get reference to template instance
     var instance = Template.instance();
 
-    // Get Home ID
-    var residentId = instance.residentId;
-
-    // Get home
-    var resident = Residents.findOne(residentId);
-
     // Show the edit home modal
-    Modal.show('editResident', resident);
+    Modal.show('editResident', instance.resident);
   }
 });
 
@@ -30,12 +32,18 @@ Template.resident.helpers({
     // Get reference to template instance
     var instance = Template.instance();
 
-    // Get Resident ID from template instance
-    var residentId = instance.residentId;
-
-    // Get resident from colleciton by Resident ID
-    var resident = Residents.findOne(residentId);
+    // Get resident from template instance
+    var resident = instance.resident;
 
     return resident;
+  },
+  'activities': function () {
+    // Get reference to template instance
+    const instance = Template.instance();
+
+    // Get activities from template instance
+    var activities = instance.activities;
+
+    return activities;
   }
 })
