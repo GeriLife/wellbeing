@@ -3,7 +3,11 @@ AutoForm.addHooks(['newActivityForm'], {
     // Hide the modal dialogue
     Modal.hide('newActivity');
 
+    const successMessage = TAPi18n.__("newActivity-success");
+
+    const successMessageWithIcon = '<i class="fa fa-check"></i> ' + successMessage
+
     // Alert user that activity was added
-    FlashMessages.sendSuccess('<i class="fa fa-check"></i> Activity added!');
+    FlashMessages.sendSuccess(successMessageWithIcon);
   }
 });
