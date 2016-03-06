@@ -1,4 +1,21 @@
 {
+  "activities": {
+    "residentIds": {
+      "label": "Resident(s)"
+    },
+    "activityTypeId": {
+      "label": "Activity type"
+    },
+    "activityDate": {
+      "label": "Activity date"
+    },
+    "duration": {
+      "label": "Activity duration (in minutes)"
+    },
+    "facilitatorRoleId": {
+      "label": "Activity facilitator role"
+    }
+  },
   "activities-addActivityButton": "Add Activity",
   "activities-pageHeader": "Activities",
   "activities-filterActivities-activityTypeFilterLabel": "Type",
