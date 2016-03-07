@@ -28,6 +28,17 @@
       "label": "Name"
     }
   },
+  "feelings": {
+    "date": {
+      "label": "Date"
+    },
+    "feeling": {
+      "label": "Feeling"
+    },
+    "residentId": {
+      "label": "Resident"
+    }
+  },
   "mainLayoutHeader-toggleNavigation": "Toggle navigation",
   "mainLayoutNavbar-activitesLink": "Activities",
   "mainLayoutNavbar-homesLink": "Homes",
