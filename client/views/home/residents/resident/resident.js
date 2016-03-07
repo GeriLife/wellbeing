@@ -51,11 +51,11 @@ Template.homeResident.helpers({
 
     // Case for returning Bootstrap class based on activity level
     if (activityCount >= 5) {
-      return '(Active)';
+      return active;
     } else if ( activityCount > 0 && activityCount < 5 ) {
-      return '(Semi-active)';
+      return semiActive;
     } else if ( activityCount === 0 ) {
-      return '(Inactive)';
+      return inactive;
     }
   },
   'activityCount': function () {
