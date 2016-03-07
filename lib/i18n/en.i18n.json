@@ -118,9 +118,17 @@
       "label": "Departed"
     }
   },
+  "residentActivityChart-title": "Daily activity in minutes",
+  "residentActivityChart-title": "Daily sum of activity minutes",
+  "residentActivityChart-yLabel": "Minutes",
+  "residentActivityChart-mouseoverLabel": "minutes",
   "residentActivityLevel-active": "Active",
   "residentActivityLevel-semiActive": "Semi-active",
   "residentActivityLevel-inactive": "Inactive",
+  "residentActivityTable-activityTypeLabel": "Activity Type",
+  "residentActivityTable-durationLabel": "Duration",
+  "residentActivityTable-activityDateLabel": "Activity date",
+  "residentActivityTable-filterPanel-header": "Filter activities",
   "residentActivities-header": "Activities",
   "residentActivities-tabs-trend": "Trend",
   "residentActivities-tabs-calendar": "Calendar",
