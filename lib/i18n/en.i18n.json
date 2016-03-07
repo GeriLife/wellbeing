@@ -75,6 +75,8 @@
   "homeResidentActivitySumsByType-subheading": "(last 30 days)",
   "homeResidentActivitySummaryChart-residentAxisTitle": "Resident Name / Activity Count",
   "homeResidentActivitySummaryChart-activitiesAxisTitle": "Number of Activities",
+  "homeResidentActivityLevelTrend-chartTitle": "Number of residents per activity level for past seven days.",
+  "homeResidentActivityLevelTrend-chartDescription": "Daily count of residents with inactive, semi-active, and active status.",
   "newFeeling-cancel": "Cancel",
   "newFeeling-header": "Record new feeling",
   "newFeeling-save": "Save",
