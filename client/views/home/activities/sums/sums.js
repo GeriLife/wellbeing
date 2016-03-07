@@ -20,13 +20,22 @@ Template.homeResidentActivitySumsByType.created = function () {
    if (instance.view.isRendered && homeResidentsActivitySumsByType) {
       // Draw the chart
       var activityChart = new dimple.chart(instance.chartSvg, homeResidentsActivitySumsByType);
-      activityChart.setBounds("5%", "10%", "57%", "80%")
+      activityChart.setBounds("5%", "10%", "57%", "80%");
+
       var residentAxis = activityChart.addCategoryAxis("x", "residentName");
-     residentAxis.title = "Resident Name / Activity Count";
+      // Get translation string for chart resident axis
+      const chartResidentAxisTitle = TAPi18n.__("homeResidentActivitySummaryChart-residentAxisTitle");
+      residentAxis.title = chartResidentAxisTitle;
+
       var activitiesAxis = activityChart.addMeasureAxis("y", "sum");
-     activitiesAxis.title = "Number of Activities";
+      // Get translation string for chart activities axis
+      const chartActivitiesAxisTitle = TAPi18n.__("homeResidentActivitySummaryChart-activitiesAxisTitle");
+      activitiesAxis.title = chartActivitiesAxisTitle;
+
       activityChart.addSeries("activityTypeName", dimple.plot.bar);
       activityChart.addLegend("62%", "1%", "38%", "80%", "right");
+
+      // Draw the chart
       activityChart.draw();
     };
   });
