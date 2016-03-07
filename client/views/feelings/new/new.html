@@ -5,7 +5,8 @@
         <div class="modal-header">
           <h4 class="modal-title">
             <i class="fa fa-stethoscope"></i>&nbsp;
-            Record new feeling</h4>
+            {{_ "newFeeling-header" }}
+          </h4>
         </div>
 
 
@@ -31,8 +32,12 @@
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Save</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success">
+            {{_ "newFeeling-save" }}
+          </button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            {{_ "newFeeling-cancel" }}
+          </button>
         </div>
         {{/ autoForm }}
         {{ else }}
