@@ -1,7 +1,6 @@
 var RolesSchema = new SimpleSchema({
   name: {
-    type: String,
-    label: 'Name'
+    type: String
   }
 });
 
