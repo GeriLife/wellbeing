@@ -28,6 +28,9 @@
       "label": "Name"
     }
   },
+  "editHome-cancel": "Cancel",
+  "editHome-title": "Edit home",
+  "editHome-save": "Save",
   "feelings": {
     "date": {
       "label": "Date"
