@@ -69,6 +69,11 @@
       "label": "Departed"
     }
   },
+  "roles": {
+    "name": {
+      "label": "Role name"
+    }
+  },
   "mainLayoutHeader-toggleNavigation": "Toggle navigation",
   "mainLayoutNavbar-activitesLink": "Activities",
   "mainLayoutNavbar-homesLink": "Homes",
