@@ -57,6 +57,9 @@
       "label": "Group"
     }
   },
+  "newFeeling-cancel": "Cancel",
+  "newFeeling-header": "Record new feeling",
+  "newFeeling-save": "Save",
   "residents": {
     "firstName": {
       "label": "First name"
