@@ -121,6 +121,11 @@
   "residentActivityLevel-active": "Active",
   "residentActivityLevel-semiActive": "Semi-active",
   "residentActivityLevel-inactive": "Inactive",
+  "residentActivities-header": "Activities",
+  "residentActivities-tabs-trend": "Trend",
+  "residentActivities-tabs-calendar": "Calendar",
+  "residentActivities-tabs-table": "Table",
+  "resident-activityCalendar-title": "Activity calendar",
   "roles": {
     "name": {
       "label": "Role name"
