@@ -56,6 +56,7 @@
       "label": "Group name"
     }
   },
+  "groups-header": "Groups",
   "homes": {
     "name": {
       "label": "Home name"
@@ -68,6 +69,9 @@
   "newFeeling-header": "Record new feeling",
   "newFeeling-save": "Save",
   "newFeeling-success": "Successfully recorded feeling",
+  "newGroup-cancel": "Cancel",
+  "newGroup-header": "Create new group",
+  "newGroup-save": "Save",
   "residents": {
     "firstName": {
       "label": "First name"
