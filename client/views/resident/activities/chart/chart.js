@@ -34,11 +34,17 @@ Template.residentActivityChart.rendered = function () {
       delete activity.key;
     })
 
+  // Get translation strings
+  const activityTrendTitle = TAPi18n.__("residentActivityChart-title");
+  const activityTrendDescription = TAPi18n.__("residentActivityChart-description");
+  const yLabel = TAPi18n.__("residentActivityChart-yLabel");
+  const mouseoverLabel = TAPi18n.__("residentActivityChart-mouseoverLabel");
+
   // Render the chart using MetricsGraphics charting library
   MG.data_graphic({
-    title: "Daily activity in minutes.",
-    description: "Showing daily activity minutes for " + residentName,
-    y_label: 'Minutes',
+    title: activityTrendTitle,
+    description: activityTrendDescription,
+    y_label: yLabel,
     y_rug: true,
     data: summedActivities,
     chart_type: 'point',
@@ -54,7 +60,7 @@ Template.residentActivityChart.rendered = function () {
       const formattedDate = moment(date).format("D.M.YYYY");
       const minutes = d.point.duration;
       d3.select('#activity-chart svg .mg-active-datapoint')
-        .text(formattedDate + ' ' + minutes + ' minutes');
+        .text(formattedDate + ' ' + minutes + ' ' + mouseoverLabel);
     }
   });
 }
