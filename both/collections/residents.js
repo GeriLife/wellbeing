@@ -64,6 +64,9 @@ var ResidentsSchema = new SimpleSchema({
   }
 });
 
+// Add i18n tags
+ResidentsSchema.i18n("residents");
+
 Residents.attachSchema(ResidentsSchema);
 
 Residents.helpers({
