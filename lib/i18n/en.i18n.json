@@ -44,6 +44,13 @@
   "feelings-scared": "Scared",
   "feelings-sad": "Sad",
   "feelings-angry": "Angry",
+  "front-quickAddPanel-title": "Quick add",
+  "front-quickAddPanel-activityButton": "Activity",
+  "front-quickAddPanel-feelingButton": "Feeling",
+  "front-quickNavigationPanel-title": "Quick navigation",
+  "front-quickNavigationPanel-residentsButton": "Residents",
+  "front-quickNavigationPanel-homesButton": "Homes",
+  "front-quickNavigationPanel-activitiesButton": "Activities",
   "groups": {
     "name": {
       "label": "Group name"
