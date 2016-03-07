@@ -32,6 +32,7 @@
   "editHome-title": "Edit home",
   "editHome-save": "Save",
   "editResident-cancel": "Cancel",
+  "editResident-departed-helpText": "Resident has left the community.",
   "editResident-header": "Edit resident",
   "editResident-save": "Save",
   "feelings": {
