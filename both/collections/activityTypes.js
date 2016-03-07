@@ -13,6 +13,6 @@ ActivityTypes.allow({
 });
 
 // Add i18n tags
-ActivitiesSchema.i18n("activityTypes");
+ActivityTypesSchema.i18n("activityTypes");
 
 ActivityTypes.attachSchema(ActivityTypesSchema);
