@@ -39,6 +39,11 @@
       "label": "Resident"
     }
   },
+  "groups": {
+    "name": {
+      "label": "Group name"
+    }
+  },
   "mainLayoutHeader-toggleNavigation": "Toggle navigation",
   "mainLayoutNavbar-activitesLink": "Activities",
   "mainLayoutNavbar-homesLink": "Homes",
