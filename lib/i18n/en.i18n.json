@@ -83,6 +83,7 @@
   "homeResidents-tableCaption": "Residents with count of activities for past seven days. Activity level in parenthesis.",
   "homeResidents-tableHeader-residentName": "Name",
   "homeResidents-tableHeader-activity": "Activity Count (activity level)",
+  "homeResidents-loadingMessage": "Loading residents",
   "newFeeling-cancel": "Cancel",
   "newFeeling-header": "Record new feeling",
   "newFeeling-save": "Save",
