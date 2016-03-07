@@ -108,6 +108,9 @@
       "label": "Departed"
     }
   },
+  "residentActivityLevel-active": "Active",
+  "residentActivityLevel-semiActive": "Semi-active",
+  "residentActivityLevel-inactive": "Inactive",
   "roles": {
     "name": {
       "label": "Role name"

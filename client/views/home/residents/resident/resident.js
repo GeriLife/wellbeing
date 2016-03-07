@@ -44,6 +44,11 @@ Template.homeResident.helpers({
     // Get resident activity count
     var activityCount = instance.residentActivityCount.get();
 
+    // Get activity level translations
+    const active = TAPi18n.__("residentActivityLevel-active");
+    const semiActive = TAPi18n.__("residentActivityLevel-semiActive");
+    const inactive = TAPi18n.__("residentActivityLevel-inactive");
+
     // Case for returning Bootstrap class based on activity level
     if (activityCount >= 5) {
       return '(Active)';
