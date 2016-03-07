@@ -52,6 +52,23 @@
       "label": "Group"
     }
   },
+  "residents": {
+    "firstName": {
+      "label": "First name"
+    },
+    "lastInitial": {
+      "label": "Last initial"
+    },
+    "homeId": {
+      "label": "Home"
+    },
+    "interestsDescription": {
+      "label": "Interests"
+    },
+    "departed": {
+      "label": "Departed"
+    }
+  },
   "mainLayoutHeader-toggleNavigation": "Toggle navigation",
   "mainLayoutNavbar-activitesLink": "Activities",
   "mainLayoutNavbar-homesLink": "Homes",
