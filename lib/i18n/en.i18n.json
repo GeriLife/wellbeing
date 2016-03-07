@@ -31,6 +31,9 @@
   "editHome-cancel": "Cancel",
   "editHome-title": "Edit home",
   "editHome-save": "Save",
+  "editResident-cancel": "Cancel",
+  "editResident-header": "Edit resident",
+  "editResident-save": "Save",
   "feelings": {
     "date": {
       "label": "Date"
