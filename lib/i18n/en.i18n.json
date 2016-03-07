@@ -137,6 +137,7 @@
   "residentActivities-tabs-calendar": "Calendar",
   "residentActivities-tabs-table": "Table",
   "resident-activityCalendar-title": "Activity calendar",
+  "residentInterests-header": "Interests",
   "roles": {
     "name": {
       "label": "Role name"
