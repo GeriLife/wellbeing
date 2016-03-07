@@ -57,6 +57,12 @@
     }
   },
   "groups-header": "Groups",
+  "home-editHomeButton": "Edit home",
+  "home-residentsPanel-heading": "Residents",
+  "home-activityLevelTrendsPanel-heading": "Activity level trends",
+  "home-activitiesPanel-heading": "Activities",
+  "home-activitiesPanel-activitySummaryTab": "Resident activity summary",
+  "home-activitiesPanel-activityTableTab": "Activity table",
   "homes": {
     "name": {
       "label": "Home name"
