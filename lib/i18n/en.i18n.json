@@ -44,6 +44,14 @@
       "label": "Group name"
     }
   },
+  "homes": {
+    "name": {
+      "label": "Home name"
+    },
+    "groupId": {
+      "label": "Group"
+    }
+  },
   "mainLayoutHeader-toggleNavigation": "Toggle navigation",
   "mainLayoutNavbar-activitesLink": "Activities",
   "mainLayoutNavbar-homesLink": "Homes",
