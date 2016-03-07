@@ -66,6 +66,11 @@
   "home-activitiesPanel-heading": "Activities",
   "home-activitiesPanel-activitySummaryTab": "Resident activity summary",
   "home-activitiesPanel-activityTableTab": "Activity table",
+  "homeGroup-tableCaption": "Homes with count of residents per seven day activiy level.",
+  "homeGroup-tableHeader-name": "Name",
+  "homeGroup-tableHeader-inactiveResidents": "Inactive residents",
+  "homeGroup-tableHeader-semiActiveResidents": "Semi-active residents",
+  "homeGroup-tableHeader-activeResidents": "Active residents",
   "homes": {
     "name": {
       "label": "Home name"
@@ -74,6 +79,10 @@
       "label": "Group"
     }
   },
+  "homes-header": "Homes",
+  "homes-header-addNewButton": "Add new",
+  "homes-header-addNewButton-group": "Group",
+  "homes-header-addNewButton-home": "Home",
   "homeResidentActivitySumsByType-heading": "Activity summary by type",
   "homeResidentActivitySumsByType-subheading": "(last 30 days)",
   "homeResidentActivitySummaryChart-residentAxisTitle": "Resident Name / Activity Count",
