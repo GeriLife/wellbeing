@@ -4,7 +4,10 @@
       <div class="modal-content">
         {{# if Template.subscriptionsReady }}
         <div class="modal-header">
-          <h4 class="modal-title"><i class="fa fa-cubes"></i> Create new group</h4>
+          <h4 class="modal-title">
+            <i class="fa fa-cubes"></i>&nbsp;
+            {{_ "newGroup-header" }}
+          </h4>
         </div>
         {{#autoForm id="newGroupForm" type="insert" collection="Groups"  }}
 
@@ -13,8 +16,12 @@
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Save</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success">
+            {{_ "newGroup-save" }}
+          </button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            {{_ "newGroup-cancel" }}
+          </button>
         </div>
         {{/ autoForm }}
         {{ else }}
