@@ -60,6 +60,7 @@
   "newFeeling-cancel": "Cancel",
   "newFeeling-header": "Record new feeling",
   "newFeeling-save": "Save",
+  "newFeeling-success": "Successfully recorded feeling",
   "residents": {
     "firstName": {
       "label": "First name"
