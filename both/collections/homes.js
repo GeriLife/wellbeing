@@ -21,6 +21,9 @@ var HomesSchema = new SimpleSchema({
   }
 });
 
+// Add i18n tags
+HomesSchema.i18n("homes");
+
 Homes.attachSchema(HomesSchema);
 
 Homes.helpers({
