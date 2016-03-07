@@ -23,22 +23,26 @@ Template.activityTable.helpers({
     return activitiesArray;
   },
   'tableSettings': function () {
+    const activityTypeLabel = TAPi18n.__("residentActivityTable-activityTypeLabel");
+    const durationLabel = TAPi18n.__("residentActivityTable-durationLabel");
+    const activityDateLabel = TAPi18n.__("residentActivityTable-activityDateLabel");
+
     const tableSettings = {
       showFilter: false,
       fields: [
         {
           key: 'activityType',
-          label: 'Activity Type',
+          label: activityTypeLabel,
           sortOrder:1,
           sortDirection: 'ascending'
         },
         {
           key: 'duration',
-          label: 'Duration',
+          label: durationLabel,
         },
         {
           key: 'activityDate',
-          label: 'Activity Date',
+          label: activityDateLabel,
           tmpl: Template.dateCell,
           sortOrder: 0,
           sortDirection: 'descending'
