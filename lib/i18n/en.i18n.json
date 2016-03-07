@@ -71,6 +71,10 @@
       "label": "Group"
     }
   },
+  "homeResidentActivitySumsByType-heading": "Activity summary by type",
+  "homeResidentActivitySumsByType-subheading": "(last 30 days)",
+  "homeResidentActivitySummaryChart-residentAxisTitle": "Resident Name / Activity Count",
+  "homeResidentActivitySummaryChart-activitiesAxisTitle": "Number of Activities",
   "newFeeling-cancel": "Cancel",
   "newFeeling-header": "Record new feeling",
   "newFeeling-save": "Save",
