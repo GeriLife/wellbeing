@@ -39,6 +39,11 @@
       "label": "Resident"
     }
   },
+  "feelings-headerQuestion": "How are you feeling today?",
+  "feelings-happy": "Happy",
+  "feelings-scared": "Scared",
+  "feelings-sad": "Sad",
+  "feelings-angry": "Angry",
   "groups": {
     "name": {
       "label": "Group name"
