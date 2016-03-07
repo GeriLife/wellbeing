@@ -100,6 +100,7 @@
   "newGroup-cancel": "Cancel",
   "newGroup-header": "Create new group",
   "newGroup-save": "Save",
+  "resident-editButton": "Edit resident",
   "residents": {
     "firstName": {
       "label": "First name"
