@@ -114,6 +114,7 @@
   "homeResidents-tableHeader-residentName": "Name",
   "homeResidents-tableHeader-activity": "Activity Count (activity level)",
   "homeResidents-loadingMessage": "Loading residents",
+  "logout-logoutButton": "Logout",
   "newFeeling-cancel": "Cancel",
   "newFeeling-header": "Record new feeling",
   "newFeeling-save": "Save",
