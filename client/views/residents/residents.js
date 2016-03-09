@@ -55,18 +55,25 @@ Template.residents.helpers({
     return [];
   },
   'tableSettings': function () {
+    // Create placeholder object for filter labels
+    const tableLabels = {};
+
+    // Get translation strings for filter values
+    tableLabels.fullName = TAPi18n.__("residents-tableLabels-fullName");
+    tableLabels.homeName = TAPi18n.__("residents-tableLabels-homeName");
+
     var tableSettings = {
       showFilter: false,
       fields: [
         {
           key: 'fullName',
-          label: 'Resident Name',
+          label: tableLabels.fullName,
           sortOrder: 0,
           sortDirection: 'ascending'
         },
         {
           key: 'homeName',
-          label: 'Home Name',
+          label: tableLabels.homeName,
           sortOrder: 1,
           sortDirection: 'ascending'
         }
