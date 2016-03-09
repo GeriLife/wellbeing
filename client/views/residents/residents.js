@@ -83,6 +83,16 @@ Template.residents.helpers({
   "homeFilterFields": function () {
     // Return relevant field name(s) for home filter
     return ['homeName'];
+  },
+  "filterLabels": function () {
+    // Create placeholder object for filter labels
+    const filterLabels = {};
+
+    // Get translation strings for filter values
+    filterLabels.fullName = TAPi18n.__("residents-filterLabels-fullName");
+    filterLabels.homeName = TAPi18n.__("residents-filterLabels-homeName");
+
+    return filterLabels;
   }
 });
 
