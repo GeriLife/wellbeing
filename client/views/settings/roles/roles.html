@@ -1,6 +1,9 @@
 <template name="rolesSettings">
   <section class="content-header">
-    <h1><i class="fa fa-user-md"></i> Roles</h1>
+    <h1>
+      <i class="fa fa-user-md"></i>&nbsp;
+      {{_ "rolesSettings-heading" }}
+     </h1>
   </section>
   <section class="content">
     <div class="box box-primary">
@@ -8,7 +11,7 @@
         <div class="box-toolbar">
           <div class="pull-right">
             <button id="add-role" class="btn btn-primary">
-                Add Role
+                {{_ "rolesSettings-addRoleButton" }}
             </button>
           </div>
         </div>
