@@ -1,6 +1,9 @@
 <template name="activityTypesSettings">
   <section class="content-header">
-    <h1><i class="fa fa-heart-o"></i> Activity Types</h1>
+    <h1>
+      <i class="fa fa-heart-o"></i>&nbsp;
+      {{_ "activityTypesSettings-header" }}
+     </h1>
   </section>
   <section class="content">
     <div class="box box-primary">
@@ -8,7 +11,7 @@
         <div class="box-toolbar">
           <div class="pull-right">
             <button id="add-activity-type" class="btn btn-primary">
-                Add Activity Type
+                {{_ "activityTypesSettings-addActivityTypeButton" }}
             </button>
           </div>
         </div>
