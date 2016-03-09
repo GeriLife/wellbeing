@@ -41,6 +41,9 @@
   "editResident-departed-helpText": "Resident has left the community.",
   "editResident-header": "Edit resident",
   "editResident-save": "Save",
+  "editUser-cancelButton": "Cancel",
+  "editUser-header": "Edit user",
+  "editUser-saveButton": "Save",
   "feelings": {
     "date": {
       "label": "Date"
