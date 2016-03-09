@@ -6,7 +6,9 @@ EditUserSchema = new SimpleSchema({
   },
   "isAdmin": {
     type: Boolean,
-    defaultValue: false,
-    label: "System administrator"
+    defaultValue: false
   }
 });
+
+// Add i18n tags
+EditUserSchema.i18n("editUser");
