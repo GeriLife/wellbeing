@@ -158,6 +158,8 @@
       "label": "Role name"
     }
   },
+  "rolesSettings-addRoleButton": "Add Role",
+  "rolesSettings-heading": "Roles",
   "mainLayoutHeader-toggleNavigation": "Toggle navigation",
   "mainLayoutNavbar-activitesLink": "Activities",
   "mainLayoutNavbar-homesLink": "Homes",
