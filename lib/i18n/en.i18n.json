@@ -121,6 +121,9 @@
   "newGroup-cancel": "Cancel",
   "newGroup-header": "Create new group",
   "newGroup-save": "Save",
+  "newUser-cancelButton": "Cancel",
+  "newUser-header": "Create new User",
+  "newUser-saveButton": "Save",
   "resident-editButton": "Edit resident",
   "residents": {
     "firstName": {
