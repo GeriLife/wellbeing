@@ -28,6 +28,8 @@
       "label": "Name"
     }
   },
+  "activityTypesSettings-addActivityTypeButton": "Add Activity Type",
+  "activityTypesSettings-header": "Activity Types",
   "editHome-cancel": "Cancel",
   "editHome-title": "Edit home",
   "editHome-save": "Save",
@@ -162,6 +164,9 @@
   "newActivity-header": "Create new activity",
   "newActivity-save": "Save",
   "newActivity-success": "Activity added",
+  "newActivityType-cancelButton": "Cancel",
+  "newActivityType-header": "Create new Activity Type",
+  "newActivityType-saveButton": "Save",
   "newResident-cancelButton": "Cancel",
   "newResident-header": "Create new resident",
   "newResident-saveButton": "Save",
