@@ -176,6 +176,9 @@
   "newResident-cancelButton": "Cancel",
   "newResident-header": "Create new resident",
   "newResident-saveButton": "Save",
+  "newRole-cancelButton": "Cancel",
+  "newRole-header": "Create new Role",
+  "newRole-saveButton": "Save",
   "settings-activityTypes": "Activity Types",
   "settings-dateTime": "Date/Time",
   "settings-roles":"Roles",
@@ -185,5 +188,10 @@
   "settingsLayoutSidebar-dateTimeLink": "Date/Time",
   "settingsLayoutSidebar-rolesLink": "Roles",
   "settingsLayoutSidebar-header": "Settings Menu",
-  "settingsLayoutSidebar-usersLink": "Users"
+  "settingsLayoutSidebar-usersLink": "Users",
+  "usersSettings-addUserButton": "Add User",
+  "usersSettings-header": "Users",
+  "usersSettings-tableHeaders-edit": "Edit",
+  "usersSettings-tableHeaders-email": "Email",
+  "usersSettings-tableHeaders-roles": "Roles"
 }
