@@ -139,6 +139,12 @@
   "residentActivities-tabs-table": "Table",
   "resident-activityCalendar-title": "Activity calendar",
   "residentInterests-header": "Interests",
+  "residents-filterLabels-fullName": "Name",
+  "residents-filterLabels-homeName": "Home",
+  "residents-filterPanel-header": "Filter residents",
+  "residents-filterPanel-includeDeparted": "include departed",
+  "residents-header": "Residents",
+  "residents-header-addResidentButton": "Add New Resident",
   "roles": {
     "name": {
       "label": "Role name"
