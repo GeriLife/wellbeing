@@ -5,7 +5,9 @@ Template.residentActivityTypesChart.onRendered(function () {
   // Add 'type' field to each activity,
   // Containing activity type name
   activities = _.map(activities, function (activity) {
+    // Get activity type name via collection helper
     activity.type = activity.activityType();
+    
     return activity;
   });
 
