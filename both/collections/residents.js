@@ -2,17 +2,14 @@ Residents = new Mongo.Collection('residents');
 
 var ResidentsSchema = new SimpleSchema({
   firstName: {
-    type: String,
-    label: 'First Name'
+    type: String
   },
   lastInitial: {
     type: String,
-    label: 'Last Initial',
     max: 1,
   },
   homeId: {
     type: String,
-    label: 'Home',
     autoform: {
       options: function() {
         // Get all Groups
@@ -51,7 +48,6 @@ var ResidentsSchema = new SimpleSchema({
   },
   interestsDescription: {
     type: String,
-    label: "Description of Interests",
     optional: true,
     autoform: {
       type: 'textarea'
@@ -63,6 +59,9 @@ var ResidentsSchema = new SimpleSchema({
     defaultValue: false
   }
 });
+
+// Add i18n tags
+ResidentsSchema.i18n("residents");
 
 Residents.attachSchema(ResidentsSchema);
 

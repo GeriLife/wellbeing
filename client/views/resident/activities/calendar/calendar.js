@@ -33,12 +33,14 @@ Template.activityCalendar.rendered = function () {
         delete activity.key;
       });
 
+    const activityMapTitle = TAPi18n.__("resident-activityCalendar-title") + " ";
+
     // Set up the activity map graphic
     const activityMap = new ActivityMap(summedActivities, {
       "id": "#activity-calendar",
       "parent": "#activity-calendar-container",
       "fit": true,
-      "title": "Activity Calendar ",
+      "title": activityMapTitle,
       "timeColumn": "timestamp",
       "valueColumn": "duration",
       "compact": false

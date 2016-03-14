@@ -27,11 +27,15 @@ Template.homeResidentActivityLevelTrend.rendered = function () {
         return dailyActivity;
       });
 
+      // Get i18n texts for chart
+      const activityLevelTrendTitle = TAPi18n.__("homeResidentActivityLevelTrend-chartTitle");
+      const activityLevelTrendDescription = TAPi18n.__("homeResidentActivityLevelTrend-chartDescription");
+
       // Render the timezone adjusted data in a multi-line chart
       // coloring activity levels to match the 'traffic lights' theme :-)
       MG.data_graphic({
-          title: "Number of residents per activity level for past seven days.",
-          description: "Daily count of residents with inactive, semi-active, and active status.",
+          title: activityLevelTrendTitle,
+          description: activityLevelTrendDescription,
           data: userLocalTimezoneData,
           x_axis: true,
           y_label: "Number of residents",

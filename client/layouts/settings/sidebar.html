@@ -6,30 +6,30 @@
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li class="header">Settings Menu</li>
+        <li class="header">{{_ "settingsLayoutSidebar-header" }}</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="{{ isActiveRoute 'activityTypesSettings' }}">
           <a href='{{ pathFor "activityTypesSettings" }}'>
             <i class="fa fa-heart-o"></i>&nbsp;
-            <span>Activity Types</span>
+            <span>{{_ "settingsLayoutSidebar-activityTypesLink" }}</span>
           </a>
         </li>
         <li class="{{ isActiveRoute 'dateTimeSettings' }}">
           <a href='{{ pathFor "dateTimeSettings" }}'>
             <i class="fa fa-calendar"></i>&nbsp;
-            <span>Date/Time</span>
+            <span>{{_ "settingsLayoutSidebar-dateTimeLink" }}</span>
           </a>
         </li>
         <li class="{{ isActiveRoute 'rolesSettings' }}">
           <a href='{{ pathFor "rolesSettings" }}'>
             <i class="fa fa-user-md"></i>&nbsp;
-            <span>Roles</span>
+            <span>{{_ "settingsLayoutSidebar-rolesLink" }}</span>
           </a>
         </li>
         <li class="{{ isActiveRoute 'usersSettings' }}">
           <a href='{{ pathFor "usersSettings" }}'>
             <i class="fa fa-users"></i>&nbsp;
-            <span>Users</span>
+            <span>{{_ "settingsLayoutSidebar-usersLink" }}</span>
           </a>
         </li>
       </ul>

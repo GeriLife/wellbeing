@@ -4,7 +4,9 @@
       <div class="modal-content">
         {{# if Template.subscriptionsReady }}
         <div class="modal-header">
-          <h4 class="modal-title">Edit resident {{ this.firstName }} {{ this.lastInitial }}</h4>
+          <h4 class="modal-title">
+            {{_ "editResident-header" }}
+          </h4>
         </div>
         {{#autoForm id="editResidentForm" type="update" collection="Residents" doc=this  }}
 
@@ -13,12 +15,18 @@
           {{> afQuickField name="lastInitial"}}
           {{> afQuickField name="homeId"}}
           {{> afQuickField name="departed"}}
-          <p class="help-block">Resident has left the community.</p>
+          <p class="help-block">
+            {{_ "editResident-departed-helpText" }}
+          </p>
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Save</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success">
+            {{_ "editResident-save" }}
+          </button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            {{_ "editResident-cancel" }}
+          </button>
         </div>
         {{/ autoForm }}
         {{ else }}

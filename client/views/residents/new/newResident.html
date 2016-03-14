@@ -4,7 +4,10 @@
       <div class="modal-content">
         {{# if Template.subscriptionsReady }}
         <div class="modal-header">
-          <h4 class="modal-title"><i class="fa fa-user"></i> Create new resident</h4>
+          <h4 class="modal-title">
+            <i class="fa fa-user"></i>&nbsp;
+            {{_ "newResident-header" }}
+           </h4>
         </div>
         {{#autoForm id="newResidentForm" type="insert" collection="Residents"  }}
 
@@ -15,8 +18,17 @@
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Save</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button
+            type="submit"
+            class="btn btn-success">
+            {{_ "newResident-saveButton" }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-dismiss="modal">
+            {{_ "newResident-cancelButton" }}
+          </button>
         </div>
         {{/ autoForm }}
         {{ else }}

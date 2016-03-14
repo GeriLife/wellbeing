@@ -1,6 +1,9 @@
 <template name="usersSettings">
   <section class="content-header">
-    <h1><i class="fa fa-users"></i> Users</h1>
+    <h1>
+      <i class="fa fa-users"></i>&nbsp;
+       {{_ "usersSettings-header" }}
+     </h1>
   </section>
   <section class="content">
     <div class="box box-primary">
@@ -8,7 +11,7 @@
         <div class="box-toolbar">
           <div class="pull-right">
             <button id="add-user" class="btn btn-primary">
-                Add User
+              {{_ "usersSettings-addUserButton" }}
             </button>
           </div>
         </div>
@@ -17,9 +20,15 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Email</th>
-              <th>Role(s)</th>
-              <th width="10%">Edit</th>
+              <th>
+                {{_ "usersSettings-tableHeaders-email" }}
+              </th>
+              <th>
+                {{_ "usersSettings-tableHeaders-roles" }}
+              </th>
+              <th width="10%">
+                {{_ "usersSettings-tableHeaders-edit" }}
+              </th>
             </tr>
           </thead>
           <tbody>

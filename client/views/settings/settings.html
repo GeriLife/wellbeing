@@ -1,25 +1,27 @@
 <template name="settings">
   <section class="content-header">
-    <h1>Settings</h1>
+    <h1>
+      {{_ "settings-header" }}
+    </h1>
   </section>
   <section class="content">
     <div class="box box-primary">
       <div class="box-body">
         <a class="btn btn-app" href="{{ pathFor 'activityTypesSettings' }}">
           <i class="fa fa-heart-o"></i>
-          Activity Types
+          {{_ "settings-activityTypes" }}
         </a>
         <a class="btn btn-app" href="{{ pathFor 'dateTimeSettings' }}">
           <i class="fa fa-calendar"></i>
-          Date/Time
+          {{_ "settings-dateTime" }}
         </a>
         <a class="btn btn-app" href="{{ pathFor 'rolesSettings' }}">
           <i class="fa fa-user-md"></i>
-          Roles
+          {{_ "settings-roles" }}
         </a>
         <a class="btn btn-app" href="{{ pathFor 'usersSettings' }}">
           <i class="fa fa-users"></i>
-          Users
+          {{_ "settings-users" }}
         </a>
       </div>
     </div>
