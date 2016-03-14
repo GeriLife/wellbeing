@@ -143,10 +143,10 @@
       "label": "Departed"
     }
   },
-  "residentActivityChart-title": "Daily activity in minutes",
-  "residentActivityChart-title": "Daily sum of activity minutes",
-  "residentActivityChart-yLabel": "Minutes",
-  "residentActivityChart-mouseoverLabel": "minutes",
+  "residentActivityTrendChart-title": "Daily activity in minutes",
+  "residentActivityTrendChart-description": "Daily sum of activity minutes",
+  "residentActivityTrendChart-yLabel": "Minutes",
+  "residentActivityTrendChart-mouseoverLabel": "minutes",
   "residentActivityLevel-active": "Active",
   "residentActivityLevel-semiActive": "Semi-active",
   "residentActivityLevel-inactive": "Inactive",
