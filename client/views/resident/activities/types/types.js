@@ -20,5 +20,26 @@ Template.residentActivityTypesChart.onRendered(function () {
     .entries(activities);
 
     // Get reference to chart container
-    const svg = dimple.newSvg("#activityTypesChart", 590, 400)
+    const svg = dimple.newSvg("#activityTypesChart", "100%", "100%");
+
+    // Initialize the activity type chart
+    const activityTypesChart = new dimple.chart(svg, activityTypeCounts);
+
+    // Set chart boundaries based on parent container size
+    activityTypesChart.setBounds("10%", "5%", "85%", "80%");
+
+    // Add activity types to x axis
+    const xAxis = activityTypesChart.addCategoryAxis("x", "key");
+
+    // Add activity type counts to y axis
+    const yAxis = activityTypesChart.addMeasureAxis("y", "values");
+
+    // Disable grid lines
+    yAxis.showGridlines = false;
+
+    // Add bar plot
+    activityTypesChart.addSeries(null, dimple.plot.bar);
+
+    // Render chart
+    activityTypesChart.draw();
 });
