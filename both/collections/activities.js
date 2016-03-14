@@ -148,6 +148,16 @@ Activities.helpers({
 
     return activityDateFormatted;
   },
+  facilitatorRole: function () {
+    // Get the facilitator Role ID
+    var facilitatorRoleId = this.facilitatorRoleId;
+
+    // Get Role from Roles collection, by ID
+    var facilitatorRole = Meteor.roles.findOne(facilitatorRoleId);
+
+    // Return the Role name
+    return facilitatorRole.name;
+  },
   timeAgo: function () {
     var activityDate = this.activityDate;
 

@@ -1,4 +1,4 @@
-Template.residentActivityChart.rendered = function () {
+Template.residentActivityTrendChart.rendered = function () {
   // Get reference to template instance
   const instance = this;
 
@@ -35,10 +35,10 @@ Template.residentActivityChart.rendered = function () {
     })
 
   // Get translation strings
-  const activityTrendTitle = TAPi18n.__("residentActivityChart-title");
-  const activityTrendDescription = TAPi18n.__("residentActivityChart-description");
-  const yLabel = TAPi18n.__("residentActivityChart-yLabel");
-  const mouseoverLabel = TAPi18n.__("residentActivityChart-mouseoverLabel");
+  const activityTrendTitle = TAPi18n.__("residentActivityTrendChart-title");
+  const activityTrendDescription = TAPi18n.__("residentActivityTrendChart-description");
+  const yLabel = TAPi18n.__("residentActivityTrendChart-yLabel");
+  const mouseoverLabel = TAPi18n.__("residentActivityTrendChart-mouseoverLabel");
 
   // Render the chart using MetricsGraphics charting library
   MG.data_graphic({

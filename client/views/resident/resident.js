@@ -8,6 +8,9 @@ Template.resident.created = function () {
   // Subscribe to current resident
   instance.subscribe('residentComposite', instance.residentId);
 
+  // Subscribe to all roles except admin
+  instance.subscribe("allRolesExceptAdmin");
+
   instance.autorun(function () {
     if (instance.subscriptionsReady()) {
       instance.resident = Residents.findOne(instance.residentId);
