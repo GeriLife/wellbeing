@@ -14,7 +14,7 @@ Welbeing activity log and visualization tool.
 ![Activity calendar headmap inline](https://cdn.rawgit.com/GeriLife/wellbeing/master/docs/screenshots/activity-heatmap.jpg)
 
 ## Activity table
-![Table showing recent activities](https://raw.githubusercontent.com/brylie/juhani-wellbeing/master/docs/screenshots/activity-table.jpg)
+![Table showing recent activities](https://cdn.rawgit.com/GeriLife/wellbeing/master/docs/screenshots/activity-table.png)
 
 # User Stories
 ```
