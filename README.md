@@ -8,8 +8,10 @@ Welbeing activity log and visualization tool.
 ## View activity level
 ![Activity graph with trend line](https://raw.githubusercontent.com/brylie/juhani-wellbeing/master/docs/screenshots/activity-graph-with-trend-line.jpg)
 
-## Activity heatmap
-![Activity heatmap](https://raw.githubusercontent.com/brylie/juhani-wellbeing/master/docs/screenshots/activity-heatmap.jpg)
+## Activity calendar heatmap
+![Activity heatmap](https://cdn.rawgit.com/GeriLife/wellbeing/master/docs/screenshots/activity-calendar-heatmap.png)
+
+![Activity calendar headmap inline](https://cdn.rawgit.com/GeriLife/wellbeing/master/docs/screenshots/activity-heatmap.jpg)
 
 ## Activity table
 ![Table showing recent activities](https://raw.githubusercontent.com/brylie/juhani-wellbeing/master/docs/screenshots/activity-table.jpg)
