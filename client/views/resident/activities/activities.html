@@ -5,6 +5,11 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active">
+      <a href="#types" aria-controls="types" role="tab" data-toggle="tab">
+        {{_ "residentActivities-tabs-types" }}
+      </a>
+    </li>
+    <li role="presentation">
       <a href="#chart" aria-controls="chart" role="tab" data-toggle="tab">
         {{_ "residentActivities-tabs-trend" }}
       </a>
@@ -23,7 +28,10 @@
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="chart">
+    <div role="tabpanel" class="tab-pane active" id="types">
+      {{> residentActivityTypesChart activities=activities }}
+    </div>
+    <div role="tabpanel" class="tab-pane" id="chart">
       {{> residentActivityChart activities=activities }}
     </div>
     <div role="tabpanel" class="tab-pane" id="calendar">
