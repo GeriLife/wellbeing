@@ -32,7 +32,8 @@ Template.residentActivityTypesChart.onRendered(function () {
     const xAxis = activityTypesChart.addCategoryAxis("x", "key");
 
     // Set the y axis title
-    xAxis.title = "Activity type";
+    const xAxisTitle = TAPi18n.__("residentActivityTypesChart-xAxis-title");
+    xAxis.title = xAxisTitle;
 
     // Reduce the x axis font size, so labels do not get truncated
     xAxis.fontSize = "7px";
@@ -44,7 +45,8 @@ Template.residentActivityTypesChart.onRendered(function () {
     yAxis.showGridlines = false;
 
     // Set the y axis title
-    yAxis.title = "Activity count";
+    const yAxisTitle = TAPi18n.__("residentActivityTypesChart-yAxis-title");
+    yAxis.title = yAxisTitle;
 
     // Add bar plot
     activityTypesChart.addSeries(null, dimple.plot.bar);

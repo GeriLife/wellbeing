@@ -31,8 +31,16 @@ Template.residentFacilitatorRolesChart.onRendered(function () {
     // Add facilitator roles to x axis
     const xAxis = facilitatorRolesChart.addCategoryAxis("x", "key");
 
+    // Set x axis title
+    const xAxisTitle = TAPi18n.__("residentFacilitatorRolesChart-xAxis-title");
+    xAxis.title = xAxisTitle;
+
     // Add facilitator role counts to y axis
     const yAxis = facilitatorRolesChart.addMeasureAxis("y", "values");
+
+    // Set y axis title
+    const yAxisTitle = TAPi18n.__("residentFacilitatorRolesChart-yAxis-title");
+    xAxis.title = yAxisTitle;
 
     // Disable grid lines
     yAxis.showGridlines = false;
