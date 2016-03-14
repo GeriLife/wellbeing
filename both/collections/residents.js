@@ -2,17 +2,14 @@ Residents = new Mongo.Collection('residents');
 
 var ResidentsSchema = new SimpleSchema({
   firstName: {
-    type: String,
-    label: 'First Name'
+    type: String
   },
   lastInitial: {
     type: String,
-    label: 'Last Initial',
     max: 1,
   },
   homeId: {
     type: String,
-    label: 'Home',
     autoform: {
       options: function() {
         // Get all Groups
@@ -51,7 +48,6 @@ var ResidentsSchema = new SimpleSchema({
   },
   interestsDescription: {
     type: String,
-    label: "Description of Interests",
     optional: true,
     autoform: {
       type: 'textarea'
@@ -59,9 +55,13 @@ var ResidentsSchema = new SimpleSchema({
   },
   departed: {
     type: Boolean,
-    optional: true
+    optional: true,
+    defaultValue: false
   }
 });
+
+// Add i18n tags
+ResidentsSchema.i18n("residents");
 
 Residents.attachSchema(ResidentsSchema);
 
@@ -114,9 +114,63 @@ Residents.helpers({
 
 Residents.allow({
   'insert': function () {
-    return true;
+    // Get user ID
+    let userId = Meteor.userId();
+
+    // Placeholder for administrator check
+    let userIsAdministrator;
+
+    // Placeholder for insert privilege check
+    let userCanInsert;
+
+    if (userId) {
+      // Check if user is administrator
+      userIsAdministrator = Roles.userIsInRole(userId, ['admin']);
+    }
+
+    // Only allow adminstator users insert
+    userCanInsert = (userId && userIsAdministrator);
+
+    return userCanInsert;
   },
   'update': function () {
-    return true;
+    // Get user ID
+    let userId = Meteor.userId();
+
+    // Placeholder for administrator check
+    let userIsAdministrator;
+
+    // Placeholder for update privilege check
+    let userCanUpdate;
+
+    if (userId) {
+      // Check if user is administrator
+      userIsAdministrator = Roles.userIsInRole(userId, ['admin']);
+    }
+
+    // Only allow adminstator users insert
+    userCanUpdate = (userId && userIsAdministrator);
+
+    return userCanUpdate;
+  },
+  'remove': function () {
+    /// Get user ID
+    let userId = Meteor.userId();
+
+    // Placeholder for administrator check
+    let userIsAdministrator;
+
+    // Placeholder for insert privilege check
+    let userCanRemove;
+
+    if (userId) {
+      // Check if user is administrator
+      userIsAdministrator = Roles.userIsInRole(userId, ['admin']);
+    }
+
+    // Only allow adminstator users insert
+    userCanRemove = (userId && userIsAdministrator);
+
+    return userCanRemove;
   }
 });

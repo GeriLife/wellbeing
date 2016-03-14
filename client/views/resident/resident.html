@@ -3,11 +3,17 @@
   <h1 class="page-header">
     {{ resident.firstName }} {{ resident.lastInitial }}
     {{# if isInRole 'admin' }}
-    <button id="edit-resident" class="btn btn-default">Edit</button>
+    <button id="edit-resident" class="btn btn-default">
+      {{_ "resident-editButton" }}
+    </button>
     {{/ if }}
   </h1>
-  {{> residentActivities }}
+  {{>
+    residentActivities
+    resident=resident
+    activities=activities
+  }}
   {{ else }}
-  {{> spinner }}
+    {{> spinner }}
   {{/ if }}
 </template>

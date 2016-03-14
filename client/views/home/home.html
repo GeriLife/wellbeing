@@ -1,8 +1,11 @@
 <template name="home">
   <h1 class="page-header">
-    <i class="fa fa-lg fa-home"></i> {{ home.name }}
+    <i class="fa fa-lg fa-home"></i>&nbsp;
+    {{ home.name }}
     {{# if isInRole 'admin' }}
-    <button id="edit-home" class="btn btn-default">Edit</button>
+    <button id="edit-home" class="btn btn-default">
+      {{_ "home-editHomeButton" }}
+    </button>
     {{/ if }}
   </h1>
   <div class="row">
@@ -10,7 +13,8 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h2 class="panel-header">
-            <i class="fa fa-lg fa-users"></i> Residents
+            <i class="fa fa-lg fa-users"></i>&nbsp;
+             {{_ "home-residentsPanel-heading" }}
           </h2>
         </div>
         <div class="panel-body">
@@ -22,7 +26,8 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h2 class="panel-header">
-            <i class="fa fa-lg fa-users"></i> Activity Level Trends
+            <i class="fa fa-lg fa-users"></i>&nbsp;
+            {{_ "home-activityLevelTrendsPanel-heading" }}
           </h2>
         </div>
         <div class="panel-body">
@@ -34,7 +39,8 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h2 class="panel-header">
-        <i class="fa fa-lg fa-heartbeat"></i> Activities
+        <i class="fa fa-lg fa-heartbeat"></i>&nbsp;
+        {{_ "home-activitiesPanel-heading" }}
       </h2>
     </div>
     <div class="panel-body">
@@ -42,12 +48,12 @@
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
           <a href="#activity-chart" aria-controls="chart" role="tab" data-toggle="tab">
-            Resident Activity Summary
+            {{_ "home-activitiesPanel-activitySummaryTab" }}
           </a>
         </li>
         <li role="presentation">
           <a href="#activity-table" aria-controls="calendar" role="tab" data-toggle="tab">
-            Activity Table
+            {{_ "home-activitiesPanel-activityTableTab" }}
           </a>
         </li>
       </ul>

@@ -2,8 +2,7 @@ Activities = new Mongo.Collection('activities');
 
 var ActivitiesSchema = new SimpleSchema({
   residentIds: {
-    type: Array,
-    label: 'Resident'
+    type: Array
   },
   'residentIds.$': {
     type: String,
@@ -48,7 +47,6 @@ var ActivitiesSchema = new SimpleSchema({
   },
   activityTypeId: {
     type: String,
-    label: 'Activity Type',
     autoform: {
       options: function() {
         // Get all activity types from db
@@ -68,6 +66,15 @@ var ActivitiesSchema = new SimpleSchema({
   },
   activityDate: {
     type: Date,
+    min: function () {
+      // Only allow activities to be recorded for the past seven days
+      return moment().subtract(7, "days").toDate();
+
+    },
+    max: function () {
+      // Do not allow activity dates in the future
+      return new Date();
+    },
     autoform: {
       afFieldInput: {
         type: "bootstrap-datepicker"
@@ -76,11 +83,9 @@ var ActivitiesSchema = new SimpleSchema({
   },
   duration: {
     type: Number,
-    label: "Duration (in minutes)"
   },
   facilitatorRoleId: {
     type: String,
-    label: "Facilitator role",
     autoform: {
       options: function() {
         // Get all roles, except admin, from db
@@ -102,6 +107,10 @@ var ActivitiesSchema = new SimpleSchema({
   }
 });
 
+// Add i18n tags
+ActivitiesSchema.i18n("activities");
+
+// Attach schema to collection
 Activities.attachSchema(ActivitiesSchema);
 
 Activities.helpers({

@@ -2,59 +2,39 @@
   <div class="page-header">
     {{# if isInRole 'admin' }}
     <div class="btn-group pull-right">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Add New <span class="caret"></span>
+      <button
+        type="button"
+        class="btn btn-primary dropdown-toggle"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false">
+        {{_ "homes-header-addNewButton" }}&nbsp;
+        <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
         <li>
           <a id="new-group">
-            <i class="fa fa-cubes"></i> Group
+            <i class="fa fa-cubes"></i>&nbsp;
+            {{_ "homes-header-addNewButton-group" }}
           </a>
         </li>
         <li>
           <a id="new-home">
-            <i class="fa fa-home"></i> Home
+            <i class="fa fa-home"></i>&nbsp;
+            {{_ "homes-header-addNewButton-home" }}
           </a>
         </li>
       </ul>
     </div>
     {{/ if }}
-    <h1><i class="fa fa-home"></i> Homes</h1>
+    <h1>
+      <i class="fa fa-home"></i>&nbsp;
+      {{_ "homes-header" }}
+    </h1>
   </div>
   {{# if Template.subscriptionsReady }}
     {{# each groups }}
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h2 id="{{ name }}-title" class="panel-title">
-          <i class="fa fa-cubes"></i> {{ name }}
-        </h2>
-      </div>
-      <div class="panel-body">
-        <table class="table table-compact table-striped">
-          <caption>
-            Homes with count of residents per seven day activiy level.
-          </caption>
-          <thead>
-            <tr>
-              <th><i class="fa fa-home"></i> Name</th>
-              <th>Inactive residents</th>
-              <th>Semi-active residents</th>
-              <th>Active residents</th>
-            </tr>
-          </thead>
-          <tbody>
-              {{# each homes }}
-              <tr id="home-{{ _id }}" class="home">
-                <td>
-                  {{ name  }}
-                </td>
-                 {{> singleHomeActivityStatus }}
-               </tr>
-              {{/ each }}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    {{> homeGroup }}
     {{/ each }}
   {{/ if }}
 </template>

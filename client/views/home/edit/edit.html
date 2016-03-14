@@ -4,7 +4,9 @@
       <div class="modal-content">
         {{# if Template.subscriptionsReady }}
         <div class="modal-header">
-          <h4 class="modal-title">Edit home {{ this.name }}</h4>
+          <h4 class="modal-title">
+            {{_ "editHome-title" }}
+          </h4>
         </div>
         {{#autoForm id="editHomeForm" type="update" collection="Homes" doc=this  }}
 
@@ -14,8 +16,12 @@
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Save</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success">
+            {{_ "editHome-save" }}
+          </button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            {{_ "editHome-cancel" }}
+          </button>
         </div>
         {{/ autoForm }}
         {{ else }}

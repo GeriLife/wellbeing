@@ -1,11 +1,11 @@
-Template.activityTypesList.created = function () {
+Template.activityTypesSettings.created = function () {
   // Get reference to template instance
   var instance = this;
 
   instance.subscribe('allActivityTypes');
 };
 
-Template.activityTypesList.helpers({
+Template.activityTypesSettings.helpers({
   "activityTypes": function () {
     // Get all activity types
     var activityTypes = ActivityTypes.find({}, {sort: {name: 1}}).fetch();
@@ -14,7 +14,7 @@ Template.activityTypesList.helpers({
   }
 });
 
-Template.activityTypesList.events({
+Template.activityTypesSettings.events({
   'click #add-activity-type': function () {
     // Show the add activity modal
     Modal.show('newActivityType');

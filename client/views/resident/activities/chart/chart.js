@@ -1,23 +1,21 @@
 Template.residentActivityChart.rendered = function () {
-  // Get resident id
-  var residentId = this.data._id;
+  // Get reference to template instance
+  const instance = this;
 
   // Get resident name
-  var residentName = this.data.firstName + " " + this.data.lastInitial;
+  const residentName = instance.data.firstName + " " + instance.data.lastInitial;
 
-  // Get the resident activities
-  var activities = Residents.findOne(residentId).activities().fetch();
+  // Get the resident activities from template instance
+  const activities = instance.data.activities;
 
-  //TODO: Make sure there can be multiple activities in a single day.
-
-  // Create a nest of activities grouped by activity date
-  var nestedActivities = d3.nest()
+  // Group activities by activity date
+  const nestedActivities = d3.nest()
     .key(function (activity) {
       return activity.activityDate;
     })
 
   // Get a sum of activities
-  var summedActivities = nestedActivities.rollup(function (activity) {
+  const summedActivities = nestedActivities.rollup(function (activity) {
       return {
         duration: d3.sum(activity, function (activity) {
           return activity.duration;
@@ -36,11 +34,17 @@ Template.residentActivityChart.rendered = function () {
       delete activity.key;
     })
 
+  // Get translation strings
+  const activityTrendTitle = TAPi18n.__("residentActivityChart-title");
+  const activityTrendDescription = TAPi18n.__("residentActivityChart-description");
+  const yLabel = TAPi18n.__("residentActivityChart-yLabel");
+  const mouseoverLabel = TAPi18n.__("residentActivityChart-mouseoverLabel");
+
   // Render the chart using MetricsGraphics charting library
   MG.data_graphic({
-    title: "Daily activity in minutes.",
-    description: "Showing daily activity minutes for " + residentName,
-    y_label: 'Minutes',
+    title: activityTrendTitle,
+    description: activityTrendDescription,
+    y_label: yLabel,
     y_rug: true,
     data: summedActivities,
     chart_type: 'point',
@@ -52,11 +56,11 @@ Template.residentActivityChart.rendered = function () {
     x_accessor: 'date',
     y_accessor: 'duration',
     mouseover: function (d, i) {
-      var date = d.point.date;
-      var formattedDate = moment(date).format("D.M.YYYY");
-      var minutes = d.point.duration;
+      const date = d.point.date;
+      const formattedDate = moment(date).format("D.M.YYYY");
+      const minutes = d.point.duration;
       d3.select('#activity-chart svg .mg-active-datapoint')
-        .text(formattedDate + ' ' + minutes + ' minutes');
+        .text(formattedDate + ' ' + minutes + ' ' + mouseoverLabel);
     }
   });
 }

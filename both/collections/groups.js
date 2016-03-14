@@ -1,11 +1,13 @@
 Groups = new Mongo.Collection('groups');
 
 var GroupsSchema = new SimpleSchema({
-  name:{
-    type:String,
-    label: 'Group Name',
+  name: {
+    type: String
   }
 });
+
+// Add i18n tags
+GroupsSchema.i18n("groups");
 
 Groups.attachSchema(GroupsSchema);
 

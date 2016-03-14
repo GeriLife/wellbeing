@@ -2,7 +2,10 @@
     <tr  id="resident-{{ _id }}" class="resident">
       <td>{{ firstName }} {{ lastInitial }}</td>
       <td class="activity-count {{ activityLabelClass }}">
-        {{ activityCount }} {{ activityLabelText }}
+        {{ activityCount }}&nbsp;
+        {{#if activityLabelText }}
+        ({{ activityLabelText }})
+        {{/ if }}
       </td>
     </tr>
 </template>

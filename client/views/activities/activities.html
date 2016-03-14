@@ -1,26 +1,31 @@
 <template name="activities">
   <div class="page-heading">
     <button id="add-activity" class="btn btn-primary pull-right">
-      Add Activity
+      {{_ "activities-addActivityButton" }}
     </button>
-    <h1 class="page-header"><i class="fa fa-heartbeat"></i> Activities</h1>
+    <h1 class="page-header">
+      <i class="fa fa-heartbeat"></i>&nbsp;
+      {{_ "activities-pageHeader" }}
+    </h1>
   </div>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h2 class="panel-title">Filter activities</h2>
+      <h2 class="panel-title">{{_ "activities-filterActivities-heading" }}</h2>
     </div>
     <div class="panel-body">
       <div class="col-sm-3 col-xs-12">
-        {{> reactiveTableFilter id="residentFilter" label="Resident" fields=residentFilterFields }}
+        {{> reactiveTableFilter id="residentFilter" label=residentFilterLabel fields=residentFilterFields }}
       </div>
       <div class="col-sm-3 col-xs-12">
-        {{> reactiveTableFilter id="homeFilter" label="Home" fields=homeFilterFields }}
+        {{> reactiveTableFilter id="homeFilter" label=homeFilterLabel fields=homeFilterFields }}
       </div>
       <div class="col-sm-3 col-xs-12">
-        {{> reactiveTableFilter id="typeFilter" label="Type" fields=activityTypeFilterFields }}
+        {{> reactiveTableFilter id="typeFilter" label=activityTypeFilterLabel fields=activityTypeFilterFields }}
       </div>
        <div class="form-group pull-right col-sm-3 col-xs-12">
-        <label for="all-or-latest">Show only latest</label>
+        <label for="all-or-latest">
+          {{_ "activities-filterActivities-showOnlyLatest" }}
+        </label>
         <input type="checkbox" name="all-or-latest" class="form-control" >
       </div>
     </div>
