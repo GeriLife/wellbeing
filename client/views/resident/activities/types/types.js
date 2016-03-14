@@ -7,7 +7,7 @@ Template.residentActivityTypesChart.onRendered(function () {
   activities = _.map(activities, function (activity) {
     // Get activity type name via collection helper
     activity.type = activity.activityType();
-    
+
     return activity;
   });
 
@@ -18,4 +18,7 @@ Template.residentActivityTypesChart.onRendered(function () {
     })
     .rollup(function (activityType) { return activityType.length })
     .entries(activities);
+
+    // Get reference to chart container
+    const svg = dimple.newSvg("#activityTypesChart", 590, 400)
 });
