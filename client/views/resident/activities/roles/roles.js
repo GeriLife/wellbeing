@@ -26,21 +26,24 @@ Template.residentFacilitatorRolesChart.onRendered(function () {
     const facilitatorRolesChart = new dimple.chart(svg, facilitatorRoleCounts);
 
     // Set chart boundaries based on parent container size
-    facilitatorRolesChart.setBounds("10%", "5%", "85%", "80%");
+    facilitatorRolesChart.setBounds("20%", "5%", "75%", "60%");
 
     // Add facilitator roles to x axis
-    const xAxis = facilitatorRolesChart.addCategoryAxis("x", "key");
+    const xAxis = facilitatorRolesChart.addMeasureAxis("x", "values");
 
     // Set x axis title
     const xAxisTitle = TAPi18n.__("residentFacilitatorRolesChart-xAxis-title");
     xAxis.title = xAxisTitle;
 
+    // Disable grid lines
+    xAxis.showGridlines = false;
+
     // Add facilitator role counts to y axis
-    const yAxis = facilitatorRolesChart.addMeasureAxis("y", "values");
+    const yAxis = facilitatorRolesChart.addCategoryAxis("y", "key");
 
     // Set y axis title
     const yAxisTitle = TAPi18n.__("residentFacilitatorRolesChart-yAxis-title");
-    xAxis.title = yAxisTitle;
+    yAxis.title = yAxisTitle;
 
     // Disable grid lines
     yAxis.showGridlines = false;

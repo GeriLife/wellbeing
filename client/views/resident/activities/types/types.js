@@ -26,27 +26,27 @@ Template.residentActivityTypesChart.onRendered(function () {
     const activityTypesChart = new dimple.chart(svg, activityTypeCounts);
 
     // Set chart boundaries based on parent container size
-    activityTypesChart.setBounds("5%", "5%", "95%", "80%");
+    activityTypesChart.setBounds("30%", "5%", "65%", "60%");
 
     // Add activity types to x axis
-    const xAxis = activityTypesChart.addCategoryAxis("x", "key");
+    const xAxis = activityTypesChart.addMeasureAxis("x", "values");
 
     // Set the y axis title
     const xAxisTitle = TAPi18n.__("residentActivityTypesChart-xAxis-title");
     xAxis.title = xAxisTitle;
 
-    // Reduce the x axis font size, so labels do not get truncated
-    xAxis.fontSize = "7px";
+    // Disable grid lines
+    xAxis.showGridlines = false;
 
     // Add activity type counts to y axis
-    const yAxis = activityTypesChart.addMeasureAxis("y", "values");
-
-    // Disable grid lines
-    yAxis.showGridlines = false;
+    const yAxis = activityTypesChart.addCategoryAxis("y", "key");
 
     // Set the y axis title
     const yAxisTitle = TAPi18n.__("residentActivityTypesChart-yAxis-title");
     yAxis.title = yAxisTitle;
+
+    // Reduce the x axis font size, so labels do not get truncated
+    yAxis.fontSize = "8px";
 
     // Add bar plot
     activityTypesChart.addSeries(null, dimple.plot.bar);
