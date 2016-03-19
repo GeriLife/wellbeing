@@ -23,6 +23,15 @@ Meteor.methods({
     // return the resident IDs array
     return residentIds;
   },
+  'getHomeCurrentResidentCount': function (homeId) {
+    // Get all current residents for specific home
+    const homeCurrentResidentIds = Meteor.call("getHomeCurrentResidentIds", homeId);
+
+    // Count the length of current resident IDs list
+    const homeCurrentResidentsCount = homeCurrentResidentIds.length;
+
+    return homeCurrentResidentsCount;
+  },
   'getHomeActivities': function (homeId) {
     // Get all resident of this home
     var homeResidentIds = Meteor.call('getHomeCurrentResidentIds', homeId);
