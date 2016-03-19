@@ -59,17 +59,30 @@ Template.singleHomeActivityStatus.onRendered(function () {
   const svgId = `#activityLevelCountsChart-${homeId}`;
 
   // Get reference to chart element
-  const svg = dimple.newSvg(svgId, 200, 100);
+  const svg = dimple.newSvg(svgId, "100%", 100);
 
   // Initialize chart with empty data array
   const activityLevelsChart = new dimple.chart(svg, []);
 
   // Set chart boundaries
-  activityLevelsChart.setBounds("10%", "5%", "80%", "70%");
+  activityLevelsChart.setBounds("15%", "5%", "80%", "70%");
 
   // Add home resident percentage to x axis
   const xAxis = activityLevelsChart.addPctAxis("x", "homePercentage");
 
   // Add activity level type to y axis
   const yAxis = activityLevelsChart.addCategoryAxis("y", "type");
+
+  instance.autorun(function () {
+    // Get activity level counts
+    const activityLevelCounts = instance.activityLevelCounts.get();
+
+    if (activityLevelCounts) {
+      // Add activity level data to chart
+      activityLevelsChart.data = activityLevelCounts;
+
+      // Draw the chart
+      activityLevelsChart.draw();
+    }
+  });
 });
