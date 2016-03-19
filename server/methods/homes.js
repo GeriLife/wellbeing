@@ -11,7 +11,7 @@ Meteor.methods({
     // return the resident IDs array
     return residentIds;
   },
-  'getCurrentHomeResidentIds': function (homeId) {
+  'getHomeCurrentResidentIds': function (homeId) {
     // Get all residents of specific home
     var residents = Residents.find({'homeId': homeId, departed: false}).fetch();
 
@@ -25,7 +25,7 @@ Meteor.methods({
   },
   'getHomeActivities': function (homeId) {
     // Get all resident of this home
-    var homeResidentIds = Meteor.call('getCurrentHomeResidentIds', homeId);
+    var homeResidentIds = Meteor.call('getHomeCurrentResidentIds', homeId);
 
     // Get an array of all activity Ids for residents of this home
     var homeResidentActivitiesQuery = Activities.find(
@@ -51,7 +51,7 @@ Meteor.methods({
   },
   'getHomeResidentsActivitySumsByType': function (homeId) {
     // Get all resident IDs
-    var residentIds = Meteor.call('getCurrentHomeResidentIds', homeId);
+    var residentIds = Meteor.call('getHomeCurrentResidentIds', homeId);
 
     // Placeholder for all resident activity sums by type
     var allResidentActivitySumsByType = [];
@@ -72,7 +72,7 @@ Meteor.methods({
   },
   "getHomeActivityLevelCounts": function (homeId) {
     // // Get home residents by calling getHomeResidentIds
-    var residentIds = Meteor.call("getCurrentHomeResidentIds",homeId);
+    var residentIds = Meteor.call("getHomeCurrentResidentIds",homeId);
 
     var residentActivityLevelCounts = {
       inactive: 0,
@@ -108,7 +108,7 @@ Meteor.methods({
   },
   "getHomeActivityCountTrend": function (homeId) {
     // Get home residents
-    var residentIds = Meteor.call("getCurrentHomeResidentIds",homeId);
+    var residentIds = Meteor.call("getHomeCurrentResidentIds",homeId);
 
     // Number of days to look back
     var numberOfDays = 7;
