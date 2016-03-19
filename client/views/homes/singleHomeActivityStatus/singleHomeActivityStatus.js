@@ -69,4 +69,7 @@ Template.singleHomeActivityStatus.onRendered(function () {
 
   // Add home resident percentage to x axis
   const xAxis = activityLevelsChart.addPctAxis("x", "homePercentage");
+
+  // Add activity level type to y axis
+  const yAxis = activityLevelsChart.addCategoryAxis("y", "type");
 });
