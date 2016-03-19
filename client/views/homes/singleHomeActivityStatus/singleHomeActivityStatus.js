@@ -68,5 +68,5 @@ Template.singleHomeActivityStatus.onRendered(function () {
   activityLevelsChart.setBounds("10%", "5%", "80%", "70%");
 
   // Add home resident percentage to x axis
-  activityLevelsChart.addPctAxis("x", "homePercentage");
+  const xAxis = activityLevelsChart.addPctAxis("x", "homePercentage");
 });
