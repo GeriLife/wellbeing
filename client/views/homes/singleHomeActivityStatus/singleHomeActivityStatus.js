@@ -34,3 +34,30 @@ Template.singleHomeActivityStatus.onCreated(function () {
       }
     });
   });
+
+Template.singleHomeActivityStatus.onRendered(function () {
+  // Get reference to template instance
+  const instance = this;
+
+  // Get home ID
+  const homeId = instance.homeId;
+
+  /*
+  Set up chart
+  */
+
+  // Set up ID string for chart element
+  const svgId = `#activityLevelCountsChart-${homeId}`;
+
+  // Get reference to chart element
+  const svg = dimple.newSvg(svgId, 200, 100);
+
+  // Initialize chart with empty data array
+  const activityLevelsChart = new dimple.chart(svg, []);
+
+  // Set chart boundaries
+  activityLevelsChart.setBounds("10%", "5%", "80%", "70%");
+
+  // Add counts to x axis
+  activityLevelCharts.addMeasureAxis("x", "count");
+});
