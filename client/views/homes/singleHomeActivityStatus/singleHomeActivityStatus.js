@@ -67,6 +67,6 @@ Template.singleHomeActivityStatus.onRendered(function () {
   // Set chart boundaries
   activityLevelsChart.setBounds("10%", "5%", "80%", "70%");
 
-  // Add counts to x axis
-  activityLevelsChart.addMeasureAxis("x", "count");
+  // Add home resident percentage to x axis
+  activityLevelsChart.addPctAxis("x", "homePercentage");
 });
