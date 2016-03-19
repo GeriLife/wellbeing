@@ -21,10 +21,10 @@
           </tr>
         </thead>
         <tbody>
-            {{# each homes }}
+            {{# each home in homes }}
             <tr id="home-{{ _id }}" class="home">
               <td>
-                {{ name }}
+                {{ home.name }}
               </td>
                {{> singleHomeActivityStatus }}
              </tr>
