@@ -8,29 +8,41 @@ Template.singleHomeActivityStatus.onCreated(function () {
     instance.activityLevelCounts = new ReactiveVar();
 
     instance.autorun(function () {
+      // Get current home residents
+      const homeCurrentResidentIds = ReactiveMethod.call("getCurrentHomeResidentIds", instance.homeId);
+
       // Retrieve home resident activity level counts from server
       const activityLevelCounts = ReactiveMethod.call("getHomeActivityLevelCounts", instance.homeId);
 
       // Make sure activity level counts exist
-      if (activityLevelCounts) {
+      if (activityLevelCounts && homeCurrentResidentIds) {
+        // Get count of home current residents
+        const homeCurrentResidentsCount = homeCurrentResidentIds.length;
+
         /*
-        Re-structure activity level counts data to an object containing
-        level and count attributes
+        Re-structure activity level counts data to an object containing:
+        type: the type of activity level (inactive, semiActive, active)
+        count: the number of residents with a given activity level
+        homePercentage: percengage of home residents with the activity level
         */
         const activityLevelTypes = _.keys(activityLevelCounts);
 
         const activityLevelData = _.map(activityLevelTypes, function (type) {
           // Construct an object with the type and count keys
-          const activityLevelCount = {
+          const activityLevelCountObject = {
+            // Activity level class (inactive, semi-active, active)
             type: type,
-            count: activityLevelCounts[type]
+            // Number of residents in activity class
+            count: activityLevelCounts[type],
+            // Percentage of home residents fallint into activity level class
+            homePercentage: activityLevelCounts[type] / homeCurrentResidentsCount
           };
 
-          return activityLevelCount;
+          return activityLevelCountObject;
         });
 
         // Update the reactive variable, to trigger the graph to render
-        instance.activityLevelCounts.set(activityLevelCounts);
+        instance.activityLevelCounts.set(activityLevelData);
       }
     });
   });
@@ -59,5 +71,5 @@ Template.singleHomeActivityStatus.onRendered(function () {
   activityLevelsChart.setBounds("10%", "5%", "80%", "70%");
 
   // Add counts to x axis
-  activityLevelCharts.addMeasureAxis("x", "count");
+  activityLevelsChart.addMeasureAxis("x", "count");
 });
