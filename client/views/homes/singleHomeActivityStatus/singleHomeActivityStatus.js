@@ -8,17 +8,14 @@ Template.singleHomeActivityStatus.onCreated(function () {
     instance.activityLevelCounts = new ReactiveVar();
 
     instance.autorun(function () {
-      // Get current home residents
-      const homeCurrentResidentIds = ReactiveMethod.call("getCurrentHomeResidentIds", instance.homeId);
+      // Get count of home current residents
+      const homeCurrentResidentsCount = ReactiveMethod.call("getHomeCurrentResidentCount", instance.homeId);
 
       // Retrieve home resident activity level counts from server
       const activityLevelCounts = ReactiveMethod.call("getHomeActivityLevelCounts", instance.homeId);
 
       // Make sure activity level counts exist
-      if (activityLevelCounts && homeCurrentResidentIds) {
-        // Get count of home current residents
-        const homeCurrentResidentsCount = homeCurrentResidentIds.length;
-
+      if (activityLevelCounts && homeCurrentResidentsCount) {
         /*
         Re-structure activity level counts data to an object containing:
         type: the type of activity level (inactive, semiActive, active)
