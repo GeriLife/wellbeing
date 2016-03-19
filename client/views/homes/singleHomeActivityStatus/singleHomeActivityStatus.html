@@ -1,25 +1,3 @@
 <template name="singleHomeActivityStatus">
-  {{# with activityLevelCounts}}
-    {{# if inactive }}
-    <td class="resident-activity-class-count danger">
-      {{ inactive }}
-    </td>
-    {{ else }}
-    <td></td>
-    {{/ if }}
-    {{# if semiActive }}
-    <td class="resident-activity-class-count warning">
-      {{ semiActive }}
-    </td>
-    {{ else }}
-    <td></td>
-    {{/ if }}
-    {{# if active }}
-    <td class="resident-activity-class-count success">
-      {{ active }}
-    </td>
-    {{ else }}
-    <td></td>
-    {{/ if }}
-  {{/ with }}
+  <div id="{{ _id }}-activityLevelCountsChart"></div>
 </template>
