@@ -77,6 +77,9 @@ Template.singleHomeActivityStatus.onRendered(function () {
   // Note: both chart.addPctAxis and axis.showPercentage caused d3 NaN errors
   xAxis.tickFormat = "%";
 
+  // Set x axis max to 100% for easy cross-comparison
+  xAxis.overrideMax = 1;
+
   // Add activity level type to y axis
   const yAxis = activityLevelsChart.addCategoryAxis("y", "type");
 
