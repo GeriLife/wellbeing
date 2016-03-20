@@ -87,12 +87,12 @@
   "home-activitiesPanel-heading": "Activities",
   "home-activitiesPanel-activitySummaryTab": "Resident activity summary",
   "home-activitiesPanel-activityTableTab": "Activity table",
+  "homeGroup-activityLevelsLegend-active": "Active",
+  "homeGroup-activityLevelsLegend-inactive": "Inactive",
+  "homeGroup-activityLevelsLegend-semiActive": "Semi-active",
   "homeGroup-tableCaption": "Homes with count of residents per seven day activiy level.",
   "homeGroup-tableHeader-activityLevels": "Activity levels",
   "homeGroup-tableHeader-name": "Name",
-  "homeGroup-tableHeader-inactiveResidents": "Inactive residents",
-  "homeGroup-tableHeader-semiActiveResidents": "Semi-active residents",
-  "homeGroup-tableHeader-activeResidents": "Active residents",
   "homes": {
     "name": {
       "label": "Home name"
