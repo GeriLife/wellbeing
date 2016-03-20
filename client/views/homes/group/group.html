@@ -33,14 +33,14 @@
           </tr>
         </thead>
         <tbody>
-            {{# each home in homes }}
+          {{# each homes }}
             <tr id="home-{{ _id }}" class="home">
               <td>
-                {{ home.name }}
+                {{ name }}
               </td>
-               {{> singleHomeActivityStatus home=home }}
+               {{> singleHomeActivityStatus home=this }}
              </tr>
-            {{/ each }}
+          {{/ each }}
         </tbody>
       </table>
     </div>
