@@ -9,7 +9,7 @@ Template.singleHomeActivityStatus.onCreated(function () {
 
     instance.autorun(function () {
       // Get count of home current residents
-      const homeCurrentResidentsCount = ReactiveMethod.call("getHomeCurrentResidentCount", instance.homeId);
+      instance.homeCurrentResidentsCount = ReactiveMethod.call("getHomeCurrentResidentCount", instance.homeId);
 
       // Retrieve home resident activity level counts from server
       const activityLevelCounts = ReactiveMethod.call("getHomeActivityLevelCounts", instance.homeId);
@@ -25,6 +25,9 @@ Template.singleHomeActivityStatus.onCreated(function () {
         const activityLevelTypes = _.keys(activityLevelCounts);
 
         const activityLevelData = _.map(activityLevelTypes, function (type) {
+          // Calculate the percentage of home residents in activity level class
+          const homePercentage = activityLevelCounts[type] / instance.homeCurrentResidentsCount;
+
           // Construct an object with the type and count keys
           const activityLevelCountObject = {
             // Activity level class (inactive, semi-active, active)
@@ -32,7 +35,7 @@ Template.singleHomeActivityStatus.onCreated(function () {
             // Number of residents in activity class
             count: activityLevelCounts[type],
             // Percentage of home residents fallint into activity level class
-            homePercentage: activityLevelCounts[type] / homeCurrentResidentsCount
+            homePercentage: homePercentage
           };
 
           return activityLevelCountObject;
