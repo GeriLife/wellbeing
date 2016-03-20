@@ -1,10 +1,8 @@
 Template.home.onCreated(function () {
   const instance = this;
-  console.log("Created");
 
   // Set current Home ID from router
   instance.homeId = Router.current().params.homeId;
-  console.log(instance.homeId);
 
   // Subscribe to current home
   instance.subscribe('singleHome', instance.homeId);
