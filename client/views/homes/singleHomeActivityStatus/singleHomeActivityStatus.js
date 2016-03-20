@@ -73,6 +73,9 @@ Template.singleHomeActivityStatus.onRendered(function () {
   // Add activity level type to y axis
   const yAxis = activityLevelsChart.addCategoryAxis("y", "type");
 
+  // Define bar chart series
+  activityLevelsChart.addSeries(null, dimple.plot.bar);
+
   instance.autorun(function () {
     // Get activity level counts
     const activityLevelCounts = instance.activityLevelCounts.get();
