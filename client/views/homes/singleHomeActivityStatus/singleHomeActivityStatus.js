@@ -101,7 +101,7 @@ Template.singleHomeActivityStatus.onRendered(function () {
       activityLevelsChart.data = activityLevelCounts;
 
       // Draw the chart
-      activityLevelsChart.draw();
+      activityLevelsChart.draw(1000);
     }
   });
 });
