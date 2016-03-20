@@ -15,7 +15,7 @@ Template.singleHomeActivityStatus.onCreated(function () {
       const activityLevelCounts = ReactiveMethod.call("getHomeActivityLevelCounts", instance.homeId);
 
       // Make sure activity level counts exist
-      if (activityLevelCounts && homeCurrentResidentsCount) {
+      if (activityLevelCounts && instance.homeCurrentResidentsCount) {
         /*
         Re-structure activity level counts data to an object containing:
         type: the type of activity level (inactive, semiActive, active)
@@ -71,7 +71,11 @@ Template.singleHomeActivityStatus.onRendered(function () {
   activityLevelsChart.setBounds("15%", "5%", "80%", "70%");
 
   // Add home resident percentage to x axis
-  const xAxis = activityLevelsChart.addMeasureAxis("x", "count");
+  const xAxis = activityLevelsChart.addMeasureAxis("x", "homePercentage");
+
+  // Format x axis as percentage
+  // Note: both chart.addPctAxis and axis.showPercentage caused d3 NaN errors
+  xAxis.tickFormat = "%";
 
   // Add activity level type to y axis
   const yAxis = activityLevelsChart.addCategoryAxis("y", "type");
