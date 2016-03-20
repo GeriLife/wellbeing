@@ -88,6 +88,7 @@
   "home-activitiesPanel-activitySummaryTab": "Resident activity summary",
   "home-activitiesPanel-activityTableTab": "Activity table",
   "homeGroup-tableCaption": "Homes with count of residents per seven day activiy level.",
+  "homeGroup-tableHeader-activityLevels": "Activity levels",
   "homeGroup-tableHeader-name": "Name",
   "homeGroup-tableHeader-inactiveResidents": "Inactive residents",
   "homeGroup-tableHeader-semiActiveResidents": "Semi-active residents",
