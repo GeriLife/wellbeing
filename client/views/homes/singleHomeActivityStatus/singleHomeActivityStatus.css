@@ -16,3 +16,14 @@ rect.dimple-active {
   fill: #5cb85c !important;
   stroke: #4cae4c !important;
 }
+
+#legend-inactive {
+  color: #d9534f;
+}
+
+#legend-semiactive {
+  color: #e6c829;
+}
+#legend-active {
+  color: #5cb85c;
+}
