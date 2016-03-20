@@ -102,6 +102,10 @@ Template.singleHomeActivityStatus.onRendered(function () {
 
       // Draw the chart
       activityLevelsChart.draw(1000);
+
+      // Remove axis titles
+      xAxis.titleShape.remove();
+      yAxis.titleShape.remove();
     }
   });
 });
