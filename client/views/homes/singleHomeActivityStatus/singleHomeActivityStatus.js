@@ -68,7 +68,7 @@ Template.singleHomeActivityStatus.onRendered(function () {
   const activityLevelsChart = new dimple.chart(svg, []);
 
   // Set chart boundaries
-  activityLevelsChart.setBounds("15%", "0%", "80%", "70%");
+  activityLevelsChart.setBounds("15%", "0%", "80%", "65%");
 
   // Add home resident percentage to x axis
   const xAxis = activityLevelsChart.addMeasureAxis("x", "homePercentage");
