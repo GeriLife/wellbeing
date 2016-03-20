@@ -83,7 +83,7 @@ Template.singleHomeActivityStatus.onRendered(function () {
   // Add activity level type to y axis
   const yAxis = activityLevelsChart.addCategoryAxis("y", "type");
 
-  // Sort the y axis by activity level type
+  // Sort the y axis activity levels
   yAxis.addOrderRule(["active", "semiActive", "inactive"]);
 
   // Define bar chart series
