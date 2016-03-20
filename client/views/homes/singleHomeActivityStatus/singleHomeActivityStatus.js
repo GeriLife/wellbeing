@@ -86,6 +86,9 @@ Template.singleHomeActivityStatus.onRendered(function () {
   // Add activity level type to y axis
   const yAxis = activityLevelsChart.addCategoryAxis("y", "type");
 
+  // Hide the y axis
+  yAxis.hidden = true;
+
   // Sort the y axis activity levels
   yAxis.addOrderRule(["active", "semiActive", "inactive"]);
 
