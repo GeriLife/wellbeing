@@ -80,6 +80,9 @@ Template.singleHomeActivityStatus.onRendered(function () {
   // Set x axis max to 100% for easy cross-comparison
   xAxis.overrideMax = 1;
 
+  // Remove x axis grid lines
+  xAxis.showGridlines = false;
+
   // Add activity level type to y axis
   const yAxis = activityLevelsChart.addCategoryAxis("y", "type");
 
