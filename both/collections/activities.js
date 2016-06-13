@@ -4,31 +4,45 @@ var ActivitiesSchema = new SimpleSchema({
   residentIds: {
     type: [String],
     autoform: {
-      type: "selectize",
+      type: "select2",
       multiple: true,
+      placeholder: "Choose resident(s)",
       options: function() {
-        // Get all residents who are not departed
-        var residents = Residents.find({departed: false}).fetch();
+        // Get list of homes, sorted alphabetically
+        const homes = Homes.find({}, {sort: {name: 1}}).fetch();
 
-        // Create an array of resident options
-        var residentOptions = _.map(residents, function (resident) {
-          return {
-            value: resident._id,
-            label: resident.fullName() + " (" + resident.homeName() + ")",
-            optgroup: resident.homeName(),
-            homeId: resident.homeId
-          };
+        // Create an array residents grouped by home
+        const residentsSelectOptions = _.map(homes, function (home) {
+          // Get home ID
+          const homeId = home._id;
+
+          // do not show departed residents
+          const departed = false;
+
+          // Sort by first name in alphabetical order
+          const sort = {firstName: 1}
+
+          // Get a list of residents for current home
+          const homeResidents = Residents.find({ homeId, departed }, {sort}).fetch();
+
+          // Create an object containing a home and its residents
+          const homeGroup = {
+            optgroup: home.name,
+            options: _.map(homeResidents, function (resident) {
+              // Create an object containing the resident name and ID
+              const residentObject = {
+                value: resident._id,
+                label: resident.fullName()
+              };
+
+              return residentObject;
+           })
+          }
+
+          return homeGroup;
         });
 
-        return residentOptions;
-      },
-      selectizeOptions: {
-        hideSelected: true,
-        optgroupLabelField: "homeName",
-        optgroupValueField: "homeId",
-        plugins: {
-          "remove_button": {}
-        }
+        return residentsSelectOptions;
       }
     }
   },
