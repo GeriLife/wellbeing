@@ -2,46 +2,33 @@ Activities = new Mongo.Collection('activities');
 
 var ActivitiesSchema = new SimpleSchema({
   residentIds: {
-    type: Array
-  },
-  'residentIds.$': {
-    type: String,
+    type: [String],
     autoform: {
+      type: "selectize",
+      multiple: true,
       options: function() {
-        // Get all Homes
-        var homes = Homes.find().fetch();
+        // Get all residents who are not departed
+        var residents = Residents.find({departed: false}).fetch();
 
-        // Create an array of Home IDs
-        var homeIDs = _.map(homes, function (home) {
-          return home._id;
+        // Create an array of resident options
+        var residentOptions = _.map(residents, function (resident) {
+          return {
+            value: resident._id,
+            label: resident.fullName() + " (" + resident.homeName() + ")",
+            optgroup: resident.homeName(),
+            homeId: resident.homeId
+          };
         });
 
-        // Create select options for residents input
-        // Grouping residents by home
-        var residentSelectOptions = _.map(homeIDs, function (homeID) {
-          // Find the name of this home
-          var homeName = Homes.findOne(homeID).name;
-
-          // Get all current residents of this home
-          var homeResidents = Residents.find({
-            homeId: homeID,
-            departed: false
-          }).fetch();
-
-          // Create a residents array with name/ID pairs for label/value
-          var residentOptions = _.map(homeResidents, function (homeResident) {
-            // Combine resident first name and last initial
-            var residentName = homeResident.firstName + ' ' + homeResident.lastInitial;
-
-            // Create option for this resident, with ID as the value
-            return {label: residentName, value: homeResident._id};
-          });
-
-          // Return residents and home as option group
-          return {optgroup: homeName, options: residentOptions};
-        });
-
-        return residentSelectOptions;
+        return residentOptions;
+      },
+      selectizeOptions: {
+        hideSelected: true,
+        optgroupLabelField: "homeName",
+        optgroupValueField: "homeId",
+        plugins: {
+          "remove_button": {}
+        }
       }
     }
   },
