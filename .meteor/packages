@@ -49,5 +49,6 @@ useraccounts:iron-routing
 erikpel:wellbeing-mock-data
 tap:i18n
 gwendall:autoform-i18n
-jamiecollinson:selectize-bootstrap
-comerc:autoform-selectize
+zimme:select2-bootstrap3-css
+aldeed:autoform-select2
+natestrauser:select2
