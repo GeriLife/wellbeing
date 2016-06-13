@@ -28,6 +28,7 @@ callback-hook@1.0.4
 cfs:http-methods@0.0.30
 check@1.1.0
 coffeescript@1.0.11
+comerc:autoform-selectize@2.3.2
 d3js:d3@3.5.8
 dburles:collection-helpers@1.0.4
 ddp@1.2.2
@@ -60,6 +61,7 @@ iron:location@1.0.11
 iron:middleware-stack@1.0.11
 iron:router@1.0.12
 iron:url@1.0.11
+jamiecollinson:selectize-bootstrap@0.12.1
 jquery@1.11.4
 launch-screen@1.0.4
 livedata@1.0.15
