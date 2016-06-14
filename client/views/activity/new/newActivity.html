@@ -12,7 +12,7 @@
         {{# autoForm id="newActivityForm" type="insert" collection="Activities"  }}
 
         <div class="modal-body">
-          {{> afQuickField name="residentIds"}}
+          {{> afQuickField name="residentIds" select2Options=select2Options }}
           {{> afQuickField name="activityTypeId"}}
           {{> afQuickField name="activityDate" buttonClasses="fa fa-calendar"}}
           {{> afQuickField name="duration"}}
