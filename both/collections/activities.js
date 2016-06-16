@@ -2,46 +2,46 @@ Activities = new Mongo.Collection('activities');
 
 var ActivitiesSchema = new SimpleSchema({
   residentIds: {
-    type: Array
-  },
-  'residentIds.$': {
-    type: String,
+    type: [String],
     autoform: {
+      type: "select-multiple",
+      placeholder: "Choose resident(s)",
       options: function() {
-        // Get all Homes
-        var homes = Homes.find().fetch();
+        // Get list of homes, sorted alphabetically
+        const homes = Homes.find({}, {sort: {name: 1}}).fetch();
 
-        // Create an array of Home IDs
-        var homeIDs = _.map(homes, function (home) {
-          return home._id;
+        // Create an array residents grouped by home
+        const residentsSelectOptions = _.map(homes, function (home) {
+          // Get home ID
+          const homeId = home._id;
+
+          // do not show departed residents
+          const departed = false;
+
+          // Sort by first name in alphabetical order
+          const sort = {firstName: 1}
+
+          // Get a list of residents for current home
+          const homeResidents = Residents.find({ homeId, departed }, {sort}).fetch();
+
+          // Create an object containing a home and its residents
+          const homeGroup = {
+            optgroup: home.name,
+            options: _.map(homeResidents, function (resident) {
+              // Create an object containing the resident name and ID
+              const residentObject = {
+                value: resident._id,
+                label: resident.fullName()
+              };
+
+              return residentObject;
+           })
+          }
+
+          return homeGroup;
         });
 
-        // Create select options for residents input
-        // Grouping residents by home
-        var residentSelectOptions = _.map(homeIDs, function (homeID) {
-          // Find the name of this home
-          var homeName = Homes.findOne(homeID).name;
-
-          // Get all current residents of this home
-          var homeResidents = Residents.find({
-            homeId: homeID,
-            departed: false
-          }).fetch();
-
-          // Create a residents array with name/ID pairs for label/value
-          var residentOptions = _.map(homeResidents, function (homeResident) {
-            // Combine resident first name and last initial
-            var residentName = homeResident.firstName + ' ' + homeResident.lastInitial;
-
-            // Create option for this resident, with ID as the value
-            return {label: residentName, value: homeResident._id};
-          });
-
-          // Return residents and home as option group
-          return {optgroup: homeName, options: residentOptions};
-        });
-
-        return residentSelectOptions;
+        return residentsSelectOptions;
       }
     }
   },
