@@ -59,25 +59,48 @@ Meteor.methods({
     return homeActivitiesArray;
   },
   'getHomeResidentsActivitySumsByType': function (homeId) {
+    // Get all activity types
+    var activityTypes = ActivityTypes.find({}, {sort: {name: 1}}).fetch();
+
     // Get all resident IDs
     var residentIds = Meteor.call('getHomeCurrentResidentIds', homeId);
 
     // Placeholder for all resident activity sums by type
-    var allResidentActivitySumsByType = [];
+    var allResidentActivitySumsByType = _.map(activityTypes, function (activityType) {
+      // Create an object in the form of
+      //  key: actiivtyType.name
+      //  values: [
+      //    {
+      //      "label": "Resident Name",
+      //      "value": activity count (integer)
+      //    },
+      //    ...
+      //  ]
 
-    // Iterate through all residents and get sum of resident recent activities by type
-    residentIds.forEach(function (residentId) {
-      // Get the sum of all activities by type for a given resident
-       var residentActivitiesSumByType = Meteor.call('getSumOfAllResidentRecentActivitiesByType', residentId);
+      var residentActivityCountsByCurrentType = {
+        key: activityType.name,
+        values: _.map(residentIds, function (residentId) {
+          // Get resident
+          var resident = Residents.findOne(residentId);
 
-      // Add the resident activity sums to all resident activity sums array
-      allResidentActivitySumsByType.push(residentActivitiesSumByType);
+          // Get count of activities by current type for current resident
+          var activityCount = Meteor.call("getSumOfResidentRecentActivitiesByType", residentId, activityType._id);
+
+          if (activityCount > 0) {
+            var residentActivityCount = {
+              "label": resident.fullName(),
+              "value": activityCount
+            };
+
+            return residentActivityCount;
+          }
+        })
+      }
+
+      return residentActivityCountsByCurrentType;
     });
 
-    // Flatten the activities array
-    allResidentActivitySumsByTypeFlattened = _.flatten(allResidentActivitySumsByType);
-
-    return allResidentActivitySumsByTypeFlattened;
+    return allResidentActivitySumsByType;
   },
   "getHomeActivityLevelCounts": function (homeId) {
     // // Get home residents by calling getHomeResidentIds
