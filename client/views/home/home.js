@@ -45,7 +45,7 @@ Template.home.helpers({
     // Get Home ID from template instance
     var homeId = instance.homeId;
 
-    // Return all residents for current home
-    return Residents.find({'homeId': homeId});
+    // Return all residents for current home, sorting by first name
+    return Residents.find({'homeId': homeId}, {sort: {firstName: 1}});
   }
 });
