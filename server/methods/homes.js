@@ -86,14 +86,22 @@ Meteor.methods({
           // Get count of activities by current type for current resident
           var activityCount = Meteor.call("getSumOfResidentRecentActivitiesByType", residentId, activityType._id);
 
+          // Placeholder object for resident name / activity count
+          var residentActivityCount = {};
+
           if (activityCount > 0) {
-            var residentActivityCount = {
+            residentActivityCount = {
               "label": resident.fullName(),
               "value": activityCount
             };
-
-            return residentActivityCount;
+          } else {
+            residentActivityCount = {
+              "label": resident.fullName(),
+              "value": 0
+            };
           }
+
+          return residentActivityCount;
         })
       }
 
