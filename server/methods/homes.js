@@ -13,7 +13,7 @@ Meteor.methods({
   },
   'getHomeCurrentResidentIds': function (homeId) {
     // Get all residents of specific home
-    var residents = Residents.find({'homeId': homeId, departed: false}).fetch();
+    var residents = Residents.find({'homeId': homeId, departed: false}, {sort: {firstName: 1}}).fetch();
 
     // Create an array containing only resident IDs
     var residentIds = _.map(residents, function (resident) {
