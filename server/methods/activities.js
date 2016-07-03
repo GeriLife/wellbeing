@@ -59,7 +59,7 @@ Meteor.methods({
 
     // Flatten the latestActivityIds array
     var latestActivityIdsFlat = _.flatten(latestActivityIds);
-    
+
     return latestActivityIdsFlat;
   }
 });
