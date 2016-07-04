@@ -209,9 +209,9 @@ Meteor.methods({
 
           if (recentActivityCount > 0) {
             residentRecentActivityMinutesAndCount = {
-              "label": resident.fullName(),
-              "x": recentActivityCount,
-              "y": recentActivityMinutes
+              "residentName": resident.fullName(),
+              "recentActivityCount": recentActivityCount,
+              "recentActivityMinutes": recentActivityMinutes
             };
           }
 
