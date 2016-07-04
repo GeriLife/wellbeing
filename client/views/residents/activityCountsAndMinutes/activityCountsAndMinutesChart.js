@@ -21,9 +21,36 @@ Template.residentsRecentActivityCountsAndMinutesChart.onRendered(function () {
   residentActivityCountsAndMinutesChart
     .color(d3.scale.category10().range())
     .duration(300)
+    .pointSize(10)
+    .x(function (d) { return d.recentActivityCount })
+    .y(function (d) { return d.recentActivityMinutes });
 
-  // Set up axis tickmarks
-  residentActivityCountsAndMinutesChart
-    .xAxis.tickFormat(d3.format('d'))
-    .yAxis.tickFormat(d3.format('d'));
+  // Format the tooltip
+  residentActivityCountsAndMinutesChart.tooltip
+    .headerEnabled(false);
+
+
+  // Set up the x axis
+  residentActivityCountsAndMinutesChart.xAxis
+    .tickFormat(d3.format('d'))
+    .axisLabel('Activity count');
+
+  // Set up the y axis
+  residentActivityCountsAndMinutesChart.yAxis
+    .tickFormat(d3.format('d'))
+    .axisLabel('Activity minutes');
+
+  instance.autorun(function () {
+    // Get value of resident activity counts and minutes reactive variable
+    var residentActivityData = instance.residentAcitivityCountsAndMinutes.get();
+
+    if (residentActivityData) {
+      d3.select('#resident-activity-counts-and-minutes-chart svg')
+        .datum(residentActivityData)
+        .call(residentActivityCountsAndMinutesChart);
+
+      // Update chart dynamically when viewport resizes
+      nv.utils.windowResize(residentActivityCountsAndMinutesChart.update);
+    }
+  });
 });
