@@ -204,5 +204,57 @@ Meteor.methods({
     allResidentActivitySumsByTypeFlattened = _.flatten(allResidentActivitySumsByType)
 
     return allResidentActivitySumsByTypeFlattened;
+  },
+  'getResidentsRecentActivityMinutesAndCountsByHome': function () {
+    // Get all activity types
+    var homes = Homes.find({}, {sort: {name: 1}}).fetch();
+
+    // Placeholder for all resident activity sums by type
+    var allResidentActivityMinutesAndCountsGroupedByHome = _.map(homes, function (home) {
+      // Create an object in the form of
+      //  key: Home name
+      //  values: [
+      //    {
+      //      "label": "Resident Name",
+      //      "activityCount": activity count (integer)
+      //      "activityMinutes": activity minutes (integer)
+      //    },
+      //    ...
+      //  ]
+
+      // Get all home resident IDs
+      var residentIds = Meteor.call('getHomeCurrentResidentIds', homeId);
+
+      var residentActivityMinutesAndCountsByHome = {
+        key: home.name,
+        values: _.map(residentIds, function (residentId) {
+          // Get resident
+          var resident = Residents.findOne(residentId);
+
+          // Get count of activities for current resident
+          var recentActivityCount = Meteor.call("getResidentRecentActivitiesCount", residentId);
+
+          // Get recent activity minutes for current resident
+          var recentActivityMinutes = Meteor.call("getResidentRecentActivityMinutes", residentId);
+
+          // Placeholder object for resident name / activity count
+          var residentRecentActivityMinutesAndCountCount = {};
+
+          if (recentActivityCount > 0) {
+            residentActivityCount = {
+              "label": resident.fullName(),
+              "activityCount": recentActivityCount,
+              "activityMinutes": recentActivityMinutes
+            };
+          }
+
+          return residentRecentActivityMinutesAndCountCount;
+        })
+      }
+
+      return residentActivityMinutesAndCountsByHome;
+    });
+
+    return allResidentActivitySumsByType;
   }
 });
