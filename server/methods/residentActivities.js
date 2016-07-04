@@ -19,7 +19,7 @@ Meteor.methods({
     var activityMinutes = 0;
 
     // Date one week ago
-    var oneWeeksAgo = moment().subtract(1, "weeks").toDate();
+    var oneWeekAgo = moment().subtract(1, "weeks").toDate();
 
     // Date today
     var now = new Date();
