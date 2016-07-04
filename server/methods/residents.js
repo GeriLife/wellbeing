@@ -85,39 +85,6 @@ Meteor.methods({
     //  sort in reverse order by activity date
     return Activities.find({'residentIds': residentId, activityDate: {$gte: twoWeeksAgo, $lte: now}}, {sort : {activityDate:  -1} });
   },
-  'getResidentRecentActivitiesCount': function (residentId) {
-    // Date two weeks ago
-    var twoWeeksAgo = moment().subtract(2, "weeks").toDate();
-
-    // Date today
-    var now = new Date();
-
-    // Get all activities involving resident
-    // make sure activities are in the past (i.e. not planned)
-    //  sort in reverse order by activity date
-    return Activities.find({'residentIds': residentId, activityDate: {$gte: twoWeeksAgo, $lte: now}}).count();
-  },
-  'getResidentRecentActivityMinutes': function (residentId) {
-    // Placeholder for activity minutes sum
-    var activityMinutes = 0;
-
-    // Date two weeks ago
-    var twoWeeksAgo = moment().subtract(2, "weeks").toDate();
-
-    // Date today
-    var now = new Date();
-
-    // Get all activities involving resident
-    // make sure activities are in the past (i.e. not planned)
-    //  sort in reverse order by activity date
-    var activities = Activities.find({'residentIds': residentId, activityDate: {$gte: twoWeeksAgo, $lte: now}});
-
-    activities.forEach(function (activity) {
-      activityMinutes += activity.duration;
-    });
-
-    return activityMinutes;
-  },
   'getResidentRecentActivitiesByType': function (residentId, activityTypeId) {
     // Date two weeks ago
     var twoWeeksAgo = moment().subtract(4, "weeks").toDate();
@@ -223,7 +190,7 @@ Meteor.methods({
       //  ]
 
       // Get all home resident IDs
-      var residentIds = Meteor.call('getHomeCurrentResidentIds', homeId);
+      var residentIds = Meteor.call('getHomeCurrentResidentIds', home._id);
 
       var residentActivityMinutesAndCountsByHome = {
         key: home.name,
@@ -232,10 +199,10 @@ Meteor.methods({
           var resident = Residents.findOne(residentId);
 
           // Get count of activities for current resident
-          var recentActivityCount = Meteor.call("getResidentRecentActivitiesCount", residentId);
+          var recentActivityCount = Meteor.call("getResidentRecentActivitiesCount", resident._id);
 
           // Get recent activity minutes for current resident
-          var recentActivityMinutes = Meteor.call("getResidentRecentActivityMinutes", residentId);
+          var recentActivityMinutes = Meteor.call("getResidentRecentActivityMinutes", resident._id);
 
           // Placeholder object for resident name / activity count
           var residentRecentActivityMinutesAndCountCount = {};
@@ -243,8 +210,8 @@ Meteor.methods({
           if (recentActivityCount > 0) {
             residentRecentActivityMinutesAndCount = {
               "label": resident.fullName(),
-              "activityCount": recentActivityCount,
-              "activityMinutes": recentActivityMinutes
+              "x": recentActivityCount,
+              "y": recentActivityMinutes
             };
           }
 
@@ -255,7 +222,6 @@ Meteor.methods({
       return residentActivityMinutesAndCountsByHome;
     });
 
-    console.log(allResidentActivityMinutesAndCountsGroupedByHome);
     return allResidentActivityMinutesAndCountsGroupedByHome;
   }
 });
