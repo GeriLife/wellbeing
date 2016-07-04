@@ -97,6 +97,27 @@ Meteor.methods({
     //  sort in reverse order by activity date
     return Activities.find({'residentIds': residentId, activityDate: {$gte: twoWeeksAgo, $lte: now}}).count();
   },
+  'getResidentRecentActivityMinutes': function (residentId) {
+    // Placeholder for activity minutes sum
+    var activityMinutes = 0;
+
+    // Date two weeks ago
+    var twoWeeksAgo = moment().subtract(2, "weeks").toDate();
+
+    // Date today
+    var now = new Date();
+
+    // Get all activities involving resident
+    // make sure activities are in the past (i.e. not planned)
+    //  sort in reverse order by activity date
+    var activities = Activities.find({'residentIds': residentId, activityDate: {$gte: twoWeeksAgo, $lte: now}});
+
+    activities.forEach(function (activity) {
+      activityMinutes += activity.duration;
+    });
+
+    return activityMinutes;
+  },
   'getResidentRecentActivitiesByType': function (residentId, activityTypeId) {
     // Date two weeks ago
     var twoWeeksAgo = moment().subtract(4, "weeks").toDate();
