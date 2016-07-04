@@ -241,20 +241,21 @@ Meteor.methods({
           var residentRecentActivityMinutesAndCountCount = {};
 
           if (recentActivityCount > 0) {
-            residentActivityCount = {
+            residentRecentActivityMinutesAndCount = {
               "label": resident.fullName(),
               "activityCount": recentActivityCount,
               "activityMinutes": recentActivityMinutes
             };
           }
 
-          return residentRecentActivityMinutesAndCountCount;
+          return residentRecentActivityMinutesAndCount;
         })
       }
 
       return residentActivityMinutesAndCountsByHome;
     });
 
-    return allResidentActivitySumsByType;
+    console.log(allResidentActivityMinutesAndCountsGroupedByHome);
+    return allResidentActivityMinutesAndCountsGroupedByHome;
   }
 });
