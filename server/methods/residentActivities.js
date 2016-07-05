@@ -38,10 +38,9 @@ Meteor.methods({
   'getResidentWeeklyActivitiesCountFromDate': function (residentId, date) {
     // Date to start activity range query
     var start = moment(date).subtract(1, "weeks").toDate();
-    //console.log(start);
+
     // Date to end activity range query
     var end = new moment(date).toDate();
-    //console.log(end);
 
     // Get a count of all resident activities within the desired time range
     var activityCount = Activities.find({
@@ -76,13 +75,13 @@ Meteor.methods({
         values: _.map(residentIds, function (residentId) {
           // Get resident
           var resident = Residents.findOne(residentId);
-          console.log(resident.name);
+
           // Get count of activities for current resident
           var recentActivityCount = Meteor.call("getResidentRecentActivitiesCount", resident._id);
-          console.log(recentActivityCount);
+
           // Get recent activity minutes for current resident
           var recentActivityMinutes = Meteor.call("getResidentRecentActivityMinutes", resident._id);
-          console.log(recentActivityMinutes);
+
           // Placeholder object for resident name / activity count
           var residentRecentActivityMinutesAndCountCount = {};
 
