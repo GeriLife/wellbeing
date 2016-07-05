@@ -6,6 +6,7 @@ Template.residentsRecentActivityCountsAndMinutesChart.onCreated(function () {
   instance.residentAcitivityCountsAndMinutes = new ReactiveVar();
 
   Meteor.call("getResidentsRecentActivityMinutesAndCountsByHome", function (error, residentActivityCountsAndMinutes) {
+    // Assign chart data to instance reactive variable
     instance.residentAcitivityCountsAndMinutes.set(residentActivityCountsAndMinutes);
   });
 });
@@ -21,14 +22,25 @@ Template.residentsRecentActivityCountsAndMinutesChart.onRendered(function () {
   residentActivityCountsAndMinutesChart
     .color(d3.scale.category10().range())
     .duration(300)
-    .pointSize(10)
-    .x(function (d) { return d.recentActivityCount })
-    .y(function (d) { return d.recentActivityMinutes });
+    .pointSize(30)
+    .x(function (d) {
+      var activityCount = d.recentActivityCount;
+
+      // Jitter value slightly to prevent overlap
+      return activityCount + (Math.random() * 0.5);
+    })
+    .y(function (d) {
+      var activityMinutes = d.recentActivityMinutes;
+
+      // Jitter value slightly to prevent overlap
+      return activityMinutes + (Math.random() * 0.5);
+    })
 
   // Format the tooltip
-  residentActivityCountsAndMinutesChart.tooltip
-    .headerEnabled(false);
-
+  residentActivityCountsAndMinutesChart.tooltip.contentGenerator(function (obj) {
+    // Get resident name for tooltip
+    return obj.point.residentName;
+  });
 
   // Set up the x axis
   residentActivityCountsAndMinutesChart.xAxis
