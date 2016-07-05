@@ -43,5 +43,8 @@ Homes.allow({
   },
   update: function () {
     return true;
+  },
+  remove: function () {
+    return false;
   }
 });
