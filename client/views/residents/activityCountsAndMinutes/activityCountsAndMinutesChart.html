@@ -1,7 +1,14 @@
 <template name="residentsRecentActivityCountsAndMinutesChart">
-  <div
-    id="resident-activity-counts-and-minutes-chart"
-    class="panel panel-default">
-    <svg></svg>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3>Resident recent activity (past 7 days)</h3>
+    </div>
+    <div class="panel-body">
+      <p class="text-muted pull-right">Note: points have been jittered to prevent overlap.</p>
+      <div
+        id="resident-activity-counts-and-minutes-chart">
+        <svg></svg>
+      </div>
+    </div>
   </div>
 </template>
