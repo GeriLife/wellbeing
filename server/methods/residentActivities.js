@@ -52,6 +52,8 @@ Meteor.methods({
   },
   'getResidentsRecentActivityMinutesAndCountsByHome': function () {
     // Get all activity types
+    // TODO: get only homes with Residents
+    // This will prevent a chart bug on the Residents page
     var homes = Homes.find({}, {sort: {name: 1}}).fetch();
 
     // Placeholder for all resident activity sums by type
