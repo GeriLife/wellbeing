@@ -4,6 +4,9 @@ Template.deleteActivityConfirmation.events({
     var activityId = instance.data.activityId;
 
     // Delete Activity
-    Activities.remove(activityId);
+    Activities.remove(activityId, function () {
+      // Dismiss the modal dialogue
+      Modal.hide("deleteActivityConfirmation");
+    });
   }
 });
