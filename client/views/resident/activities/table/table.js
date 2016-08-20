@@ -52,6 +52,19 @@ Template.activityTable.helpers({
           key: '_id',
           label: "",
           tmpl: Template.editActivityButton,
+          hidden: function () {
+            var currentUserId = Meteor.userId();
+
+            // Check if current user has Admin role
+            var currentUserIsAdmin = Roles.userIsInRole(currentUserId, ["admin"]);
+
+            // Only show edit column for users with Admin role
+            if (currentUserIsAdmin) {
+              return false;
+            } else {
+              return true;
+            }
+          }
         }
       ],
       filters: ['activityTypeFilter']
