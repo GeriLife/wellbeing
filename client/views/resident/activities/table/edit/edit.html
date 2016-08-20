@@ -1,6 +1,6 @@
 <template name="editActivityButton">
-  <button type="button" class="btn btn-default pull-right">
-    <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;
-    {{_ "editActivityButton-text" }}
-  </button>
+  <div class="btn-group pull-right" role="group">
+    {{> editActivityButton activityId=activityId }}
+    {{> deleteActivityButton activityId=activityId }}
+  </div>
 </template>
