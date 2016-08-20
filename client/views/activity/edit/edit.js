@@ -21,7 +21,7 @@ Template.editActivity.helpers({
 
     // Get Activity ID from instance
     var activityId = instance.data.activityId;
-    console.log(instance.data.activityId);
+
     // Get the Activity document
     var activity = Activities.findOne(activityId);
     //console.log(activity);
