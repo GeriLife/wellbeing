@@ -34,6 +34,7 @@
   "dateTimeSettings-timezone-header": "Timezone",
   "dateTimeSettings-timezone-helpText": "Select timezone for use in scheduled reports.",
   "dateTimeSettings-timezone-saveButton": "Save",
+  "deleteActivityButton-text": "Delete",
   "editActivity-cancel": "Cancel",
   "editActivity-header": "Edit activity",
   "editActivity-save": "Save",
