@@ -47,6 +47,11 @@ Template.activityTable.helpers({
           sortOrder: 0,
           sortDirection: 'descending'
         },
+        {
+          key: '_id',
+          label: "",
+          tmpl: Template.editResidentActivityButton,
+        }
       ],
       filters: ['activityTypeFilter']
     };
