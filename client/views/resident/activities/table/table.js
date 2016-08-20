@@ -51,7 +51,7 @@ Template.activityTable.helpers({
         {
           key: '_id',
           label: "",
-          tmpl: Template.editActivityButton,
+          tmpl: Template.manageActivityButtons,
           hidden: function () {
             var currentUserId = Meteor.userId();
 
