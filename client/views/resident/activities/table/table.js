@@ -50,7 +50,7 @@ Template.activityTable.helpers({
         {
           key: '_id',
           label: "",
-          tmpl: Template.editResidentActivityButton,
+          tmpl: Template.editActivityButton,
         }
       ],
       filters: ['activityTypeFilter']
