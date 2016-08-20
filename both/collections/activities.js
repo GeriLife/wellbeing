@@ -185,7 +185,7 @@ Activities.allow({
       return false;
     }
   },
-  delete: function () {
+  remove: function () {
     // Get current user ID
     var currentUserId = Meteor.userId();
 
