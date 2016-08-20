@@ -4,8 +4,10 @@ Template.activityCalendar.rendered = function () {
 
   // Update the calendar when instance data changes
   instance.autorun(function () {
+    // Empty the Activity Calendar container element, in case of re-render
+    $("#activity-calendar-container").empty();
+
     const residentActivities = Template.currentData().activities;
-    //console.log(residentActivities);
 
     // Group activities by activity date
     const nestedActivities = d3.nest()
@@ -37,7 +39,7 @@ Template.activityCalendar.rendered = function () {
 
     // Set up the activity map graphic
     const activityMap = new ActivityMap(summedActivities, {
-      "id": "#activity-calendar",
+      "id": "activity-calendar",
       "parent": "#activity-calendar-container",
       "fit": true,
       "title": activityMapTitle,
