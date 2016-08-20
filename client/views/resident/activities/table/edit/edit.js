@@ -1,5 +1,5 @@
 Template.editActivityButton.events({
-  "click button": function (event, template) {
+  "click .edit-button": function (event, template) {
     // Get Activity ID from template instance
     var activityId = this.activityId;
 
