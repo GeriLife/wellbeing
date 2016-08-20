@@ -13,7 +13,8 @@ Template.activityTable.helpers({
       const activityObject = {
         activityType: activity.activityType(),
         activityDate: activity.activityDate,
-        duration: activity.duration
+        duration: activity.duration,
+        activityId: activity._id
       };
 
       // Add Activity to activities list
