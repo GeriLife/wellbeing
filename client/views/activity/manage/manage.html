@@ -1,8 +1,8 @@
 <template name="manageActivityButtons">
   <div class="btn-group pull-right" role="group">
-    {{> editActivityButton activityId=activityId }}
-    {{> deleteActivityButton activityId=activityId }}
-
-    {{ activityDateIsWithinOneWeek }}
+    {{# if activityDateIsWithinOneWeek }}
+      {{> editActivityButton activityId=activityId }}
+      {{> deleteActivityButton activityId=activityId }}
+    {{/ if }}
   </div>
 </template>

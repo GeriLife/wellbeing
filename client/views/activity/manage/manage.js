@@ -1,8 +1,12 @@
 Template.manageActivityButtons.helpers({
   activityDateIsWithinOneWeek: function () {
-    // Get reference to template instance
-    var instance = this;
+    // Get activity date from template data context
+    var activityDate = moment(this.activityDate);
 
-    console.log(instance);
+    // Get date seven days ago, for comparison
+    var sevenDaysAgo = new moment().subtract(7, 'days');
+
+    // Make sure activity date is within one week
+    return activityDate.isAfter(sevenDaysAgo);
   }
 });
