@@ -2,6 +2,10 @@ Meteor.publish('allActivities', function () {
   return Activities.find();
 });
 
+Meteor.publish('singleActivity', function (activityId) {
+  return Activities.find(activityId);
+});
+
 Meteor.publish('userActivities', function (userId) {
   // Activities for a given user
   return Activities.find({'createdById': userId});

@@ -1,0 +1,32 @@
+<template name="deleteActivityConfirmation">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {{# if Template.subscriptionsReady }}
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <i class="fa fa-user"></i>&nbsp;
+            {{_ "deleteActivityConfirmation-header" }}
+          </h4>
+        </div>
+
+        <div class="modal-body">
+          {{_ "deleteActivityConfirmation-message" }}
+        </div>
+
+        <div class="modal-footer">
+          <button id="confirm-delete" type="button" class="btn btn-warning">
+            {{_ "deleteActivityConfirmation-delete" }}
+          </button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">
+            {{_ "deleteActivityConfirmation-cancel" }}
+          </button>
+        </div>
+
+        {{ else }}
+        {{> spinner }}
+        {{/ if }}
+      </div>
+    </div>
+  </div>
+</template>

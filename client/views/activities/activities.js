@@ -85,6 +85,7 @@ Template.activities.helpers({
 
       // set resident names, type, duration, and date values
       var activityObject = {
+        activityId: activity._id,
         residents: activity.residentNames(),
         type: activity.activityType(),
         duration: activity.duration,
@@ -131,6 +132,24 @@ Template.activities.helpers({
           sortOrder: 0,
           sortDirection: 'descending',
           tmpl: Template.dateCell,
+        },
+        {
+          key: '_id',
+          label: "",
+          tmpl: Template.manageActivityButtons,
+          hidden: function () {
+            var currentUserId = Meteor.userId();
+
+            // Check if current user has Admin role
+            var currentUserIsAdmin = Roles.userIsInRole(currentUserId, ["admin"]);
+
+            // Only show edit column for users with Admin role
+            if (currentUserIsAdmin) {
+              return false;
+            } else {
+              return true;
+            }
+          }
         }
       ],
     };

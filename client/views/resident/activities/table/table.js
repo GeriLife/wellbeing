@@ -4,7 +4,7 @@ Template.activityTable.helpers({
     const instance = Template.instance();
 
     // Get resident activities
-    const activities = instance.data.activities;
+    const activities = Template.currentData().activities;
 
     const activitiesArray = [];
 
@@ -13,7 +13,8 @@ Template.activityTable.helpers({
       const activityObject = {
         activityType: activity.activityType(),
         activityDate: activity.activityDate,
-        duration: activity.duration
+        duration: activity.duration,
+        activityId: activity._id
       };
 
       // Add Activity to activities list
