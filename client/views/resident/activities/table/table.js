@@ -48,24 +48,6 @@ Template.activityTable.helpers({
           sortOrder: 0,
           sortDirection: 'descending'
         },
-        {
-          key: '_id',
-          label: "",
-          tmpl: Template.manageActivityButtons,
-          hidden: function () {
-            var currentUserId = Meteor.userId();
-
-            // Check if current user has Admin role
-            var currentUserIsAdmin = Roles.userIsInRole(currentUserId, ["admin"]);
-
-            // Only show edit column for users with Admin role
-            if (currentUserIsAdmin) {
-              return false;
-            } else {
-              return true;
-            }
-          }
-        }
       ],
       filters: ['activityTypeFilter']
     };
