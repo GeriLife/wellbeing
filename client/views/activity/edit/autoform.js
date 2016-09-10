@@ -1,3 +1,18 @@
+Template.autoForm.onRendered(function () {
+  const instance = this;
+
+  // Make sure the new activity form is being rendered
+  if (instance.data.id === "editActivityForm") {
+    // Get a reference to the resident select field
+    const residentSelect = $('[name=residentIds]');
+
+    // Activate the improved multi-select widget
+    residentSelect.selectpicker({
+      header: "Select resident(s)"
+    });
+  }
+});
+
 AutoForm.addHooks(['editActivityForm'], {
   'onSuccess': function () {
     // Hide the modal dialogue
