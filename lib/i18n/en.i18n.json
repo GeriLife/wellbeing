@@ -167,6 +167,8 @@
   "residentFacilitatorRolesChart-header": "Facilitator roles",
   "residentFacilitatorRolesChart-xAxis-title": "Activity count",
   "residentFacilitatorRolesChart-yAxis-title": "Facilitator role",
+  "residentsRecentActivityCountsAndMinutesChart-header-text": "Resident recent activity (past 7 days)",
+  "residentsRecentActivityCountsAndMinutesChart-note-jitter-text": "Note: points have been jittered to reduce overlap.",
   "resident-activityCalendar-title": "Activity calendar",
   "residentInterests-header": "Interests",
   "residents-filterLabels-fullName": "Name",
