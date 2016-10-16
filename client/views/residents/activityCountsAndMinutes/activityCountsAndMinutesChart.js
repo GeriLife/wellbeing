@@ -42,15 +42,19 @@ Template.residentsRecentActivityCountsAndMinutesChart.onRendered(function () {
     return obj.point.residentName;
   });
 
+  // Get axis label translations
+  var xAxisLabel = TAPi18n.__('residentActivityCountsAndMinutesChart-xAxisLabel');
+  var yAxisLabel = TAPi18n.__('residentActivityCountsAndMinutesChart-yAxisLabel');
+
   // Set up the x axis
   residentActivityCountsAndMinutesChart.xAxis
     .tickFormat(d3.format('d'))
-    .axisLabel('Activity count');
+    .axisLabel(xAxisLabel);
 
   // Set up the y axis
   residentActivityCountsAndMinutesChart.yAxis
     .tickFormat(d3.format('d'))
-    .axisLabel('Activity minutes');
+    .axisLabel(yAxisLabel);
 
   instance.autorun(function () {
     // Get value of resident activity counts and minutes reactive variable
