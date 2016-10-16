@@ -4,51 +4,51 @@
             "label": "Asukkaat"
         },
         "activityTypeId": {
-            "label": "Toimintotyyppi"
+            "label": "Aktiviteettityyppi"
         },
         "activityDate": {
-            "label": "Toiminnon pvm"
+            "label": "Aktiviteetin pvm"
         },
         "duration": {
-            "label": "Toiminnon kesto (minuuteissa)"
+            "label": "Aktiviteetin kesto (minuuteissa)"
         },
         "facilitatorRoleId": {
-            "label": "Toimintojen vet\u00e4j\u00e4n rooli"
+            "label": "Fasilitaattorin rooli"
         }
     },
-    "activities-addActivityButton": "Lis\u00e4\u00e4 toiminto",
-    "activities-pageHeader": "Toiminnot",
+    "activities-addActivityButton": "Lis\u00e4\u00e4 aktiviteetti",
+    "activities-pageHeader": "Aktiviteetit",
     "activities-filterActivities-activityTypeFilterLabel": "Tyyppi",
-    "activities-filterActivities-heading": "Suodatintoiminnot",
-    "activities-filterActivities-homeFilterLabel": "Koti",
+    "activities-filterActivities-heading": "Suodata aktiviteetteja",
+    "activities-filterActivities-homeFilterLabel": "Ryhm\u00e4koti",
     "activities-filterActivities-residentFilterLabel": "Asukas",
-    "activities-filterActivities-showOnlyLatest": "N\u00e4yt\u00e4 vain uusin",
+    "activities-filterActivities-showOnlyLatest": "N\u00e4yt\u00e4 vain viimeisin",
     "activityTypes": {
         "name": {
             "label": "Nimi"
         }
     },
-    "activityTypesSettings-addActivityTypeButton": "Lis\u00e4\u00e4 toimintotyyppi",
-    "activityTypesSettings-header": "Toimintotyypit",
+    "activityTypesSettings-addActivityTypeButton": "Lis\u00e4\u00e4 aktiviteettityyppi",
+    "activityTypesSettings-header": "Aktiviteettityypit",
     "dateTimeSettings-header": "Pvm-\/aika-asetukset",
     "dateTimeSettings-timezone-header": "Aikavy\u00f6hyke",
     "dateTimeSettings-timezone-helpText": "Valitse aikataulutetuissa raporteissa k\u00e4ytett\u00e4v\u00e4 aikavy\u00f6hyke.",
     "dateTimeSettings-timezone-saveButton": "Tallenna",
     "deleteActivityConfirmation-cancel": "Peruuta",
     "deleteActivityConfirmation-delete": "Poista",
-    "deleteActivityConfirmation-header": "Poista toiminto",
-    "deleteActivityConfirmation-message": "Haluatko poistaa t\u00e4m\u00e4n toimintotallenteen?",
+    "deleteActivityConfirmation-header": "Poista aktiviteetti",
+    "deleteActivityConfirmation-message": "Haluatko poistaa t\u00e4m\u00e4n aktiviteetin?",
     "deleteActivityButton-text": "Poista",
     "editActivity-cancel": "Peruuta",
-    "editActivity-header": "Muokkaa toimintoa",
+    "editActivity-header": "Muokkaa aktiviteettia",
     "editActivity-save": "Tallenna",
-    "editActivity-success": "Toiminto tallennettu",
+    "editActivity-success": "Aktiviteetti tallennettu",
     "editActivityButton-text": "Muokkaa",
     "editHome-cancel": "Peruuta",
     "editHome-title": "Muokkaa kotia",
     "editHome-save": "Tallenna",
     "editResident-cancel": "Peruuta",
-    "editResident-departed-helpText": "Asukas on poistunut yhteis\u00f6st\u00e4.",
+    "editResident-departed-helpText": "Asukas on poistunut yhteis\u00f6st\u00e4",
     "editResident-header": "Muokkaa asukasta",
     "editResident-save": "Tallenna",
     "editUser": {
@@ -67,7 +67,7 @@
             "label": "Pvm"
         },
         "feeling": {
-            "label": "Tuntemus"
+            "label": "Tunnetila"
         },
         "residentId": {
             "label": "Asukas"
@@ -79,29 +79,29 @@
     "feelings-sad": "Surullinen",
     "feelings-angry": "Vihainen",
     "front-quickAddPanel-title": "Pikalis\u00e4ys",
-    "front-quickAddPanel-activityButton": "Toiminto",
-    "front-quickAddPanel-feelingButton": "Tuntemus",
+    "front-quickAddPanel-activityButton": "Aktiviteetti",
+    "front-quickAddPanel-feelingButton": "Tunnetila",
     "front-quickNavigationPanel-title": "Pikanavigointi",
     "front-quickNavigationPanel-residentsButton": "Asukkaat",
-    "front-quickNavigationPanel-homesButton": "Kodit",
-    "front-quickNavigationPanel-activitiesButton": "Toiminnot",
+    "front-quickNavigationPanel-homesButton": "Talot",
+    "front-quickNavigationPanel-activitiesButton": "Aktiviteetit",
     "groups": {
         "name": {
-            "label": "Ryhm\u00e4n nimi"
+            "label": "Ryhm\u00e4kodin nimi"
         }
     },
     "groups-header": "Ryhm\u00e4t",
     "home-editHomeButton": "Muokkaa kotia",
     "home-residentsPanel-heading": "Asukkaat",
-    "home-activityLevelTrendsPanel-heading": "Toimintotason trendit",
-    "home-activitiesPanel-heading": "Toiminnot",
-    "home-activitiesPanel-activitySummaryTab": "Tiivistelm\u00e4 asukkaan toiminnoista",
-    "home-activitiesPanel-activityTableTab": "Toimintotaulukko",
+    "home-activityLevelTrendsPanel-heading": "Aktiviteettitason trendit",
+    "home-activitiesPanel-heading": "Aktiviteetit",
+    "home-activitiesPanel-activitySummaryTab": "Yhteenveto asukkaan aktiviteeteista",
+    "home-activitiesPanel-activityTableTab": "Aktiviteettitaulukko",
     "homeGroup-activityLevelsLegend-active": "Aktiivinen",
     "homeGroup-activityLevelsLegend-inactive": "Passiivinen",
     "homeGroup-activityLevelsLegend-semiActive": "Puoliaktiivinen",
-    "homeGroup-tableCaption": "Asukkaita sis\u00e4lt\u00e4v\u00e4t kodit seitsem\u00e4n p\u00e4iv\u00e4n toimintotasolla.",
-    "homeGroup-tableHeader-activityLevels": "Toimintotasot",
+    "homeGroup-tableCaption": "Ryhm\u00e4kotien asukkaiden aktiviteettitaso viimeisen seitsem\u00e4n p\u00e4iv\u00e4n ajalta",
+    "homeGroup-tableHeader-activityLevels": "Aktiviteettitasot",
     "homeGroup-tableHeader-name": "Nimi",
     "homes": {
         "name": {
@@ -111,25 +111,25 @@
             "label": "Ryhm\u00e4"
         }
     },
-    "homes-header": "Kodit",
+    "homes-header": "Talot",
     "homes-header-addNewButton": "Lis\u00e4\u00e4 uusi",
     "homes-header-addNewButton-group": "Ryhm\u00e4",
     "homes-header-addNewButton-home": "Koti",
-    "homeResidentActivitySumsByType-heading": "Toimintojen tiivistelm\u00e4 tyypin mukaan",
+    "homeResidentActivitySumsByType-heading": "Aktiviteettien yhteenveto tyypin mukaan",
     "homeResidentActivitySumsByType-subheading": "(viimeiset 30 p\u00e4iv\u00e4\u00e4)",
-    "homeResidentActivitySummaryChart-residentAxisTitle": "Asukkaan nimi \/ toimintojen m\u00e4\u00e4r\u00e4",
-    "homeResidentActivitySummaryChart-activitiesAxisTitle": "Toimintojen m\u00e4\u00e4r\u00e4",
-    "homeResidentActivityLevelTrend-chartTitle": "Asukkaiden m\u00e4\u00e4r\u00e4 toimintotasoa kohti viimeisten seitsem\u00e4n p\u00e4iv\u00e4n ajalta.",
+    "homeResidentActivitySummaryChart-residentAxisTitle": "Asukkaan nimi \/ aktiviteettien m\u00e4\u00e4r\u00e4",
+    "homeResidentActivitySummaryChart-activitiesAxisTitle": "Aktiviteettien m\u00e4\u00e4r\u00e4",
+    "homeResidentActivityLevelTrend-chartTitle": "Ryhm\u00e4kotien asukkaiden aktiviteettitaso viimeisen seitsem\u00e4n p\u00e4iv\u00e4n ajalta",
     "homeResidentActivityLevelTrend-chartDescription": "P\u00e4ivitt\u00e4inen m\u00e4\u00e4r\u00e4 asukkaita, joiden tila on passiivinen, puoliaktiivinen ja aktiivinen.",
-    "homeResidents-tableCaption": "Asukkaat, joilla on toimintoja viimeisten seitsem\u00e4n p\u00e4iv\u00e4n ajalta. Toimintotaso sulkeissa.",
+    "homeResidents-tableCaption": "Asukkaat, joilla on aktiviteetteja viimeisten seitsem\u00e4n p\u00e4iv\u00e4n ajalta. Aktiviteettitaso sulkeissa.",
     "homeResidents-tableHeader-residentName": "Nimi",
-    "homeResidents-tableHeader-activity": "Toimintojen m\u00e4\u00e4r\u00e4 (toimintotaso)",
+    "homeResidents-tableHeader-activity": "Aktiviteettien m\u00e4\u00e4r\u00e4 (aktiviteettitaso)",
     "homeResidents-loadingMessage": "Ladataan asukkaita",
     "logout-logoutButton": "Kirjaudu ulos",
     "newFeeling-cancel": "Peruuta",
-    "newFeeling-header": "Tallenna uusi tuntemus",
+    "newFeeling-header": "Tallenna uusi tunnetila",
     "newFeeling-save": "Tallenna",
-    "newFeeling-success": "Tuntemuksen tallentaminen onnistui",
+    "newFeeling-success": "Tunnetilan tallentaminen onnistui",
     "newGroup-cancel": "Peruuta",
     "newGroup-header": "Luo uusi ryhm\u00e4",
     "newGroup-save": "Tallenna",
@@ -145,7 +145,7 @@
             "label": "Sukunimen ensimm\u00e4inen kirjain"
         },
         "homeId": {
-            "label": "Koti"
+            "label": "Ryhm\u00e4koti"
         },
         "interestsDescription": {
             "label": "Mielenkiinnon kohteet"
@@ -154,35 +154,35 @@
             "label": "L\u00e4htenyt"
         }
     },
-    "residentActivityTrendChart-title": "P\u00e4ivitt\u00e4iset toiminnot minuuteissa",
-    "residentActivityTrendChart-description": "Toimittujen minuuttien p\u00e4ivitt\u00e4inen summa",
+    "residentActivityTrendChart-title": "P\u00e4ivitt\u00e4iset aktiviteetit minuuteissa",
+    "residentActivityTrendChart-description": "Aktiviteettiminuuttien p\u00e4ivitt\u00e4inen summa",
     "residentActivityTrendChart-yLabel": "Minuutit",
     "residentActivityTrendChart-mouseoverLabel": "minuuttia",
     "residentActivityLevel-active": "Aktiivinen",
     "residentActivityLevel-semiActive": "Puoliaktiivinen",
     "residentActivityLevel-inactive": "Passiivinen",
-    "residentActivityTable-activityTypeLabel": "Toimintotyyppi",
+    "residentActivityTable-activityTypeLabel": "Aktiviteettityyppi",
     "residentActivityTable-durationLabel": "Kesto",
-    "residentActivityTable-activityDateLabel": "Toiminnon pvm",
-    "residentActivityTable-filterPanel-header": "Suodata toimintoja",
-    "residentActivities-header": "Toiminnot",
+    "residentActivityTable-activityDateLabel": "Aktiviteetin pvm",
+    "residentActivityTable-filterPanel-header": "Suodata aktiviteetteja",
+    "residentActivities-header": "Aktiviteetit",
     "residentActivities-tabs-trend": "Trendi",
-    "residentActivities-tabs-types": "Toimintotyypit",
+    "residentActivities-tabs-types": "Aktiviteettityypit",
     "residentActivities-tabs-calendar": "Kalenteri",
     "residentActivities-tabs-table": "Taulukko",
-    "residentActivityTrendChart-header": "Toimintotrendi",
-    "residentActivityTypesChart-header": "Toimintotyypit",
-    "residentActivityTypesChart-xAxis-title": "Toimintojen m\u00e4\u00e4r\u00e4",
-    "residentActivityTypesChart-yAxis-title": "Toimintotyyppi",
-    "residentFacilitatorRolesChart-header": "Vet\u00e4j\u00e4n roolit",
+    "residentActivityTrendChart-header": "Aktiviteettitrendi",
+    "residentActivityTypesChart-header": "Aktiviteettityypit",
+    "residentActivityTypesChart-xAxis-title": "Aktiviteettien m\u00e4\u00e4r\u00e4",
+    "residentActivityTypesChart-yAxis-title": "Aktiviteettityyppi",
+    "residentFacilitatorRolesChart-header": "Fasilitaattorin roolit",
     "residentFacilitatorRolesChart-xAxis-title": "Toimintojen m\u00e4\u00e4r\u00e4",
-    "residentFacilitatorRolesChart-yAxis-title": "Vet\u00e4j\u00e4n rooli",
-    "resident-activityCalendar-title": "Toimintokalenteri",
+    "residentFacilitatorRolesChart-yAxis-title": "Fasilitaattorin rooli",
+    "resident-activityCalendar-title": "Aktiviteettikalenteri",
     "residentInterests-header": "Mielenkiinnon kohteet",
     "residents-filterLabels-fullName": "Nimi",
-    "residents-filterLabels-homeName": "Koti",
+    "residents-filterLabels-homeName": "Ryhm\u00e4koti",
     "residents-tableLabels-fullName": "Asukkaan nimi",
-    "residents-tableLabels-homeName": "Kodin nimi",
+    "residents-tableLabels-homeName": "Ryhm\u00e4kodin nimi",
     "residents-filterPanel-header": "Suodata asukkaita",
     "residents-filterPanel-includeDeparted": "sis\u00e4llyt\u00e4 l\u00e4hteneet",
     "residents-header": "Asukkaat",
@@ -195,17 +195,17 @@
     "rolesSettings-addRoleButton": "Lis\u00e4\u00e4 rooli",
     "rolesSettings-heading": "Roolit",
     "mainLayoutHeader-toggleNavigation": "Siirry edestakaisin navigoinnissa",
-    "mainLayoutNavbar-activitesLink": "Toiminnot",
-    "mainLayoutNavbar-homesLink": "Kodit",
+    "mainLayoutNavbar-activitesLink": "Aktiviteetit",
+    "mainLayoutNavbar-homesLink": "Talot",
     "mainLayoutNavbar-profileLink": "Profiili",
     "mainLayoutNavbar-residentsLink": "Asukkaat",
     "mainLayoutNavbar-settingsLink": "Asetukset",
     "newActivity-cancel": "Peruuta",
-    "newActivity-header": "Luo uusi toiminto",
+    "newActivity-header": "Luo uusi aktiviteetti",
     "newActivity-save": "Tallenna",
-    "newActivity-success": "Toiminto lis\u00e4tty",
+    "newActivity-success": "Aktiviteetti lis\u00e4tty",
     "newActivityType-cancelButton": "Peruuta",
-    "newActivityType-header": "Luo uusi toimintotyyppi",
+    "newActivityType-header": "Luo uusi aktiviteettityyppi",
     "newActivityType-saveButton": "Tallenna",
     "newResident-cancelButton": "Peruuta",
     "newResident-header": "Luo uusi asukas",
@@ -213,12 +213,12 @@
     "newRole-cancelButton": "Peruuta",
     "newRole-header": "Luo uusi rooli",
     "newRole-saveButton": "Tallenna",
-    "settings-activityTypes": "Toimintotyypit",
+    "settings-activityTypes": "Aktiviteettityypit",
     "settings-dateTime": "Pvm\/aika",
     "settings-roles": "Roolit",
     "settings-header": "Asetukset",
     "settings-users": "K\u00e4ytt\u00e4j\u00e4t",
-    "settingsLayoutSidebar-activityTypesLink": "Toimintotyypit",
+    "settingsLayoutSidebar-activityTypesLink": "Aktiviteettityypit",
     "settingsLayoutSidebar-dateTimeLink": "Pvm\/aika",
     "settingsLayoutSidebar-rolesLink": "Roolit",
     "settingsLayoutSidebar-header": "Asetusvalikko",
