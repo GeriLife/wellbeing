@@ -13,7 +13,7 @@
             "label": "Aktiviteetin kesto (minuuteissa)"
         },
         "facilitatorRoleId": {
-            "label": "Fasilitaattorin rooli"
+            "label": "Fasilitaattori"
         }
     },
     "activities-addActivityButton": "Lis\u00e4\u00e4 aktiviteetti",
@@ -100,7 +100,7 @@
     "homeGroup-activityLevelsLegend-active": "Aktiivinen",
     "homeGroup-activityLevelsLegend-inactive": "Passiivinen",
     "homeGroup-activityLevelsLegend-semiActive": "Puoliaktiivinen",
-    "homeGroup-tableCaption": "Ryhm\u00e4kotien asukkaiden aktiviteettitaso viimeisen seitsem\u00e4n p\u00e4iv\u00e4n ajalta",
+    "homeGroup-tableCaption": "Aktiviteettitaso viimeisen seitsem\u00e4n p\u00e4iv\u00e4n ajalta",
     "homeGroup-tableHeader-activityLevels": "Aktiviteettitasot",
     "homeGroup-tableHeader-name": "Nimi",
     "homes": {
@@ -119,7 +119,7 @@
     "homeResidentActivitySumsByType-subheading": "(viimeiset 30 p\u00e4iv\u00e4\u00e4)",
     "homeResidentActivitySummaryChart-residentAxisTitle": "Asukkaan nimi \/ aktiviteettien m\u00e4\u00e4r\u00e4",
     "homeResidentActivitySummaryChart-activitiesAxisTitle": "Aktiviteettien m\u00e4\u00e4r\u00e4",
-    "homeResidentActivityLevelTrend-chartTitle": "Ryhm\u00e4kotien asukkaiden aktiviteettitaso viimeisen seitsem\u00e4n p\u00e4iv\u00e4n ajalta",
+    "homeResidentActivityLevelTrend-chartTitle": "Aktiviteettitaso viimeisen seitsem\u00e4n p\u00e4iv\u00e4n ajalta",
     "homeResidentActivityLevelTrend-chartDescription": "P\u00e4ivitt\u00e4inen m\u00e4\u00e4r\u00e4 asukkaita, joiden tila on passiivinen, puoliaktiivinen ja aktiivinen.",
     "homeResidents-tableCaption": "Asukkaat, joilla on aktiviteetteja viimeisten seitsem\u00e4n p\u00e4iv\u00e4n ajalta. Aktiviteettitaso sulkeissa.",
     "homeResidents-tableHeader-residentName": "Nimi",
@@ -174,9 +174,9 @@
     "residentActivityTypesChart-header": "Aktiviteettityypit",
     "residentActivityTypesChart-xAxis-title": "Aktiviteettien m\u00e4\u00e4r\u00e4",
     "residentActivityTypesChart-yAxis-title": "Aktiviteettityyppi",
-    "residentFacilitatorRolesChart-header": "Fasilitaattorin roolit",
-    "residentFacilitatorRolesChart-xAxis-title": "Toimintojen m\u00e4\u00e4r\u00e4",
-    "residentFacilitatorRolesChart-yAxis-title": "Fasilitaattorin rooli",
+    "residentFacilitatorRolesChart-header": "Fasilitaattori",
+    "residentFacilitatorRolesChart-xAxis-title": "Aktiviteettien m\u00e4\u00e4r\u00e4",
+    "residentFacilitatorRolesChart-yAxis-title": "Fasilitaattori",
     "resident-activityCalendar-title": "Aktiviteettikalenteri",
     "residentInterests-header": "Mielenkiinnon kohteet",
     "residents-filterLabels-fullName": "Nimi",
@@ -227,5 +227,9 @@
     "usersSettings-header": "K\u00e4ytt\u00e4j\u00e4t",
     "usersSettings-tableHeaders-edit": "Muokkaa",
     "usersSettings-tableHeaders-email": "S\u00e4hk\u00f6posti",
-    "usersSettings-tableHeaders-roles": "Roolit"
+    "usersSettings-tableHeaders-roles": "Roolit",
+    "homeResidentActivityLevelTrend-legend-active": "Aktiivinen",
+    "homeResidentActivityLevelTrend-legend-inactive": "Passiivinen",
+    "homeResidentActivityLevelTrend-legend-semiActive": "Puoliaktiivinen",
+    "homeResidentActivityLevelTrend-yAxis-label": "Asukkaiden lukum\u00e4\u00e4r\u00e4"
 }
