@@ -122,6 +122,7 @@
   "homeResidentActivityLevelTrend-chartTitle": "Number of residents per activity level for past seven days.",
   "homeResidentActivityLevelTrend-chartDescription": "Daily count of residents with inactive, semi-active, and active status.",
   "homeResidents-tableCaption": "Residents with count of activities for past seven days. Activity level in parenthesis.",
+  "homeResidentActivityLevelTrend-yAxis-label": "Number of residents",
   "homeResidents-tableHeader-residentName": "Name",
   "homeResidents-tableHeader-activity": "Activity Count (activity level)",
   "homeResidents-loadingMessage": "Loading residents",
