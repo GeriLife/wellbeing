@@ -31,6 +31,9 @@ Template.homeResidentActivityLevelTrend.rendered = function () {
       const activityLevelTrendTitle = TAPi18n.__("homeResidentActivityLevelTrend-chartTitle");
       const activityLevelTrendDescription = TAPi18n.__("homeResidentActivityLevelTrend-chartDescription");
       const yAxisLabel = TAPi18n.__("homeResidentActivityLevelTrend-yAxis-label");
+      const legendInactive = TAPi18n.__("homeResidentActivityLevelTrend-legend-inactive");
+      const legendSemiActive = TAPi18n.__("homeResidentActivityLevelTrend-legend-semiActive");
+      const legendActive = TAPi18n.__("homeResidentActivityLevelTrend-legend-active");
 
       // Render the timezone adjusted data in a multi-line chart
       // coloring activity levels to match the 'traffic lights' theme :-)
@@ -46,7 +49,7 @@ Template.homeResidentActivityLevelTrend.rendered = function () {
           height: 333,
           right: 49,
           target: '#trend-chart',
-          legend: ['Inactive','Semi-active','Active'],
+          legend: [legendInactive, legendSemiActive, legendActive],
           colors: ['red', 'gold', 'green'],
           aggregate_rollover: true
       });
