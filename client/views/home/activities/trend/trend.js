@@ -19,7 +19,7 @@ Template.homeResidentActivityLevelTrend.rendered = function () {
       var userLocalTimezoneData = _.map(dailyActivityData, function (dailyActivity) {
         // Format daily activity date in YYYY-MM-DD
         // (stripping timezone and time from date object)
-        dateString = moment(dailyActivity.date).format("YYYY-MM-DD");
+        const dateString = moment(dailyActivity.date).format("YYYY-MM-DD");
 
         // Create new date object, based on cleaned date string
         dailyActivity.date = moment(dateString).toDate();
