@@ -19,7 +19,7 @@ Template.homeResidentActivityLevelTrend.rendered = function () {
       var userLocalTimezoneData = _.map(dailyActivityData, function (dailyActivity) {
         // Format daily activity date in YYYY-MM-DD
         // (stripping timezone and time from date object)
-        dateString = moment(dailyActivity.date).format("YYYY-MM-DD");
+        const dateString = moment(dailyActivity.date).format("YYYY-MM-DD");
 
         // Create new date object, based on cleaned date string
         dailyActivity.date = moment(dateString).toDate();
@@ -30,6 +30,10 @@ Template.homeResidentActivityLevelTrend.rendered = function () {
       // Get i18n texts for chart
       const activityLevelTrendTitle = TAPi18n.__("homeResidentActivityLevelTrend-chartTitle");
       const activityLevelTrendDescription = TAPi18n.__("homeResidentActivityLevelTrend-chartDescription");
+      const yAxisLabel = TAPi18n.__("homeResidentActivityLevelTrend-yAxis-label");
+      const legendInactive = TAPi18n.__("homeResidentActivityLevelTrend-legend-inactive");
+      const legendSemiActive = TAPi18n.__("homeResidentActivityLevelTrend-legend-semiActive");
+      const legendActive = TAPi18n.__("homeResidentActivityLevelTrend-legend-active");
 
       // Render the timezone adjusted data in a multi-line chart
       // coloring activity levels to match the 'traffic lights' theme :-)
@@ -38,14 +42,14 @@ Template.homeResidentActivityLevelTrend.rendered = function () {
           description: activityLevelTrendDescription,
           data: userLocalTimezoneData,
           x_axis: true,
-          y_label: "Number of residents",
+          y_label: yAxisLabel,
           y_accessor: ['inactive', 'semiActive', 'active'],
           interpolate: 'basic',
           full_width: true,
           height: 333,
           right: 49,
           target: '#trend-chart',
-          legend: ['Inactive','Semi-active','Active'],
+          legend: [legendInactive, legendSemiActive, legendActive],
           colors: ['red', 'gold', 'green'],
           aggregate_rollover: true
       });
