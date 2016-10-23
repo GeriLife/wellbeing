@@ -24,7 +24,7 @@ function insert(collection, args, amount, insertFunctionOutcome) {
         }
       }
     }
-    collection.insert(argsWithValues);
+    collection.insert(argsWithValues, {validate: false});
 
   }
 }
