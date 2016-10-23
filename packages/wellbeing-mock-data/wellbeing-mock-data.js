@@ -4,9 +4,12 @@ var groups = ['Group A', 'Group B','Group C'];
 var activities = ['Outdoor recreation', 'Stretching/resistence training', 'Sensory stimulation',
 						'Pet therapy','Gardening', 'Sewing','Painting'];
 
+var facilitatorRoles = ['Caregiver', 'Volunteer', 'Family', 'Self'];
+
 function randomDate(start, end) {
 	return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 }
+
 function insert(collection, args, amount, insertFunctionOutcome) {
 	//make copy of the object so we can get different faker data every time
 	var argsWithValues;
