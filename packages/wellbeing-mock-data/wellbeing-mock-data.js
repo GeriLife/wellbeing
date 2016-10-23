@@ -97,7 +97,7 @@ function createMockActivities() {
   var activityTypes = ActivityTypes.find().fetch();
 
   // Get a list of all roles
-  var roles = Roles.getAllRoles.fetch();
+  var roles = Roles.getAllRoles().fetch();
 
   // Select a random facilitator role (ID)
   var roleId = function () {
