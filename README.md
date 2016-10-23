@@ -15,9 +15,6 @@ Welbeing activity log and visualization tool.
 ### Resident activity type counts
 ![Resident activity type counts](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData-activityTypeCounts.png)
 
-### Resident activity type counts (with filtering)
-![Resident activity type counts with filtering](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Home-withMockData-activityCountsByResidentAndType-filtered.png)
-
 ### Resident activity facilitator role counts
 ![Resident activity facilitator role counts](https://raw.githubusercontent.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData-activityFacilitatorRoleCounts.png)
 
@@ -30,8 +27,10 @@ Welbeing activity log and visualization tool.
 ### Home residents (with activity level)
 ![Home residents with activity level](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Home-withMockData-residentsList.png)
 
-### Home activity counts by resident and type
+### Home activity counts by resident and type (with filtering)
 ![Home activity counts by resident and type screenshot](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Home-withMockData-activityCountsByResidentAndType.png)
+
+![Home activity counts by resident and type with filtering](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Home-withMockData-activityCountsByResidentAndType-filtered.png)
 
 ### Home activity trends
 ![Home residents and activity trends](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Home-withMockData-activityLevelTrends.png)
