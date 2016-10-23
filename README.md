@@ -15,6 +15,9 @@ Welbeing activity log and visualization tool.
 ### Resident activity type counts
 ![Resident activity type counts](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData-activityTypeCounts.png)
 
+### Resident activity type counts (with filtering)
+![Resident activity type counts with filtering](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Home-withMockData-activityCountsByResidentAndType-filtered.png)
+
 ### Resident activity facilitator role counts
 ![Resident activity facilitator role counts](https://raw.githubusercontent.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData-activityFacilitatorRoleCounts.png)
 
