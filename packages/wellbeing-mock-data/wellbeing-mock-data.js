@@ -28,8 +28,7 @@ function insert(collection, args, amount, insertFunctionOutcome) {
 
 	}
 }
-
-function createMockGroups() {
+function createMockGroups () {
 	console.log('Creating mock groups');
 
 	for (var i = 0; i < groups.length; i++) {
@@ -38,6 +37,17 @@ function createMockGroups() {
 		Groups.insert({'name': groupName});
 	}
 }
+
+function createMockRoles() {
+	console.log('Creating mock roles');
+
+	for (var i = 0; i < facilitatorRoles.length; i++) {
+		var roleName = facilitatorRoles[i];
+		console.log(roleName);
+		Roles.createRole(roleName);
+	}
+}
+
 function createMockHomes() {
 	console.log('Creating mock homes');
 	var amount = 3;
@@ -98,6 +108,7 @@ function createMockActivities() {
 Meteor.methods({
 	'createMockData': function() {
 		createMockGroups();
+		createMockRoles();
 		createMockHomes();
 		createMockResidents();
 		createMockActivityTypes();
