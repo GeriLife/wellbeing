@@ -3,27 +3,23 @@ Welbeing activity log and visualization tool.
 
 # Features
 ## Residents
-### Add resident
-![Add resident screenshot](https://cdn.rawgit.com/GeriLife/wellbeing/master/docs/screenshots/add-resident.png)
-
-## Residents
-### Resident activity profile
+### Resident profile
 ![Single resident page](https://raw.githubusercontent.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData.png)
 
-### Activity trend
+### Resident activity trend
 ![Activity graph with trend line](https://raw.githubusercontent.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData-activityTrend.png)
 
-### Activity calendar heatmap
+### Resident activity calendar heatmap
 ![Activity heatmap](https://raw.githubusercontent.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData-activityCalendarHeatmap.png)
 
-### Activity type counts
+### Resident activity type counts
 ![Resident activity type counts](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData-activityTypeCounts.png)
 
-### Activity facilitator role counts
+### Resident activity facilitator role counts
 ![Resident activity facilitator role counts](https://raw.githubusercontent.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData-activityFacilitatorRoleCounts.png)
 
-### Activity table
-![Table showing recent activities](https://cdn.rawgit.com/GeriLife/wellbeing/master/docs/screenshots/activity-table.png)
+### Resident activity table
+![Resident activity table](https://cdn.rawgit.com/GeriLife/wellbeing/master/docs/screenshots/activity-table.png)
 
 ## Homes
 ![Single home screenshot](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Home-withMockData.png)
@@ -52,7 +48,7 @@ Welbeing activity log and visualization tool.
 ### Record activities
 ![Add activity form](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/AddActivity.png)
 
-## Manage system settings
+## System settings
 ![Manage settings](https://cdn.rawgit.com/GeriLife/wellbeing/master/docs/screenshots/settings.png)
 
 # User Stories
