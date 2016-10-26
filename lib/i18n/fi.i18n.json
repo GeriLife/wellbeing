@@ -83,7 +83,7 @@
     "front-quickAddPanel-feelingButton": "Tunnetila",
     "front-quickNavigationPanel-title": "Pikanavigointi",
     "front-quickNavigationPanel-residentsButton": "Asukkaat",
-    "front-quickNavigationPanel-homesButton": "Talot",
+    "front-quickNavigationPanel-homesButton": "Kodit",
     "front-quickNavigationPanel-activitiesButton": "Aktiviteetit",
     "groups": {
         "name": {
@@ -111,7 +111,7 @@
             "label": "Ryhm\u00e4"
         }
     },
-    "homes-header": "Talot",
+    "homes-header": "Kodit",
     "homes-header-addNewButton": "Lis\u00e4\u00e4 uusi",
     "homes-header-addNewButton-group": "Ryhm\u00e4",
     "homes-header-addNewButton-home": "Koti",
@@ -196,7 +196,7 @@
     "rolesSettings-heading": "Roolit",
     "mainLayoutHeader-toggleNavigation": "Siirry edestakaisin navigoinnissa",
     "mainLayoutNavbar-activitesLink": "Aktiviteetit",
-    "mainLayoutNavbar-homesLink": "Talot",
+    "mainLayoutNavbar-homesLink": "Kodit",
     "mainLayoutNavbar-profileLink": "Profiili",
     "mainLayoutNavbar-residentsLink": "Asukkaat",
     "mainLayoutNavbar-settingsLink": "Asetukset",
