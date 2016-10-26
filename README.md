@@ -2,24 +2,14 @@
 Welbeing activity log and visualization tool.
 
 # Features
-## Residents
-### Resident profile
-![Single resident page](https://raw.githubusercontent.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData.png)
+## Activities
+### Record activities
+![Add activity form](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/AddActivity.png)
 
-### Resident activity trend
-![Activity graph with trend line](https://raw.githubusercontent.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData-activityTrend.png)
+## Emotions
+![Emotions screenshot](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Emotions.png)
 
-### Resident activity calendar heatmap
-![Activity heatmap](https://raw.githubusercontent.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData-activityCalendarHeatmap.png)
-
-### Resident activity type counts
-![Resident activity type counts](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData-activityTypeCounts.png)
-
-### Resident activity facilitator role counts
-![Resident activity facilitator role counts](https://raw.githubusercontent.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData-activityFacilitatorRoleCounts.png)
-
-### Resident activity table
-![Resident activity table](https://cdn.rawgit.com/GeriLife/wellbeing/master/docs/screenshots/activity-table.png)
+![Add emotion screenshot](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Emotions-addEmotion.png)
 
 ## Homes
 ![Single home screenshot](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Home-withMockData.png)
@@ -41,14 +31,25 @@ Welbeing activity log and visualization tool.
 ### Single group of homes (with percentage of residents by activity level)
 ![Single home group with percentage of residents by activity level](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Homes-withMockData-singleGroup.png)
 
-## Emotions
-![Emotions screenshot](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Emotions.png)
+## Residents
+### Resident profile
+![Single resident page](https://raw.githubusercontent.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData.png)
 
-![Add emotion screenshot](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Emotions-addEmotion.png)
+### Resident activity trend
+![Activity graph with trend line](https://raw.githubusercontent.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData-activityTrend.png)
 
-## Activities
-### Record activities
-![Add activity form](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/AddActivity.png)
+### Resident activity calendar heatmap
+![Activity heatmap](https://raw.githubusercontent.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData-activityCalendarHeatmap.png)
+
+### Resident activity type counts
+![Resident activity type counts](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData-activityTypeCounts.png)
+
+### Resident activity facilitator role counts
+![Resident activity facilitator role counts](https://raw.githubusercontent.com/GeriLife/wellbeing/develop/docs/screenshots/Resident-withMockData-activityFacilitatorRoleCounts.png)
+
+### Resident activity table
+![Resident activity table](https://cdn.rawgit.com/GeriLife/wellbeing/master/docs/screenshots/activity-table.png)
+
 
 ## System settings
 ![Manage settings](https://cdn.rawgit.com/GeriLife/wellbeing/master/docs/screenshots/settings.png)
