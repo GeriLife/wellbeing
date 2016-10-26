@@ -9,6 +9,7 @@ Welbeing activity log and visualization tool.
 ## Emotions
 ![Emotions screenshot](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Emotions.png)
 
+### Record emotion for individual
 ![Add emotion screenshot](https://rawgit.com/GeriLife/wellbeing/develop/docs/screenshots/Emotions-addEmotion.png)
 
 ## Homes
