@@ -1,10 +1,10 @@
 //TODO: Change these for actual group names
 
 var groups = ['Group A', 'Group B','Group C'];
-var activities = ['Ulkoilu', 'Retki (alueen ulkopuolelle)', 'Tapahtuma (konsertti, juhla yms)',
-            'Musiikin kuuntelu','Ohjattu ryhmätoiminta', 'Itsenäinen toiminta','Kahdenkeskinen vuorovaikutus'];
+var activities = ['Outside', 'Trip', 'Event (e.g. concert)',
+            'Music','Art', 'Reading'];
 
-var facilitatorRoles = ['Henkilökunta', 'Vapaaehtoinen', 'Omainen', 'Itse'];
+var facilitatorRoles = ['Staff', 'Volunteer', 'Family', 'Independent'];
 
 function randomDate(start, end) {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
