@@ -1,10 +1,10 @@
 //TODO: Change these for actual group names
 
-var groups = ['Group A', 'Group B','Group C'];
-var activities = ['Outside', 'Trip', 'Event (e.g. concert)',
-            'Music','Art', 'Reading'];
+var groups = ['Onnela', 'Tammela','Puistola'];
+var activities = ['Ulkoilu', 'Retki', 'Tapahtuma (esim. konsertti)',
+            'Musiikki','Taide', 'Lukeminen'];
 
-var facilitatorRoles = ['Staff', 'Volunteer', 'Family', 'Independent'];
+var facilitatorRoles = ['Henkiökunta', 'Vapaaehtoinen', 'Perhe', 'Itse'];
 
 function randomDate(start, end) {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
@@ -96,11 +96,12 @@ function createMockActivities() {
   // Get list of activity types
   var activityTypes = ActivityTypes.find().fetch();
 
-  // Get a list of all roles
-  var roles = Roles.getAllRoles().fetch();
+  // Get a list of all roles, without admin role
+  var roles = Meteor.roles.find({name: { $ne: 'admin' } }).fetch();
 
   // Select a random facilitator role (ID)
   var roleId = function () {
+    console.log(roles[Math.floor(Math.random() * roles.length)].name);
     return roles[Math.floor(Math.random() * roles.length)]._id;
   }
 
