@@ -20,6 +20,16 @@ Router.route('/settings/activity-types', function () {
 });
 
 /*
+Data
+*/
+Router.route('/settings/data', function () {
+  this.layout('settingsLayout');
+  this.render('dataSettings');
+}, {
+  name: 'dataSettings'
+});
+
+/*
 Date/time
 */
 Router.route('/settings/datetime', function () {
