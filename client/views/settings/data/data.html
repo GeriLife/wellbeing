@@ -38,10 +38,14 @@
             <p>
               {{_ "dataSettings-rawData-helpText" }}
             </p>
-            <button type="button" class="btn btn-success" id="export-data">
+            <button type="button" class="btn btn-success" id="export-data" disabled={{ showSpinner }}>
               <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;
               {{_ "dataSettings-rawData-exportRawDataButton" }}
             </button>
+
+            {{# if showSpinner }}
+              {{> spinner }}
+            {{/ if }}
           </div><!-- /.box-body -->
         </div><!-- /.box -->
     </section>
