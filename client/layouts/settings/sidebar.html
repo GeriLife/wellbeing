@@ -14,6 +14,12 @@
             <span>{{_ "settingsLayoutSidebar-activityTypesLink" }}</span>
           </a>
         </li>
+        <li class="{{ isActiveRoute 'dataSettings' }}">
+          <a href='{{ pathFor "dataSettings" }}'>
+            <i class="fa fa-database" aria-hidden="true"></i>&nbsp;
+            <span>{{_ "settingsLayoutSidebar-dataLink" }}</span>
+          </a>
+        </li>
         <li class="{{ isActiveRoute 'dateTimeSettings' }}">
           <a href='{{ pathFor "dateTimeSettings" }}'>
             <i class="fa fa-calendar"></i>&nbsp;

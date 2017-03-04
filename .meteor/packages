@@ -49,3 +49,5 @@ useraccounts:iron-routing
 erikpel:wellbeing-mock-data
 tap:i18n
 gwendall:autoform-i18n
+nvd3:nvd3
+tap:i18n-ui

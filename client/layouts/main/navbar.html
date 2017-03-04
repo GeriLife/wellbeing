@@ -39,6 +39,11 @@
 
         <ul class="nav navbar-nav navbar-right">
           <li>
+            <form class="navbar-form form-inline">
+              {{> i18n_dropdown}}
+            </form>
+          </li>
+          <li>
             <a href="{{ pathFor 'userProfile'}}">
               <i class="fa fa-user"></i>&nbsp;
               {{_ "mainLayoutNavbar-profileLink" }}

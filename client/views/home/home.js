@@ -1,3 +1,16 @@
+Template.home.onCreated(function () {
+  const instance = this;
+
+  // Set current Home ID from router
+  instance.homeId = Router.current().params.homeId;
+
+  // Subscribe to current home
+  instance.subscribe('singleHome', instance.homeId);
+
+  // Subscribe to Home Residents
+  instance.subscribe('homeCurrentResidents', instance.homeId);
+});
+
 Template.home.events({
   'click #edit-home': function () {
     // Get reference to template instance
@@ -32,20 +45,7 @@ Template.home.helpers({
     // Get Home ID from template instance
     var homeId = instance.homeId;
 
-    // Return all residents for current home
-    return Residents.find({'homeId': homeId});
+    // Return all residents for current home, sorting by first name
+    return Residents.find({'homeId': homeId}, {sort: {firstName: 1}});
   }
 });
-
-Template.home.created = function () {
-  var instance = this;
-
-  // Set current Home ID from router
-  instance.homeId = Router.current().params.homeId;
-
-  // Subscribe to current home
-  instance.subscribe('singleHome', instance.homeId);
-
-  // Subscribe to Home Residents
-  instance.subscribe('homeCurrentResidents', instance.homeId);
-};

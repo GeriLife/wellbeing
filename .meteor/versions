@@ -9,6 +9,7 @@ aldeed:collection2-core@1.1.0
 aldeed:schema-deny@1.0.1
 aldeed:schema-index@1.0.1
 aldeed:simple-schema@1.5.3
+amplify@1.0.0
 anti:i18n@0.4.3
 aslagle:reactive-table@0.8.28
 autoupdate@1.2.4
@@ -80,6 +81,7 @@ mongo-livedata@1.0.9
 mrt:flash-messages@1.0.1
 npm-bcrypt@0.7.8_2
 npm-mongo@1.4.39_1
+nvd3:nvd3@1.8.2
 observe-sequence@1.0.7
 ordered-dict@1.0.4
 peppelg:bootstrap-3-modal@1.0.4
@@ -106,6 +108,7 @@ spacebars-compiler@1.0.7
 srp@1.0.4
 standard-minifiers@1.0.2
 tap:i18n@1.7.0
+tap:i18n-ui@0.7.0
 templating@1.1.5
 templating-tools@1.0.0
 tracker@1.0.9
