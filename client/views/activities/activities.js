@@ -118,7 +118,8 @@ Template.activities.helpers({
           key: 'type',
           label: 'Activity Type',
           sortOrder: 2,
-          sortDirection: 'ascending'
+          sortDirection: 'ascending',
+          tmpl: Template.activitiesTableActivityTypeCell,
         },
         {
           key: 'duration',
