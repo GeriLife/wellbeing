@@ -112,8 +112,7 @@ Template.activities.helpers({
         {
           key: 'homeNames',
           label: 'Resident(s) Home(s)',
-          sortOrder: 2,
-          sortDirection: 'ascending'
+          tmpl: Template.activitiesTableHomesCell,
         },
         {
           key: 'type',
