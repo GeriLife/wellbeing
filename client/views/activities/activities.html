@@ -31,7 +31,7 @@
     </div>
   </div>
   {{# if Template.subscriptionsReady }}
-  {{> reactiveTable collection=activities settings=tableSettings }}
+  {{> reactiveTable collection='allActivities-paginated' settings=tableSettings }}
   {{ else }}
   {{> spinner }}
   {{/ if }}
