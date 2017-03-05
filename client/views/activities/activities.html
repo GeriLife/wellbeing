@@ -19,12 +19,6 @@
       <div class="col-sm-3 col-xs-12">
         {{> reactiveTableFilter id="typeFilter" label=activityTypeFilterLabel fields=activityTypeFilterFields }}
       </div>
-       <div class="form-group pull-right col-sm-3 col-xs-12">
-        <label for="all-or-latest">
-          {{_ "activities-filterActivities-showOnlyLatest" }}
-        </label>
-        <input type="checkbox" name="all-or-latest" class="form-control" >
-      </div>
     </div>
   </div>
   {{# if Template.subscriptionsReady }}

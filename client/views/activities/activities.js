@@ -12,44 +12,9 @@ Template.activities.created = function () {
   instance.subscribe('allActivityTypes');
   instance.subscribe('allResidents');
   instance.subscribe('allHomes');
-
-  // subscribe to all activities and related collections
-  instance.autorun(function () {
-    // Get the value of show latest activities toggle
-    var showLatestActivities = instance.showLatestActivities.get();
-
-    if (showLatestActivities === true) {
-      instance.subscribe("residentLatestActivities");
-    } else if (showLatestActivities === false){
-      instance.subscribe("allActivities");
-    }
-  });
-};
-
-Template.activities.rendered = function () {
-  // Get reference to template instance
-  var instance = this;
-
-  // Set options for toggle switch
-  var options = {secondaryColor: 'silver'};
-  instance.allOrLatestToggle = document.querySelector("[name='all-or-latest']");
-  instance.switch = new Switchery(instance.allOrLatestToggle, options);
-
-  // Get the value of latest activities toggle
-  var allOrLatestToggle = instance.allOrLatestToggle.checked;
-
-  // Set the value of show latest activities reactive variable
-  instance.showLatestActivities.set(allOrLatestToggle);
 };
 
 Template.activities.events({
-  "change [name='all-or-latest']": function (event, template) {
-    // Get reference to template instance
-    var instance = Template.instance();
-
-    // Set reactive variable with value of all-or-latest toggle
-    instance.showLatestActivities.set(instance.allOrLatestToggle.checked);
-  },
   'click #add-activity': function () {
     // Show the add activity modal
     Modal.show('newActivity');
