@@ -156,7 +156,7 @@ Template.activities.helpers({
     return tableSettings;
   },
   'residentFilterFields': function () {
-    return ['residents'];
+    return ['residentIds'];
   },
   "residentFilterLabel": function () {
     // Get internationalized resident filter string
