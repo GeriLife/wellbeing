@@ -20,7 +20,6 @@
   "activities-pageHeader": "Activities",
   "activities-filterActivities-activityTypeFilterLabel": "Type",
   "activities-filterActivities-heading": "Filter activities",
-  "activities-filterActivities-homeFilterLabel": "Home",
   "activities-filterActivities-residentFilterLabel": "Resident",
   "activities-filterActivities-showOnlyLatest": "Show only latest",
   "activityTypes": {
