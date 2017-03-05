@@ -102,17 +102,12 @@ Template.activities.helpers({
   'tableSettings': function () {
     var tableSettings = {
       showFilter: false,
-      filters: ['residentFilter', 'homeFilter', 'typeFilter'],
+      filters: ['residentFilter', 'typeFilter'],
       fields: [
         {
           key: 'residents',
           label: 'Resident(s)',
           tmpl: Template.activitiesTableResidentsCell,
-        },
-        {
-          key: 'homeNames',
-          label: 'Resident(s) Home(s)',
-          tmpl: Template.activitiesTableHomesCell,
         },
         {
           key: 'type',
