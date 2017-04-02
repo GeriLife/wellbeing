@@ -51,7 +51,10 @@ Template.homeResident.helpers({
 
     // Check if resident is on hiatus
     if (resident.onHiatus) {
-      return 'on hiatus';
+      // Get localized text for 'on hiatus' status
+      const onHiatusText = TAPi18n.__('homeResident-activityLabelText-onHiatus');
+
+      return onHiatusText;
     }
 
     // Get resident ID from template instance
