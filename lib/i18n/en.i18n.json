@@ -53,6 +53,7 @@
   "editHome-save": "Save",
   "editResident-cancel": "Cancel",
   "editResident-departed-helpText": "Resident has left the community.",
+  "editResident-onHiatus-helpText": "Resident is on temporary hiatus.",
   "editResident-header": "Edit resident",
   "editResident-save": "Save",
   "editUser": {
