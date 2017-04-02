@@ -18,11 +18,14 @@ var ActivitiesSchema = new SimpleSchema({
           // do not show departed residents
           const departed = false;
 
+          // do not show residents who are on hiatus
+          const onHiatus = false;
+
           // Sort by first name in alphabetical order
           const sort = {firstName: 1}
 
           // Get a list of residents for current home
-          const homeResidents = Residents.find({ homeId, departed }, {sort}).fetch();
+          const homeResidents = Residents.find({ homeId, departed, onHiatus }, {sort}).fetch();
 
           // Create an object containing a home and its residents
           const homeGroup = {
