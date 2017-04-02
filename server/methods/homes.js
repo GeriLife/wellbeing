@@ -12,7 +12,7 @@ Meteor.methods({
     return residentIds;
   },
   'getHomeCurrentResidentIds': function (homeId) {
-    // Get all residents of specific home
+    // Get all residents of specific home who are not departed
     var residents = Residents.find({'homeId': homeId, departed: false}, {sort: {firstName: 1}}).fetch();
 
     // Create an array containing only resident IDs
@@ -23,9 +23,27 @@ Meteor.methods({
     // return the resident IDs array
     return residentIds;
   },
-  'getHomeCurrentResidentCount': function (homeId) {
-    // Get all current residents for specific home
-    const homeCurrentResidentIds = Meteor.call("getHomeCurrentResidentIds", homeId);
+  'getHomeCurrentAndActiveResidentIds': function (homeId) {
+    // Get all residents of specific home who are not departed or on hiatus
+    const departed = false;
+    const onHiatus = false;
+
+    var residents = Residents.find(
+      {'homeId': homeId, departed, onHiatus},
+      {sort: {firstName: 1}}
+    ).fetch();
+
+    // Create an array containing only resident IDs
+    var residentIds = _.map(residents, function (resident) {
+      return resident._id;
+    });
+
+    // return the resident IDs array
+    return residentIds;
+  },
+  'getHomeCurrentAndActiveResidentCount': function (homeId) {
+    // Get all current residents for specific home (not departed or on hiatus)
+    const homeCurrentResidentIds = Meteor.call("getHomeCurrentAndActiveResidentIds", homeId);
 
     // Count the length of current resident IDs list
     const homeCurrentResidentsCount = homeCurrentResidentIds.length;
@@ -112,7 +130,7 @@ Meteor.methods({
   },
   "getHomeActivityLevelCounts": function (homeId) {
     // // Get home residents by calling getHomeResidentIds
-    var residentIds = Meteor.call("getHomeCurrentResidentIds",homeId);
+    var residentIds = Meteor.call("getHomeCurrentAndActiveResidentIds",homeId);
 
     var residentActivityLevelCounts = {
       inactive: 0,
@@ -148,7 +166,7 @@ Meteor.methods({
   },
   "getHomeActivityCountTrend": function (homeId) {
     // Get home residents
-    var residentIds = Meteor.call("getHomeCurrentResidentIds",homeId);
+    var residentIds = Meteor.call("getHomeCurrentAndActiveResidentIds",homeId);
 
     // Number of days to look back
     var numberOfDays = 7;

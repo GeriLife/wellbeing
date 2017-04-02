@@ -53,6 +53,7 @@
   "editHome-save": "Save",
   "editResident-cancel": "Cancel",
   "editResident-departed-helpText": "Resident has left the community.",
+  "editResident-onHiatus-helpText": "Resident is on temporary hiatus.",
   "editResident-header": "Edit resident",
   "editResident-save": "Save",
   "editUser": {
@@ -119,6 +120,7 @@
   "homes-header-addNewButton": "Add new",
   "homes-header-addNewButton-group": "Group",
   "homes-header-addNewButton-home": "Home",
+  "homeResident-activityLabelText-onHiatus": "on hiatus",
   "homeResidentActivitySumsByType-heading": "Activity summary by type",
   "homeResidentActivitySumsByType-subheading": "(last 30 days)",
   "homeResidentActivitySummaryChart-residentAxisTitle": "Resident Name / Activity Count",

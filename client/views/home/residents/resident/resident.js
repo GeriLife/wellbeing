@@ -20,6 +20,14 @@ Template.homeResident.helpers({
     // Get reference to template instance
     var instance = Template.instance();
 
+    // Get resident
+    const resident = instance.data;
+
+    // Check if resident is on hiatus
+    if (resident.onHiatus) {
+      return 'info';
+    }
+
     // Get resident activity count
     var activityCount = instance.residentActivityCount.get();
 
@@ -37,6 +45,17 @@ Template.homeResident.helpers({
     var instance = Template.instance();
 
     // Map the resident activity level to a Bootstrap class
+
+    // Get resident
+    const resident = instance.data;
+
+    // Check if resident is on hiatus
+    if (resident.onHiatus) {
+      // Get localized text for 'on hiatus' status
+      const onHiatusText = TAPi18n.__('homeResident-activityLabelText-onHiatus');
+
+      return onHiatusText;
+    }
 
     // Get resident ID from template instance
     var residentId = instance.residentId;
