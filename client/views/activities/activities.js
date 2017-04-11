@@ -1,9 +1,4 @@
-Template.activities.created = function () {
-  // Get reference to template instance
-  var instance = this;
-
-  instance.showLatestActivities = new ReactiveVar();
-
+Template.activities.onCreated(function () {
   // Get reference to template instance
   var instance = this;
 
@@ -12,10 +7,10 @@ Template.activities.created = function () {
   instance.subscribe('allActivityTypes');
   instance.subscribe('allResidents');
   instance.subscribe('allHomes');
-};
+});
 
 Template.activities.events({
-  'click #add-activity': function () {
+  'click #add-activity' () {
     // Show the add activity modal
     Modal.show('newActivity');
   },
@@ -29,7 +24,7 @@ Template.activities.events({
 });
 
 Template.activities.helpers({
-  'tableSettings': function () {
+  tableSettings () {
     var tableSettings = {
       showFilter: false,
       filters: ['residentFilter', 'typeFilter'],
