@@ -73,11 +73,4 @@ Template.activities.helpers({
 
     return tableSettings;
   },
-  'activityTypeFilterFields': function () {
-    return ['type'];
-  },
-  "activityTypeFilterLabel": function () {
-    // Get internationalized resident filter string
-    return TAPi18n.__("activities-filterActivities-activityTypeFilterLabel");
-  },
 });
