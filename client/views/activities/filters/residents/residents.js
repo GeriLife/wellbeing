@@ -1,3 +1,18 @@
+Template.activitiesTableResidentNamesFilter.onCreated(function () {
+  // Initialize ReactiveTable filter for residents
+  this.filter = new ReactiveTable.Filter('residentFilter', ['residentIds']);
+});
+
+Template.activitiesTableResidentNamesFilter.events({
+   "change #resident-filter": function (event, templateInstance) {
+     // get selected resident ID
+     var residentId = $(event.target).val();
+
+      // Set filter to contain resident ID
+      templateInstance.filter.set(residentId);
+   }
+});
+
 Template.activitiesTableResidentNamesFilter.onRendered(function () {
   // Render Bootstrap select widget on resident filter
   $('#resident-filter').selectpicker();
@@ -41,4 +56,4 @@ Template.activitiesTableResidentNamesFilter.helpers({
 
     return residentsSelectOptions;
   },
-})
+});
