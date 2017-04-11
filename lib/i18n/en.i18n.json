@@ -19,6 +19,7 @@
   "activities-addActivityButton": "Add Activity",
   "activities-pageHeader": "Activities",
   "activities-filterActivities-activityTypeFilterLabel": "Type",
+  "activities-filterActivities-clearFiltersText": "Clear filters",
   "activities-filterActivities-heading": "Filter activities",
   "activities-filterActivities-residentFilterLabel": "Resident",
   "activities-filterActivities-showOnlyLatest": "Show only latest",
