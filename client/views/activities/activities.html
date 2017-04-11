@@ -8,20 +8,21 @@
       {{_ "activities-pageHeader" }}
     </h1>
   </div>
+  {{# if Template.subscriptionsReady }}
   <div class="panel panel-default">
     <div class="panel-heading">
       <h2 class="panel-title">{{_ "activities-filterActivities-heading" }}</h2>
     </div>
     <div class="panel-body">
       <div class="col-sm-3 col-xs-12">
-        {{> reactiveTableFilter id="residentFilter" label=residentFilterLabel fields=residentFilterFields }}
+        <!-- {{> reactiveTableFilter id="residentFilter" label=residentFilterLabel fields=residentFilterFields }} -->
+        {{> activitiesTableResidentNamesFilter }}
       </div>
       <div class="col-sm-3 col-xs-12">
         {{> reactiveTableFilter id="typeFilter" label=activityTypeFilterLabel fields=activityTypeFilterFields }}
       </div>
     </div>
   </div>
-  {{# if Template.subscriptionsReady }}
   {{> reactiveTable collection='allActivities-paginated' settings=tableSettings }}
   {{ else }}
   {{> spinner }}
