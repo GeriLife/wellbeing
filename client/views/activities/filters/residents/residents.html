@@ -1,6 +1,8 @@
 <template name="activitiesTableResidentNamesFilter">
     <div class="form-group">
-      <label for="resident-filter">Resident</label>
+      <label for="resident-filter">
+        {{_ "activities-filterActivities-residentFilterLabel" }}
+      </label>
       <select class="form-control" id="resident-filter">
         <option value="" disabled selected>Choose resident</option>
         {{# each item in residentNamesGroupedtByHomes }}

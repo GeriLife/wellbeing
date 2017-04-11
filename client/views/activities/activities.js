@@ -73,13 +73,6 @@ Template.activities.helpers({
 
     return tableSettings;
   },
-  'residentFilterFields': function () {
-    return ['residentIds'];
-  },
-  "residentFilterLabel": function () {
-    // Get internationalized resident filter string
-    return TAPi18n.__("activities-filterActivities-residentFilterLabel");
-  },
   'activityTypeFilterFields': function () {
     return ['type'];
   },
