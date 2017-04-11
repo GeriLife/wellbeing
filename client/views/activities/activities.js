@@ -18,6 +18,13 @@ Template.activities.events({
   'click #add-activity': function () {
     // Show the add activity modal
     Modal.show('newActivity');
+  },
+  'click #clear-filters' () {
+    // Clear value for all selectpickers
+    $('.selectpicker').selectpicker('val', null);
+
+    // Trigger change event to refresh table
+    $('.selectpicker').trigger('change');
   }
 });
 
