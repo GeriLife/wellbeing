@@ -38,5 +38,39 @@ Meteor.methods({
       .entries(activities);
 
     return facilitatorRoleCounts;
+  },
+  getHomeActivityTypeCountsLast30days (homeId) {
+    // Get activties for current home (ID) from last 30 days
+    let activityIds = Meteor.call('getHomeCurrentResidentsActivityIdsLast30Days', homeId);
+
+    // Set up query to get activities by ID
+    const query = {
+      _id: {
+        $in: activityIds
+      }
+    };
+
+    // Get activities
+    let activities = Activities.find(query).fetch();
+
+    // Add 'activityTypeName' field to each activity,
+    // Containing Activity Type name in plain text
+    activities = _.map(activities, function (activity) {
+      // Get activity type name via collection helper
+      activity.activityTypeName = activity.activityType();
+
+      return activity;
+    });
+
+    // Group activities by facilitator role
+    const activityTypeCounts = d3.nest()
+      .key(function (activity) {
+        return activity.activityTypeName;
+      })
+      // Count the number of activies per facilitator role
+      .rollup(function (activityTypeName) { return activityTypeName.length })
+      .entries(activities);
+
+    return activityTypeCounts;
   }
 });

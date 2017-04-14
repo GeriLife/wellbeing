@@ -69,6 +69,11 @@
       </div>
       <div class="row">
         <div class="col-md-6">
+          <!-- Activity counts by activity type -->
+          {{> homeActivityCountsByActivityType homeId=home._id }}
+        </div>
+        
+        <div class="col-md-6">
           <!-- Activity counts by facilitator role -->
           {{> homeActivityCountsByFacilitatorRole homeId=home._id }}
         </div>
