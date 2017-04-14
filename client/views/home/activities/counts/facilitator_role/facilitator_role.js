@@ -26,7 +26,7 @@ Template.homeActivityCountsByFacilitatorRole.onCreated(function () {
 
     if (chartData) {
       // Get reference to chart container
-      const svg = dimple.newSvg("#homeActivityCountsByfacilitatorRolesChart", "100%", "100%");
+      const svg = dimple.newSvg("#homeActivityCountsByfacilitatorRoleChart", "100%", "100%");
 
       // Initialize the activity type chart
       const facilitatorRolesChart = new dimple.chart(svg, chartData);
