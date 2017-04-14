@@ -35,7 +35,7 @@ Template.homeActivityCountsByFacilitatorRole.onCreated(function () {
       facilitatorRolesChart.setBounds("20%", "5%", "75%", "60%");
 
       // Change bar color to grey, to avoid confusion with activity type colors
-      facilitatorRolesChart.defaultColors = [new dimple.color("#f5f5f5")];
+      facilitatorRolesChart.defaultColors = [new dimple.color("#8e8e8e")];
 
       // Add facilitator roles to x axis
       const xAxis = facilitatorRolesChart.addMeasureAxis("x", "value");
