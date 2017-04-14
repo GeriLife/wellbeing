@@ -1,4 +1,5 @@
 <template name="home">
+  {{# if Template.subscriptionsReady }}
   <h1 class="page-header">
     <i class="fa fa-lg fa-home"></i>&nbsp;
     {{ home.name }}
@@ -74,4 +75,7 @@
       </div>
     </div>
   </div>
+  {{ else }}
+    {{> spinner }}
+  {{/ if }}
 </template>
