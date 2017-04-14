@@ -26,7 +26,7 @@ Template.homeActivityCountsByFacilitatorRole.onCreated(function () {
 
     if (chartData) {
       // Get reference to chart container
-      const svg = dimple.newSvg("#homeActivityCountsByfacilitatorRoleChart", "100%", "100%");
+      const svg = dimple.newSvg("#homeActivityCountsByFacilitatorRoleChart", "100%", "100%");
 
       // Initialize the activity type chart
       const facilitatorRolesChart = new dimple.chart(svg, chartData);
@@ -41,7 +41,7 @@ Template.homeActivityCountsByFacilitatorRole.onCreated(function () {
       const xAxis = facilitatorRolesChart.addMeasureAxis("x", "value");
 
       // Set x axis title
-      const xAxisTitle = TAPi18n.__("homeActivityCountsByfacilitatorRoleChart-xAxis-title");
+      const xAxisTitle = TAPi18n.__("homeActivityCountsByFacilitatorRoleChart-xAxis-title");
       xAxis.title = xAxisTitle;
 
       // Disable grid lines
@@ -51,7 +51,7 @@ Template.homeActivityCountsByFacilitatorRole.onCreated(function () {
       const yAxis = facilitatorRolesChart.addCategoryAxis("y", "key");
 
       // Set y axis title
-      const yAxisTitle = TAPi18n.__("homeActivityCountsByfacilitatorRoleChart-yAxis-title");
+      const yAxisTitle = TAPi18n.__("homeActivityCountsByFacilitatorRoleChart-yAxis-title");
       yAxis.title = yAxisTitle;
 
       // Disable grid lines
