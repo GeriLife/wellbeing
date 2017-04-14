@@ -41,7 +41,7 @@ Template.homeActivityCountsByFacilitatorRole.onCreated(function () {
       const xAxis = facilitatorRolesChart.addMeasureAxis("x", "value");
 
       // Set x axis title
-      const xAxisTitle = TAPi18n.__("residentFacilitatorRolesChart-xAxis-title");
+      const xAxisTitle = TAPi18n.__("homeActivityCountsByfacilitatorRoleChart-xAxis-title");
       xAxis.title = xAxisTitle;
 
       // Disable grid lines
@@ -51,7 +51,7 @@ Template.homeActivityCountsByFacilitatorRole.onCreated(function () {
       const yAxis = facilitatorRolesChart.addCategoryAxis("y", "key");
 
       // Set y axis title
-      const yAxisTitle = TAPi18n.__("residentFacilitatorRolesChart-yAxis-title");
+      const yAxisTitle = TAPi18n.__("homeActivityCountsByfacilitatorRoleChart-yAxis-title");
       yAxis.title = yAxisTitle;
 
       // Disable grid lines
