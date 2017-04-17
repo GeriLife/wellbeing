@@ -1,4 +1,10 @@
 <template name="residentFeelings">
-  <h2>Feelings</h2>
+  <!-- hide template text when no resident feelings are available -->
+  {{# if residentFeelingsCount }}
+    <h2>Feelings</h2>
+  {{/ if }}
+
+  <!-- TODO: determine how to exclude the residentFeelingsChart div -->
+  <!-- currently causes tracker error when charts try to render -->
   <div id="residentFeelingsChart" class="col-md-6"></div>
 </template>
