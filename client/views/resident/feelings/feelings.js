@@ -15,7 +15,9 @@ Template.residentFeelings.onRendered(function () {
 
       // Group feelings by type and calculate percentage for each feeling
       const residentFeelingsCounts = d3.nest()
+        // TODO: add localization to the feeling names (possibly below)
         .key(function (datum) { return datum.feeling })
+        // TODO: Determine whether to display counts or percentages
         .rollup(function (values) { return values.length / residentFeelings.length })
         .entries(residentFeelings);
 
@@ -30,6 +32,7 @@ Template.residentFeelings.onRendered(function () {
           data: residentFeelingsCounts,
           chart_type: 'bar',
           x_accessor: 'values',
+          // TODO: Determine whether to display counts or percentages
           format: 'percentage',
           xax_format: d3.format('.0%'),
           y_accessor: 'key',
