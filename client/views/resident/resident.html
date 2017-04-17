@@ -8,11 +8,16 @@
     </button>
     {{/ if }}
   </h1>
-  {{>
-    residentActivities
-    resident=resident
-    activities=activities
-  }}
+  <div class="row">
+    {{> residentFeelings }}
+  </div>
+  <div class="row">
+    {{>
+      residentActivities
+      resident=resident
+      activities=activities
+    }}
+  </div>
   {{ else }}
     {{> spinner }}
   {{/ if }}
