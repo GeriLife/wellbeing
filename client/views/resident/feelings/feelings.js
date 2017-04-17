@@ -44,3 +44,16 @@ Template.residentFeelings.onRendered(function () {
     }
   });
 });
+
+Template.residentFeelings.helpers({
+  residentFeelingsCount () {
+    // Get reference to template instance
+    const templateInstance = Template.instance();
+
+    // Get resident ID from template instance
+    const residentId = templateInstance.data.residentId;
+    
+    // return a count of resident feelings
+    return Feelings.find({ residentId }).count();
+  }
+});
