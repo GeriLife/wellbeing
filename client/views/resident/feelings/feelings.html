@@ -1,7 +1,9 @@
 <template name="residentFeelings">
   <!-- hide template text when no resident feelings are available -->
   {{# if residentFeelingsCount }}
-    <h2>Feelings</h2>
+    <h2>
+      {{_ "residentFeelings-header" }}
+    </h2>
   {{/ if }}
 
   <!-- TODO: determine how to exclude the residentFeelingsChart div -->
