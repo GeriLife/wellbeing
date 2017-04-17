@@ -21,8 +21,8 @@ Template.residentFeelings.onRendered(function () {
         .rollup(function (values) { return values.length / residentFeelings.length })
         .entries(residentFeelings);
 
-      // Make sure feeling counts are available
-      if (residentFeelingsCounts) {
+      // Make sure feeling counts are available (not an empty array)
+      if (residentFeelingsCounts.length > 0) {
         // clear any previous chart
         this.$('#residentFeelingsChart').empty();
 
@@ -52,7 +52,7 @@ Template.residentFeelings.helpers({
 
     // Get resident ID from template instance
     const residentId = templateInstance.data.residentId;
-    
+
     // return a count of resident feelings
     return Feelings.find({ residentId }).count();
   }
