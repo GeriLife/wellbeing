@@ -16,7 +16,15 @@ Template.residentFeelings.onRendered(function () {
       // Group feelings by type and calculate percentage for each feeling
       const residentFeelingsCounts = d3.nest()
         // TODO: add localization to the feeling names (possibly below)
-        .key(function (datum) { return datum.feeling })
+        .key(function (datum) {
+          // Get feeling
+          const feeling = datum.feeling;
+
+          // Get localization string for feeling
+          const feelingL10n = TAPi18n.__(`residentFeelings-chart-feelingName-${ feeling }`);
+
+          return feelingL10n;
+        })
         // TODO: Determine whether to display counts or percentages
         .rollup(function (values) { return values.length / residentFeelings.length })
         .entries(residentFeelings);
@@ -28,7 +36,7 @@ Template.residentFeelings.onRendered(function () {
 
         // Render chart with current feeling counts
         MG.data_graphic({
-          title: 'Feelings',
+          title: TAPi18n.__('residentFeelings-chart-title'),
           data: residentFeelingsCounts,
           chart_type: 'bar',
           x_accessor: 'values',
