@@ -41,6 +41,44 @@ Meteor.methods({
       return residentsLatestActivityIdsByType;
     }
   },
+  'getHomeCurrentResidentsActivityIdsLast30Days' (homeId) {
+    /*
+    Get all activities in past 30 days
+    for residents of a given home (provided by home ID)
+    */
+
+
+    // Get date 30 days ago (converting to JavaScript date)
+    const previousDate = moment().subtract(30, 'days').toDate();
+
+    // Get current resident IDs for given home
+    const residentIds = Meteor.call('getHomeCurrentAndActiveResidentIds', homeId);
+
+    // Set up MongoDB query object
+    // activities where one or more activity.residentIds matched in residentIds
+      // (searching array field with array of values)
+    // and activityDate greater than or equal to 'previousDate' (30 days ago)
+    const query = {
+      residentIds: {
+        $elemMatch: {
+          $in: residentIds
+        }
+      },
+      activityDate: {
+        $gte: previousDate
+      }
+    };
+
+    // Get activties documents cursor
+    const activities = Activities.find(query).fetch();
+
+    // Create an array of activity IDs
+    const activityIds = _.map(activities, function (activity) {
+      return activity._id;
+    });
+
+    return activityIds;
+  },
   'getLatestActivityIds': function () {
     // Get all activity type IDs
     var activityTypeIds = Meteor.call('getAllActivityTypeIds');
