@@ -45,26 +45,9 @@
       </h2>
     </div>
     <div class="panel-body">
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active">
-          <a href="#activity-chart" aria-controls="chart" role="tab" data-toggle="tab">
-            {{_ "home-activitiesPanel-activitySummaryTab" }}
-          </a>
-        </li>
-        <li role="presentation">
-          <a href="#activity-table" aria-controls="calendar" role="tab" data-toggle="tab">
-            {{_ "home-activitiesPanel-activityTableTab" }}
-          </a>
-        </li>
-      </ul>
-      <!-- Tab panes -->
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="activity-chart">
           {{> homeResidentActivitySumsByType }}
-        </div>
-        <div role="tabpanel" class="tab-pane" id="activity-table">
-          {{> homeActivities }}
         </div>
       </div>
       <div class="row">
@@ -72,7 +55,7 @@
           <!-- Activity counts by activity type -->
           {{> homeActivityCountsByActivityType homeId=home._id }}
         </div>
-        
+
         <div class="col-md-6">
           <!-- Activity counts by facilitator role -->
           {{> homeActivityCountsByFacilitatorRole homeId=home._id }}

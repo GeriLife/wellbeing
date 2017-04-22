@@ -103,8 +103,6 @@
   "home-residentsPanel-heading": "Residents",
   "home-activityLevelTrendsPanel-heading": "Activity level trends",
   "home-activitiesPanel-heading": "Activities",
-  "home-activitiesPanel-activitySummaryTab": "Resident activity summary",
-  "home-activitiesPanel-activityTableTab": "Activity table",
   "homeActivityCountsByActivityTypeChart-headingText": "Activity counts by type",
   "homeActivityCountsByActivityTypeChart-xAxis-title": "Activity count",
   "homeActivityCountsByActivityTypeChart-yAxis-title": "Activity type",
