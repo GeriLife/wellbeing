@@ -19,8 +19,8 @@
   "activities-addActivityButton": "Add Activity",
   "activities-pageHeader": "Activities",
   "activities-filterActivities-activityTypeFilterLabel": "Type",
+  "activities-filterActivities-clearFiltersText": "Clear filters",
   "activities-filterActivities-heading": "Filter activities",
-  "activities-filterActivities-homeFilterLabel": "Home",
   "activities-filterActivities-residentFilterLabel": "Resident",
   "activities-filterActivities-showOnlyLatest": "Show only latest",
   "activityTypes": {
@@ -34,6 +34,9 @@
   "dataSettings-demoData-generateDemoDataButton": "Generate demo data",
   "dataSettings-demoData-header": "Demonstration data",
   "dataSettings-demoData-helpText": "Click the button below to generate demonstration data for all features of this software.",
+  "dataSettings-rawData-exportRawDataButton": "Export data",
+  "dataSettings-rawData-header": "Export data",
+  "dataSettings-rawData-helpText": "Click the button below to export all data.",
   "dateTimeSettings-header": "Date/time settings",
   "dateTimeSettings-timezone-header": "Timezone",
   "dateTimeSettings-timezone-helpText": "Select timezone for use in scheduled reports.",
@@ -53,6 +56,7 @@
   "editHome-save": "Save",
   "editResident-cancel": "Cancel",
   "editResident-departed-helpText": "Resident has left the community.",
+  "editResident-onHiatus-helpText": "Resident is on temporary hiatus.",
   "editResident-header": "Edit resident",
   "editResident-save": "Save",
   "editUser": {
@@ -101,6 +105,12 @@
   "home-activitiesPanel-heading": "Activities",
   "home-activitiesPanel-activitySummaryTab": "Resident activity summary",
   "home-activitiesPanel-activityTableTab": "Activity table",
+  "homeActivityCountsByActivityTypeChart-headingText": "Activity counts by type",
+  "homeActivityCountsByActivityTypeChart-xAxis-title": "Activity count",
+  "homeActivityCountsByActivityTypeChart-yAxis-title": "Activity type",
+  "homeActivityCountsByFacilitatorRoleChart-headingText": "Activity counts by facilitator role",
+  "homeActivityCountsByFacilitatorRoleChart-xAxis-title": "Activity count",
+  "homeActivityCountsByFacilitatorRoleChart-yAxis-title": "Facilitator role",
   "homeGroup-activityLevelsLegend-active": "Excellent",
   "homeGroup-activityLevelsLegend-inactive": "Inactive",
   "homeGroup-activityLevelsLegend-semiActive": "Moderate",
@@ -119,6 +129,7 @@
   "homes-header-addNewButton": "Add new",
   "homes-header-addNewButton-group": "Group",
   "homes-header-addNewButton-home": "Home",
+  "homeResident-activityLabelText-onHiatus": "on hiatus",
   "homeResidentActivitySumsByType-heading": "Activity summary by type",
   "homeResidentActivitySumsByType-subheading": "(last 30 days)",
   "homeResidentActivitySummaryChart-residentAxisTitle": "Resident Name / Activity Count",
@@ -160,6 +171,9 @@
     },
     "departed": {
       "label": "Departed"
+    },
+    "onHiatus": {
+      "label": "On hiatus"
     }
   },
   "residentActivityTrendChart-title": "Daily activity in minutes",
@@ -185,6 +199,12 @@
   "residentFacilitatorRolesChart-header": "Facilitator roles",
   "residentFacilitatorRolesChart-xAxis-title": "Activity count",
   "residentFacilitatorRolesChart-yAxis-title": "Facilitator role",
+  "residentFeelings-header": "Feelings",
+  "residentFeelings-chart-feelingName-anger": "Angry",
+  "residentFeelings-chart-feelingName-joy": "Happy",
+  "residentFeelings-chart-feelingName-sad": "Sad",
+  "residentFeelings-chart-feelingName-fear": "Scared",
+  "residentFeelings-chart-title": "Feelings",
   "resident-activityCalendar-title": "Activity calendar",
   "residentInterests-header": "Interests",
   "residents-filterLabels-fullName": "Name",

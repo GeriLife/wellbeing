@@ -1,9 +1,4 @@
-Template.activities.created = function () {
-  // Get reference to template instance
-  var instance = this;
-
-  instance.showLatestActivities = new ReactiveVar();
-
+Template.activities.onCreated(function () {
   // Get reference to template instance
   var instance = this;
 
@@ -12,115 +7,39 @@ Template.activities.created = function () {
   instance.subscribe('allActivityTypes');
   instance.subscribe('allResidents');
   instance.subscribe('allHomes');
-
-  // subscribe to all activities and related collections
-  instance.autorun(function () {
-    // Get the value of show latest activities toggle
-    var showLatestActivities = instance.showLatestActivities.get();
-
-    if (showLatestActivities === true) {
-      instance.subscribe("residentLatestActivities");
-    } else if (showLatestActivities === false){
-      instance.subscribe("allActivities");
-    }
-  });
-};
-
-Template.activities.rendered = function () {
-  // Get reference to template instance
-  var instance = this;
-
-  // Set options for toggle switch
-  var options = {secondaryColor: 'silver'};
-  instance.allOrLatestToggle = document.querySelector("[name='all-or-latest']");
-  instance.switch = new Switchery(instance.allOrLatestToggle, options);
-
-  // Get the value of latest activities toggle
-  var allOrLatestToggle = instance.allOrLatestToggle.checked;
-
-  // Set the value of show latest activities reactive variable
-  instance.showLatestActivities.set(allOrLatestToggle);
-};
+});
 
 Template.activities.events({
-  "change [name='all-or-latest']": function (event, template) {
-    // Get reference to template instance
-    var instance = Template.instance();
-
-    // Set reactive variable with value of all-or-latest toggle
-    instance.showLatestActivities.set(instance.allOrLatestToggle.checked);
-  },
-  'click #add-activity': function () {
+  'click #add-activity' () {
     // Show the add activity modal
     Modal.show('newActivity');
+  },
+  'click #clear-filters' () {
+    // Clear value for all selectpickers
+    $('.selectpicker').selectpicker('val', null);
+
+    // Trigger change event to refresh table
+    $('.selectpicker').trigger('change');
   }
 });
 
 Template.activities.helpers({
-  "activities": function () {
-    // Query Activities collection for all activities
-    var activities = Activities.find().fetch();
-
-    // Create a placeholder array for resident objects
-    var activitiesArray = [];
-
-    // Iterate through activities
-    activities.forEach(function (activity) {
-      // Get all resident IDs
-      var residentIds = activity.residentIds;
-
-      // Placeholder for resident names
-      var homeNames = _.map(residentIds, function (residentId) {
-        // Get the resident
-        var resident = Residents.findOne(residentId);
-
-        // Get resident home name
-        var homeName = resident.homeName();
-
-        return homeName;
-      });
-
-      // Get only unique home names
-      var homeNamesUnique = _.uniq(homeNames);
-
-      // set resident names, type, duration, and date values
-      var activityObject = {
-        activityId: activity._id,
-        residents: activity.residentNames(),
-        type: activity.activityType(),
-        duration: activity.duration,
-        activityDate: activity.activityDate,
-        homeNames: homeNamesUnique
-      };
-
-      // Add activity object to residents list
-      activitiesArray.push(activityObject);
-    });
-
-    return activitiesArray;
-  },
-  'tableSettings': function () {
+  tableSettings () {
     var tableSettings = {
       showFilter: false,
-      filters: ['residentFilter', 'homeFilter', 'typeFilter'],
+      filters: ['residentFilter', 'typeFilter'],
       fields: [
         {
           key: 'residents',
           label: 'Resident(s)',
-          sortOrder: 1,
-          sortDirection: 'ascending'
-        },
-        {
-          key: 'homeNames',
-          label: 'Resident(s) Home(s)',
-          sortOrder: 2,
-          sortDirection: 'ascending'
+          tmpl: Template.activitiesTableResidentsCell,
         },
         {
           key: 'type',
           label: 'Activity Type',
           sortOrder: 2,
-          sortDirection: 'ascending'
+          sortDirection: 'ascending',
+          tmpl: Template.activitiesTableActivityTypeCell,
         },
         {
           key: 'duration',
@@ -155,26 +74,5 @@ Template.activities.helpers({
     };
 
     return tableSettings;
-  },
-  'residentFilterFields': function () {
-    return ['residents'];
-  },
-  "residentFilterLabel": function () {
-    // Get internationalized resident filter string
-    return TAPi18n.__("activities-filterActivities-residentFilterLabel");
-  },
-  'homeFilterFields': function () {
-    return ['homeNames'];
-  },
-  "homeFilterLabel": function () {
-    // Get internationalized resident filter string
-    return TAPi18n.__("activities-filterActivities-homeFilterLabel");
-  },
-  'activityTypeFilterFields': function () {
-    return ['type'];
-  },
-  "activityTypeFilterLabel": function () {
-    // Get internationalized resident filter string
-    return TAPi18n.__("activities-filterActivities-activityTypeFilterLabel");
   },
 });

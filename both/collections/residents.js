@@ -53,6 +53,10 @@ var ResidentsSchema = new SimpleSchema({
       type: 'textarea'
     }
   },
+  onHiatus: {
+    type: Boolean,
+    defaultValue: false
+  },
   departed: {
     type: Boolean,
     optional: true,

@@ -8,30 +8,27 @@
       {{_ "activities-pageHeader" }}
     </h1>
   </div>
+  {{# if Template.subscriptionsReady }}
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h2 class="panel-title">{{_ "activities-filterActivities-heading" }}</h2>
+      <h2 class="panel-title">
+        {{_ "activities-filterActivities-heading" }}
+        <button id="clear-filters" class="btn btn-xs btn-primary pull-right">
+          <i class="fa fa-times" aria-hidden="true"></i>
+          {{_ "activities-filterActivities-clearFiltersText" }}
+        </button>
+      </h2>
     </div>
     <div class="panel-body">
       <div class="col-sm-3 col-xs-12">
-        {{> reactiveTableFilter id="residentFilter" label=residentFilterLabel fields=residentFilterFields }}
+        {{> activitiesTableResidentNamesFilter }}
       </div>
       <div class="col-sm-3 col-xs-12">
-        {{> reactiveTableFilter id="homeFilter" label=homeFilterLabel fields=homeFilterFields }}
-      </div>
-      <div class="col-sm-3 col-xs-12">
-        {{> reactiveTableFilter id="typeFilter" label=activityTypeFilterLabel fields=activityTypeFilterFields }}
-      </div>
-       <div class="form-group pull-right col-sm-3 col-xs-12">
-        <label for="all-or-latest">
-          {{_ "activities-filterActivities-showOnlyLatest" }}
-        </label>
-        <input type="checkbox" name="all-or-latest" class="form-control" >
+        {{> activitiesTableActivityTypeFilter }}
       </div>
     </div>
   </div>
-  {{# if Template.subscriptionsReady }}
-  {{> reactiveTable collection=activities settings=tableSettings }}
+  {{> reactiveTable collection='allActivities-paginated' settings=tableSettings }}
   {{ else }}
   {{> spinner }}
   {{/ if }}

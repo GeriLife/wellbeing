@@ -152,6 +152,9 @@
         },
         "departed": {
             "label": "L\u00e4htenyt"
+        },
+        "onHiatus": {
+            "label": "Keskeytys"
         }
     },
     "residentActivityTrendChart-title": "P\u00e4ivitt\u00e4iset aktiviteetit minuuteissa",
@@ -231,5 +234,29 @@
     "homeResidentActivityLevelTrend-legend-active": "Erinomainen",
     "homeResidentActivityLevelTrend-legend-inactive": "Passiivinen",
     "homeResidentActivityLevelTrend-legend-semiActive": "Kohtalainen",
-    "homeResidentActivityLevelTrend-yAxis-label": "Asukkaiden lukum\u00e4\u00e4r\u00e4"
+    "homeResidentActivityLevelTrend-yAxis-label": "Asukkaiden lukum\u00e4\u00e4r\u00e4",
+    "activities-filterActivities-clearFiltersText": "Suodata",
+    "dataSettings-header": "Data asetukset",
+    "dataSettings-demoData-generateDemoDataButton": "Generoi demo data",
+    "dataSettings-demoData-header": "Esittelytiedosto",
+    "dataSettings-demoData-helpText": "Paina alla olevaa toimintoa saadaksesi esittelytietoja kaikkiin ohjelmiston ominaisuuksiin.",
+    "dataSettings-rawData-exportRawDataButton": "Vie tiedosto",
+    "dataSettings-rawData-header": "Vie tiedosto",
+    "dataSettings-rawData-helpText": "Paina alla olevaa nappia tiedoston siirtoon.",
+    "editResident-onHiatus-helpText": "V\u00e4liaikainen keskeytys",
+    "homeActivityCountsByActivityTypeChart-headingText": "Aktiviteettim\u00e4\u00e4r\u00e4t tyypeitt\u00e4in",
+    "homeActivityCountsByActivityTypeChart-xAxis-title": "Aktiviteettien m\u00e4\u00e4r\u00e4",
+    "homeActivityCountsByActivityTypeChart-yAxis-title": "Aktiviteettityyppi",
+    "homeActivityCountsByFacilitatorRoleChart-headingText": "Aktiviteettien m\u00e4\u00e4r\u00e4\/fasilitaattori",
+    "homeActivityCountsByFacilitatorRoleChart-xAxis-title": "Aktiviteettien m\u00e4\u00e4r\u00e4",
+    "homeActivityCountsByFacilitatorRoleChart-yAxis-title": "Fasilitaattori",
+    "homeResident-activityLabelText-onHiatus": "Keskeytys",
+    "residentFeelings-header": "Tunnetila",
+    "residentFeelings-chart-feelingName-anger": "Vihainen",
+    "residentFeelings-chart-feelingName-joy": "Onnellinen",
+    "residentFeelings-chart-feelingName-sad": "Surullinen",
+    "residentFeelings-chart-feelingName-fear": "Pelokas",
+    "residentFeelings-chart-title": "Tunnetila",
+    "settings-data": "Data",
+    "settingsLayoutSidebar-dataLink": "Data"
 }

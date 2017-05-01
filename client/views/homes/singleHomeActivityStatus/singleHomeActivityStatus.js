@@ -8,8 +8,8 @@ Template.singleHomeActivityStatus.onCreated(function () {
     instance.activityLevelCounts = new ReactiveVar();
 
     instance.autorun(function () {
-      // Get count of home current residents
-      instance.homeCurrentResidentsCount = ReactiveMethod.call("getHomeCurrentResidentCount", instance.homeId);
+      // Get count of home current residents (not departed or on hiatus)
+      instance.homeCurrentResidentsCount = ReactiveMethod.call("getHomeCurrentAndActiveResidentCount", instance.homeId);
 
       // Retrieve home resident activity level counts from server
       const activityLevelCounts = ReactiveMethod.call("getHomeActivityLevelCounts", instance.homeId);

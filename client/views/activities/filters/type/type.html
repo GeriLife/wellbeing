@@ -1,0 +1,17 @@
+<template name="activitiesTableActivityTypeFilter">
+  <div class="form-group">
+    <label for="resident-filter">
+      {{_ "activities-filterActivities-activityTypeFilterLabel" }}
+    </label>
+    <select class="form-control selectpicker" id="activity-type-filter">
+      <option value="" disabled selected>
+        Choose activity type
+      </option>
+      {{# each activityType in activityTypes }}
+        <option value="{{ activityType._id }}">
+          {{ activityType.name }}
+        </option>
+      {{/ each }}
+    </select>
+  </div>
+</template>

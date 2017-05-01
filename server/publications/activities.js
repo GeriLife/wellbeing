@@ -2,6 +2,8 @@ Meteor.publish('allActivities', function () {
   return Activities.find();
 });
 
+ReactiveTable.publish('allActivities-paginated', Activities);
+
 Meteor.publish('singleActivity', function (activityId) {
   return Activities.find(activityId);
 });
