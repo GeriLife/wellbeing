@@ -171,6 +171,9 @@
     },
     "departed": {
       "label": "Departed"
+    },
+    "onHiatus": {
+      "label": "On hiatus"
     }
   },
   "residentActivityTrendChart-title": "Daily activity in minutes",
