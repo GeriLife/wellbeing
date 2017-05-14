@@ -16,8 +16,11 @@ Meteor.methods({
 
     // Make sure current user has 'admin' role
     if (Roles.userIsInRole(currentUserId, 'admin')) {
-      // Delete provided user Object
-      Meteor.users.remove(user);
+      // Make sure user can't delete own Account
+      if (currentUserId !== user._id) {
+        // If safe, delete provided user Object
+        Meteor.users.remove(user);
+      }
     }
   },
   "editUserFormSubmit": function (user) {
