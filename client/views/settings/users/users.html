@@ -45,9 +45,12 @@
               </button>
             </td>
             <td>
+              <!-- Only show delete button for other user accounts than current user -->
+              {{# if userCanDeleteAccount }}
               <button class="delete-user btn btn-danger btn-sm">
                 <i class="fa fa-trash-o"></i>
               </button>
+              {{/ if }}
             </td>
           </tr>
           {{/ each }}
