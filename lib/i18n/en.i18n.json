@@ -255,6 +255,7 @@
   "settingsLayoutSidebar-usersLink": "Users",
   "usersSettings-addUserButton": "Add User",
   "usersSettings-header": "Users",
+  "usersSettings-tableHeaders-delete": "Delete",
   "usersSettings-tableHeaders-edit": "Edit",
   "usersSettings-tableHeaders-email": "Email",
   "usersSettings-tableHeaders-roles": "Roles"
