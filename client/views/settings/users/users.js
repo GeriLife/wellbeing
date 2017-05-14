@@ -32,6 +32,13 @@ Template.usersSettings.events({
     // Show the add activity modal
     Modal.show('newUser');
   },
+  'click .delete-user': function (event, template) {
+    // Save reference to user
+    var user = this;
+
+    // Show edit modal, passing in user as data context
+    Modal.show("deleteUser", {"data": user}, {});
+  },
   'click .edit-user': function (event, template) {
     // Save reference to user
     var user = this;
