@@ -2,7 +2,6 @@
   <div class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-        {{# if Template.subscriptionsReady }}
         <div class="modal-header">
           <h4 class="modal-title">
             <i class="fa fa-cubes"></i>&nbsp;
@@ -24,9 +23,6 @@
           </button>
         </div>
         {{/ autoForm }}
-        {{ else }}
-        {{> spinner }}
-        {{/ if }}
       </div>
     </div>
   </div>
