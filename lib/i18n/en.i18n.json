@@ -114,6 +114,7 @@
   "homeGroup-activityLevelsLegend-active": "Excellent",
   "homeGroup-activityLevelsLegend-inactive": "Inactive",
   "homeGroup-activityLevelsLegend-semiActive": "Moderate",
+  "homeGroup-editButton-text": "Edit",
   "homeGroup-tableCaption": "Homes with count of residents per seven day activiy level.",
   "homeGroup-tableHeader-activityLevels": "Activity levels",
   "homeGroup-tableHeader-name": "Name",

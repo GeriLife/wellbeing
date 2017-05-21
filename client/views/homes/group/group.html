@@ -2,6 +2,11 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h2 id="{{ name }}-title" class="panel-title">
+        {{# if isInRole 'admin' }}
+          <button type="button" class="btn btn-default btn-xs pull-right">
+            {{_ "homeGroup-editButton-text" }}
+          </button>
+        {{/ if }}
         <i class="fa fa-cubes"></i>&nbsp;
         {{ name }}
       </h2>
