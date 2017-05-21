@@ -12,7 +12,7 @@
             {{/ if }}
           </h4>
         </div>
-        {{#autoForm id="groupForm" type="insert" collection="Groups"  }}
+        {{# autoForm id="groupForm" type=formType collection="Groups" doc=group }}
 
         <div class="modal-body">
           {{> afQuickField name="name"}}
