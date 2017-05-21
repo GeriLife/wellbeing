@@ -16,7 +16,7 @@ Template.homes.events({
   },
   'click #new-group': function () {
     // Show the edit home modal
-    Modal.show('newGroup');
+    Modal.show('groupModal');
   }
 });
 
