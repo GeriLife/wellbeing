@@ -97,6 +97,10 @@
   "front-quickNavigationPanel-residentsButton": "Residents",
   "front-quickNavigationPanel-homesButton": "Homes",
   "front-quickNavigationPanel-activitiesButton": "Activities",
+  "groupModal-cancel": "Cancel",
+  "groupModal-header-createNew": "Create new group",
+  "groupModal-header-edit": "Edit group",
+  "groupModal-save": "Save",
   "groups": {
     "name": {
       "label": "Group name"
@@ -118,6 +122,7 @@
   "homeGroup-activityLevelsLegend-active": "Excellent",
   "homeGroup-activityLevelsLegend-inactive": "Inactive",
   "homeGroup-activityLevelsLegend-semiActive": "Moderate",
+  "homeGroup-editButton-text": "Edit",
   "homeGroup-tableCaption": "Homes with count of residents per seven day activiy level.",
   "homeGroup-tableHeader-activityLevels": "Activity levels",
   "homeGroup-tableHeader-name": "Name",
@@ -153,9 +158,6 @@
   "newFeeling-header": "Record new feeling",
   "newFeeling-save": "Save",
   "newFeeling-success": "Successfully recorded feeling",
-  "newGroup-cancel": "Cancel",
-  "newGroup-header": "Create new group",
-  "newGroup-save": "Save",
   "newUser-cancelButton": "Cancel",
   "newUser-header": "Create new User",
   "newUser-saveButton": "Save",
