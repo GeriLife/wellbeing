@@ -1,14 +1,14 @@
-<template name="newGroup">
+<template name="groupModal">
   <div class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">
             <i class="fa fa-cubes"></i>&nbsp;
-            {{_ "newGroup-header" }}
+            {{_ "groupModal-header-createNew" }}
           </h4>
         </div>
-        {{#autoForm id="newGroupForm" type="insert" collection="Groups"  }}
+        {{#autoForm id="groupForm" type="insert" collection="Groups"  }}
 
         <div class="modal-body">
           {{> afQuickField name="name"}}
@@ -16,10 +16,10 @@
 
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">
-            {{_ "newGroup-save" }}
+            {{_ "groupModal-save" }}
           </button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">
-            {{_ "newGroup-cancel" }}
+            {{_ "groupModal-cancel" }}
           </button>
         </div>
         {{/ autoForm }}
