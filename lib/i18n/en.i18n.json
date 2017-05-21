@@ -99,6 +99,7 @@
   "front-quickNavigationPanel-activitiesButton": "Activities",
   "groupModal-cancel": "Cancel",
   "groupModal-header-createNew": "Create new group",
+  "groupModal-header-edit": "Edit group",
   "groupModal-save": "Save",
   "groups": {
     "name": {

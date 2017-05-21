@@ -5,7 +5,11 @@
         <div class="modal-header">
           <h4 class="modal-title">
             <i class="fa fa-cubes"></i>&nbsp;
-            {{_ "groupModal-header-createNew" }}
+            {{# if group }}
+              {{_ "groupModal-header-edit" }}
+            {{ else }}
+              {{_ "groupModal-header-createNew" }}
+            {{/ if }}
           </h4>
         </div>
         {{#autoForm id="groupForm" type="insert" collection="Groups"  }}
