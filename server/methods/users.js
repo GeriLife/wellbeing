@@ -5,6 +5,24 @@ Meteor.methods({
 
     return userId;
   },
+  "deleteUser": function (user) {
+    console.log(user);
+    // Make sure user object provided with '_id' property
+    check(user, Object);
+    check(user._id, String);
+
+    // Get current user id, for security check
+    const currentUserId = this.userId;
+
+    // Make sure current user has 'admin' role
+    if (Roles.userIsInRole(currentUserId, 'admin')) {
+      // Make sure user can't delete own Account
+      if (currentUserId !== user._id) {
+        // If safe, delete provided user Object
+        Meteor.users.remove(user);
+      }
+    }
+  },
   "editUserFormSubmit": function (user) {
     // Get user email
     var userEmail = user.email;

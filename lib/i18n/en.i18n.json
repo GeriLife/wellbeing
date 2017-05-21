@@ -46,6 +46,10 @@
   "deleteActivityConfirmation-header": "Delete activity",
   "deleteActivityConfirmation-message": "Do you want to delete this activity record?",
   "deleteActivityButton-text": "Delete",
+  "deleteUser-cancelButton": "No, cancel.",
+  "deleteUser-confirmationText": "Deletion cannot be undone. Do you want to delete this user?",
+  "deleteUser-confirmButton": "Yes, delete.",
+  "deleteUser-header": "Delete user",
   "editActivity-cancel": "Cancel",
   "editActivity-header": "Edit activity",
   "editActivity-save": "Save",
@@ -255,6 +259,7 @@
   "settingsLayoutSidebar-usersLink": "Users",
   "usersSettings-addUserButton": "Add User",
   "usersSettings-header": "Users",
+  "usersSettings-tableHeaders-delete": "Delete",
   "usersSettings-tableHeaders-edit": "Edit",
   "usersSettings-tableHeaders-email": "Email",
   "usersSettings-tableHeaders-roles": "Roles"

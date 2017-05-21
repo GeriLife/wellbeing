@@ -37,7 +37,7 @@ reload@1.1.11
 random@1.0.10
 ejson@1.0.13
 spacebars
-check@1.2.5
+check
 simple:reactive-method
 percolate:migrations
 reywood:publish-composite
