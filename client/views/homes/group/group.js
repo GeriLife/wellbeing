@@ -3,7 +3,8 @@ Template.homeGroup.events({
     // Get reference to group
     const group = this;
 
-    // Open modal dialogue for editing group
+    // Show the group modal (edit)
+    Modal.show('groupModal', { group });
   },
   'click .home' () {
     // Save Home ID that was clicked
