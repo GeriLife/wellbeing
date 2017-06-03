@@ -99,5 +99,11 @@ Meteor.methods({
     var latestActivityIdsFlat = _.flatten(latestActivityIds);
 
     return latestActivityIdsFlat;
+  },
+  getActivityCountByActivityTypeId (activityTypeId) {
+    // Get count of activities by activity type ID
+    const activityCount = Activities.find({ activityTypeId }).count();
+
+    return activityCount;
   }
 });
