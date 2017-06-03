@@ -22,6 +22,9 @@
           {{# each activityTypes }}
           <tr>
             <td>{{ name }}</td>
+            <td>
+              {{> deleteActivityType }}
+            </td>
           </tr>
           {{/ each }}
           </tbody>
