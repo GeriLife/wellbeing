@@ -1,9 +1,9 @@
 Template.editActivityButton.events({
-  "click .edit-button": function (event, template) {
+  "click .edit-button" () {
     // Get Activity ID from template instance
-    var activityId = this.activityId;
+    var activity = this;
 
     // Show the Edit Activity modal
-    Modal.show("editActivity", {activityId: activityId});
+    Modal.show("editActivity", { activity });
   }
 });
