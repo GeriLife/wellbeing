@@ -34,3 +34,13 @@ Template.deleteActivityType.helpers({
     }
   }
 });
+
+Template.deleteActivityType.events({
+  'click .delete-activity-type' (event, templateInstance) {
+    // Get reference to activity type ID
+    const activityTypeId = templateInstance.data.activityTypeId;
+
+    // Show the confirmation dialogue
+    Modal.show("deleteActivityTypeConfirmation", { activityTypeId });
+  }
+});
