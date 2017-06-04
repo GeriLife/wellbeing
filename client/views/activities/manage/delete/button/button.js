@@ -1,9 +1,9 @@
 Template.deleteActivityButton.events({
-  "click .delete-button": function (event, instance) {
+  "click .delete-button" () {
     // Get reference to activity ID
-    var activityId = instance.data.activityId;
-    
+    var activity= this;
+
     // Show the confirmation dialogue
-    Modal.show("deleteActivityConfirmation", {activityId: activityId});
+    Modal.show("deleteActivityConfirmation", { activity });
   }
 });
