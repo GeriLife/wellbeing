@@ -1,6 +1,10 @@
 <template name="manageActivityButtons">
   <div class="btn-group pull-right" role="group">
-    {{> editActivityButton activity=this }}
+    <!-- only allow editing activities within one week of creation -->
+    {{# if activityDateIsWithinOneWeek }}
+      {{> editActivityButton activity=this }}
+    {{/ if }}
+
     {{> deleteActivityButton activity=this }}
   </div>
 </template>
