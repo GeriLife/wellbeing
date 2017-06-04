@@ -12,7 +12,7 @@ ActivityTypes.allow({
     const currentUserId = Meteor.userId();
 
     // Chack if user is administrator
-    const userIsAdmin = Roles.userIsInRole(currentUserId);
+    const userIsAdmin = Roles.userIsInRole(currentUserId, 'admin');
 
     // Only Admin user can insert
     return userIsAdmin;
@@ -22,7 +22,7 @@ ActivityTypes.allow({
     const currentUserId = Meteor.userId();
 
     // Chack if user is administrator
-    const userIsAdmin = Roles.userIsInRole(currentUserId);
+    const userIsAdmin = Roles.userIsInRole(currentUserId, 'admin');
 
     // Only Admin user can remove
     return userIsAdmin;
@@ -32,7 +32,7 @@ ActivityTypes.allow({
     const currentUserId = Meteor.userId();
 
     // Chack if user is administrator
-    const userIsAdmin = Roles.userIsInRole(currentUserId);
+    const userIsAdmin = Roles.userIsInRole(currentUserId, 'admin');
 
     // Only Admin user can update
     return userIsAdmin;
