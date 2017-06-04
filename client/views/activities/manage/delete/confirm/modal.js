@@ -1,8 +1,9 @@
 Template.deleteActivityConfirmation.events({
-  "click #confirm-delete": function (event, instance) {
+  "click #confirm-delete" () {
+    console.log(this);
     // Get Activity ID
-    var activityId = instance.data.activityId;
-
+    const activityId = this.activity._id;
+    console.log(activityId);
     // Delete Activity
     Activities.remove(activityId, function () {
       // Dismiss the modal dialogue
