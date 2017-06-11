@@ -11,7 +11,14 @@ Meteor.methods({
 
     // Create user and send enrollment email for each email address
     emailAddresses.forEach((emailAddress) => {
-      console.log(emailAddress);
+      // Create a user with current email address
+      const userId = Accounts.createUser({
+        email: emailAddress,
+        enrollmentPending: true
+      });
+
+      // Send enrollment email to newly created user
+      Accounts.sendEnrollmentEmail(userId);
     });
   },
   addUserToAdminRole (userId) {
