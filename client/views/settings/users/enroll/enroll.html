@@ -6,7 +6,11 @@
       </div>
     </div>
     <div class="box-body no-padding">
-      {{> quickForm schema=usersEnrollSchema id="usersEnrollForm" type="method" meteormethod="addUsersAndSendEnrollmentEmails"}}
+      {{> quickForm
+        schema=usersEnrollSchema
+        id="usersEnrollForm"
+        type="method"
+        meteormethod="addUsersAndSendEnrollmentEmails" }}
     </div>
   </div>
 </template>
