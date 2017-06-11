@@ -13,7 +13,7 @@ Meteor.methods({
     emailAddresses.forEach((emailAddress) => {
       console.log(emailAddress);
     });
-  }
+  },
   addUserToAdminRole (userId) {
     // Add user to admin role
     Roles.addUsersToRoles(userId, "admin");
