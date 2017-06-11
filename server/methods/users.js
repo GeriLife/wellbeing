@@ -6,6 +6,8 @@ Meteor.methods({
     return userId;
   },
   addUsersAndSendEnrollmentEmails (enrollmentDocument) {
+    // original example: https://stackoverflow.com/a/16098693/1191545
+    
     // Get emails from enrollment document
     const emailAddresses = enrollmentDocument.emailAddresses;
 
