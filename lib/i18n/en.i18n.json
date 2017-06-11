@@ -266,6 +266,7 @@
   "settingsLayoutSidebar-usersLink": "Users",
   "usersEnroll-form-submitButton-text": "Send invite(s)",
   "usersEnroll-header-text": "Enroll users",
+  "usersEnroll-introduction-text": "Create one or more user accounts and send an activation email.",
   "usersEnrollSchema": {
     "subject": {
       "label": "Subject"
