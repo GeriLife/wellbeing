@@ -14,10 +14,14 @@ Meteor.methods({
     }
 
     // Set enrollment subject from document
-    Accounts.emailTemplates.enrollAccount.subject = enrollmentDocument.subject;
+    Accounts.emailTemplates.enrollAccount.subject = (user) => {
+      return enrollmentDocument.subject;
+    }
 
     // Set enrollment message from document
-    Accounts.emailTemplates.enrollAccount.text = enrollmentDocument.message;
+    Accounts.emailTemplates.enrollAccount.text = (user) => {
+      return enrollmentDocument.message;
+    }
 
     // Get emails from enrollment document
     const emailAddresses = enrollmentDocument.emailAddresses;
