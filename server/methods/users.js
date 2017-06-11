@@ -5,6 +5,15 @@ Meteor.methods({
 
     return userId;
   },
+  addUsersAndSendEnrollmentEmails (enrollmentDocument) {
+    // Get emails from enrollment document
+    const emailAddresses = enrollmentDocument.emailAddresses;
+
+    // Create user and send enrollment email for each email address
+    emailAddresses.forEach((emailAddress) => {
+      console.log(emailAddress);
+    });
+  }
   addUserToAdminRole (userId) {
     // Add user to admin role
     Roles.addUsersToRoles(userId, "admin");
