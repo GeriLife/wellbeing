@@ -5,6 +5,7 @@ const usersEnrollSchema = new SimpleSchema({
   },
   emailAddresses: {
     type: [String],
+    regEx: SimpleSchema.RegEx.Email,
     optional: false
   }
 });
