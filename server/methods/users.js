@@ -7,7 +7,7 @@ Meteor.methods({
   },
   addUsersAndSendEnrollmentEmails (enrollmentDocument) {
     // original example: https://stackoverflow.com/a/16098693/1191545
-    
+
     // Get emails from enrollment document
     const emailAddresses = enrollmentDocument.emailAddresses;
 
@@ -15,8 +15,7 @@ Meteor.methods({
     emailAddresses.forEach((emailAddress) => {
       // Create a user with current email address
       const userId = Accounts.createUser({
-        email: emailAddress,
-        enrollmentPending: true
+        email: emailAddress
       });
 
       // Send enrollment email to newly created user
