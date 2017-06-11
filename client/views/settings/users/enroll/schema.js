@@ -1,4 +1,4 @@
-const enrollUsersSchema = new SimpleSchema({
+const usersEnrollSchema = new SimpleSchema({
   message: {
     type: String,
     optional: false
@@ -9,4 +9,4 @@ const enrollUsersSchema = new SimpleSchema({
   }
 });
 
-export default enrollUsersSchema;
+export default usersEnrollSchema;
