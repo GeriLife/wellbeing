@@ -20,7 +20,7 @@ Meteor.methods({
 
     // Set enrollment message from document
     Accounts.emailTemplates.enrollAccount.text = (user, url) => {
-      return `${ enrollmentDocument.message } \n\n url`;
+      return `${ enrollmentDocument.message } \n\n $ { url }`;
     }
 
     // Get emails from enrollment document
