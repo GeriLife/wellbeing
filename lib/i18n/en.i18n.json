@@ -265,6 +265,7 @@
   "settingsLayoutSidebar-header": "Settings Menu",
   "settingsLayoutSidebar-usersLink": "Users",
   "usersEnroll_form_submitButton_text": "Send invite(s)",
+  "usersEnroll-header-text": "Enroll users",
   "usersSettings-addUserButton": "Add User",
   "usersSettings-header": "Users",
   "usersSettings-tableHeaders-delete": "Delete",
