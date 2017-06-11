@@ -13,6 +13,12 @@ Meteor.methods({
       throw new Meteor.Error('MailConfigurationError', 'No mail settings available.')
     }
 
+    // Set enrollment subject from document
+    Accounts.emailTemplates.enrollAccount.subject = enrollmentDocument.subject;
+
+    // Set enrollment message from document
+    Accounts.emailTemplates.enrollAccount.text = enrollmentDocument.message;
+
     // Get emails from enrollment document
     const emailAddresses = enrollmentDocument.emailAddresses;
 
