@@ -1,11 +1,15 @@
 Meteor.methods({
-  "addUser": function (user) {
+  addUser (user) {
     // Add new user
     var userId = Accounts.createUser(user);
 
     return userId;
   },
-  "deleteUser": function (user) {
+  addUserToAdminRole (userId) {
+    // Add user to admin role
+    Roles.addUsersToRoles(userId, "admin");
+  },
+  deleteUser (user) {
     console.log(user);
     // Make sure user object provided with '_id' property
     check(user, Object);
@@ -23,7 +27,7 @@ Meteor.methods({
       }
     }
   },
-  "editUserFormSubmit": function (user) {
+  editUserFormSubmit (user) {
     // Get user email
     var userEmail = user.email;
 
@@ -34,11 +38,7 @@ Meteor.methods({
 
     return userId;
   },
-  "addUserToAdminRole": function (userId) {
-    // Add user to admin role
-    Roles.addUsersToRoles(userId, "admin");
-  },
-  "removeUserFromAdminRole": function (userId) {
+  removeUserFromAdminRole (userId) {
     // Add user to admin role
     Roles.removeUsersFromRoles(userId, "admin");
   }
