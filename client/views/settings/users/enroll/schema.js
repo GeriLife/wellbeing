@@ -16,4 +16,6 @@ const usersEnrollSchema = new SimpleSchema({
   }
 });
 
+usersEnrollSchema.i18n("usersEnrollSchema");
+
 export default usersEnrollSchema;

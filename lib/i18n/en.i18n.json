@@ -266,6 +266,17 @@
   "settingsLayoutSidebar-usersLink": "Users",
   "usersEnroll-form-submitButton-text": "Send invite(s)",
   "usersEnroll-header-text": "Enroll users",
+  "usersEnrollSchema": {
+    "subject": {
+      "label": "Subject"
+    },
+    "message": {
+      "label": "Invitation message"
+    },
+    "emailAddresses": {
+      "label": "Email address(es)"
+    }
+  },
   "usersSettings-addUserButton": "Add User",
   "usersSettings-header": "Users",
   "usersSettings-tableHeaders-delete": "Delete",
