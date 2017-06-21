@@ -1,14 +1,18 @@
-<template name="editResident">
+<template name="residentForm">
   <div class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
         {{# if Template.subscriptionsReady }}
         <div class="modal-header">
           <h4 class="modal-title">
-            {{_ "editResident-header" }}
+            {{# if residentId }}
+              {{_ "residentForm-header-edit" }}
+            {{ else }}
+              {{_ "residentForm-header-add" }}
+            {{/ if }}
           </h4>
         </div>
-        {{#autoForm id="editResidentForm" type="update" collection="Residents" doc=this  }}
+        {{#autoForm id="residentForm" type=formType collection="Residents" doc=resident  }}
 
         <div class="modal-body">
           {{> afQuickField name="firstName"}}
@@ -17,21 +21,21 @@
 
           {{> afQuickField name="onHiatus"}}
           <p class="help-block">
-            {{_ "editResident-onHiatus-helpText" }}
+            {{_ "residentForm-onHiatus-helpText" }}
           </p>
 
           {{> afQuickField name="departed"}}
           <p class="help-block">
-            {{_ "editResident-departed-helpText" }}
+            {{_ "residentForm-departed-helpText" }}
           </p>
         </div>
 
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">
-            {{_ "editResident-save" }}
+            {{_ "residentForm-save" }}
           </button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">
-            {{_ "editResident-cancel" }}
+            {{_ "residentForm-cancel" }}
           </button>
         </div>
         {{/ autoForm }}

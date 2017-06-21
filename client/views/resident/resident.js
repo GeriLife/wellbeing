@@ -12,16 +12,6 @@ Template.resident.created = function () {
   instance.subscribe("allRolesExceptAdmin");
 
   instance.activities = new ReactiveVar();
-
-  instance.autorun(function () {
-    if (instance.subscriptionsReady()) {
-      instance.resident = Residents.findOne(instance.residentId);
-
-      var residentActivities = Activities.find({residentIds: instance.residentId}).fetch();
-
-      instance.activities.set(residentActivities);
-    }
-  });
 };
 
 Template.resident.events({
@@ -30,7 +20,7 @@ Template.resident.events({
     var instance = Template.instance();
 
     // Show the edit home modal
-    Modal.show('editResident', instance.resident);
+    Modal.show('residentForm', {residentId: instance.residentId});
   }
 });
 
@@ -40,7 +30,7 @@ Template.resident.helpers({
     var instance = Template.instance();
 
     // Get resident from template instance
-    var resident = instance.resident;
+    var resident = Residents.findOne(instance.residentId);
 
     return resident;
   },
@@ -49,7 +39,7 @@ Template.resident.helpers({
     const instance = Template.instance();
 
     // Get activities from template instance
-    var activities = instance.activities.get();
+    var activities = Activities.find({residentIds: instance.residentId}).fetch();
 
     return activities;
   }
