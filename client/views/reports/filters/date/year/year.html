@@ -1,5 +1,7 @@
 <template name="reportFiltersDateYear">
   <select class="form-control" name="year">
-    <option value="2017">2017</option>
+    {{# each year in years }}
+      <option value="{{ year }}">{{ year }}</option>
+    {{/ each }}
   </select>
 </template>
