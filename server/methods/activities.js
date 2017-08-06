@@ -105,5 +105,11 @@ Meteor.methods({
     const activityCount = Activities.find({ activityTypeId }).count();
 
     return activityCount;
+  },
+  getOldestActivityDate () {
+    // Get the date of the first recorded activity
+    const oldestActivity = Activities.find({}, {sort: {activityDate: 1}}).fetch()[0];
+
+    return oldestActivity.activityDate;
   }
 });
