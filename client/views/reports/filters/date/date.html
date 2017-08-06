@@ -1,3 +1,5 @@
 <template name="reportsFiltersDate">
-  {{> reportFiltersDateYear oldestActivityDate=oldestActivityDate }}
+  {{#if oldestActivityDate }}
+    {{> reportFiltersDateYear oldestActivityDate=oldestActivityDate }}
+  {{/ if }}
 </template>
