@@ -1,5 +1,11 @@
 <template name="reportsFiltersDate">
   {{#if oldestActivityDate }}
-    {{> reportFiltersDateYear oldestActivityDate=oldestActivityDate }}
+    <div class="col-xs-6 col-sm-3 col-md-2">
+      {{> reportFiltersDateYear oldestActivityDate=oldestActivityDate }}
+    </div>
+
+    <div class="col-xs-6 col-sm-3 col-md-2">
+      {{> reportFiltersDateMonth }}
+    </div>
   {{/ if }}
 </template>
