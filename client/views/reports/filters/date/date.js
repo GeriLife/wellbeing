@@ -1,8 +1,8 @@
 Template.reportsFiltersDate.onCreated(function () {
-  // get reference to template instance
+  // Get reference to template instance
   const instance = this;
 
-  // placeholder for date of oldest activity
+  // Placeholder (reactive variable) for date of oldest activity
   instance.oldestActivityDate = new ReactiveVar();
 
   // Get date for oldest activity
@@ -10,4 +10,14 @@ Template.reportsFiltersDate.onCreated(function () {
     console.log(oldestActivityDate);
     instance.oldestActivityDate.set(oldestActivityDate);
   })
+});
+
+TemplatereportsFilterDate.helpers({
+  oldestActivityDate () {
+    // Get reference to template instance
+    const instance = Template.instance();
+
+    // Return the value of oldest activity date reactive variable
+    return instance.oldestActivityDate.get();
+  }
 });
