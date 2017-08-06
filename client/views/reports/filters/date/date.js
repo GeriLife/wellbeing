@@ -7,12 +7,12 @@ Template.reportsFiltersDate.onCreated(function () {
 
   // Get date for oldest activity
   Meteor.call('getOldestActivityDate', function (error, oldestActivityDate) {
-    console.log(oldestActivityDate);
+    // Update reactive variable to contain oldest activity date
     instance.oldestActivityDate.set(oldestActivityDate);
   })
 });
 
-TemplatereportsFilterDate.helpers({
+Template.reportsFiltersDate.helpers({
   oldestActivityDate () {
     // Get reference to template instance
     const instance = Template.instance();
