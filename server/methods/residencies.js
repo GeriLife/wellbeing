@@ -2,7 +2,6 @@ import newResidentAndResidencySchema from '/both/schemas/newResidentAndResidency
 
 Meteor.methods({
   addNewResidentAndResidency (document) {
-    console.log(document);
     // set up validation context based on new resident and residency schama
     const validationContext = newResidentAndResidencySchema.newContext();
 
@@ -20,16 +19,33 @@ Meteor.methods({
       // TODO: migrate homeId out of resident schema
       const residentId = Residents.insert({ firstName, lastInitial, homeId });
 
-      console.log(residentId);
+      if (residentId) {
+        // Insert residency document
+        const residencyId = Residencies.insert({ residentId, homeId, moveIn });
 
-      // Insert residency document
-      const residencyId = Residencies.insert({ residentId, homeId, moveIn });
-
-      if (residentId && residencyId) {
-        // Submission was successful
-        // TODO: determine more robust error checking
-        return true;
+        if (residencyId) {
+          // Submission was successful
+          return true;
+        } else {
+          // Could not create residency
+          throw new Meteor.Error(
+            'could-not-create-residency',
+            'Could not create residency.'
+          )
+        }
+      } else {
+        // Could not create resident
+        throw new Meteor.Error(
+          'could-not-create-resident',
+          'Could not create resident.'
+        )
       }
+    } else {
+      // Document is not valid
+      throw new Meteor.Error(
+        'resident-and-residency-invalid',
+        'Resident and residency document is not valid.'
+      )
     }
   }
 });
