@@ -1,4 +1,4 @@
-import newResidentFormSchema from './newResidentFormSchema';
+import newResidentAndResidencySchema from './newResidentAndResidencySchema';
 
 Template.residencyForm.onCreated(function () {
   // Get reference to template instance
@@ -38,8 +38,8 @@ Template.residencyForm.helpers({
     // otherwise return false
     return false;
   },
-  newResidentFormSchema () {
-    return newResidentFormSchema;
+  newResidentAndResidencySchema () {
+    return newResidentAndResidencySchema;
   }
 });
 
