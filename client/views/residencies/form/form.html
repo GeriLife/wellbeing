@@ -45,6 +45,8 @@
               </button>
 
             {{/ autoForm }}
+          {{ else }}
+            {{> quickForm schema=newResidentFormSchema id="new-resident-and-residency" type="method" }}
           {{/ if }}
         </div> <!-- / .modal-body -->
         {{ else }}
