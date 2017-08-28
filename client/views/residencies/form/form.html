@@ -13,19 +13,19 @@
         </div> <!-- / .modal-header -->
         {{# if Template.subscriptionsReady }}
         <div class="modal-body">
-          <!-- existing user radio (checked by default) -->
+          <!-- new resident radio (checked by default) -->
           <div class="radio">
             <label>
-              <input type="radio" name="new-or-existing" value="existing" checked>
-              {{_ "residencyForm-newOrExisting-existing" }}
+              <input type="radio" name="new-or-existing" value="new" checked>
+              {{_ "residencyForm-newOrExisting-new" }}
             </label>
           </div>
 
-          <!-- new user radio (unchecked by default) -->
+          <!-- existing resident radio (unchecked by default) -->
           <div class="radio">
             <label>
-              <input type="radio" name="new-or-existing" value="new">
-              {{_ "residencyForm-newOrExisting-new" }}
+              <input type="radio" name="new-or-existing" value="existing">
+              {{_ "residencyForm-newOrExisting-existing" }}
             </label>
           </div>
 

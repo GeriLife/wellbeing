@@ -14,8 +14,8 @@ Template.residencyForm.onCreated(function () {
   templateInstance.subscribe('allGroups');
 
   // Create reactive variable to hold state of 'new or existing resident' radio
-  // initialize to 'existing' to match template markup
-  templateInstance.newOrExistingResident = new ReactiveVar('existing');
+  // initialize to 'new' to match template markup
+  templateInstance.newOrExistingResident = new ReactiveVar('new');
 });
 
 Template.residencyForm.helpers({
