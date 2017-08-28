@@ -11,27 +11,42 @@
               {{_ "residencyForm-header-add" }}
             {{/ if }}
           </h4>
-        </div>
-        {{#autoForm id="residencyForm" type=formType collection="Residencies" doc=residency  }}
-
+        </div> <!-- / .modal-header -->
         <div class="modal-body">
-          {{> afQuickField name="residentId"}}
-          {{> afQuickField name="homeId"}}
-          {{> afQuickField name="moveIn" buttonClasses="fa fa-calendar" value=today}}
-          {{> afQuickField name="moveOut" buttonClasses="fa fa-calendar" }}
+          <div class="radio">
+            <label>
+              <input type="radio" name="new-or-existing" value="new" checked>
+              New Resident
+            </label>
+          </div>
 
-          <button type="submit" class="btn btn-success">
-            {{_ "residecyForm-save" }}
-          </button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">
-            {{_ "residencyForm-cancel" }}
-          </button>
-        </div>
-        {{/ autoForm }}
+          <div class="radio">
+            <label>
+              <input type="radio" name="new-or-existing" value="existing">
+              Existing Resident
+            </label>
+          </div>
+
+          {{#autoForm id="residencyForm" type=formType collection="Residencies" doc=residency  }}
+
+            {{> afQuickField name="residentId"}}
+            {{> afQuickField name="homeId"}}
+            {{> afQuickField name="moveIn" buttonClasses="fa fa-calendar" value=today}}
+            {{> afQuickField name="moveOut" buttonClasses="fa fa-calendar" }}
+
+            <button type="submit" class="btn btn-success">
+              {{_ "residecyForm-save" }}
+            </button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              {{_ "residencyForm-cancel" }}
+            </button>
+
+          {{/ autoForm }}
+        </div> <!-- / .modal-body -->
         {{ else }}
-        {{> spinner }}
-        {{/ if }}
-      </div>
-    </div>
-  </div>
+          {{> spinner }}
+        {{/ if }} <!-- /if Template.subscriptionsReady -->
+      </div> <!-- / .modal-content -->
+    </div> <!-- / .modal-dialogue -->
+  </div> <!-- / .modal fade -->
 </template>
