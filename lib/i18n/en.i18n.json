@@ -179,6 +179,8 @@
   "residencyForm-header-add": "Add residency",
   "residencyForm-cancel": "Cancel",
   "residencyForm-header-edit": "Edit residency",
+  "residencyForm-newOrExisting-existing": "Existing resident",
+  "residencyForm-newOrExisting-new": "New resident",
   "residecyForm-save": "Save",
   "residents": {
     "firstName": {
