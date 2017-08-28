@@ -30,7 +30,7 @@
           </div>
 
           {{# if addingResidencyForExistingUser }}
-            {{#autoForm id="residencyForm" type=formType collection="Residencies" doc=residency  }}
+            {{#autoForm id="residencyForm" type=formType collection="Residencies" doc=residency }}
 
               {{> afQuickField name="residentId"}}
               {{> afQuickField name="homeId"}}
@@ -46,7 +46,19 @@
 
             {{/ autoForm }}
           {{ else }}
-            {{> quickForm schema=newResidentAndResidencySchema id="new-resident-and-residency" type="method" }}
+            {{#autoForm schema=newResidentAndResidencySchema id="new-resident-and-residency" type="method" }}
+              {{> afQuickField name="firstName"}}
+              {{> afQuickField name="lastInitial"}}
+              {{> afQuickField name="homeId"}}
+              {{> afQuickField name="moveIn" buttonClasses="fa fa-calendar" value=today}}
+
+              <button type="submit" class="btn btn-success">
+                {{_ "residecyForm-save" }}
+              </button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">
+                {{_ "residencyForm-cancel" }}
+              </button>
+            {{/ autoForm }}
           {{/ if }}
         </div> <!-- / .modal-body -->
         {{ else }}
