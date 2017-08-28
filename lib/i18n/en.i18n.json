@@ -158,6 +158,7 @@
   "newFeeling-header": "Record new feeling",
   "newFeeling-save": "Save",
   "newFeeling-success": "Successfully recorded feeling",
+  "newResidentAndResidencySchema-homeId-label": "Home",
   "newUser-cancelButton": "Cancel",
   "newUser-header": "Create new User",
   "newUser-saveButton": "Save",

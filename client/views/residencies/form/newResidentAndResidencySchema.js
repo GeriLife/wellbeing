@@ -7,6 +7,7 @@ export default new SimpleSchema({
   },
   'homeId': {
     type: String,
+    label: TAPi18n.__('newResidentAndResidencySchema-homeId-label'),
     autoform: {
       options: function () {
         // Get all Groups
