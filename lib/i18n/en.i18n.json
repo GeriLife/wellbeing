@@ -162,6 +162,24 @@
   "newUser-header": "Create new User",
   "newUser-saveButton": "Save",
   "resident-editButton": "Edit resident",
+  "residencies": {
+    "homeId": {
+      "label": "Home"
+    },
+    "residentId": {
+      "label": "Resident"
+    },
+    "moveIn": {
+      "label": "Move in date (arrival)"
+    },
+    "moveOut": {
+      "label": "Move out date (departure)"
+    }
+  },
+  "residencyForm-header-add": "Add residency",
+  "residencyForm-cancel": "Cancel",
+  "residencyForm-header-edit": "Edit residency",
+  "residecyForm-save": "Save",
   "residents": {
     "firstName": {
       "label": "First name"
