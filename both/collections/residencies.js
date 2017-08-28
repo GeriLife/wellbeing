@@ -3,6 +3,20 @@ Residencies = new Mongo.Collection('residencies');
 var ResidenciesSchema = new SimpleSchema({
   residentId: {
     type: String,
+    autoform: {
+      options: function() {
+        // Get all residents
+        const residents = Residents.find({}, {sort: {firstName: 1, lastInitial: 1}}).fetch();
+
+        // create options list for select
+        residentOptions = _.map(residents, function (resident) {
+          // Create option for this resident, with ID as the value
+          return {label: resident.fullName(), value: resident._id};
+        });
+
+        return residentOptions;
+      },
+    }
   },
   homeId: {
     type: String,
@@ -30,7 +44,7 @@ var ResidenciesSchema = new SimpleSchema({
             // Combine resident first name and last initial
             var homeName = groupHome.name;
 
-            // Create option for this resident, with ID as the value
+            // Create option for this home, with home ID as the value
             return {label: homeName, value: groupHome._id};
           });
 
@@ -55,6 +69,11 @@ var ResidenciesSchema = new SimpleSchema({
         return moveInDate;
       }
     },
+    autoform: {
+      afFieldInput: {
+        type: "bootstrap-datepicker"
+      }
+    },
   },
   moveOut: {
     type: Date,
@@ -72,7 +91,12 @@ var ResidenciesSchema = new SimpleSchema({
         }
       }
     },
-  }
+    autoform: {
+      afFieldInput: {
+        type: "bootstrap-datepicker"
+      }
+    },
+  },
 });
 
 // Add i18n tags
