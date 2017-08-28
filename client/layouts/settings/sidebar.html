@@ -9,6 +9,12 @@
         <li class="header">{{_ "settingsLayoutSidebar-header" }}</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="{{ isActiveRoute 'activityTypesSettings' }}">
+          <a href='{{ pathFor "residenciesSettings" }}'>
+            <i class="fa fa-address-card-o"></i>&nbsp;
+            <span>{{_ "settingsLayoutSidebar-residenciesLink" }}</span>
+          </a>
+        </li>
+        <li class="{{ isActiveRoute 'activityTypesSettings' }}">
           <a href='{{ pathFor "activityTypesSettings" }}'>
             <i class="fa fa-heart-o"></i>&nbsp;
             <span>{{_ "settingsLayoutSidebar-activityTypesLink" }}</span>
