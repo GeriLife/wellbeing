@@ -46,7 +46,12 @@
 
             {{/ autoForm }}
           {{ else }}
-            {{#autoForm schema=newResidentAndResidencySchema id="new-resident-and-residency" type="method" }}
+          <!-- adding new resident and residency -->
+            {{#autoForm
+              schema=newResidentAndResidencySchema
+              id="new-resident-and-residency"
+              type="method"
+              meteormethod="addNewResidentAndResidency" }}
               {{> afQuickField name="firstName"}}
               {{> afQuickField name="lastInitial"}}
               {{> afQuickField name="homeId"}}
