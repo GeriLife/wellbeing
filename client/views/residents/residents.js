@@ -40,7 +40,8 @@ Template.residents.helpers({
           var residentObject = {
             fullName: resident.fullName(),
             homeName: resident.homeName(),
-            residentId: resident._id
+            residentId: resident._id,
+            homeId: resident.homeId,
           };
 
           // Add resident object to residents list
@@ -76,6 +77,11 @@ Template.residents.helpers({
           label: tableLabels.homeName,
           sortOrder: 1,
           sortDirection: 'ascending'
+        },
+        {
+          key: 'homeId',
+          label: 'Residency',
+          tmpl: Template.residentCurrentResidency
         }
       ],
       filters: ['nameFilter', 'homeFilter']
