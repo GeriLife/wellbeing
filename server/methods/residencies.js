@@ -10,10 +10,7 @@ Meteor.methods({
 
     if (documentIsValid) {
       // Get fields from object
-      firstName = document.firstName;
-      lastInitial = document.lastInitial;
-      homeId = document.homeId;
-      moveIn = document.moveIn;
+      const { firstName, lastInitial, homeId, moveIn } = document;
 
       // Create new resident
       // TODO: migrate homeId out of resident schema
