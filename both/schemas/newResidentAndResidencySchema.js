@@ -1,9 +1,10 @@
 export default new SimpleSchema({
   'firstName': {
-    type: String
+    type: String,
   },
   'lastInitial': {
-    type: String
+    type: String,
+    max: 1,
   },
   'homeId': {
     type: String,
