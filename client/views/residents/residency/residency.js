@@ -10,6 +10,6 @@ Template.residentCurrentResidency.events({
     const { residentId, homeId } = templateInstance.data;
 
     // Show the edit residency modal
-    Modal.show('editResidencyForm', { residentId, homeId });
+    Modal.show('editResidencyModal', { residentId, homeId });
   }
 });
