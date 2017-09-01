@@ -6,9 +6,8 @@ Template.residentCurrentResidency.onCreated(function () {
 
 Template.residentCurrentResidency.events({
   'click .edit-residency' (event, templateInstance) {
-    // Get resident and home ID
-    const residentId = templateInstance.residentId;
-    const homeId = templateInstance.homeId;
+    // Get resident and home IDs from template instance data
+    const { residentId, homeId } = templateInstance.data;
 
     // Show the edit residency modal
     Modal.show('editResidencyForm', { residentId, homeId });
