@@ -33,7 +33,7 @@
   "activityTypesSettings-header": "Activity Types",
   "addResidencyForm-header": "Add residency",
   "addResidencyForm-cancel": "Cancel",
-  "addResidencyForm-cancel": "Save",
+  "addResidencyForm-save": "Save",
   "addResidencyForm-newOrExisting-existing": "Existing resident",
   "addResidencyForm-newOrExisting-new": "New resident",
   "dataSettings-header": "Data settings",
