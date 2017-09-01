@@ -62,6 +62,7 @@ Template.residents.helpers({
     // Get translation strings for filter values
     tableLabels.fullName = TAPi18n.__("residents-tableLabels-fullName");
     tableLabels.homeName = TAPi18n.__("residents-tableLabels-homeName");
+    tableLabels.residency = TAPi18n.__("residents-tableLabels-residency");
 
     var tableSettings = {
       showFilter: false,
@@ -80,7 +81,7 @@ Template.residents.helpers({
         },
         {
           key: 'homeId',
-          label: 'Residency',
+          label: tableLabels.residency,
           tmpl: Template.residentCurrentResidency,
           hidden: function () {
             var currentUserId = Meteor.userId();
