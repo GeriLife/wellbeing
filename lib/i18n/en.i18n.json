@@ -171,6 +171,7 @@
   "newUser-header": "Create new User",
   "newUser-saveButton": "Save",
   "resident-editButton": "Edit resident",
+  "residentCurrentResidency-editResidencyButton": "Edit Residency",
   "residencies": {
     "homeId": {
       "label": "Home"
