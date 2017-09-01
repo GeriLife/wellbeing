@@ -31,6 +31,10 @@
   "activityTypesSettings-activityTypeTable-helpText": "For data integrity, activity types can only be removed when they are related to no recorded activities.",
   "activityTypesSettings-addActivityTypeButton": "Add Activity Type",
   "activityTypesSettings-header": "Activity Types",
+  "addResidencyForm-header": "Add residency",
+  "addResidencyForm-cancel": "Cancel",
+  "addResidencyForm-newOrExisting-existing": "Existing resident",
+  "addResidencyForm-newOrExisting-new": "New resident",
   "dataSettings-header": "Data settings",
   "dataSettings-demoData-generateDemoDataButton": "Generate demo data",
   "dataSettings-demoData-header": "Demonstration data",
@@ -63,6 +67,9 @@
   "editHome-cancel": "Cancel",
   "editHome-title": "Edit home",
   "editHome-save": "Save",
+  "editResidencyForm-header": "Edit residency",
+  "editResidencyForm-cancel": "Cancel",
+  "editResidencyForm-save": "Save",
   "editUser": {
     "email": {
       "label": "Email"
@@ -177,11 +184,6 @@
       "label": "Move out date (departure)"
     }
   },
-  "residencyForm-header-add": "Add residency",
-  "residencyForm-cancel": "Cancel",
-  "residencyForm-header-edit": "Edit residency",
-  "residencyForm-newOrExisting-existing": "Existing resident",
-  "residencyForm-newOrExisting-new": "New resident",
   "residecyForm-save": "Save",
   "residents": {
     "firstName": {

@@ -4,7 +4,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">
-            {{_ "residencyForm-header-add" }}
+            {{_ "addResidencyForm-header-add" }}
           </h4>
         </div> <!-- / .modal-header -->
         {{# if Template.subscriptionsReady }}
@@ -13,7 +13,7 @@
           <div class="radio">
             <label>
               <input type="radio" name="new-or-existing" value="new" checked>
-              {{_ "residencyForm-newOrExisting-new" }}
+              {{_ "addResidencyForm-newOrExisting-new" }}
             </label>
           </div>
 
@@ -21,7 +21,7 @@
           <div class="radio">
             <label>
               <input type="radio" name="new-or-existing" value="existing">
-              {{_ "residencyForm-newOrExisting-existing" }}
+              {{_ "addResidencyForm-newOrExisting-existing" }}
             </label>
           </div>
 
@@ -34,10 +34,10 @@
               {{> afQuickField name="moveOut" buttonClasses="fa fa-calendar" }}
 
               <button type="submit" class="btn btn-success">
-                {{_ "residecyForm-save" }}
+                {{_ "addResidencyForm-save" }}
               </button>
               <button type="button" class="btn btn-danger" data-dismiss="modal">
-                {{_ "residencyForm-cancel" }}
+                {{_ "addResidencyForm-cancel" }}
               </button>
 
             {{/ autoForm }}
@@ -54,10 +54,10 @@
               {{> afQuickField name="moveIn" buttonClasses="fa fa-calendar" value=today}}
 
               <button type="submit" class="btn btn-success">
-                {{_ "residecyForm-save" }}
+                {{_ "addResidencyForm-save" }}
               </button>
               <button type="button" class="btn btn-danger" data-dismiss="modal">
-                {{_ "residencyForm-cancel" }}
+                {{_ "addResidencyForm-cancel" }}
               </button>
             {{/ autoForm }}
           {{/ if }}
