@@ -26,7 +26,7 @@
           </div>
 
           {{# if addingResidencyForExistingResident }}
-            {{#autoForm id="addResidencyForm" type=formType collection="Residencies" }}
+            {{#autoForm id="addResidencyForm" type="insert" collection="Residencies" }}
 
               {{> afQuickField name="residentId"}}
               {{> afQuickField name="homeId"}}
