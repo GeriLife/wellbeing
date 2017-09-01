@@ -1,6 +1,6 @@
 import newResidentAndResidencySchema from '/both/schemas/newResidentAndResidencySchema';
 
-Template.addResidencyForm.onCreated(function () {
+Template.addResidencyModal.onCreated(function () {
   // Get reference to template instance
   const templateInstance = this;
 
@@ -18,7 +18,7 @@ Template.addResidencyForm.onCreated(function () {
   templateInstance.newOrExistingResident = new ReactiveVar('new');
 });
 
-Template.addResidencyForm.helpers({
+Template.addResidencyModal.helpers({
   today () {
     // Default date today, as a string
     return Date();
@@ -43,7 +43,7 @@ Template.addResidencyForm.helpers({
   }
 });
 
-Template.addResidencyForm.events({
+Template.addResidencyModal.events({
   'change [name=new-or-existing]' (event, templateInstance) {
     // Get selected value of 'new or existing resident' radio
     const newOrExistingResident = event.target.value;

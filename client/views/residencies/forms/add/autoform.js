@@ -4,7 +4,7 @@ AutoForm.hooks({
       // check if submission was successful
       if (success) {
         // Hide modal dialogue
-        Modal.hide('residencyForm');
+        Modal.hide('addResidencyModal');
       }
     },
   },
