@@ -23,7 +23,7 @@ Template.residencyForm.helpers({
     // Default date today, as a string
     return Date();
   },
-  addingResidencyForExistingUser () {
+  addingResidencyForExistingResident () {
     // Get reference to template instance
     const templateInstance = Template.instance();
 
