@@ -123,7 +123,7 @@ Template.residents.events({
   // },
   'click #new-resident': function () {
     // Show the edit home modal
-    Modal.show('residencyForm');
+    Modal.show('addResidencyForm');
   },
   'click #include-departed': function (event) {
     var instance = Template.instance();

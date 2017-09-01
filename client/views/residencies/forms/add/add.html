@@ -1,14 +1,10 @@
-<template name="residencyForm">
+<template name="addResidencyForm">
   <div class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">
-            {{# if residencyId }}
-              {{_ "residencyForm-header-edit" }}
-            {{ else }}
-              {{_ "residencyForm-header-add" }}
-            {{/ if }}
+            {{_ "residencyForm-header-add" }}
           </h4>
         </div> <!-- / .modal-header -->
         {{# if Template.subscriptionsReady }}
