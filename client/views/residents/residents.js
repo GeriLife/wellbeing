@@ -110,15 +110,17 @@ Template.residents.helpers({
 });
 
 Template.residents.events({
-  'click .reactive-table tbody tr': function (event) {
-    event.preventDefault();
-
-    // Get Resident ID from table
-    var residentId = this.residentId;
-
-    // Show view for selected resident
-    Router.go('resident', {residentId: residentId})
-  },
+  // TODO: add a 'view resident' button to trigger this event
+  // https://github.com/GeriLife/wellbeing/issues/144
+  // 'click .reactive-table tbody tr': function (event) {
+  //   event.preventDefault();
+  //
+  //   // Get Resident ID from table
+  //   var residentId = this.residentId;
+  //
+  //   // Show view for selected resident
+  //   Router.go('resident', {residentId: residentId})
+  // },
   'click #new-resident': function () {
     // Show the edit home modal
     Modal.show('residencyForm');
