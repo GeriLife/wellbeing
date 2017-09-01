@@ -1,29 +1,36 @@
-<template name="editResidencyForm">
+<template name="editResidencyModal">
   <div class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">
-            {{_ "editResidencyForm-header" }}
+            {{_ "editResidencyModal-header" }}
           </h4>
         </div> <!-- / .modal-header -->
         {{# if Template.subscriptionsReady }}
         <div class="modal-body">
-          {{#autoForm id="residencyForm" type=formType collection="Residencies" doc=residency }}
+          <!-- check if residency exists - editing -->
+          {{# if residency }}
+            {{#autoForm id="editResidencyForm" type="update" collection="Residencies" doc=residency }}
 
-            {{> afQuickField name="residentId"}}
-            {{> afQuickField name="homeId"}}
-            {{> afQuickField name="moveIn" buttonClasses="fa fa-calendar" value=today}}
-            {{> afQuickField name="moveOut" buttonClasses="fa fa-calendar" }}
+              {{> afQuickField name="residentId" }}
+              {{> afQuickField name="homeId" }}
+              {{> afQuickField name="moveIn" buttonClasses="fa fa-calendar" }}
+              {{> afQuickField name="moveOut" buttonClasses="fa fa-calendar" }}
 
-            <button type="submit" class="btn btn-success">
-              {{_ "editResidecyForm-save" }}
-            </button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">
-              {{_ "editResidencyForm-cancel" }}
-            </button>
+              <button type="submit" class="btn btn-success">
+                {{_ "editResidencyForm-save" }}
+              </button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">
+                {{_ "editResidencyForm-cancel" }}
+              </button>
 
-          {{/ autoForm }}
+            {{/ autoForm }}
+          {{ else }}
+            <!-- add new residency using resident and home IDs -->
+            <!-- TODO: remove this option after migrating all data -->
+            {{> addResidencyForm residentId=residentId homeId=homeId }}
+          {{/ if }}
         </div> <!-- / .modal-body -->
         {{ else }}
           {{> spinner }}
