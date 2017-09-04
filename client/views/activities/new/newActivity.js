@@ -15,7 +15,7 @@ Template.newActivity.helpers({
     const placeholderText = TAPi18n.__('newActivity-residentSelect-placeholder');
 
     const options = {
-      placeholder: 'foo',
+      placeholder: placeholderText,
     };
 
     return options;
