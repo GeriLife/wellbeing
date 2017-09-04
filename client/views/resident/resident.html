@@ -21,10 +21,12 @@
         }}
       </div>
     {{ else }}
-      <p>Resident has no recorded activities.</p>
+      <p>
+        {{_ "resident-noRecordedActivities-text" }}
+      </p>
       <button type="button" class="btn btn-success" id="add-activity">
         <i class="fa fa-heartbeat"></i>
-        Add activity
+        {{_ "resident-noRecordedActivities-buttonText" }}
       </button>
     {{/ if }}
   {{ else }}
