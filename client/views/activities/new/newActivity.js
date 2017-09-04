@@ -15,6 +15,7 @@ Template.newActivity.helpers({
     const placeholderText = TAPi18n.__('newActivity-residentSelect-placeholder');
 
     const options = {
+      closeOnSelect: false,
       placeholder: placeholderText,
     };
 
