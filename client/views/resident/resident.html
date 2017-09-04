@@ -22,6 +22,10 @@
       </div>
     {{ else }}
       <p>Resident has no recorded activities.</p>
+      <button type="button" class="btn btn-success" id="add-activity">
+        <i class="fa fa-heartbeat"></i>
+        Add activity
+      </button>
     {{/ if }}
   {{ else }}
     {{> spinner }}

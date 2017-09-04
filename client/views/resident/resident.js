@@ -21,7 +21,11 @@ Template.resident.events({
 
     // Show the edit home modal
     Modal.show('residentForm', {residentId: instance.residentId});
-  }
+  },
+  'click #add-activity': function () {
+    // Show the Add Activity Modal
+    Modal.show('newActivity');
+  },
 });
 
 Template.resident.helpers({
