@@ -22,9 +22,11 @@ Template.resident.events({
     // Show the edit home modal
     Modal.show('residentForm', {residentId: instance.residentId});
   },
-  'click #add-activity': function () {
+  'click #add-activity': function (event, instance) {
     // Show the Add Activity Modal
-    Modal.show('newActivity');
+    // Pass in resident ID (to be automatically selected on form)
+    // note: form field is 'residentIds' (plural)
+    Modal.show('newActivity', { residentIds: instance.residentId });
   },
 });
 
