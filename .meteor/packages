@@ -55,3 +55,4 @@ standard-minifier-js@2.1.1
 shell-server@0.2.4
 sergeyt:dimple
 dynamic-import@0.1.1
+aldeed:autoform-select2
