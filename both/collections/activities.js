@@ -4,11 +4,6 @@ var ActivitiesSchema = new SimpleSchema({
   residentIds: {
     type: [String],
     autoform: {
-      type: "select2",
-      placeholder: "Choose resident(s)",
-      afFieldInput: {
-        multiple: true
-      },
       options: function() {
         // Get list of homes, sorted alphabetically
         const homes = Homes.find({}, {sort: {name: 1}}).fetch();
