@@ -216,6 +216,8 @@
   "residentForm-header-edit": "Edit resident",
   "residentForm-save": "Save",
   "resident-activityCalendar-title": "Activity calendar",
+  "resident-noRecordedActivities-buttonText": "Add activity",
+  "resident-noRecordedActivities-text": "Resident has no recorded activities.",
   "residentInterests-header": "Interests",
   "residents-filterLabels-fullName": "Name",
   "residents-filterLabels-homeName": "Home",

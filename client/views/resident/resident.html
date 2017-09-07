@@ -1,23 +1,36 @@
 <template name="resident">
   {{#if Template.subscriptionsReady}}
-  <h1 class="page-header">
-    {{ resident.firstName }} {{ resident.lastInitial }}
-    {{# if isInRole 'admin' }}
-    <button id="edit-resident" class="btn btn-default">
-      {{_ "resident-editButton" }}
-    </button>
+    <h1 class="page-header">
+      <button type="button" class="btn btn-success pull-right" id="add-activity">
+        <i class="fa fa-heartbeat"></i>
+        {{_ "resident-noRecordedActivities-buttonText" }}
+      </button>
+      
+      {{ resident.firstName }} {{ resident.lastInitial }}
+
+      {{# if isInRole 'admin' }}
+      <button id="edit-resident" class="btn btn-default">
+        {{_ "resident-editButton" }}
+      </button>
+      {{/ if }}
+    </h1>
+    <div class="row">
+      {{> residentFeelings residentId=resident._id }}
+    </div>
+    <!-- make sure resident has activities -->
+    {{# if activities }}
+      <div class="row">
+        {{>
+          residentActivities
+          resident=resident
+          activities=activities
+        }}
+      </div>
+    {{ else }}
+      <p>
+        {{_ "resident-noRecordedActivities-text" }}
+      </p>
     {{/ if }}
-  </h1>
-  <div class="row">
-    {{> residentFeelings residentId=resident._id }}
-  </div>
-  <div class="row">
-    {{>
-      residentActivities
-      resident=resident
-      activities=activities
-    }}
-  </div>
   {{ else }}
     {{> spinner }}
   {{/ if }}
