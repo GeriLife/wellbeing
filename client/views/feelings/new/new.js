@@ -52,9 +52,9 @@ Template.newFeeling.helpers({
     return templateInstance.selectedFeeling.get();
   },
   feelingNotSelected (feeling) {
-    // Check whether a feeling has been selected
-    // and the selected feelig is different from this feeling
-    // if this feeling is NOT selected, return 'not-selected'
+    // Check whether any feeling has been selected
+    // if a feeling has been selected that is different from the current feeling
+    //   return 'not-selected'
     // helper is used to add 'not-selected' class to feelings not selected
 
     // Get reference to template instance
