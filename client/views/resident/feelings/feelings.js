@@ -83,10 +83,7 @@ Template.residentFeelings.helpers({
     // Get reference to template instance
     const templateInstance = Template.instance();
 
-    // Get resident ID from template instance
-    const residentId = templateInstance.data.residentId;
-
-    // return a count of resident feelings
-    return Feelings.find({ residentId }).count();
+    // Return value of resident feelings count reactive variable
+    return templateInstance.residentFeelingsCounts.get();
   }
 });
