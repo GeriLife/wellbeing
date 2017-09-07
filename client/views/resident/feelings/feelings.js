@@ -47,7 +47,7 @@ Template.residentFeelings.onCreated(function () {
   };
 
   // Fetch resident feelings counts from server
-  Meteor.call('getFeelingsCountsByResidentId', residentId, function (error, residentFeelingsCounts) {
+  Meteor.call('getFeelingsPercentagesByResidentId', residentId, function (error, residentFeelingsCounts) {
     // Update resident feelings counts with returned value from method call
     templateInstance.residentFeelingsCounts.set(residentFeelingsCounts);
   });
@@ -68,7 +68,7 @@ Template.residentFeelings.onRendered(function () {
         // Sort from high to low
         return b.value - a.value;
       });
-      
+
       // Create localized data for chart
       const localizedChartData = templateInstance.localizeChartData(sortedResidentFeelingsCounts);
 
