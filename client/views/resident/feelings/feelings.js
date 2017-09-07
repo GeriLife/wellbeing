@@ -8,6 +8,44 @@ Template.residentFeelings.onCreated(function () {
   // Set up reactive variable to hold resident feelings counts
   templateInstance.residentFeelingsCounts = new ReactiveVar();
 
+  // Method to clear and render chart
+  templateInstance.clearAndRenderChart = function (chartData) {
+    // clear any previous chart
+    this.$('#residentFeelingsChart').empty();
+
+    // Render chart with current feeling counts
+    MG.data_graphic({
+      title: TAPi18n.__('residentFeelings-chart-title'),
+      data: chartData,
+      chart_type: 'bar',
+      x_accessor: 'value',
+      format: 'percentage',
+      xax_format: d3.format('.0%'),
+      y_accessor: 'localizedFeeling',
+      height:300,
+      full_width: true,
+      target: '#residentFeelingsChart',
+    });
+  };
+
+  templateInstance.localizeChartData = function (chartData) {
+    // Create localized data for chart
+    const localizedChartData = _.map(chartData, function (datum) {
+      // Get feeling
+      const feeling = datum.key;
+
+      // Get localization string for feeling
+      const feelingL10n = TAPi18n.__(`residentFeelings-chart-feelingName-${ feeling }`);
+
+      // Update feeling with localized name
+      datum.localizedFeeling = feelingL10n;
+
+      return datum;
+    });
+
+    return localizedChartData
+  };
+
   // Fetch resident feelings counts from server
   Meteor.call('getFeelingsCountsByResidentId', residentId, function (error, residentFeelingsCounts) {
     // Update resident feelings counts with returned value from method call
@@ -16,51 +54,20 @@ Template.residentFeelings.onCreated(function () {
 });
 
 Template.residentFeelings.onRendered(function () {
-  // Get resident ID
-  const residentId = this.data.residentId;
+  // Get reference to template instance
+  const templateInstance = this;
 
-  this.autorun(() => {
-    // Make sure subscription data is ready
-    if (this.subscriptionsReady()) {
-      // Get all feelings
-      const residentFeelings = Feelings.find({ residentId }).fetch();
+  templateInstance.autorun(() => {
+    // Get resident feelings counts
+    const residentFeelingsCounts = templateInstance.residentFeelingsCounts.get();
 
-      // Group feelings by type and calculate percentage for each feeling
-      const residentFeelingsCounts = d3.nest()
-        // TODO: add localization to the feeling names (possibly below)
-        .key(function (datum) {
-          // Get feeling
-          const feeling = datum.feeling;
+    // Make sure resident feelings counts data is available
+    if (residentFeelingsCounts) {
+      // Create localized data for chart
+      const localizedChartData = templateInstance.localizeChartData(residentFeelingsCounts);
 
-          // Get localization string for feeling
-          const feelingL10n = TAPi18n.__(`residentFeelings-chart-feelingName-${ feeling }`);
-
-          return feelingL10n;
-        })
-        // TODO: Determine whether to display counts or percentages
-        .rollup(function (values) { return values.length / residentFeelings.length })
-        .entries(residentFeelings);
-
-      // Make sure feeling counts are available (not an empty array)
-      if (residentFeelingsCounts.length > 0) {
-        // clear any previous chart
-        this.$('#residentFeelingsChart').empty();
-
-        // Render chart with current feeling counts
-        MG.data_graphic({
-          title: TAPi18n.__('residentFeelings-chart-title'),
-          data: residentFeelingsCounts,
-          chart_type: 'bar',
-          x_accessor: 'values',
-          // TODO: Determine whether to display counts or percentages
-          format: 'percentage',
-          xax_format: d3.format('.0%'),
-          y_accessor: 'key',
-          height:300,
-          full_width: true,
-          target: '#residentFeelingsChart',
-        });
-      }
+      // Render chart with localized data
+      templateInstance.clearAndRenderChart(localizedChartData);
     }
   });
 });
