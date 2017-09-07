@@ -50,6 +50,28 @@ Template.newFeeling.helpers({
 
     // Return value of selected feeling reactive variable
     return templateInstance.selectedFeeling.get();
+  },
+  feelingNotSelected (feeling) {
+    // Check whether a feeling has been selected
+    // and the selected feelig is different from this feeling
+    // if this feeling is NOT selected, return 'not-selected'
+    // helper is used to add 'not-selected' class to feelings not selected
+
+    // Get reference to template instance
+    const templateInstance = Template.instance();
+
+    // Get currently selected feeling
+    const selectedFeeling = templateInstance.selectedFeeling.get();
+
+    // Check if this feeling is NOT selected
+    const thisFeelingNotSelected = feeling !== selectedFeeling;
+
+    // Check if
+    //  feeling has been selected
+    //  selected feeling is different from this feeling
+    if (selectedFeeling && thisFeelingNotSelected) {
+      return 'not-selected';
+    }
   }
 });
 
