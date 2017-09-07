@@ -1,6 +1,18 @@
-Template.residentFeelings.onRendered(function () {
-  // Subscribe to resident feelings for current residentID
-  this.subscribe('residentFeelings', this.data.residentId);
+Template.residentFeelings.onCreated(function () {
+  // Get reference to template instance
+  const templateInstance = this;
+
+  // Get resident ID from template instance
+  const residentId = templateInstance.data.residentId;
+
+  // Set up reactive variable to hold resident feelings counts
+  templateInstance.residentFeelingsCounts = new ReactiveVar();
+
+  // Fetch resident feelings counts from server
+  Meteor.call('getFeelingsCountsByResidentId', residentId, function (error, residentFeelingsCounts) {
+    // Update resident feelings counts with returned value from method call
+    templateInstance.residentFeelingsCounts.set(residentFeelingsCounts);
+  });
 });
 
 Template.residentFeelings.onRendered(function () {
