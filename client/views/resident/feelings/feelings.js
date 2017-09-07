@@ -63,8 +63,14 @@ Template.residentFeelings.onRendered(function () {
 
     // Make sure resident feelings counts data is available
     if (residentFeelingsCounts) {
+      // Sort feelings counts
+      const sortedResidentFeelingsCounts = residentFeelingsCounts.sort(function (a, b) {
+        // Sort from high to low
+        return b.value - a.value;
+      });
+      
       // Create localized data for chart
-      const localizedChartData = templateInstance.localizeChartData(residentFeelingsCounts);
+      const localizedChartData = templateInstance.localizeChartData(sortedResidentFeelingsCounts);
 
       // Render chart with localized data
       templateInstance.clearAndRenderChart(localizedChartData);
