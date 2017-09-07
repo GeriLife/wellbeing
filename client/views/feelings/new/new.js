@@ -1,6 +1,13 @@
 Template.newFeeling.created = function () {
+  // Get reference to template instance
+  const templateInstance = this;
+
+  // Subscribe to residents and homes
   this.subscribe('allResidents');
   this.subscribe('allHomes');
+
+  // Create reactive variable for selected feeling
+  templateInstance.selectedFeeling = new ReactiveVar();
 };
 
 Template.newFeeling.helpers({
@@ -38,9 +45,29 @@ Template.newFeeling.helpers({
     return residentSelectOptions;
   },
   "selectedFeeling": function () {
-    //Get selected feeling from session variable
-    var selectedFeeling = Session.get("selectedFeeling");
+    // Get reference to template instance
+    const templateInstance = Template.instance();
 
-    return selectedFeeling;
+    // Return value of selected feeling reactive variable
+    return templateInstance.selectedFeeling.get();
   }
+});
+
+Template.newFeeling.events({
+  "click #joy": function (event, templateInstance) {
+    // Set selected feeling reactive variable
+    templateInstance.selectedFeeling.set("joy");
+  },
+  "click #fear": function (event, templateInstance) {
+    // Set selected feeling reactive variable
+    templateInstance.selectedFeeling.set("fear");
+  },
+  "click #sad": function (event, templateInstance) {
+    // Set selected feeling reactive variable
+    templateInstance.selectedFeeling.set("sad");
+  },
+  "click #anger": function (event, templateInstance) {
+    // Set selected feeling reactive variable
+    templateInstance.selectedFeeling.set("anger");
+  },
 });
