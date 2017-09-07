@@ -28,6 +28,11 @@ Template.resident.events({
     // note: form field is 'residentIds' (plural)
     Modal.show('newActivity', { residentIds: instance.residentId });
   },
+  'click #add-feeling': function (event, instance) {
+    // Show the New Feeling modal
+    // Pass in resident ID (to be automatically selected on form)
+    Modal.show('newFeeling', { residentId: instance.residentId });
+  },
 });
 
 Template.resident.helpers({
