@@ -1,11 +1,15 @@
 <template name="resident">
   {{#if Template.subscriptionsReady}}
     <h1 class="page-header">
+      <button type="button" class="btn btn-success pull-right" id="add-feeling">
+        <i class="fa fa-stethoscope"></i>
+        {{_ "resident-addFeeling-buttonText" }}
+      </button>
       <button type="button" class="btn btn-success pull-right" id="add-activity">
         <i class="fa fa-heartbeat"></i>
-        {{_ "resident-noRecordedActivities-buttonText" }}
+        {{_ "resident-addActivity-buttonText" }}
       </button>
-      
+
       {{ resident.firstName }} {{ resident.lastInitial }}
 
       {{# if isInRole 'admin' }}

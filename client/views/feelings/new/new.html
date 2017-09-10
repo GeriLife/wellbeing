@@ -12,17 +12,46 @@
 
         {{# if Template.subscriptionsReady }}
 
+        <!-- feelings select -->
+        <div class="feelings row">
+          <div id="joy" class="feeling col-sm-3 {{ feelingNotSelected 'joy' }}">
+            <img src="/images/joy.svg" />
+            <figcaption class="text-center">
+              {{_ "feelings-happy" }}
+            </figcaption>
+          </div>
+          <div id="fear" class="feeling col-sm-3 {{ feelingNotSelected 'fear' }}">
+            <img src="/images/fear.svg" />
+            <figcaption class="text-center">
+              {{_ "feelings-scared" }}
+            </figcaption>
+          </div>
+          <div id="sad" class="feeling col-sm-3 {{ feelingNotSelected 'sad' }}">
+            <img src="/images/sad.svg" />
+            <figcaption class="text-center">
+              {{_ "feelings-sad" }}
+            </figcaption>
+          </div>
+          <div id="anger" class="feeling col-sm-3 {{ feelingNotSelected 'anger' }}">
+            <img src="/images/anger.svg" />
+            <figcaption class="text-center">
+              {{_ "feelings-angry" }}
+            </figcaption>
+          </div>
+        </div>
+
+        <!-- / feelings select -->
+
         {{# autoForm id="newFeelingForm" type="insert" collection="Feelings"  }}
         <div class="modal-body">
         <div id="selected-feeling" class="feeling- clearfix text-center">
           <img src="/images/{{ selectedFeeling }}.svg" />
-          <figcaption class="text-center">{{ selectedFeeling }}</figcaption>
         </div>
 
           {{> afQuickField
             name="residentId"
             options=residentOptions
-            label="Resident"
+            value=residentId
            }}
           {{> afQuickField
             name="feeling"

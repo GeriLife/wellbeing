@@ -1,4 +1,4 @@
-Template.resident.created = function () {
+Template.resident.onCreated(function () {
   // Get reference to template instance
   var instance = this;
 
@@ -12,40 +12,45 @@ Template.resident.created = function () {
   instance.subscribe("allRolesExceptAdmin");
 
   instance.activities = new ReactiveVar();
-};
+});
 
 Template.resident.events({
-  'click #edit-resident': function () {
+  'click #edit-resident' () {
     // Get reference to template instance
-    var instance = Template.instance();
+    var templateInstance = Template.instance();
 
     // Show the edit home modal
-    Modal.show('residentForm', {residentId: instance.residentId});
+    Modal.show('residentForm', {residentId: templateInstance.residentId});
   },
-  'click #add-activity': function (event, instance) {
+  'click #add-activity' (event, templateInstance) {
     // Show the Add Activity Modal
     // Pass in resident ID (to be automatically selected on form)
     // note: form field is 'residentIds' (plural)
-    Modal.show('newActivity', { residentIds: instance.residentId });
+    Modal.show('newActivity', { residentIds: templateInstance.residentId });
+  },
+  'click #add-feeling' (event, templateInstance) {
+    // Show the New Feeling modal
+    // Pass in resident ID (to be automatically selected on form)
+    Modal.show('newFeeling', { residentId: templateInstance.residentId });
   },
 });
 
 Template.resident.helpers({
-  'resident': function () {
+  'resident' () {
     // Get reference to template instance
-    var instance = Template.instance();
+    var templateInstance = Template.instance();
 
     // Get resident from template instance
-    var resident = Residents.findOne(instance.residentId);
+    var resident = Residents.findOne(templateInstance.residentId);
 
     return resident;
   },
-  'activities': function () {
+  'activities' () {
     // Get reference to template instance
-    const instance = Template.instance();
+    const templateInstance = Template.instance();
 
     // Get activities from template instance
-    var activities = Activities.find({residentIds: instance.residentId}).fetch();
+    var activities = Activities.find({residentIds: templateInstance.residentId}).fetch();
 
     return activities;
   }
