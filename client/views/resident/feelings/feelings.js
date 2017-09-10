@@ -5,8 +5,33 @@ Template.residentFeelings.onCreated(function () {
   // Get resident ID from template instance
   const residentId = templateInstance.data.residentId;
 
+  // Subscribe to count of resident feelings
+  // Used to trigger call to 'get resident feelings percentages' method
+  // TODO: figure out a 'cleaner' way to signal that feelings data have changed
+  // https://forums.meteor.com/t/send-reactive-signal-from-server-to-client/39141
+  templateInstance.subscribe('residentFeelingsCount', residentId);
+
   // Set up reactive variable to hold resident feelings percentages
   templateInstance.residentFeelingsPercentages = new ReactiveVar();
+
+  // Reactively fetch resident feelings percentages from server
+  // by using 'resident ID feelings count' to trigger a call to 'get resident feelings percentages' method
+  // TODO: figure out a 'cleaner' way to signal that feelings data have changed
+  // https://forums.meteor.com/t/send-reactive-signal-from-server-to-client/39141
+  templateInstance.autorun(() => {
+    // Get resident feelings
+    const feelingsCount = Counts.get(`resident_${ residentId }_feelings_count`);
+
+    // Get resident feelings percentages when feelings count changes
+    Meteor.call('getFeelingsPercentagesByResidentId', residentId, function (error, residentFeelingsPercentages) {
+      // Update resident feelings counts with returned value from method call
+      templateInstance.residentFeelingsPercentages.set(residentFeelingsPercentages);
+    });
+  });
+
+  /*
+  Template helper methods
+  */
 
   // Method to clear and render chart
   templateInstance.clearAndRenderChart = function (chartData) {
@@ -45,12 +70,6 @@ Template.residentFeelings.onCreated(function () {
 
     return localizedChartData
   };
-
-  // Get resident feelings percentages from server
-  Meteor.call('getFeelingsPercentagesByResidentId', residentId, function (error, residentFeelingsPercentages) {
-    // Update resident feelings percentages with returned value from method call
-    templateInstance.residentFeelingsPercentages.set(residentFeelingsPercentages);
-  });
 });
 
 Template.residentFeelings.onRendered(function () {
