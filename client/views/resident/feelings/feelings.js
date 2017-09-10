@@ -6,7 +6,7 @@ Template.residentFeelings.onCreated(function () {
   const residentId = templateInstance.data.residentId;
 
   // Set up reactive variable to hold resident feelings counts
-  templateInstance.residentFeelingsCounts = new ReactiveVar();
+  templateInstance.residentFeelingsPercentages = new ReactiveVar();
 
   // Method to clear and render chart
   templateInstance.clearAndRenderChart = function (chartData) {
@@ -47,9 +47,9 @@ Template.residentFeelings.onCreated(function () {
   };
 
   // Fetch resident feelings counts from server
-  Meteor.call('getFeelingsPercentagesByResidentId', residentId, function (error, residentFeelingsCounts) {
+  Meteor.call('getFeelingsPercentagesByResidentId', residentId, function (error, residentFeelingsPercentages) {
     // Update resident feelings counts with returned value from method call
-    templateInstance.residentFeelingsCounts.set(residentFeelingsCounts);
+    templateInstance.residentFeelingsPercentages.set(residentFeelingsPercentages);
   });
 });
 
@@ -59,18 +59,18 @@ Template.residentFeelings.onRendered(function () {
 
   templateInstance.autorun(() => {
     // Get resident feelings counts
-    const residentFeelingsCounts = templateInstance.residentFeelingsCounts.get();
+    const residentFeelingsPercentages = templateInstance.residentFeelingsPercentages.get();
 
     // Make sure resident feelings counts data is available
-    if (residentFeelingsCounts) {
+    if (residentFeelingsPercentages) {
       // Sort feelings counts
-      const sortedResidentFeelingsCounts = residentFeelingsCounts.sort(function (a, b) {
+      const sortedResidentFeelingsPercentages = residentFeelingsPercentages.sort(function (a, b) {
         // Sort from high to low
         return b.value - a.value;
       });
 
       // Create localized data for chart
-      const localizedChartData = templateInstance.localizeChartData(sortedResidentFeelingsCounts);
+      const localizedChartData = templateInstance.localizeChartData(sortedResidentFeelingsPercentages);
 
       // Render chart with localized data
       templateInstance.clearAndRenderChart(localizedChartData);
@@ -84,6 +84,6 @@ Template.residentFeelings.helpers({
     const templateInstance = Template.instance();
 
     // Return value of resident feelings count reactive variable
-    return templateInstance.residentFeelingsCounts.get();
+    return templateInstance.residentFeelingsPercentages.get();
   }
 });
