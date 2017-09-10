@@ -5,6 +5,10 @@ Template.residentFeelings.onCreated(function () {
   // Get resident ID from template instance
   const residentId = templateInstance.data.residentId;
 
+  /*
+  Template autorun
+  */
+
   // Subscribe to count of resident feelings
   // Used to trigger call to 'get resident feelings percentages' method
   // TODO: figure out a 'cleaner' way to signal that feelings data have changed
@@ -54,6 +58,7 @@ Template.residentFeelings.onCreated(function () {
     });
   };
 
+  // Method to localize chart data labels
   templateInstance.localizeChartData = function (chartData) {
     // Create localized data for chart
     const localizedChartData = _.map(chartData, function (datum) {
@@ -76,6 +81,10 @@ Template.residentFeelings.onCreated(function () {
 Template.residentFeelings.onRendered(function () {
   // Get reference to template instance
   const templateInstance = this;
+
+  /*
+  Template autorun
+  */
 
   templateInstance.autorun(() => {
     // Get resident feelings percentages
