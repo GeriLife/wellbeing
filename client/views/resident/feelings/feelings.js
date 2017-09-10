@@ -82,7 +82,8 @@ Template.residentFeelings.onRendered(function () {
     const residentFeelingsPercentages = templateInstance.residentFeelingsPercentages.get();
 
     // Make sure resident feelings percentages data is available
-    if (residentFeelingsPercentages) {
+    // and not an empty array
+    if (residentFeelingsPercentages && residentFeelingsPercentages.length > 0) {
       // Sort feelings percentages
       const sortedResidentFeelingsPercentages = residentFeelingsPercentages.sort(function (a, b) {
         // Sort from high to low
