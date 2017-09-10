@@ -5,9 +5,34 @@ Template.residentFeelings.onCreated(function () {
   // Get resident ID from template instance
   const residentId = templateInstance.data.residentId;
 
-  // Set up reactive variable to hold resident feelings counts
+  // Subscribe to count of resident feelings
+  // Used to trigger call to 'get resident feelings percentages' method
+  // TODO: figure out a 'cleaner' way to signal that feelings data have changed
+  // https://forums.meteor.com/t/send-reactive-signal-from-server-to-client/39141
+  templateInstance.subscribe('residentFeelingsCount', residentId);
+
+  // Set up reactive variable to hold resident feelings percentages
   templateInstance.residentFeelingsPercentages = new ReactiveVar();
 
+  // Reactively fetch resident feelings counts from server
+  // triggering a call to 'get resident feelings percentages' method
+  // TODO: figure out a 'cleaner' way to signal that feelings data have changed
+  // https://forums.meteor.com/t/send-reactive-signal-from-server-to-client/39141
+  templateInstance.autorun(() => {
+    // Get resident feelings count
+    const feelingsCount = Counts.get(`resident_${ residentId }_feelings_count`);
+
+    // Get resident feelings percentages when feelings count changes
+    Meteor.call('getFeelingsPercentagesByResidentId', residentId, function (error, residentFeelingsPercentages) {
+      // Update resident feelings counts with returned value from method call
+      templateInstance.residentFeelingsPercentages.set(residentFeelingsPercentages);
+    });
+  });
+
+  /*
+  Template helper methods
+  */
+  
   // Method to clear and render chart
   templateInstance.clearAndRenderChart = function (chartData) {
     // clear any previous chart
@@ -45,20 +70,17 @@ Template.residentFeelings.onCreated(function () {
 
     return localizedChartData
   };
-
-  // Fetch resident feelings counts from server
-  Meteor.call('getFeelingsPercentagesByResidentId', residentId, function (error, residentFeelingsPercentages) {
-    // Update resident feelings counts with returned value from method call
-    templateInstance.residentFeelingsPercentages.set(residentFeelingsPercentages);
-  });
 });
 
 Template.residentFeelings.onRendered(function () {
   // Get reference to template instance
   const templateInstance = this;
 
+  // Get resident ID for use in autorun
+  const residentId = templateInstance.data.residentId;
+
   templateInstance.autorun(() => {
-    // Get resident feelings counts
+        // Get resident feelings counts
     const residentFeelingsPercentages = templateInstance.residentFeelingsPercentages.get();
 
     // Make sure resident feelings counts data is available
