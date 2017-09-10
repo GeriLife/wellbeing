@@ -19,7 +19,8 @@ Template.residentFeelings.onCreated(function () {
   // TODO: figure out a 'cleaner' way to signal that feelings data have changed
   // https://forums.meteor.com/t/send-reactive-signal-from-server-to-client/39141
   templateInstance.autorun(() => {
-    // Get resident feelings
+    // Get resident feelings count
+    // This is just a reactive trigger to fetch resident feelings percentages
     const feelingsCount = Counts.get(`resident_${ residentId }_feelings_count`);
 
     // Get resident feelings percentages when feelings count changes
