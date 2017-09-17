@@ -7,6 +7,7 @@
   </section>
   <section class="content">
     <div class="box box-primary">
+
       <div class="box-header">
         <div class="box-toolbar">
           <div class="pull-right">
@@ -16,47 +17,10 @@
           </div>
         </div>
       </div>
-      <div class="box-body no-padding">
-        <!--<table class="table table-striped">
-          <thead>
-            <tr>
-              <th>
-                {{_ "usersSettings-tableHeaders-email" }}
-              </th>
-              <th>
-                {{_ "usersSettings-tableHeaders-roles" }}
-              </th>
-              <th width="10%">
-                {{_ "usersSettings-tableHeaders-edit" }}
-              </th>
-              <th width="10%">
-                {{_ "usersSettings-tableHeaders-delete" }}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-          {{# each users }}
-          <tr>
-            <td>{{ email }}</td>
-            <td>{{ roles }}</td>
-            <td>
-              <button class="edit-user btn btn-warning btn-sm">
-                <i class="fa fa-pencil-square-o"></i>
-              </button>
-            </td>
-            <td>
-              {{# if userCanDeleteAccount }}
-              <button class="delete-user btn btn-danger btn-sm">
-                <i class="fa fa-trash-o"></i>
-              </button>
-              {{/ if }}
-            </td>
-          </tr>
-          {{/ each }}
-          </tbody>
-        </table>-->
-        {{> usersSettingsTable }}
 
+      <!-- user settings table -->
+      <div class="box-body">
+        {{> usersSettingsTable }}
       </div>
     </div>
 
