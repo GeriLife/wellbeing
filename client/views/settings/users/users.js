@@ -27,6 +27,7 @@ Template.usersSettings.helpers({
   },
   tableSettings () {
     const tableSettings = {
+      collection: Meteor.users,
       fields: [
         'emails.0.address',
         'emails.0.verified',
@@ -35,10 +36,6 @@ Template.usersSettings.helpers({
     };
 
     return tableSettings;
-  },
-  usersCollection () {
-    // Return users collection
-    return Meteor.users;
   },
   "userCanDeleteAccount": function () {
     // Prevent user from deleting own account
