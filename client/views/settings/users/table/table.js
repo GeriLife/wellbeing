@@ -3,9 +3,18 @@ Template.usersSettingsTable.helpers({
     const tableSettings = {
       collection: Meteor.users,
       fields: [
-        'emails.0.address',
-        'emails.0.verified',
-        'roles',
+        {
+          key: 'emails.0.address',
+          label: TAPi18n.__('usersSettingsTable-tableHeaders-email'),
+        },
+        {
+          key: 'emails.0.verified',
+          label: TAPi18n.__('usersSettingsTable-tableHeaders-verified'),
+        },
+        {
+          key: 'roles',
+          label: TAPi18n.__('usersSettingsTable-tableHeaders-roles'),
+        },
       ]
     };
 
