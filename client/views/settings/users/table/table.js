@@ -16,8 +16,8 @@ Template.usersSettingsTable.helpers({
           label: TAPi18n.__('usersSettingsTable-tableHeaders-email'),
         },
         {
-          key: 'emails.0.verified',
-          label: TAPi18n.__('usersSettingsTable-tableHeaders-verified'),
+          label: TAPi18n.__('usersSettingsTable-tableHeaders-passwordActive'),
+          tmpl: Template.usersSettingsTablePasswordActive,
         },
         {
           key: 'roles',

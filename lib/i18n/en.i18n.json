@@ -284,5 +284,5 @@
   "usersSettingsTable-tableHeaders-actions": "Actions",
   "usersSettingsTable-tableHeaders-email": "Email",
   "usersSettingsTable-tableHeaders-roles": "Roles",
-  "usersSettingsTable-tableHeaders-verified": "Verified"
+  "usersSettingsTable-tableHeaders-passwordActive": "Password active"
 }
