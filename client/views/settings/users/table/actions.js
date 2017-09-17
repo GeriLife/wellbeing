@@ -21,10 +21,6 @@ Template.usersSettingsTableActions.helpers({
 });
 
 Template.usersSettingsTableActions.events({
-  'click #add-user': function () {
-    // Show the add activity modal
-    Modal.show('newUser');
-  },
   'click .delete-user': function (event, template) {
     // Save reference to user
     var user = this;
