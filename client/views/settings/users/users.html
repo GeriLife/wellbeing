@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="box-body no-padding">
-        <table class="table table-striped">
+        <!--<table class="table table-striped">
           <thead>
             <tr>
               <th>
@@ -45,7 +45,6 @@
               </button>
             </td>
             <td>
-              <!-- Only show delete button for other user accounts than current user -->
               {{# if userCanDeleteAccount }}
               <button class="delete-user btn btn-danger btn-sm">
                 <i class="fa fa-trash-o"></i>
@@ -55,7 +54,9 @@
           </tr>
           {{/ each }}
           </tbody>
-        </table>
+        </table>-->
+        {{> reactiveTable collection=usersCollection showNavigation='never' rowsPerPage=5 settings=tableSettings }}
+
       </div>
     </div>
 

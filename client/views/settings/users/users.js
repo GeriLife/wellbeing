@@ -25,6 +25,21 @@ Template.usersSettings.helpers({
       return this.roles.join();
     }
   },
+  tableSettings () {
+    const tableSettings = {
+      fields: [
+        'emails.0.address',
+        'emails.0.verified',
+        'roles',
+      ]
+    };
+
+    return tableSettings;
+  },
+  usersCollection () {
+    // Return users collection
+    return Meteor.users;
+  },
   "userCanDeleteAccount": function () {
     // Prevent user from deleting own account
     // by hiding delete button
