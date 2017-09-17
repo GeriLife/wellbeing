@@ -1,5 +1,5 @@
 Template.usersSettingsTableActions.helpers({
-  "userCanDeleteAccount": function () {
+  "userCanDeleteAccount" () {
     // Prevent user from deleting own account
     // by hiding delete button
 
@@ -21,14 +21,14 @@ Template.usersSettingsTableActions.helpers({
 });
 
 Template.usersSettingsTableActions.events({
-  'click .delete-user': function (event, template) {
+  'click .delete-user' (event, template) {
     // Save reference to user
     var user = this;
 
     // Show edit modal, passing in user as data context
     Modal.show("deleteUser", {"data": user}, {});
   },
-  'click .edit-user': function (event, template) {
+  'click .edit-user' (event, template) {
     // Save reference to user
     var user = this;
 
