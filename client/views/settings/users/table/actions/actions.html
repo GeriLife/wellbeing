@@ -1,0 +1,12 @@
+<template name="usersSettingsTableActions">
+  <div class="btn-group">
+    <button class="edit-user btn btn-warning btn-sm">
+      <i class="fa fa-pencil-square-o"></i>
+    </button>
+    {{# if userCanDeleteAccount }}
+    <button class="delete-user btn btn-danger btn-sm">
+      <i class="fa fa-trash-o"></i>
+    </button>
+    {{/ if }}
+  </div>
+</template>
