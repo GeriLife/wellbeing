@@ -6,27 +6,6 @@ Template.usersSettings.created = function () {
   instance.subscribe("allUsers");
 };
 
-Template.usersSettings.helpers({
-  "users": function () {
-    // Get all users
-    var users = Meteor.users.find().fetch();
-
-    return users;
-  },
-  "email": function () {
-    if (this.emails && this.emails.length) {
-      // Return the user's first email address
-      return this.emails[0].address;
-    }
-  },
-  "roles": function () {
-    if (this.roles && this.roles.length) {
-      // Return comma separated list of roles
-      return this.roles.join();
-    }
-  },
-});
-
 Template.usersSettings.events({
   'click #add-user': function () {
     // Show the add activity modal
