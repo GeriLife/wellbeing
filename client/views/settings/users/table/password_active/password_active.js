@@ -1,5 +1,5 @@
 Template.usersSettingsTablePasswordActive.helpers({
-  userPasswordIsSet () {
+  userPasswordActive () {
     // Get current user from template data context (reactively)
     const currentUser = Template.currentData();
 
