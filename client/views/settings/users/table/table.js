@@ -16,7 +16,7 @@ Template.usersSettingsTable.helpers({
           label: TAPi18n.__('usersSettingsTable-tableHeaders-roles'),
         },
         {
-          label: 'Actions',
+          label: TAPi18n.__('usersSettingsTable-tableHeaders-actions'),
           tmpl: Template.usersSettingsTableActions,
         },
       ]

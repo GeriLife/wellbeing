@@ -281,6 +281,7 @@
   "usersSettings-header": "Users",
   "usersSettings-tableHeaders-delete": "Delete",
   "usersSettings-tableHeaders-edit": "Edit",
+  "usersSettingsTable-tableHeaders-actions": "Actions",
   "usersSettingsTable-tableHeaders-email": "Email",
   "usersSettingsTable-tableHeaders-roles": "Roles",
   "usersSettingsTable-tableHeaders-verified": "Verified"
