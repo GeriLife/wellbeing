@@ -1,3 +1,11 @@
+Template.usersSettingsTable.onCreated(function () {
+  // Get reference to Template instance
+  var instance = this;
+
+  // Subscribe to all users
+  instance.subscribe("allUsers");
+});
+
 Template.usersSettingsTable.helpers({
   tableSettings () {
     const tableSettings = {
