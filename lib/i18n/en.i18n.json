@@ -279,8 +279,10 @@
   },
   "usersSettings-addUserButton": "Add User",
   "usersSettings-header": "Users",
-  "usersSettings-tableHeaders-delete": "Delete",
-  "usersSettings-tableHeaders-edit": "Edit",
-  "usersSettings-tableHeaders-email": "Email",
-  "usersSettings-tableHeaders-roles": "Roles"
+  "usersSettingsTableActions-deleteButtonText": "Delete",
+  "usersSettingsTableActions-editButtonText": "Edit",
+  "usersSettingsTable-tableHeaders-actions": "Actions",
+  "usersSettingsTable-tableHeaders-email": "Email",
+  "usersSettingsTable-tableHeaders-roles": "Roles",
+  "usersSettingsTable-tableHeaders-passwordActive": "Password active"
 }
