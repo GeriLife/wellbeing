@@ -1,4 +1,20 @@
 {
+    "newActivity-residentSelect-placeholder": "Valitse asukas(asukkaat)",
+    "residentForm-cancel": "Peruuta",
+    "residentForm-departed-helpText": "Asukas on poistunut yhteis\u00f6st\u00e4",
+    "residentForm-onHiatus-helpText": "Asukas on v\u00e4liaikaisesti keskeytyksell\u00e4",
+    "residentForm-header-add": "Lis\u00e4\u00e4 asukas",
+    "residentForm-header-edit": "Muokkaa asukasta",
+    "residentForm-save": "Tallenna",
+    "resident-addActivity-buttonText": "Lis\u00e4\u00e4 aktiviteetti",
+    "resident-addFeeling-buttonText": "Lis\u00e4\u00e4 tunnetila",
+    "resident-noRecordedActivities-text": "Asukkaalla ei ole tallennettuja aktiviteetteja",
+    "usersSettingsTableActions-deleteButtonText": "Poista",
+    "usersSettingsTableActions-editButtonText": "Muokkaa",
+    "usersSettingsTable-tableHeaders-actions": "Toiminnot",
+    "usersSettingsTable-tableHeaders-email": "S\u00e4hk\u00f6posti",
+    "usersSettingsTable-tableHeaders-roles": "Roolit",
+    "usersSettingsTable-tableHeaders-passwordActive": "Salasana aktiivinen",
     "activities": {
         "residentIds": {
             "label": "Asukkaat"

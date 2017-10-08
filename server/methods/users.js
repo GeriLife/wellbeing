@@ -13,6 +13,14 @@ Meteor.methods({
       throw new Meteor.Error('MailConfigurationError', 'No mail settings available.')
     }
 
+    // Make sure 'from email' address was provied by environmental variable
+    if (!process.env.FROM_EMAIL) {
+      throw new Meteor.Error('MailConfigurationError', 'No from email address available.')
+    }
+
+    // Set the from email address
+    Accounts.emailTemplates.from = process.env.FROM_EMAIL;
+
     // Set enrollment subject from document
     Accounts.emailTemplates.enrollAccount.subject = (user) => {
       return enrollmentDocument.subject;
