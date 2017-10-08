@@ -44,9 +44,12 @@
 
         {{# autoForm id="newFeelingForm" type="insert" collection="Feelings"  }}
         <div class="modal-body">
-        <div id="selected-feeling" class="feeling- clearfix text-center">
-          <img src="/images/{{ selectedFeeling }}.svg" />
-        </div>
+          <!-- show selected feeling preview if feeling has been selected -->
+          {{# if selectedFeeling }}
+            <div id="selected-feeling" class="feeling- clearfix text-center">
+              <img src="/images/{{ selectedFeeling }}.svg" />
+            </div>
+          {{/ if }}
 
           {{> afQuickField
             name="residentId"
