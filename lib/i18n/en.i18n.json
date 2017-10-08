@@ -252,7 +252,7 @@
   "residents-filterPanel-header": "Filter residents",
   "residents-filterPanel-includeDeparted": "include departed",
   "residents-header": "Residents",
-  "residents-header-addResidentButton": "Add New Resident",
+  "residents-header-addResidencyButton": "Add new Residency",
   "roles": {
     "name": {
       "label": "Role name"
