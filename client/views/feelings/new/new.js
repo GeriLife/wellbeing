@@ -1,6 +1,13 @@
 Template.newFeeling.created = function () {
+  // Get reference to template instance
+  const templateInstance = this;
+
+  // Subscribe to residents and homes
   this.subscribe('allResidents');
   this.subscribe('allHomes');
+
+  // Create reactive variable for selected feeling
+  templateInstance.selectedFeeling = new ReactiveVar();
 };
 
 Template.newFeeling.helpers({
@@ -38,9 +45,51 @@ Template.newFeeling.helpers({
     return residentSelectOptions;
   },
   "selectedFeeling": function () {
-    //Get selected feeling from session variable
-    var selectedFeeling = Session.get("selectedFeeling");
+    // Get reference to template instance
+    const templateInstance = Template.instance();
 
-    return selectedFeeling;
+    // Return value of selected feeling reactive variable
+    return templateInstance.selectedFeeling.get();
+  },
+  feelingNotSelected (feeling) {
+    // Check whether any feeling has been selected
+    // if a feeling has been selected that is different from the current feeling
+    //   return 'not-selected'
+    // helper is used to add 'not-selected' class to feelings not selected
+
+    // Get reference to template instance
+    const templateInstance = Template.instance();
+
+    // Get currently selected feeling
+    const selectedFeeling = templateInstance.selectedFeeling.get();
+
+    // Check if this feeling is NOT selected
+    const thisFeelingNotSelected = feeling !== selectedFeeling;
+
+    // Check if
+    //  feeling has been selected
+    //  selected feeling is different from this feeling
+    if (selectedFeeling && thisFeelingNotSelected) {
+      return 'not-selected';
+    }
   }
+});
+
+Template.newFeeling.events({
+  "click #joy": function (event, templateInstance) {
+    // Set selected feeling reactive variable
+    templateInstance.selectedFeeling.set("joy");
+  },
+  "click #fear": function (event, templateInstance) {
+    // Set selected feeling reactive variable
+    templateInstance.selectedFeeling.set("fear");
+  },
+  "click #sad": function (event, templateInstance) {
+    // Set selected feeling reactive variable
+    templateInstance.selectedFeeling.set("sad");
+  },
+  "click #anger": function (event, templateInstance) {
+    // Set selected feeling reactive variable
+    templateInstance.selectedFeeling.set("anger");
+  },
 });
