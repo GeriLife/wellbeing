@@ -24,6 +24,35 @@ Meteor.methods({
     // note: we make sure we got a document back by comparing against undefined
     return (residentActiveOnDate != undefined);
   },
+  getResidentRecentActiveDaysCount (residentId) {
+    /*
+    Get count of recent days (within past seven days) where resident was active
+    */
+
+    // Initialize counter for resident active days
+    let activeDaysCount = 0;
+
+    // Date one week ago
+    const oneWeekAgo = moment().subtract(1, 'weeks');
+
+    // Get a date object for the end of day today
+    const endOfDayToday = moment().endOf('day');
+
+    // For each of the days in the past week,
+    // check whether the user was active
+    // increment 'active days' count for each active day
+    for (let currentDay = moment(oneWeekAgo); currentDay.isBefore(endOfDayToday); currentDay.add('days', 1)) {
+      // Check whether resident was active on current day
+      const residentWasActive = Meteor.call('checkIfResidentWasActiveOnDate', residentId, currentDay.toDate());
+
+      if (residentWasActive) {
+        // Add one to active days count
+        activeDaysCount += 1;
+      }
+    }
+
+    return activeDaysCount;
+  },
   getResidentRecentActivitiesCount (residentId) {
     // Date one week ago
     var oneWeekAgo = moment().subtract(1, "weeks").toDate();
