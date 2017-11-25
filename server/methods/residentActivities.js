@@ -41,7 +41,7 @@ Meteor.methods({
     // For each of the days in the past week,
     // check whether the user was active
     // increment 'active days' count for each active day
-    for (let currentDay = moment(startDate); currentDay.isBefore(endDate); currentDay.add('days', 1)) {
+    for (let currentDay = moment(startDate); currentDay.isBefore(endDate); currentDay.add(1, 'day')) {
       // Check whether resident was active on current day
       const residentWasActive = Meteor.call('checkIfResidentWasActiveOnDate', residentId, currentDay.toDate());
 
