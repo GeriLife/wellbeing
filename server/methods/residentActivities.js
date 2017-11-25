@@ -24,7 +24,7 @@ Meteor.methods({
     // note: we make sure we got a document back by comparing against undefined
     return (residentActiveOnDate != undefined);
   },
-  getResidentRecentActiveDaysCount (residentId) {
+  getResidentRecentActiveDaysCount (residentId, date = new Date()) {
     /*
     Get count of recent days (within past seven days) where resident was active
     */
@@ -33,15 +33,15 @@ Meteor.methods({
     let activeDaysCount = 0;
 
     // Date one week ago
-    const oneWeekAgo = moment().subtract(1, 'weeks');
+    const startDate = moment(date).subtract(1, 'weeks');
 
     // Get a date object for the end of day today
-    const endOfDayToday = moment().endOf('day');
+    const endDate = moment(date).endOf('day');
 
     // For each of the days in the past week,
     // check whether the user was active
     // increment 'active days' count for each active day
-    for (let currentDay = moment(oneWeekAgo); currentDay.isBefore(endOfDayToday); currentDay.add('days', 1)) {
+    for (let currentDay = moment(startDate); currentDay.isBefore(endDate); currentDay.add('days', 1)) {
       // Check whether resident was active on current day
       const residentWasActive = Meteor.call('checkIfResidentWasActiveOnDate', residentId, currentDay.toDate());
 
@@ -52,35 +52,5 @@ Meteor.methods({
     }
 
     return activeDaysCount;
-  },
-  getResidentRecentActivitiesCount (residentId) {
-    // Date one week ago
-    var oneWeekAgo = moment().subtract(1, "weeks").toDate();
-
-    // Date today
-    var now = new Date();
-
-    // Get a count of all resident activities within the desired time range
-    var activityCount = Activities.find({
-      'residentIds': residentId,
-      activityDate: {$gte: oneWeekAgo, $lte: now}
-    }).count();
-
-    return activityCount;
-  },
-  getResidentWeeklyActivitiesCountFromDate (residentId, date) {
-    // Date to start activity range query
-    var start = moment(date).subtract(1, "weeks").toDate();
-
-    // Date to end activity range query
-    var end = new moment(date).toDate();
-
-    // Get a count of all resident activities within the desired time range
-    var activityCount = Activities.find({
-      'residentIds': residentId,
-      activityDate: {$gte: start, $lte: end}
-    }).count();
-
-    return activityCount;
   },
 });
