@@ -139,22 +139,22 @@ Meteor.methods({
     };
 
     if (residentIds){
-      // Get activity level for each resident via getResidentRecentActivitiesCount
+      // Get count of recent active days for each resident
       _.each(residentIds, function (residentId) {
-        var residentActivityCount = Meteor.call(
-          "getResidentRecentActivitiesCount",
+        const residentRecentActiveDaysCount = Meteor.call(
+          "getResidentRecentActiveDaysCount",
           residentId
         );
 
         // Check resident activity level
-        if (residentActivityCount === 0) {
+        if (residentRecentActiveDaysCount === 0) {
           // If zero activities, resident is inactive
           residentActivityLevelCounts.inactive += 1;
-        } else if (residentActivityCount < 5) {
+        } else if (residentRecentActiveDaysCount < 5) {
           // If less than five activities, resident is semi-active
           // TODO: refactor to use activity threshold variable
           residentActivityLevelCounts.semiActive += 1;
-        } else if (residentActivityCount >= 5) {
+        } else if (residentRecentActiveDaysCount >= 5) {
           // If greater than or equal to five activities, resident is active
           // TODO: refactor to use activity threshold variable
           residentActivityLevelCounts.active += 1;
