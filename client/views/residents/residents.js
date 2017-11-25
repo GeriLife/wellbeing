@@ -40,7 +40,8 @@ Template.residents.helpers({
           var residentObject = {
             fullName: resident.fullName(),
             homeName: resident.homeName(),
-            residentId: resident._id
+            residentId: resident._id,
+            homeId: resident.homeId,
           };
 
           // Add resident object to residents list
@@ -61,6 +62,7 @@ Template.residents.helpers({
     // Get translation strings for filter values
     tableLabels.fullName = TAPi18n.__("residents-tableLabels-fullName");
     tableLabels.homeName = TAPi18n.__("residents-tableLabels-homeName");
+    tableLabels.residency = TAPi18n.__("residents-tableLabels-residency");
 
     var tableSettings = {
       showFilter: false,
@@ -76,6 +78,24 @@ Template.residents.helpers({
           label: tableLabels.homeName,
           sortOrder: 1,
           sortDirection: 'ascending'
+        },
+        {
+          key: 'homeId',
+          label: tableLabels.residency,
+          tmpl: Template.residentCurrentResidency,
+          hidden: function () {
+            var currentUserId = Meteor.userId();
+
+            // Check if current user has Admin role
+            var currentUserIsAdmin = Roles.userIsInRole(currentUserId, ["admin"]);
+
+            // Only show edit column for users with Admin role
+            if (currentUserIsAdmin) {
+              return false;
+            } else {
+              return true;
+            }
+          },
         }
       ],
       filters: ['nameFilter', 'homeFilter']
@@ -104,18 +124,20 @@ Template.residents.helpers({
 });
 
 Template.residents.events({
-  'click .reactive-table tbody tr': function (event) {
-    event.preventDefault();
-
-    // Get Resident ID from table
-    var residentId = this.residentId;
-
-    // Show view for selected resident
-    Router.go('resident', {residentId: residentId})
-  },
+  // TODO: add a 'view resident' button to trigger this event
+  // https://github.com/GeriLife/wellbeing/issues/144
+  // 'click .reactive-table tbody tr': function (event) {
+  //   event.preventDefault();
+  //
+  //   // Get Resident ID from table
+  //   var residentId = this.residentId;
+  //
+  //   // Show view for selected resident
+  //   Router.go('resident', {residentId: residentId})
+  // },
   'click #new-resident': function () {
     // Show the edit home modal
-    Modal.show('residentForm');
+    Modal.show('addResidencyModal');
   },
   'click #include-departed': function (event) {
     var instance = Template.instance();

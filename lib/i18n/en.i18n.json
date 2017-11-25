@@ -31,7 +31,11 @@
   "activityTypesSettings-activityTypeTable-helpText": "For data integrity, activity types can only be removed when they are related to no recorded activities.",
   "activityTypesSettings-addActivityTypeButton": "Add Activity Type",
   "activityTypesSettings-header": "Activity Types",
-  "newActivity-residentSelect-placeholder": "Select resident(s)",
+  "addResidencyForm-cancel": "Cancel",
+  "addResidencyForm-save": "Save",
+  "addResidencyForm-newOrExisting-existing": "Existing resident",
+  "addResidencyForm-newOrExisting-new": "New resident",
+  "addResidencyModal-header": "Add residency",
   "dataSettings-header": "Data settings",
   "dataSettings-rawData-exportRawDataButton": "Export data",
   "dataSettings-rawData-header": "Export data",
@@ -61,6 +65,9 @@
   "editHome-cancel": "Cancel",
   "editHome-title": "Edit home",
   "editHome-save": "Save",
+  "editResidencyForm-cancel": "Cancel",
+  "editResidencyForm-save": "Save",
+  "editResidencyModal-header": "Edit residency",
   "editUser": {
     "email": {
       "label": "Email"
@@ -156,10 +163,27 @@
   "newFeeling-header": "Record new feeling",
   "newFeeling-save": "Save",
   "newFeeling-success": "Successfully recorded feeling",
+  "newResidentAndResidencySchema-homeId-label": "Home",
   "newUser-cancelButton": "Cancel",
   "newUser-header": "Create new User",
   "newUser-saveButton": "Save",
   "resident-editButton": "Edit resident",
+  "residentCurrentResidency-editResidencyButton": "Edit Residency",
+  "residencies": {
+    "homeId": {
+      "label": "Home"
+    },
+    "residentId": {
+      "label": "Resident"
+    },
+    "moveIn": {
+      "label": "Move in date (arrival)"
+    },
+    "moveOut": {
+      "label": "Move out date (departure)"
+    }
+  },
+  "residecyForm-save": "Save",
   "residents": {
     "firstName": {
       "label": "First name"
@@ -224,10 +248,11 @@
   "residents-filterLabels-homeName": "Home",
   "residents-tableLabels-fullName": "Resident name",
   "residents-tableLabels-homeName": "Home name",
+  "residents-tableLabels-residency": "Residency",
   "residents-filterPanel-header": "Filter residents",
   "residents-filterPanel-includeDeparted": "include departed",
   "residents-header": "Residents",
-  "residents-header-addResidentButton": "Add New Resident",
+  "residents-header-addResidencyButton": "Add new Residency",
   "roles": {
     "name": {
       "label": "Role name"
@@ -243,6 +268,7 @@
   "mainLayoutNavbar-settingsLink": "Settings",
   "newActivity-cancel": "Cancel",
   "newActivity-header": "Create new activity",
+  "newActivity-residentSelect-placeholder": "Select resident(s)",
   "newActivity-save": "Save",
   "newActivity-success": "Activity added",
   "newActivityType-cancelButton": "Cancel",
