@@ -191,7 +191,7 @@ Meteor.methods({
       // Compare it against the baseline
       _.each(residentIds, function (residentId) {
         var result = Meteor.call(
-          "getResidentWeeklyActivitiesCountFromDate",
+          "getResidentRecentActiveDaysCount",
           residentId,
           queryDate.toDate()
         );
