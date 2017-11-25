@@ -1,16 +1,11 @@
+import moment from 'moment';
+
 Meteor.methods({
   checkIfResidentWasActiveOnDate (residentId, date) {
-    // Create morning and evening dates
+    // Create morning and evening dates (Date objects)
     // in order to query activities for date
-    const morning = new Date(date);
-    morning.setHours(0);
-    morning.setMinutes(0);
-    morning.setSeconds(0);
-
-    const evening = new Date(date);
-    evening.setHours(23);
-    evening.setMinutes(59);
-    evening.setSeconds(59);
+    const morning = moment(date).startOf('day').toDate();
+    const evening = moment(date).endOf('day').toDate();
 
     // Check if resident has (at least one) recorded activity on that day (date)
     const residentActiveOnDate = Activities.findOne({
@@ -58,5 +53,5 @@ Meteor.methods({
     }).count();
 
     return activityCount;
-  }
+  },
 });
