@@ -1,4 +1,4 @@
-Template.homeResident.created = function () {
+Template.homeResident.onCreated(function () {
   // Get reference to template instance
   var instance = this;
 
@@ -13,10 +13,10 @@ Template.homeResident.created = function () {
     // set the value of the resident activity count reactive variable
     instance.residentRecentActiveDaysCount.set(activeDaysCount);
   });
-};
+});
 
 Template.homeResident.helpers({
-  'activityLabelClass': function () {
+  activityLabelClass () {
     // Get reference to template instance
     var instance = Template.instance();
 
@@ -40,7 +40,7 @@ Template.homeResident.helpers({
       return 'danger';
     }
   },
-   'activityLabelText': function () {
+   activityLabelText () {
     // Get reference to template instance
     var instance = Template.instance();
 
@@ -77,7 +77,7 @@ Template.homeResident.helpers({
       return inactive;
     }
   },
-  'recentActiveDaysCount': function () {
+  recentActiveDaysCount () {
     // Get reference to template instance
     var instance = Template.instance();
 
