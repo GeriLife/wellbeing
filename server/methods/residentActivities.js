@@ -24,12 +24,12 @@ Meteor.methods({
         $lte: evening,
       }
     });
-    console.log(residentActiveOnDate)
+
     // Return the (boolean) value indicating whether resident was active on date
     // note: we make sure we got a document back by comparing against undefined
     return (residentActiveOnDate != undefined);
   },
-  'getResidentRecentActivitiesCount': function (residentId) {
+  getResidentRecentActivitiesCount (residentId) {
     // Date one week ago
     var oneWeekAgo = moment().subtract(1, "weeks").toDate();
 
@@ -44,7 +44,7 @@ Meteor.methods({
 
     return activityCount;
   },
-  'getResidentWeeklyActivitiesCountFromDate': function (residentId, date) {
+  getResidentWeeklyActivitiesCountFromDate (residentId, date) {
     // Date to start activity range query
     var start = moment(date).subtract(1, "weeks").toDate();
 
