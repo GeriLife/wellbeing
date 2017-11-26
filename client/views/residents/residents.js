@@ -60,6 +60,7 @@ Template.residents.helpers({
     const tableLabels = {};
 
     // Get translation strings for filter values
+    tableLabels.viewResident = TAPi18n.__("residents-tableLabels-viewResident");
     tableLabels.fullName = TAPi18n.__("residents-tableLabels-fullName");
     tableLabels.homeName = TAPi18n.__("residents-tableLabels-homeName");
     tableLabels.residency = TAPi18n.__("residents-tableLabels-residency");
@@ -67,6 +68,11 @@ Template.residents.helpers({
     var tableSettings = {
       showFilter: false,
       fields: [
+        {
+          key: 'homeId',
+          label: tableLabels.viewResident,
+          tmpl: Template.residentViewButton,
+        },
         {
           key: 'fullName',
           label: tableLabels.fullName,

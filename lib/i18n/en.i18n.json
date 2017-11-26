@@ -249,6 +249,7 @@
   "residents-tableLabels-fullName": "Resident name",
   "residents-tableLabels-homeName": "Home name",
   "residents-tableLabels-residency": "Residency",
+  "residents-tableLabels-viewResident": "View resident",
   "residents-filterPanel-header": "Filter residents",
   "residents-filterPanel-includeDeparted": "include departed",
   "residents-header": "Residents",
