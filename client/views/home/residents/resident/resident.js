@@ -1,4 +1,4 @@
-Template.homeResident.created = function () {
+Template.homeResident.onCreated(function () {
   // Get reference to template instance
   var instance = this;
 
@@ -6,17 +6,17 @@ Template.homeResident.created = function () {
   instance.residentId = instance.data._id;
 
   // Create resident activity count reactive variable
-  instance.residentActivityCount = new ReactiveVar();
+  instance.residentRecentActiveDaysCount = new ReactiveVar();
 
   // Get resident activity count from server, and set reactive variable
-  Meteor.call('getResidentRecentActivitiesCount', instance.residentId, function (error, activityCount) {
+  Meteor.call('getResidentRecentActiveDaysCount', instance.residentId, function (error, activeDaysCount) {
     // set the value of the resident activity count reactive variable
-    instance.residentActivityCount.set(activityCount);
+    instance.residentRecentActiveDaysCount.set(activeDaysCount);
   });
-};
+});
 
 Template.homeResident.helpers({
-  'activityLabelClass': function () {
+  activityLabelClass () {
     // Get reference to template instance
     var instance = Template.instance();
 
@@ -29,18 +29,18 @@ Template.homeResident.helpers({
     }
 
     // Get resident activity count
-    var activityCount = instance.residentActivityCount.get();
+    var recentActiveDaysCount = instance.residentRecentActiveDaysCount.get();
 
     // Case for returning Bootstrap class based on activity level
-    if (activityCount >= 5) {
+    if (recentActiveDaysCount >= 5) {
       return 'success';
-    } else if ( activityCount > 0 && activityCount < 5 ) {
+    } else if ( recentActiveDaysCount > 0 && recentActiveDaysCount < 5 ) {
       return 'warning';
-    } else if ( activityCount === 0 ) {
+    } else if ( recentActiveDaysCount === 0 ) {
       return 'danger';
     }
   },
-   'activityLabelText': function () {
+   activityLabelText () {
     // Get reference to template instance
     var instance = Template.instance();
 
@@ -61,7 +61,7 @@ Template.homeResident.helpers({
     var residentId = instance.residentId;
 
     // Get resident activity count
-    var activityCount = instance.residentActivityCount.get();
+    var recentActiveDaysCount = instance.residentRecentActiveDaysCount.get();
 
     // Get activity level translations
     const active = TAPi18n.__("residentActivityLevel-active");
@@ -69,23 +69,23 @@ Template.homeResident.helpers({
     const inactive = TAPi18n.__("residentActivityLevel-inactive");
 
     // Case for returning Bootstrap class based on activity level
-    if (activityCount >= 5) {
+    if (recentActiveDaysCount >= 5) {
       return active;
-    } else if ( activityCount > 0 && activityCount < 5 ) {
+    } else if ( recentActiveDaysCount > 0 && recentActiveDaysCount < 5 ) {
       return semiActive;
-    } else if ( activityCount === 0 ) {
+    } else if ( recentActiveDaysCount === 0 ) {
       return inactive;
     }
   },
-  'activityCount': function () {
+  recentActiveDaysCount () {
     // Get reference to template instance
     var instance = Template.instance();
 
     // Get resident activity count
-    var activityCount = instance.residentActivityCount.get();
+    var recentActiveDaysCount = instance.residentRecentActiveDaysCount.get();
 
     // Return the activity count as a string
-    return activityCount;
+    return recentActiveDaysCount;
   }
 });
 
