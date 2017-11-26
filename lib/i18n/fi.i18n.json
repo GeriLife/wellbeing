@@ -1,20 +1,4 @@
 {
-    "newActivity-residentSelect-placeholder": "Valitse asukas(asukkaat)",
-    "residentForm-cancel": "Peruuta",
-    "residentForm-departed-helpText": "Asukas on poistunut yhteis\u00f6st\u00e4",
-    "residentForm-onHiatus-helpText": "Asukas on v\u00e4liaikaisesti keskeytyksell\u00e4",
-    "residentForm-header-add": "Lis\u00e4\u00e4 asukas",
-    "residentForm-header-edit": "Muokkaa asukasta",
-    "residentForm-save": "Tallenna",
-    "resident-addActivity-buttonText": "Lis\u00e4\u00e4 aktiviteetti",
-    "resident-addFeeling-buttonText": "Lis\u00e4\u00e4 tunnetila",
-    "resident-noRecordedActivities-text": "Asukkaalla ei ole tallennettuja aktiviteetteja",
-    "usersSettingsTableActions-deleteButtonText": "Poista",
-    "usersSettingsTableActions-editButtonText": "Muokkaa",
-    "usersSettingsTable-tableHeaders-actions": "Toiminnot",
-    "usersSettingsTable-tableHeaders-email": "S\u00e4hk\u00f6posti",
-    "usersSettingsTable-tableHeaders-roles": "Roolit",
-    "usersSettingsTable-tableHeaders-passwordActive": "Salasana aktiivinen",
     "activities": {
         "residentIds": {
             "label": "Asukkaat"
@@ -48,6 +32,11 @@
     "activityTypesSettings-activityTypeTable-helpText": "Tietojen oikeellisuuden vuoksi aktivitettityyppej\u00e4 voi poistaa vain silloin,  kun niihin ei ole kirjattu aktiviteetteja.",
     "activityTypesSettings-addActivityTypeButton": "Lis\u00e4\u00e4 aktiviteettityyppi",
     "activityTypesSettings-header": "Aktiviteettityypit",
+    "addResidencyForm-cancel": "Peruuta",
+    "addResidencyForm-save": "Tallenna",
+    "addResidencyForm-newOrExisting-existing": "Palveluun kirjattu asukas",
+    "addResidencyForm-newOrExisting-new": "Uusi asukas",
+    "addResidencyModal-header": "Lis\u00e4\u00e4 asiakkuus",
     "dataSettings-header": "Data asetukset",
     "dataSettings-demoData-generateDemoDataButton": "Generoi demo data",
     "dataSettings-demoData-header": "Esittelytiedosto",
@@ -80,6 +69,9 @@
     "editHome-cancel": "Peruuta",
     "editHome-title": "Muokkaa kotia",
     "editHome-save": "Tallenna",
+    "editResidencyForm-cancel": "Peruuta",
+    "editResidencyForm-save": "Tallenna",
+    "editResidencyModal-header": "Muokkaa asiakkuutta",
     "editResident-cancel": "Peruuta",
     "editResident-departed-helpText": "Asukas on poistunut yhteis\u00f6st\u00e4",
     "editResident-onHiatus-helpText": "V\u00e4liaikainen keskeytys",
@@ -171,15 +163,16 @@
     "homeResidentActivityLevelTrend-legend-inactive": "Passiivinen",
     "homeResidentActivityLevelTrend-legend-semiActive": "Kohtalainen",
     "homeResidentActivityLevelTrend-yAxis-label": "Asukkaiden lukum\u00e4\u00e4r\u00e4",
-    "homeResidents-tableCaption": "Asukkaat, joilla on aktiviteetteja viimeisten seitsem\u00e4n p\u00e4iv\u00e4n ajalta. Aktiviteettitaso sulkeissa.",
+    "homeResidents-tableCaption": "Asukastaulukko. Jokaisen asukkaan vieress\u00e4 on p\u00e4ivien lukum\u00e4\u00e4r\u00e4, johon on kirjattu v\u00e4hint\u00e4\u00e4n yksi aktiviteetti viimeisten seitsem\u00e4n p\u00e4iv\u00e4n aikana. Aktiviteettitaso sulkeissa.",
     "homeResidents-tableHeader-residentName": "Nimi",
-    "homeResidents-tableHeader-activity": "Aktiviteettien m\u00e4\u00e4r\u00e4 (aktiviteettitaso)",
+    "homeResidents-tableHeader-activity": "Viimeaikaisten aktiviteettien m\u00e4\u00e4r\u00e4 (aktiviteettitaso)",
     "homeResidents-loadingMessage": "Ladataan asukkaita",
     "logout-logoutButton": "Kirjaudu ulos",
     "newFeeling-cancel": "Peruuta",
     "newFeeling-header": "Tallenna uusi tunnetila",
     "newFeeling-save": "Tallenna",
     "newFeeling-success": "Tunnetilan tallentaminen onnistui",
+    "newResidentAndResidencySchema-homeId-label": "Ryhm\u00e4koti",
     "newGroup-cancel": "Peruuta",
     "newGroup-header": "Luo uusi ryhm\u00e4",
     "newGroup-save": "Tallenna",
@@ -187,6 +180,22 @@
     "newUser-header": "Luo uusi k\u00e4ytt\u00e4j\u00e4",
     "newUser-saveButton": "Tallenna",
     "resident-editButton": "Muokkaa asukasta",
+    "residentCurrentResidency-editResidencyButton": "Muokkaa asiakkuutta",
+    "residencies": {
+        "homeId": {
+            "label": "Ryhm\u00e4koti"
+        },
+        "residentId": {
+            "label": "Asukas"
+        },
+        "moveIn": {
+            "label": "Tulop\u00e4iv\u00e4"
+        },
+        "moveOut": {
+            "label": "L\u00e4ht\u00f6p\u00e4iv\u00e4"
+        }
+    },
+    "residecyForm-save": "Tallenna",
     "residents": {
         "firstName": {
             "label": "Etunimi"
@@ -236,15 +245,27 @@
     "residentFeelings-chart-feelingName-sad": "Surullinen",
     "residentFeelings-chart-feelingName-fear": "Pelokas",
     "residentFeelings-chart-title": "Tunnetila",
+    "residentForm-cancel": "Peruuta",
+    "residentForm-departed-helpText": "Asukas on poistunut yhteis\u00f6st\u00e4",
+    "residentForm-onHiatus-helpText": "Asukas on v\u00e4liaikaisesti keskeytyksell\u00e4",
+    "residentForm-header-add": "Lis\u00e4\u00e4 asukas",
+    "residentForm-header-edit": "Muokkaa asukasta",
+    "residentForm-save": "Tallenna",
     "resident-activityCalendar-title": "Aktiviteettikalenteri",
+    "resident-addActivity-buttonText": "Lis\u00e4\u00e4 aktiviteetti",
+    "resident-addFeeling-buttonText": "Lis\u00e4\u00e4 tunnetila",
+    "resident-noRecordedActivities-text": "Asukkaalla ei ole tallennettuja aktiviteetteja",
     "residentInterests-header": "Mielenkiinnon kohteet",
     "residents-filterLabels-fullName": "Nimi",
     "residents-filterLabels-homeName": "Ryhm\u00e4koti",
     "residents-tableLabels-fullName": "Asukkaan nimi",
     "residents-tableLabels-homeName": "Ryhm\u00e4kodin nimi",
+    "residents-tableLabels-residency": "Asiakkuus",
+    "residents-tableLabels-viewResident": "Katso asukkaan tietoja",
     "residents-filterPanel-header": "Suodata asukkaita",
     "residents-filterPanel-includeDeparted": "Sis\u00e4llyt\u00e4 l\u00e4hteneet",
     "residents-header": "Asukkaat",
+    "residents-header-addResidencyButton": "Lis\u00e4\u00e4 uusi asiakkuus",
     "residents-header-addResidentButton": "Lis\u00e4\u00e4 uusi asukas",
     "roles": {
         "name": {
@@ -261,6 +282,7 @@
     "mainLayoutNavbar-settingsLink": "Asetukset",
     "newActivity-cancel": "Peruuta",
     "newActivity-header": "Luo uusi aktiviteetti",
+    "newActivity-residentSelect-placeholder": "Valitse asukas(asukkaat)",
     "newActivity-save": "Tallenna",
     "newActivity-success": "Aktiviteetti lis\u00e4tty",
     "newActivityType-cancelButton": "Peruuta",
@@ -281,6 +303,7 @@
     "settingsLayoutSidebar-activityTypesLink": "Aktiviteettityypit",
     "settingsLayoutSidebar-dataLink": "Data",
     "settingsLayoutSidebar-dateTimeLink": "Pvm\/aika",
+    "settingsLayoutSidebar-residenciesLink": "Asiakkuudet",
     "settingsLayoutSidebar-rolesLink": "Roolit",
     "settingsLayoutSidebar-header": "Asetusvalikko",
     "settingsLayoutSidebar-usersLink": "K\u00e4ytt\u00e4j\u00e4t",
@@ -300,6 +323,12 @@
     },
     "usersSettings-addUserButton": "Lis\u00e4\u00e4 k\u00e4ytt\u00e4j\u00e4",
     "usersSettings-header": "K\u00e4ytt\u00e4j\u00e4t",
+    "usersSettingsTableActions-deleteButtonText": "Poista",
+    "usersSettingsTableActions-editButtonText": "Muokkaa",
+    "usersSettingsTable-tableHeaders-actions": "Toiminnot",
+    "usersSettingsTable-tableHeaders-email": "S\u00e4hk\u00f6posti",
+    "usersSettingsTable-tableHeaders-roles": "Roolit",
+    "usersSettingsTable-tableHeaders-passwordActive": "Salasana aktiivinen",
     "usersSettings-tableHeaders-delete": "Poista",
     "usersSettings-tableHeaders-edit": "Muokkaa",
     "usersSettings-tableHeaders-email": "S\u00e4hk\u00f6posti",
