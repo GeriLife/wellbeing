@@ -108,8 +108,6 @@ function getRandomHomeButExcludeCurrent(current_id) {
       moveInDate = getRandomMoveInDate(startingPoint);
       var args = { "residentId": residents[i]._id, 'homeId': residents[i].homeId, 'moveIn': moveInDate }
       if (i >= indexWhereMovedOut) {
-        console.log(i);
-        console.log(MovedOutPermanently);
         moveOutDate = randomDate(moveInDate, new Date());
         args['moveOut'] = moveOutDate;
       // some residents moved out permanently and some to another house >0.5 moved out permanently < 0.5 new house
