@@ -182,6 +182,27 @@ Meteor.methods({
     createMockActivities();
     createMockResidency(start, percentMovedOut);
   },
+  'createMockGroups': function () {
+    createMockGroups();
+  },
+  'createMockRoles': function () {
+    createMockRoles();
+  },
+  'createMockHomes': function () {
+    createMockHomes();
+  },
+  'createMockResidents': function () {
+    createMockResidents();
+  },
+  'createActivityTypes': function () {
+    createMockHomes();
+  },
+  'createMockActivities': function () {
+    createMockActivities();
+  },
+  'createMockResidency': function (start, percentMovedOut) {
+createMockResidency(start, percentMovedOut);
+  },
   'removeAllData': function () {
     Groups._dropCollection();
     Homes._dropCollection();
