@@ -7,8 +7,8 @@ Meteor.methods({
     const morning = moment(date).startOf('day').toDate();
     const evening = moment(date).endOf('day').toDate();
 
-    // Check if resident has (at least one) recorded activity on that day (date)
-    const residentActiveOnDate = Activities.findOne({
+    // Count the number of activities recorded for the resident on the given date
+    const residentActivityCountOnDate = Activities.find({
       // Make sure resident ID in resident IDs array
       residentIds: {
         $elemMatch: { $eq: residentId }
@@ -18,11 +18,11 @@ Meteor.methods({
         $gte: morning,
         $lte: evening,
       }
-    });
+    }).count();
 
     // Return the (boolean) value indicating whether resident was active on date
-    // note: we make sure we got a document back by comparing against undefined
-    return (residentActiveOnDate != undefined);
+    // note: we are checking that the activity count is greater than zero
+    return (residentActivityCountOnDate > 0);
   },
   getResidentRecentActiveDaysCount (residentId, date = new Date()) {
     /*
