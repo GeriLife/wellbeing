@@ -32,8 +32,8 @@ Meteor.methods({
     // Initialize counter for resident active days
     let activeDaysCount = 0;
 
-    // Date one week ago
-    const startDate = moment(date).subtract(1, 'weeks');
+    // Date one week ago (six days, since today counts as one day)
+    const startDate = moment(date).subtract(6, 'days');
 
     // Get a date object for the end of day today
     const endDate = moment(date).endOf('day');

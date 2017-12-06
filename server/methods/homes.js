@@ -168,20 +168,19 @@ Meteor.methods({
     // Get home residents
     var residentIds = Meteor.call("getHomeCurrentAndActiveResidentIds",homeId);
 
-    // Number of days to look back
-    var numberOfDays = 7;
-
     // Placeholder array for daily activity level counts
     var activityCountsArray = [];
 
-    for (var i = 0; i < numberOfDays; i++) {
-      // Get date N days ago for daily activity counts and query
-      var day = moment().startOf("day").subtract(i, "days");
-      var queryDate = moment().endOf("day").subtract(i, "days");
+    // Date one week ago (six days, since today counts as one day)
+    const startDate = moment().subtract(6, 'days');
 
+    // Get a date object for the end of day today
+    const endDate = moment().endOf('day');
+
+    for (let currentDay = moment(startDate); currentDay.isBefore(endDate); currentDay.add(1, 'day')) {
       // Set up placeholder activity counts object
       var dailyActivityCounts = {
-        date: day.toDate(),
+        date: currentDay.toDate(),
         inactive: 0,
         semiActive: 0,
         active: 0
@@ -193,7 +192,7 @@ Meteor.methods({
         var result = Meteor.call(
           "getResidentRecentActiveDaysCount",
           residentId,
-          queryDate.toDate()
+          currentDay.toDate()
         );
 
         if (result === 0) {
