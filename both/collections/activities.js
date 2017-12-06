@@ -1,5 +1,10 @@
 Activities = new Mongo.Collection('activities');
 
+Meteor.startup(function () {
+  // Make sure activityDate field is indexed for performance
+  Activities._ensureIndex({'activityDate': 1});
+});
+
 var ActivitiesSchema = new SimpleSchema({
   residentIds: {
     type: [String],
