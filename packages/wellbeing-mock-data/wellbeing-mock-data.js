@@ -133,44 +133,62 @@ function createMockActivities() {
 
 function getRandomHomeButExcludeCurrent(current_id) {
   var homeIds = Homes.find().map(function (e) { return e._id; });
-    // remove current home from array
-    var indexOfCurrent = homeIds.indexOf(current_id);
-    if (indexOfCurrent > -1) {
-      homeIds.splice(indexOfCurrent, 1);
-    }
-
-    //return random element from rest of the homes
-    return homeIds[Math.floor(Math.random() * homeIds.length)];
+  // remove current home from array
+  var indexOfCurrent = homeIds.indexOf(current_id);
+  if (indexOfCurrent > -1) {
+    homeIds.splice(indexOfCurrent, 1);
   }
-  function getRandomMoveInDate(start) {
-    var endDate = new Date();
-    var startDate = new Date();
-    startDate.setMonth(endDate.getMonth() - start);
-    moveInDate = randomDate(endDate, startDate);
-    return moveInDate;
+  //return random element from rest of the homes
+  return homeIds[Math.floor(Math.random() * homeIds.length)];
   }
+  /*
+    Get random date from the range of today - startingpoint
+    @param start = months from today
+    creates two dates one of them being today
+    and second one being today minus months set in parameters
+  */
+function getRandomMoveInDate(start) {
+  var endDate = new Date();
+  var startDate = new Date();
+  startDate.setMonth(endDate.getMonth() - start);
+  moveInDate = randomDate(endDate, startDate);
+  return moveInDate;
+}
 
-  function createMockResidency(startingPoint, percentMovedOut) {
-    console.log("Creating Mock Residencies")
-    var residents = Residents.find().fetch();
-    var indexWhereMovedOut = residents.length - Math.round(residents.length * percentMovedOut);
-    for (var i = 0; i < residents.length; i++) {
-      moveInDate = getRandomMoveInDate(startingPoint);
-      var args = { "residentId": residents[i]._id, 'homeId': residents[i].homeId, 'moveIn': moveInDate }
-      if (i >= indexWhereMovedOut) {
-        moveOutDate = randomDate(moveInDate, new Date());
-        args['moveOut'] = moveOutDate;
+  /*
+    This function assumes residents are already added.
+    then adds residency for every resident
+    Depending on the percentMovedOut some residents will have multiple residencies
+
+  */
+function createMockResidency(startingPoint, percentMovedOut) {
+  console.log("Creating Mock Residencies")
+  //get all residents
+  var residents = Residents.find().fetch();
+
+
+  /*  this is the number from where residents are moved out. So if the percentMovedout is 0.25
+      this index will be at the 75% percent point of the resident list
+      when the loop reaches this index it will move the residents randomly either to another home or just move them out completely
+  */
+  var indexWhereMovedOut = residents.length - Math.round(residents.length * percentMovedOut)
+  for (var i = 0; i < residents.length; i++) {
+    moveInDate = getRandomMoveInDate(startingPoint);
+    var args = { "residentId": residents[i]._id, 'homeId': residents[i].homeId, 'moveIn': moveInDate }
+    if (i >= indexWhereMovedOut) {
+      moveOutDate = randomDate(moveInDate, new Date());
+      args['moveOut'] = moveOutDate;
       // some residents moved out permanently and some to another house >0.5 moved out permanently < 0.5 new house
       var MovedOutPermanently = Math.random()
       if (MovedOutPermanently < 0.5) {
         var randomHome = getRandomHomeButExcludeCurrent(residents[i].homeId);
         //move them into new house day after they left their old one( adding two days since the UTC 0:0:0 time)
-        var newMoveInDate = new Date(moveOutDate.getFullYear(), moveOutDate.getMonth(), moveOutDate.getDate() + 2);
+     s   var newMoveInDate = new Date(moveOutDate.getFullYear(), moveOutDate.getMonth(), moveOutDate.getDate() + 2);
         var newArgs = { "residentId": residents[i]._id, 'homeId': randomHome, 'moveIn': newMoveInDate };
         Residencies.insert(newArgs)
       }
     }
-    Residencies.insert(args);
+  Residencies.insert(args);
   }
 }
 
