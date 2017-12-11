@@ -1,4 +1,4 @@
-Feature: GeriList settings tests
+Feature: GeriLife settings tests
 
   Background:
     Given the user opens GeriLife index page

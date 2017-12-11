@@ -1,4 +1,4 @@
-Feature: GeriList accessibility tests
+Feature: GeriLife accessibility tests
 
   Background:
     Given the user opens GeriLife index page

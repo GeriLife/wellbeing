@@ -1,4 +1,5 @@
 import os
+import platform
 from contextlib import contextmanager
 
 import logging
@@ -15,7 +16,14 @@ After the last scenario is completed (pass or fail) the WebDriver will be closed
 @contextmanager
 def with_firefox():
     LOGGER.setLevel(logging.WARNING)
-    driver_path = os.path.dirname(os.path.realpath(__file__)).replace("app", "conf\geckodriver.exe")
+    user_platform = platform.platform()
+    if "win" in user_platform:
+        driver_path = os.path.dirname(os.path.realpath(__file__)).replace("app", "conf\geckodriver.exe")
+    elif "linux" in user_platform:
+        driver_path = os.path.dirname(os.path.realpath(__file__)).replace("app", "conf\geckodriver-linux")
+    elif "darwin" in user_platform:
+        driver_path = os.path.dirname(os.path.realpath(__file__)).replace("app", "conf\geckodriver-macos")
+
     world.browser = webdriver.Firefox(executable_path = driver_path)
     world.browser.maximize_window()
     yield
