@@ -162,7 +162,7 @@ function createMockResidency(startingPoint, percentMovedOut) {
     creates two dates one of them being today
     and second one being today minus months set in parameters
   */
- var getRandomMoveInDate = function(start) {
+ const getRandomMoveInDate = function(start) {
     const endDate = new Date();
     const startDate = new Date();
     startDate.setMonth(endDate.getMonth() - start);
