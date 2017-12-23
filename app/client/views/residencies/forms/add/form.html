@@ -1,10 +1,10 @@
 <template name="addResidencyForm">
   {{#autoForm id="addResidencyForm" type="insert" collection="Residencies" }}
 
-    {{> afQuickField name="residentId" value=residentId }}
-    {{> afQuickField name="homeId" value=homeId }}
-    {{> afQuickField name="moveIn" buttonClasses="fa fa-calendar" value=today}}
-    {{> afQuickField name="moveOut" buttonClasses="fa fa-calendar" }}
+    {{> afQuickField name="residentId" value=residentId options=residentIdOptions }}
+    {{> afQuickField name="homeId" value=homeId options=homeIdOptions }}
+    {{> afQuickField name="moveIn" buttonClasses="fa fa-calendar" value=today type="bootstrap-datepicker" }}
+    {{> afQuickField name="moveOut" buttonClasses="fa fa-calendar" type="bootstrap-datepicker" }}
 
     <button type="submit" class="btn btn-success">
       {{_ "addResidencyForm-save" }}
