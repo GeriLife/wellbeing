@@ -1,3 +1,5 @@
+import SimpleSchema from 'simpl-schema';
+
 ActivityTypes = new Mongo.Collection('activityTypes');
 
 var ActivityTypesSchema = new SimpleSchema({
@@ -40,6 +42,6 @@ ActivityTypes.allow({
 });
 
 // Add i18n tags
-ActivityTypesSchema.i18n("activityTypes");
+// ActivityTypesSchema.i18n("activityTypes");
 
 ActivityTypes.attachSchema(ActivityTypesSchema);
