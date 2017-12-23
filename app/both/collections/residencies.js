@@ -42,9 +42,6 @@ var ResidenciesSchema = new SimpleSchema({
   },
 });
 
-// Add i18n tags
-// ResidenciesSchema.i18n("residencies");
-
 Residencies.attachSchema(ResidenciesSchema);
 
 Residencies.allow({

@@ -8,9 +8,6 @@ var GroupsSchema = new SimpleSchema({
   }
 });
 
-// Add i18n tags
-// GroupsSchema.i18n("groups");
-
 Groups.attachSchema(GroupsSchema);
 
 Groups.helpers({

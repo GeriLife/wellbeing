@@ -6,9 +6,6 @@ var RolesSchema = new SimpleSchema({
   }
 });
 
-// Add i18n tags
-// RolesSchema.i18n("roles");
-
 Meteor.roles.attachSchema(RolesSchema);
 
 Meteor.roles.allow({
