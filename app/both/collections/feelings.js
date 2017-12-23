@@ -21,9 +21,6 @@ Feelings.Schema = new SimpleSchema({
   }
 });
 
-// Add i18n tags
-// Feelings.Schema.i18n("feelings");
-
 Feelings.attachSchema(Feelings.Schema);
 
 Feelings.allow({

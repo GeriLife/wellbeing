@@ -37,9 +37,6 @@ var ActivitiesSchema = new SimpleSchema({
   }
 });
 
-// Add i18n tags
-// ActivitiesSchema.i18n("activities");
-
 // Attach schema to collection
 Activities.attachSchema(ActivitiesSchema);
 
