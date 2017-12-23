@@ -1,3 +1,5 @@
+import SimpleSchema from 'simpl-schema';
+
 NewUserSchema = new SimpleSchema({
   "email": {
     type: String,
