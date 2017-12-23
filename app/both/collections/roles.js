@@ -1,3 +1,5 @@
+import SimpleSchema from 'simpl-schema';
+
 var RolesSchema = new SimpleSchema({
   name: {
     type: String
@@ -5,7 +7,7 @@ var RolesSchema = new SimpleSchema({
 });
 
 // Add i18n tags
-RolesSchema.i18n("roles");
+// RolesSchema.i18n("roles");
 
 Meteor.roles.attachSchema(RolesSchema);
 
