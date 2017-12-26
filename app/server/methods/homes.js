@@ -76,58 +76,6 @@ Meteor.methods({
 
     return homeActivitiesArray;
   },
-  'getHomeResidentsActivitySumsByType': function (homeId) {
-    // Get all activity types
-    var activityTypes = ActivityTypes.find({}, {sort: {name: 1}}).fetch();
-
-    // Get all resident IDs
-    var residentIds = Meteor.call('getHomeCurrentResidentIds', homeId);
-
-    // Placeholder for all resident activity sums by type
-    var allResidentActivitySumsByType = _.map(activityTypes, function (activityType) {
-      // Create an object in the form of
-      //  key: actiivtyType.name
-      //  values: [
-      //    {
-      //      "label": "Resident Name",
-      //      "value": activity count (integer)
-      //    },
-      //    ...
-      //  ]
-
-      var residentActivityCountsByCurrentType = {
-        key: activityType.name,
-        values: _.map(residentIds, function (residentId) {
-          // Get resident
-          var resident = Residents.findOne(residentId);
-
-          // Get count of activities by current type for current resident
-          var activityCount = Meteor.call("getSumOfResidentRecentActivitiesByType", residentId, activityType._id);
-
-          // Placeholder object for resident name / activity count
-          var residentActivityCount = {};
-
-          if (activityCount > 0) {
-            residentActivityCount = {
-              "label": resident.fullName(),
-              "value": activityCount
-            };
-          } else {
-            residentActivityCount = {
-              "label": resident.fullName(),
-              "value": 0
-            };
-          }
-
-          return residentActivityCount;
-        })
-      }
-
-      return residentActivityCountsByCurrentType;
-    });
-
-    return allResidentActivitySumsByType;
-  },
   "getHomeActivityLevelCounts": function (homeId) {
     // // Get home residents by calling getHomeResidentIds
     var residentIds = Meteor.call("getHomeCurrentAndActiveResidentIds",homeId);
