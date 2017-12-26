@@ -12,7 +12,10 @@
         {{# autoForm id="newActivityForm" type="insert" collection="Activities"  }}
 
         <div class="modal-body">
-          {{> afQuickField
+          <label for="activityTypeId">
+            {{_ 'activities.residentIds.label'}}
+          </label>
+          {{> afFieldInput
               name="residentIds"
               type="select2"
               multiple=true
@@ -20,10 +23,26 @@
               select2Options=select2Options
               value=residentIds
           }}
-          {{> afQuickField name="activityTypeId" options=activityTypeIdOptions }}
-          {{> afQuickField name="activityDate" buttonClasses="fa fa-calendar" value=today type="bootstrap-datepicker" }}
-          {{> afQuickField name="duration"}}
-          {{> afQuickField name="facilitatorRoleId" options=facilitatorRoleIdOptions }}
+
+          <label for="activityTypeId">
+            {{_ 'activities.activityTypeId.label'}}
+          </label>
+          {{> afFieldInput name="activityTypeId" options=activityTypeIdOptions }}
+
+          <label for="activityDate">
+            {{_ 'activities.activityDate.label'}}
+          </label>
+          {{> afFieldInput name="activityDate" buttonClasses="fa fa-calendar" value=today type="bootstrap-datepicker" }}
+
+          <label for="duration">
+            {{_ 'activities.duration.label'}}
+          </label>
+          {{> afFieldInput name="duration"}}
+
+          <label for="facilitatorRoleId">
+            {{_ 'activities.facilitatorRoleId.label'}}
+          </label>
+          {{> afFieldInput name="facilitatorRoleId" options=facilitatorRoleIdOptions }}
         </div>
 
         <div class="modal-footer">

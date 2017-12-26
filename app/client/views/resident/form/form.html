@@ -15,16 +15,28 @@
         {{#autoForm id="residentForm" type=formType collection="Residents" doc=resident  }}
 
         <div class="modal-body">
-          {{> afQuickField name="firstName"}}
-          {{> afQuickField name="lastInitial"}}
-          {{> afQuickField name="homeId"}}
+          <label for="firstName">
+            {{_ "residents.firstName.label" }}
+          </label>
+          {{> afFieldInput name="firstName"}}
 
-          {{> afQuickField name="onHiatus"}}
+          <label for="lastInitial">
+            {{_ "residents.lastInitial.label" }}
+          </label>
+          {{> afFieldInput name="lastInitial"}}
+
+          <label for="onHiatus">
+            {{_ "residents.onHiatus.label" }}
+          </label>
+          {{> afFieldInput name="onHiatus"}}
           <p class="help-block">
             {{_ "residentForm-onHiatus-helpText" }}
           </p>
 
-          {{> afQuickField name="departed"}}
+          <label for="departed">
+            {{_ "residents.departed.label" }}
+          </label>
+          {{> afFieldInput name="departed"}}
           <p class="help-block">
             {{_ "residentForm-departed-helpText" }}
           </p>
