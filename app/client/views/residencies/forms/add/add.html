@@ -34,10 +34,26 @@
               id="addNewResidentAndResidency"
               type="method"
               meteormethod="addNewResidentAndResidency" }}
-              {{> afQuickField name="firstName"}}
-              {{> afQuickField name="lastInitial"}}
-              {{> afQuickField name="homeId" options=homeIdOptions }}
-              {{> afQuickField name="moveIn" buttonClasses="fa fa-calendar" value=today }}
+
+              <label for="firstName">
+                {{_ "residents.firstName.label" }}
+              </label>
+              {{> afFieldInput name="firstName"}}
+
+              <label for="lastInitial">
+                {{_ "residents.lastInitial.label" }}
+              </label>
+              {{> afFieldInput name="lastInitial"}}
+
+              <label for="homeId">
+                {{_ "residencies.homeId.label" }}
+              </label>
+              {{> afFieldInput name="homeId" options=homeIdOptions }}
+
+              <label for="moveIn">
+                {{_ "residencies.moveIn.label" }}
+              </label>
+              {{> afFieldInput name="moveIn" buttonClasses="fa fa-calendar" value=today }}
 
               <button type="submit" class="btn btn-success">
                 {{_ "addResidencyForm-save" }}
