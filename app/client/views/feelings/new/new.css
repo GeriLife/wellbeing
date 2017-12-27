@@ -1,0 +1,14 @@
+#selected-feeling {
+  width: 62%;
+  margin: 0 auto;
+}
+
+.feeling.not-selected {
+  filter: none;
+  -webkit-filter: grayscale(100%);
+  -moz-filter:    grayscale(100%);
+  -ms-filter:     grayscale(100%);
+  -o-filter:      grayscale(100%);
+  cursor: pointer;
+  transition: all 300ms ease;
+}

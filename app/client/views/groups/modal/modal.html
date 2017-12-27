@@ -1,0 +1,33 @@
+<template name="groupModal">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <i class="fa fa-cubes"></i>&nbsp;
+            {{# if group }}
+              {{_ "groupModal-header-edit" }}
+            {{ else }}
+              {{_ "groupModal-header-createNew" }}
+            {{/ if }}
+          </h4>
+        </div>
+        {{# autoForm id="groupForm" type=formType collection="Groups" doc=group }}
+
+        <div class="modal-body">
+          {{> afQuickField name="name"}}
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">
+            {{_ "groupModal-save" }}
+          </button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            {{_ "groupModal-cancel" }}
+          </button>
+        </div>
+        {{/ autoForm }}
+      </div>
+    </div>
+  </div>
+</template>

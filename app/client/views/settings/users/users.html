@@ -1,0 +1,30 @@
+<template name="usersSettings">
+  <section class="content-header">
+    <h1>
+      <i class="fa fa-users"></i>&nbsp;
+       {{_ "usersSettings-header" }}
+     </h1>
+  </section>
+  <section class="content">
+    <div class="box box-primary">
+
+      <div class="box-header">
+        <div class="box-toolbar">
+          <div class="pull-right">
+            <button id="add-user" class="btn btn-primary">
+              {{_ "usersSettings-addUserButton" }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- user settings table -->
+      <div class="box-body">
+        {{> usersSettingsTable }}
+      </div>
+    </div>
+
+    <!-- user enrollment form -->
+    {{> usersEnroll }}
+  </section>
+</template>

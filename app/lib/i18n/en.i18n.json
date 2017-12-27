@@ -1,0 +1,316 @@
+{
+  "activities": {
+    "residentIds": {
+      "label": "Resident(s)"
+    },
+    "activityTypeId": {
+      "label": "Activity type"
+    },
+    "activityDate": {
+      "label": "Activity date"
+    },
+    "duration": {
+      "label": "Activity duration (in minutes)"
+    },
+    "facilitatorRoleId": {
+      "label": "Activity facilitator role"
+    }
+  },
+  "activities-addActivityButton": "Add Activity",
+  "activities-pageHeader": "Activities",
+  "activities-filterActivities-activityTypeFilterLabel": "Type",
+  "activities-filterActivities-clearFiltersText": "Clear filters",
+  "activities-filterActivities-heading": "Filter activities",
+  "activities-filterActivities-residentFilterLabel": "Resident",
+  "activities-filterActivities-showOnlyLatest": "Show only latest",
+  "activityTypes": {
+    "name": {
+      "label": "Name"
+    }
+  },
+  "activityTypesSettings-activityTypeTable-helpText": "For data integrity, activity types can only be removed when they are related to no recorded activities.",
+  "activityTypesSettings-addActivityTypeButton": "Add Activity Type",
+  "activityTypesSettings-header": "Activity Types",
+  "addResidencyForm-cancel": "Cancel",
+  "addResidencyForm-save": "Save",
+  "addResidencyForm-newOrExisting-existing": "Existing resident",
+  "addResidencyForm-newOrExisting-new": "New resident",
+  "addResidencyModal-header": "Add residency",
+  "dataSettings-header": "Data settings",
+  "dataSettings-rawData-exportRawDataButton": "Export data",
+  "dataSettings-rawData-header": "Export data",
+  "dataSettings-rawData-helpText": "Click the button below to export all data.",
+  "dateTimeSettings-header": "Date/time settings",
+  "dateTimeSettings-timezone-header": "Timezone",
+  "dateTimeSettings-timezone-helpText": "Select timezone for use in scheduled reports.",
+  "dateTimeSettings-timezone-saveButton": "Save",
+  "deleteActivityConfirmation-cancel": "Cancel",
+  "deleteActivityConfirmation-delete": "Delete",
+  "deleteActivityConfirmation-header": "Delete activity",
+  "deleteActivityConfirmation-message": "Do you want to delete this activity record?",
+  "deleteActivityTypeConfirmation-cancel": "No, cancel",
+  "deleteActivityTypeConfirmation-delete": "Yes, delete",
+  "deleteActivityTypeConfirmation-header": "Delete activity type",
+  "deleteActivityTypeConfirmation-message": "Do you want to delete this activity type?",
+  "deleteActivityButton-text": "Delete",
+  "deleteUser-cancelButton": "No, cancel.",
+  "deleteUser-confirmationText": "Deletion cannot be undone. Do you want to delete this user?",
+  "deleteUser-confirmButton": "Yes, delete.",
+  "deleteUser-header": "Delete user",
+  "editActivity-cancel": "Cancel",
+  "editActivity-header": "Edit activity",
+  "editActivity-save": "Save",
+  "editActivity-success": "Activity saved",
+  "editActivityButton-text": "Edit",
+  "editHome-cancel": "Cancel",
+  "editHome-title": "Edit home",
+  "editHome-save": "Save",
+  "editResidencyForm-cancel": "Cancel",
+  "editResidencyForm-save": "Save",
+  "editResidencyModal-header": "Edit residency",
+  "editUser": {
+    "email": {
+      "label": "Email"
+    },
+    "isAdmin": {
+      "label": "is administrator"
+    }
+  },
+  "editUser-cancelButton": "Cancel",
+  "editUser-header": "Edit user",
+  "editUser-saveButton": "Save",
+  "feelings": {
+    "date": {
+      "label": "Date"
+    },
+    "feeling": {
+      "label": "Feeling"
+    },
+    "residentId": {
+      "label": "Resident"
+    }
+  },
+  "feelings-headerQuestion": "How are you feeling today?",
+  "feelings-happy": "Happy",
+  "feelings-scared": "Scared",
+  "feelings-sad": "Sad",
+  "feelings-angry": "Angry",
+  "front-quickAddPanel-title": "Quick add",
+  "front-quickAddPanel-activityButton": "Activity",
+  "front-quickAddPanel-feelingButton": "Feeling",
+  "front-quickNavigationPanel-title": "Quick navigation",
+  "front-quickNavigationPanel-residentsButton": "Residents",
+  "front-quickNavigationPanel-homesButton": "Homes",
+  "front-quickNavigationPanel-activitiesButton": "Activities",
+  "groupModal-cancel": "Cancel",
+  "groupModal-header-createNew": "Create new group",
+  "groupModal-header-edit": "Edit group",
+  "groupModal-save": "Save",
+  "groups": {
+    "name": {
+      "label": "Group name"
+    }
+  },
+  "groups-header": "Groups",
+  "home-editHomeButton": "Edit home",
+  "home-residentsPanel-heading": "Residents",
+  "home-activityLevelTrendsPanel-heading": "Activity level trends",
+  "home-activitiesPanel-heading": "Activities",
+  "home-activitiesPanel-activitySummaryTab": "Resident activity summary",
+  "home-activitiesPanel-activityTableTab": "Activity table",
+  "homeActivityCountsByActivityTypeChart-headingText": "Activity counts by type",
+  "homeActivityCountsByActivityTypeChart-xAxis-title": "Activity count",
+  "homeActivityCountsByActivityTypeChart-yAxis-title": "Activity type",
+  "homeActivityCountsByFacilitatorRoleChart-headingText": "Activity counts by facilitator role",
+  "homeActivityCountsByFacilitatorRoleChart-xAxis-title": "Activity count",
+  "homeActivityCountsByFacilitatorRoleChart-yAxis-title": "Facilitator role",
+  "homeGroup-activityLevelsLegend-active": "Excellent",
+  "homeGroup-activityLevelsLegend-inactive": "Inactive",
+  "homeGroup-activityLevelsLegend-semiActive": "Moderate",
+  "homeGroup-editButton-text": "Edit",
+  "homeGroup-tableCaption": "Homes with count of residents per seven day activiy level.",
+  "homeGroup-tableHeader-activityLevels": "Activity levels",
+  "homeGroup-tableHeader-name": "Name",
+  "homes": {
+    "name": {
+      "label": "Home name"
+    },
+    "groupId": {
+      "label": "Group"
+    }
+  },
+  "homes-header": "Homes",
+  "homes-header-addNewButton": "Add new",
+  "homes-header-addNewButton-group": "Group",
+  "homes-header-addNewButton-home": "Home",
+  "homeResident-activityLabelText-onHiatus": "on hiatus",
+  "homeResidentActivitySumsByType-heading": "Activity summary by type",
+  "homeResidentActivitySumsByType-subheading": "(last 30 days)",
+  "homeResidentActivitySummaryChart-residentAxisTitle": "Resident Name / Activity Count",
+  "homeResidentActivitySummaryChart-activitiesAxisTitle": "Number of Activities",
+  "homeResidentActivityLevelTrend-chartTitle": "Number of residents per activity level for past seven days.",
+  "homeResidentActivityLevelTrend-chartDescription": "Daily count of residents with inactive, moderate, and excellent activity level.",
+  "homeResidentActivityLevelTrend-legend-active": "Excellent",
+  "homeResidentActivityLevelTrend-legend-inactive": "Inactive",
+  "homeResidentActivityLevelTrend-legend-semiActive": "Moderate",
+  "homeResidentActivityLevelTrend-yAxis-label": "Number of residents",
+  "homeResidents-tableCaption": "Table showing residents. Next to each resident is a count of days with at least one recorded activity within past seven days. Activity level is shown in parenthesis.",
+  "homeResidents-tableHeader-residentName": "Name",
+  "homeResidents-tableHeader-activity": "Recent active days count (activity level)",
+  "homeResidents-loadingMessage": "Loading residents",
+  "logout-logoutButton": "Logout",
+  "newFeeling-cancel": "Cancel",
+  "newFeeling-header": "Record new feeling",
+  "newFeeling-save": "Save",
+  "newFeeling-success": "Successfully recorded feeling",
+  "newResidentAndResidencySchema-homeId-label": "Home",
+  "newUser-cancelButton": "Cancel",
+  "newUser-header": "Create new User",
+  "newUser-saveButton": "Save",
+  "resident-editButton": "Edit resident",
+  "residentCurrentResidency-editResidencyButton": "Edit Residency",
+  "residencies": {
+    "homeId": {
+      "label": "Home"
+    },
+    "residentId": {
+      "label": "Resident"
+    },
+    "moveIn": {
+      "label": "Move in date (arrival)"
+    },
+    "moveOut": {
+      "label": "Move out date (departure)"
+    }
+  },
+  "residecyForm-save": "Save",
+  "residents": {
+    "firstName": {
+      "label": "First name"
+    },
+    "lastInitial": {
+      "label": "Last initial"
+    },
+    "homeId": {
+      "label": "Home"
+    },
+    "interestsDescription": {
+      "label": "Interests"
+    },
+    "departed": {
+      "label": "Departed"
+    },
+    "onHiatus": {
+      "label": "On hiatus"
+    }
+  },
+  "residentActivityTrendChart-title": "Daily activity in minutes",
+  "residentActivityTrendChart-description": "Daily sum of activity minutes",
+  "residentActivityTrendChart-yLabel": "Minutes",
+  "residentActivityTrendChart-mouseoverLabel": "minutes",
+  "residentActivityLevel-active": "Excellent",
+  "residentActivityLevel-semiActive": "Moderate",
+  "residentActivityLevel-inactive": "Inactive",
+  "residentActivityTable-activityTypeLabel": "Activity Type",
+  "residentActivityTable-durationLabel": "Duration",
+  "residentActivityTable-activityDateLabel": "Activity date",
+  "residentActivityTable-filterPanel-header": "Filter activities",
+  "residentActivities-header": "Activities",
+  "residentActivities-tabs-trend": "Trend",
+  "residentActivities-tabs-types": "Activity Types",
+  "residentActivities-tabs-calendar": "Calendar",
+  "residentActivities-tabs-table": "Table",
+  "residentActivityTrendChart-header": "Activity trend",
+  "residentActivityTypesChart-header": "Activity types",
+  "residentActivityTypesChart-xAxis-title": "Activity count",
+  "residentActivityTypesChart-yAxis-title":"Activity type",
+  "residentFacilitatorRolesChart-header": "Facilitator roles",
+  "residentFacilitatorRolesChart-xAxis-title": "Activity count",
+  "residentFacilitatorRolesChart-yAxis-title": "Facilitator role",
+  "residentFeelings-header": "Feelings",
+  "residentFeelings-chart-feelingName-anger": "Angry",
+  "residentFeelings-chart-feelingName-joy": "Happy",
+  "residentFeelings-chart-feelingName-sad": "Sad",
+  "residentFeelings-chart-feelingName-fear": "Scared",
+  "residentFeelings-chart-title": "Feelings",
+  "residentForm-cancel": "Cancel",
+  "residentForm-departed-helpText": "Resident has left the community.",
+  "residentForm-onHiatus-helpText": "Resident is on temporary hiatus.",
+  "residentForm-header-add": "Add resident",
+  "residentForm-header-edit": "Edit resident",
+  "residentForm-save": "Save",
+  "resident-activityCalendar-title": "Activity calendar",
+  "resident-addActivity-buttonText": "Add activity",
+  "resident-addFeeling-buttonText": "Add feeling",
+  "resident-noRecordedActivities-text": "Resident has no recorded activities.",
+  "residentInterests-header": "Interests",
+  "residents-filterLabels-fullName": "Name",
+  "residents-filterLabels-homeName": "Home",
+  "residents-tableLabels-fullName": "Resident name",
+  "residents-tableLabels-homeName": "Home name",
+  "residents-tableLabels-residency": "Residency",
+  "residents-tableLabels-viewResident": "View resident",
+  "residents-filterPanel-header": "Filter residents",
+  "residents-filterPanel-includeDeparted": "include departed",
+  "residents-header": "Residents",
+  "residents-header-addResidencyButton": "Add new Residency",
+  "roles": {
+    "name": {
+      "label": "Role name"
+    }
+  },
+  "rolesSettings-addRoleButton": "Add Role",
+  "rolesSettings-heading": "Roles",
+  "mainLayoutHeader-toggleNavigation": "Toggle navigation",
+  "mainLayoutNavbar-activitesLink": "Activities",
+  "mainLayoutNavbar-homesLink": "Homes",
+  "mainLayoutNavbar-profileLink": "Profile",
+  "mainLayoutNavbar-residentsLink": "Residents",
+  "mainLayoutNavbar-settingsLink": "Settings",
+  "newActivity-cancel": "Cancel",
+  "newActivity-header": "Create new activity",
+  "newActivity-residentSelect-placeholder": "Select resident(s)",
+  "newActivity-save": "Save",
+  "newActivity-success": "Activity added",
+  "newActivityType-cancelButton": "Cancel",
+  "newActivityType-header": "Create new Activity Type",
+  "newActivityType-saveButton": "Save",
+  "newRole-cancelButton": "Cancel",
+  "newRole-header": "Create new Role",
+  "newRole-saveButton": "Save",
+  "settings-activityTypes": "Activity Types",
+  "settings-data": "Data",
+  "settings-dateTime": "Date/Time",
+  "settings-roles":"Roles",
+  "settings-header": "Settings",
+  "settings-users": "Users",
+  "settingsLayoutSidebar-activityTypesLink": "Activity Types",
+  "settingsLayoutSidebar-dataLink": "Data",
+  "settingsLayoutSidebar-dateTimeLink": "Date/Time",
+  "settingsLayoutSidebar-residenciesLink": "Residencies",
+  "settingsLayoutSidebar-rolesLink": "Roles",
+  "settingsLayoutSidebar-header": "Settings Menu",
+  "settingsLayoutSidebar-usersLink": "Users",
+  "usersEnroll-form-submitButton-text": "Send invite(s)",
+  "usersEnroll-header-text": "Enroll users",
+  "usersEnroll-introduction-text": "Create one or more user accounts and send an activation email.",
+  "usersEnrollSchema": {
+    "subject": {
+      "label": "Subject"
+    },
+    "message": {
+      "label": "Invitation message"
+    },
+    "emailAddresses": {
+      "label": "Email address(es)"
+    }
+  },
+  "usersSettings-addUserButton": "Add User",
+  "usersSettings-header": "Users",
+  "usersSettingsTableActions-deleteButtonText": "Delete",
+  "usersSettingsTableActions-editButtonText": "Edit",
+  "usersSettingsTable-tableHeaders-actions": "Actions",
+  "usersSettingsTable-tableHeaders-email": "Email",
+  "usersSettingsTable-tableHeaders-roles": "Roles",
+  "usersSettingsTable-tableHeaders-passwordActive": "Password active"
+}

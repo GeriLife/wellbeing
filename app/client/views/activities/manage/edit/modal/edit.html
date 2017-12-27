@@ -1,0 +1,37 @@
+<template name="editActivity">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {{# if Template.subscriptionsReady }}
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <i class="fa fa-user"></i>&nbsp;
+            {{_ "editActivity-header" }}
+          </h4>
+        </div>
+        {{# autoForm id="editActivityForm" type="update" collection="Activities" doc=activity }}
+
+        <div class="modal-body">
+          {{> afQuickField name="residentIds" }}
+          {{> afQuickField name="activityTypeId"}}
+          {{> afQuickField name="activityDate" buttonClasses="fa fa-calendar"}}
+          {{> afQuickField name="duration"}}
+          {{> afQuickField name="facilitatorRoleId"}}
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">
+            {{_ "editActivity-save" }}
+          </button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            {{_ "editActivity-cancel" }}
+          </button>
+        </div>
+        {{/ autoForm }}
+        {{ else }}
+        {{> spinner }}
+        {{/ if }}
+      </div>
+    </div>
+  </div>
+</template>

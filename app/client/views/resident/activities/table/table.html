@@ -1,0 +1,15 @@
+<template name="activityTable">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title">
+        {{_ "residentActivityTable-filterPanel-header" }}
+      </h2>
+    </div>
+    <div class="panel-body">
+      <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+        {{> reactiveTableFilter id="activityTypeFilter" label="Activity Type" fields=['activityType'] }}
+      </div>
+    </div>
+  </div>
+  {{> reactiveTable collection=activities settings=tableSettings }}
+</template>

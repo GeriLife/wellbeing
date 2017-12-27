@@ -1,0 +1,23 @@
+<template name="usersEnroll">
+  <div class="box box-primary">
+    <div class="box-header">
+      <div class="box-toolbar">
+        <h2>
+          {{_ "usersEnroll-header-text" }}
+        </h2>
+      </div>
+    </div>
+    <div class="box-body">
+      <p>
+        {{_ "usersEnroll-introduction-text" }}
+      </p>
+      {{> quickForm
+        schema=usersEnrollSchema
+        id="usersEnrollForm"
+        type="method"
+        meteormethod="addUsersAndSendEnrollmentEmails"
+        buttonContent=buttonContent
+      }}
+    </div>
+  </div>
+</template>

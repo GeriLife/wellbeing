@@ -1,0 +1,10 @@
+<template name="settingsLayout">
+  <div class="wrapper">
+    {{> settingsLayoutHeader }}
+    {{> settingsLayoutSidebar }}
+    <div class="content-wrapper">
+      {{> flashMessages}}
+      {{> yield }}
+    </div>
+  </div>
+</template>

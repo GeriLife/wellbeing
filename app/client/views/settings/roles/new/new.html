@@ -1,0 +1,29 @@
+<template name="newRole">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <i class="fa fa-user"></i>&nbsp;
+            {{_ "newRole-header" }}
+           </h4>
+        </div>
+        {{# autoForm id="newRoleForm" type="insert" collection="Meteor.roles"  }}
+
+        <div class="modal-body">
+          {{> afQuickField name="name"}}
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">
+            {{_ "newRole-saveButton" }}
+          </button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            {{_ "newRole-cancelButton" }}
+          </button>
+        </div>
+        {{/ autoForm }}
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,35 @@
+<template name="activities">
+  <div class="page-heading">
+    <button id="add-activity" class="btn btn-primary pull-right">
+      {{_ "activities-addActivityButton" }}
+    </button>
+    <h1 class="page-header">
+      <i class="fa fa-heartbeat"></i>&nbsp;
+      {{_ "activities-pageHeader" }}
+    </h1>
+  </div>
+  {{# if Template.subscriptionsReady }}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title">
+        {{_ "activities-filterActivities-heading" }}
+        <button id="clear-filters" class="btn btn-xs btn-primary pull-right">
+          <i class="fa fa-times" aria-hidden="true"></i>
+          {{_ "activities-filterActivities-clearFiltersText" }}
+        </button>
+      </h2>
+    </div>
+    <div class="panel-body">
+      <div class="col-sm-3 col-xs-12">
+        {{> activitiesTableResidentNamesFilter }}
+      </div>
+      <div class="col-sm-3 col-xs-12">
+        {{> activitiesTableActivityTypeFilter }}
+      </div>
+    </div>
+  </div>
+  {{> reactiveTable collection='allActivities-paginated' settings=tableSettings }}
+  {{ else }}
+  {{> spinner }}
+  {{/ if }}
+</template>

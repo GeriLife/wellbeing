@@ -1,0 +1,27 @@
+<template name="deleteUser">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <i class="fa fa-user"></i>&nbsp;
+             {{_ "deleteUser-header" }}
+           </h4>
+        </div>
+
+        <div class="modal-body">
+          {{_ "deleteUser-confirmationText" }}
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="confirm-delete" class="btn btn-success">
+            {{_ "deleteUser-confirmButton" }}
+          </button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            {{_ "deleteUser-cancelButton" }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

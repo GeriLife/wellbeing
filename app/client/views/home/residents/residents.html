@@ -1,0 +1,32 @@
+<template name="homeResidents">
+  <table class="table table-striped">
+    <caption>
+      {{_ "homeResidents-tableCaption" }}
+    </caption>
+    <thead>
+      <tr>
+        <th>
+          <i class="fa fa-lg fa-user"></i>&nbsp;
+          {{_ "homeResidents-tableHeader-residentName" }}
+        </th>
+        <th>
+          <i class="fa fa-lg fa-heartbeat"></i>&nbsp;
+          {{_ "homeResidents-tableHeader-activity" }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {{# if residents }}
+        {{# each residents }}
+        {{> homeResident }}
+        {{/ each }}
+      {{ else }}
+      <tr>
+        <td>
+          {{_ "homeResidents-loadingMessage" }}
+        </td>
+      </tr>
+      {{/ if }}
+    </tbody>
+  </table>
+</template>

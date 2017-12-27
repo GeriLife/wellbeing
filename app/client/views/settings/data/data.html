@@ -1,0 +1,33 @@
+<template name="dataSettings">
+  <section class="content-header">
+    <h1>
+      <i class="fa fa-database" aria-hidden="true"></i>
+      {{_ "dataSettings-header" }}
+     </h1>
+  </section>
+  <section class="content">
+    <!-- data export -->
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">
+          {{_ "dataSettings-rawData-header" }}
+        </h3>
+        <span class="label label-primary pull-right"><i class="fa fa-2x fa-database" aria-hidden="true"></i></span>
+      </div><!-- /.box-header -->
+
+      <div class="box-body">
+        <p>
+          {{_ "dataSettings-rawData-helpText" }}
+        </p>
+        <button type="button" class="btn btn-success" id="export-data" disabled={{ fetchingData }}>
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;
+          {{_ "dataSettings-rawData-exportRawDataButton" }}
+        </button>
+
+        {{# if showSpinner }}
+          {{> spinner }}
+        {{/ if }}
+      </div><!-- /.box-body -->
+    </div><!-- /.box -->
+  </section>
+</template>
