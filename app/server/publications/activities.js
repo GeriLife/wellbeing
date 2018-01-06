@@ -31,17 +31,24 @@ Meteor.publish('residentLatestActivities', function () {
 
 Meteor.publish('residentActivityCountOnDate', function (residentId, date) {
   // Get start and end of day, for MongoDB query
-  const startOfDay = moment(date).startOf('day');
-  const endOfDay = moment(date).endOf('day');
+  const startOfDay = moment(date).startOf('day').toDate();
+  const endOfDay = moment(date).endOf('day').toDate();
 
   // Query activities for resident during entire day
   const query = {
-    residentId,
+    residentIds: residentId,
     activityDate: {
       $gte: startOfDay,
       $lte: endOfDay
     }
   };
 
-  Counts.publish(this, 'residentActivityCountOnDate', Activities.find(query));
+  // Get cursor pointing to resident activities on given day
+  const activitiesCursor = Activities.find(query);
+
+  // Create ISO date string (YYYY-mm-dd) from date
+  const isoYMD = moment(date).format('YYYY-mm-dd');
+
+  // Create specific count publication for resident ID and activity date
+  Counts.publish(this, `residentId-${ residentId }-activityCountOn-${ isoYMD }`, activitiesCursor);
 })
