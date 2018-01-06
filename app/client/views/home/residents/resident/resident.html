@@ -1,11 +1,34 @@
 <template name="homeResident">
     <tr  id="resident-{{ _id }}" class="resident">
       <td>{{ firstName }} {{ lastInitial }}</td>
-      <td class="activity-count {{ activityLabelClass }}">
-        {{ recentActiveDaysCount }}&nbsp;
+      <td class="activity-count">
+        {{ recentActiveDaysCount }}
+      </td>
+      <td class="{{ activityLabelClass }}">
         {{#if activityLabelText }}
-        ({{ activityLabelText }})
+        {{ activityLabelText }}
         {{/ if }}
+      </td>
+      <td>
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </td>
+      <td>
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </td>
+      <td>
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </td>
+      <td>
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </td>
+      <td>
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </td>
+      <td>
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </td>
+      <td>
+        <i class="fa fa-check" aria-hidden="true"></i>
       </td>
     </tr>
 </template>
