@@ -10,7 +10,6 @@ Template.homeActivityCountsByActivityType.onCreated(function () {
 
   // Call method to fetch data, assigning it to reactive variable
   Meteor.call('getHomeActivityTypeCountsLast30days', homeId, function (error, chartData) {
-    console.log('chartData', chartData);
     // update chart data reactive variable
     templateInstance.chartData.set(chartData);
   });
