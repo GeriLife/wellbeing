@@ -1,6 +1,6 @@
 <template name="homeResident">
     <tr  id="resident-{{ _id }}" class="resident">
-      <td>{{ firstName }} {{ lastInitial }}</td>
+      <td>{{ resident.firstName }} {{ resident.lastInitial }}</td>
       <td class="activity-count">
         {{ recentActiveDaysCount }}
       </td>
@@ -9,26 +9,8 @@
         {{ activityLabelText }}
         {{/ if }}
       </td>
-      <td>
-        <i class="fa fa-times" aria-hidden="true"></i>
-      </td>
-      <td>
-        <i class="fa fa-check" aria-hidden="true"></i>
-      </td>
-      <td>
-        <i class="fa fa-check" aria-hidden="true"></i>
-      </td>
-      <td>
-        <i class="fa fa-check" aria-hidden="true"></i>
-      </td>
-      <td>
-        <i class="fa fa-check" aria-hidden="true"></i>
-      </td>
-      <td>
-        <i class="fa fa-check" aria-hidden="true"></i>
-      </td>
-      <td>
-        <i class="fa fa-check" aria-hidden="true"></i>
-      </td>
+      {{# each day in pastSevenDays }}
+        <td><i class="fa fa-times" aria-hidden="true"></i></td>
+      {{/ each }}
     </tr>
 </template>

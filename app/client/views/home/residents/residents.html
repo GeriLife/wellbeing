@@ -28,8 +28,8 @@
     </thead>
     <tbody>
       {{# if residents }}
-        {{# each residents }}
-        {{> homeResident }}
+        {{# each resident in residents }}
+        {{> homeResident resident=resident pastSevenDays=pastSevenDays }}
         {{/ each }}
       {{ else }}
       <tr>
