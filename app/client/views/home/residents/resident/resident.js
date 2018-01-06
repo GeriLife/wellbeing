@@ -3,13 +3,13 @@ Template.homeResident.onCreated(function () {
   var instance = this;
 
   // Get resident ID as instance variable, for clarity
-  instance.residentId = instance.data._id;
+  const residentId = instance.data.resident._id;
 
   // Create resident activity count reactive variable
   instance.residentRecentActiveDaysCount = new ReactiveVar();
 
   // Get resident activity count from server, and set reactive variable
-  Meteor.call('getResidentRecentActiveDaysCount', instance.residentId, function (error, activeDaysCount) {
+  Meteor.call('getResidentRecentActiveDaysCount', residentId, function (error, activeDaysCount) {
     // set the value of the resident activity count reactive variable
     instance.residentRecentActiveDaysCount.set(activeDaysCount);
   });
@@ -21,7 +21,7 @@ Template.homeResident.helpers({
     var instance = Template.instance();
 
     // Get resident
-    const resident = instance.data;
+    const resident = instance.data.resident;
 
     // Check if resident is on hiatus
     if (resident.onHiatus) {
@@ -47,7 +47,7 @@ Template.homeResident.helpers({
     // Map the resident activity level to a Bootstrap class
 
     // Get resident
-    const resident = instance.data;
+    const resident = instance.data.resident;
 
     // Check if resident is on hiatus
     if (resident.onHiatus) {
