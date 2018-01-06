@@ -10,7 +10,9 @@
         {{/ if }}
       </td>
       {{# each day in pastSevenDays }}
-        <td><i class="fa fa-times" aria-hidden="true"></i></td>
+        <td>
+          {{> homeResidentActiveOnDate resident=resident day=day }}
+        </td>
       {{/ each }}
     </tr>
 </template>
