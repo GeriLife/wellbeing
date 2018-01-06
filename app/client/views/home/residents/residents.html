@@ -21,14 +21,9 @@
         <th>
           Level
         </th>
-        <th>Sun</th>
-        <th>Mon</th>
-        <th>Tue</th>
-        <th>Wed</th>
-        <th>Thu</th>
-        <th>Fri</th>
-        <th>Sat (today)</th>
-
+        {{# each day in pastSevenDays }}
+          <th>{{ abbreviatedWeekday day }}</th>
+        {{/ each }}
       </tr>
     </thead>
     <tbody>
