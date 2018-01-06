@@ -28,3 +28,20 @@ Meteor.publish('residentLatestActivities', function () {
   // Get cursor to latest activities
   return activities;
 });
+
+Meteor.publish('residentActivityCountOnDate', function (residentId, date) {
+  // Get start and end of day, for MongoDB query
+  const startOfDay = moment(date).startOf('day');
+  const endOfDay = moment(date).endOf('day');
+
+  // Query activities for resident during entire day
+  const query = {
+    residentId,
+    activityDate: {
+      $gte: startOfDay,
+      $lte: endOfDay
+    }
+  };
+
+  Counts.publish(this, 'residentActivityCountOnDate', Activities.find(query));
+})
