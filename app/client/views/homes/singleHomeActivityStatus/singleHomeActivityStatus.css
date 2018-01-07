@@ -1,0 +1,29 @@
+.resident-activity-class-count.danger {
+  background-color: #f5b1b1 !important;
+}
+
+rect.dimple-inactive {
+  fill: #d9534f !important;
+  stroke: #d43f3a !important;
+}
+
+rect.dimple-semiactive {
+  fill: #e6c829 !important;
+  stroke: #e6c829 !important;
+}
+
+rect.dimple-active {
+  fill: #5cb85c !important;
+  stroke: #4cae4c !important;
+}
+
+#legend-inactive {
+  color: #d9534f;
+}
+
+#legend-semiactive {
+  color: #e6c829;
+}
+#legend-active {
+  color: #5cb85c;
+}

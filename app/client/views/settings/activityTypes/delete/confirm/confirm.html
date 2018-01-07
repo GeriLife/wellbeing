@@ -1,0 +1,28 @@
+<template name="deleteActivityTypeConfirmation">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <i class="fa fa-heart-o"></i>&nbsp;
+            {{_ "deleteActivityTypeConfirmation-header" }}
+          </h4>
+        </div>
+
+        <div class="modal-body">
+          {{_ "deleteActivityTypeConfirmation-message" }}
+        </div>
+
+        <div class="modal-footer">
+          <button id="confirm-delete" type="button" class="btn btn-warning">
+            {{_ "deleteActivityTypeConfirmation-delete" }}
+          </button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">
+            {{_ "deleteActivityTypeConfirmation-cancel" }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

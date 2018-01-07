@@ -1,0 +1,32 @@
+<template name="rolesSettings">
+  <section class="content-header">
+    <h1>
+      <i class="fa fa-user-md"></i>&nbsp;
+      {{_ "rolesSettings-heading" }}
+     </h1>
+  </section>
+  <section class="content">
+    <div class="box box-primary">
+      <div class="box-header">
+        <div class="box-toolbar">
+          <div class="pull-right">
+            <button id="add-role" class="btn btn-primary">
+                {{_ "rolesSettings-addRoleButton" }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="box-body no-padding">
+        <table class="table table-striped">
+          <tbody>
+          {{# each roles }}
+          <tr>
+            <td>{{ name }}</td>
+          </tr>
+          {{/ each }}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</template>

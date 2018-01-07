@@ -1,0 +1,108 @@
+/* Copyright 2014 Gagarine Yaikhom (The MIT License) */
+
+.activity-map {
+    width: 100%;
+    height: 100%;
+}
+.activity-map div {
+    box-sizing:border-box;
+    -moz-box-sizing:border-box; /* Firefox */
+}
+.amap-title {
+    width: 100%;
+    color: #333;
+    font-size: 13px;
+    font-family: arial;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+.amap-year-blocks {
+    overflow: auto;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+.amap-year-block {
+    display: inline-block;
+    float: left;
+}
+.amap-year-name {
+    display: block;
+    float: left;
+    width: 100%;
+    color: #09f;
+    font-family: arial;
+    font-size: 18px;
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
+.amap-months {
+    display: inline-block;
+    float: left;
+}
+.amap-month {
+    display: inline-block;
+    margin: 10px;
+    height: 170px;
+}
+.amap-month .has-value {
+    border-color: #ccc;
+}
+.amap-month-name,
+.amap-month-name-filler {
+    height: 24px;
+}
+.amap-month-name {
+    color: #555;
+    font-size: 11px;
+    font-family: arial;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+}
+.amap-empty-day,
+.amap-week-day,
+.amap-week-name {
+    width: 15px;
+    height: 15px;
+    margin: 2px;
+    float: left;
+    border: 1px solid #eee;
+}
+.amap-empty-day {
+    background: #fff;
+    border-color: #fff;
+}
+.amap-week-day {
+    background: #fbfbfb;
+}
+.amap-week-name {
+    color: #aaa;
+    font-size: 10px;
+    font-family: arial;
+    text-align: center;
+    border-color: #fff;
+}
+.amap-week-start {
+    clear: left;
+}
+.amap-compact .amap-month-days {
+    float: left;
+}
+.amap-compact .amap-week-days {
+    display: inline-block;
+}
+.amap-compact .amap-week-days div {
+    clear: both;
+    margin: 0px;
+    border-bottom: 0px;
+    border-right: 0px;
+}
+.amap-month-names {
+    display: inline-block;
+    float: left;
+}
+.amap-month-names .amap-month-name {
+    float: left;
+}

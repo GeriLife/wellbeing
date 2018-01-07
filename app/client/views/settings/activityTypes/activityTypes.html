@@ -1,0 +1,42 @@
+<template name="activityTypesSettings">
+  <section class="content-header">
+    <h1>
+      <i class="fa fa-heart-o"></i>&nbsp;
+      {{_ "activityTypesSettings-header" }}
+     </h1>
+  </section>
+  <section class="content">
+    <div class="box box-primary">
+      <div class="box-header">
+        <div class="box-toolbar">
+          <div class="pull-right">
+            <button id="add-activity-type" class="btn btn-primary">
+                {{_ "activityTypesSettings-addActivityTypeButton" }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="box-body no-padding">
+        <table class="table table-striped">
+          <tbody>
+          {{# each activityTypes }}
+          <tr>
+            <td>{{ name }}</td>
+            <td>
+              {{> deleteActivityType activityTypeId=_id }}
+            </td>
+          </tr>
+          {{/ each }}
+          </tbody>
+          <tfoot>
+            <tr colspan=2>
+              <p class="text-muted pull-right">
+                * {{_ "activityTypesSettings-activityTypeTable-helpText" }}
+              </p>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
+</template>

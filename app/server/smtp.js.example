@@ -1,0 +1,14 @@
+Meteor.startup(function () {
+  smtp = {
+    username: 'username',   // eg: server@gentlenode.com
+    password: 'password',   // eg: 3eeP1gtizk5eziohfervU
+    server: 'server',  // eg: mail.gandi.net
+    port: 587
+  };
+
+  process.env.MAIL_URL = 'smtp://' + encodeURIComponent(smtp.username) + ':' + encodeURIComponent(smtp.password) + '@' + encodeURIComponent(smtp.server) + ':' + smtp.port;
+});
+
+// Set up Accounts email fields
+Accounts.emailTemplates.from = 'Site Name <postmaster@example.com>';
+Accounts.emailTemplates.siteName = 'Site Name';

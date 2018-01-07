@@ -1,0 +1,48 @@
+<template name="residentForm">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {{# if Template.subscriptionsReady }}
+        <div class="modal-header">
+          <h4 class="modal-title">
+            {{# if residentId }}
+              {{_ "residentForm-header-edit" }}
+            {{ else }}
+              {{_ "residentForm-header-add" }}
+            {{/ if }}
+          </h4>
+        </div>
+        {{#autoForm id="residentForm" type=formType collection="Residents" doc=resident  }}
+
+        <div class="modal-body">
+          {{> afQuickField name="firstName"}}
+          {{> afQuickField name="lastInitial"}}
+          {{> afQuickField name="homeId"}}
+
+          {{> afQuickField name="onHiatus"}}
+          <p class="help-block">
+            {{_ "residentForm-onHiatus-helpText" }}
+          </p>
+
+          {{> afQuickField name="departed"}}
+          <p class="help-block">
+            {{_ "residentForm-departed-helpText" }}
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">
+            {{_ "residentForm-save" }}
+          </button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            {{_ "residentForm-cancel" }}
+          </button>
+        </div>
+        {{/ autoForm }}
+        {{ else }}
+        {{> spinner }}
+        {{/ if }}
+      </div>
+    </div>
+  </div>
+</template>
