@@ -6,7 +6,9 @@
     <thead>
       <tr>
         <th colspan="3"></th>
-        <th colspan="7">Recent active days</th>
+        <th colspan="7">
+          {{_ "homeResidents-tableHeader-pastWeek" }}
+        </th>
       </tr>
       <tr>
         <th>
@@ -15,12 +17,11 @@
         </th>
         <th>
           <i class="fa fa-lg fa-heartbeat"></i>
-          <!--{{_ "homeResidents-tableHeader-activity" }}-->
-          Count
+          {{_ "homeResidents-tableHeader-activityCount" }}
         </th>
         <th>
           <i class="fa fa-lg fa-heartbeat"></i>
-          Level
+          {{_ "homeResidents-tableHeader-activityLevel" }}
         </th>
         {{# each day in pastSevenDays }}
           <th>{{ abbreviatedWeekday day }}</th>
