@@ -154,7 +154,7 @@
   "homeResidentActivityLevelTrend-legend-inactive": "Inactive",
   "homeResidentActivityLevelTrend-legend-semiActive": "Moderate",
   "homeResidentActivityLevelTrend-yAxis-label": "Number of residents",
-  "homeResidents-tableCaption": "Residents table showing count of days with at least one activity, activity level, and active days in the past week.",
+  "homeResidents-tableCaption": "Residents table showing count of days with at least one activity, overall activity level, and active days in the past week.",
   "homeResidents-tableHeader-residentName": "Name",
   "homeResidents-tableHeader-activeDaysCount": "Days",
   "homeResidents-tableHeader-activityLevel": "Level",
