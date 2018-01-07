@@ -4,8 +4,8 @@ import 'moment/locale/fi';
 
 Template.homeResidents.helpers({
   abbreviatedWeekday (date) {
-    // Get user browser language
-    const locale = window.navigator.userLanguage || window.navigator.language;
+    // Get user language
+    const locale = TAPi18n.getLanguage();
 
     // Set locale based on user browser language
     moment.locale(locale);
