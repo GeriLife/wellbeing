@@ -90,9 +90,9 @@ Template.homeResident.helpers({
 });
 
 Template.homeResident.events({
-  'click .resident': function () {
+  'click .resident': function (event, templateInstance) {
     // Get ID of clicked resident
-    var residentId = this._id;
+    const residentId = templateInstance.data.resident._id;
 
     // Show page for clicked resident
     Router.go('resident', {residentId: residentId});
