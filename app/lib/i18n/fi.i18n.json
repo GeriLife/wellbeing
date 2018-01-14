@@ -1,4 +1,7 @@
 {
+    "homeResidents-tableHeader-activeDaysCount": "P\u00e4iv\u00e4t",
+    "homeResidents-tableHeader-activityLevel": "Taso",
+    "homeResidents-tableHeader-pastWeek": "Kulunut viikko (n\u00e4ytt\u00e4\u00e4 aktiiviset p\u00e4iv\u00e4t)",
     "activities": {
         "residentIds": {
             "label": "Asukkaat"
@@ -158,12 +161,12 @@
     "homeResidentActivitySummaryChart-residentAxisTitle": "Asukkaan nimi \/ aktiviteettien m\u00e4\u00e4r\u00e4",
     "homeResidentActivitySummaryChart-activitiesAxisTitle": "Aktiviteettien m\u00e4\u00e4r\u00e4",
     "homeResidentActivityLevelTrend-chartTitle": "Aktiviteettitaso viimeisen seitsem\u00e4n p\u00e4iv\u00e4n ajalta",
-    "homeResidentActivityLevelTrend-chartDescription": "P\u00e4ivitt\u00e4inen m\u00e4\u00e4r\u00e4 asukkaita, joiden tila on passiivinen,  kohtalainen ja erinomainen.",
+    "homeResidentActivityLevelTrend-chartDescription": "P\u00e4ivitt\u00e4inen m\u00e4\u00e4r\u00e4 asukkaita, joiden aktiviteettitaso on passiivinen,  kohtalainen ja erinomainen.",
     "homeResidentActivityLevelTrend-legend-active": "Erinomainen",
     "homeResidentActivityLevelTrend-legend-inactive": "Passiivinen",
     "homeResidentActivityLevelTrend-legend-semiActive": "Kohtalainen",
     "homeResidentActivityLevelTrend-yAxis-label": "Asukkaiden lukum\u00e4\u00e4r\u00e4",
-    "homeResidents-tableCaption": "Asukastaulukko. Jokaisen asukkaan vieress\u00e4 on p\u00e4ivien lukum\u00e4\u00e4r\u00e4, johon on kirjattu v\u00e4hint\u00e4\u00e4n yksi aktiviteetti viimeisten seitsem\u00e4n p\u00e4iv\u00e4n aikana. Aktiviteettitaso sulkeissa.",
+    "homeResidents-tableCaption": "Asukastaulukko. Taulukko n\u00e4ytt\u00e4\u00e4 niiden p\u00e4ivien lukum\u00e4\u00e4r\u00e4n jolloin asukkaalla on ollut v\u00e4hint\u00e4\u00e4n yksi aktiviteetti, yhteenveto aktiviteettitasosta ja aktiiviset p\u00e4iv\u00e4t viimeisen viikon aikana.\n",
     "homeResidents-tableHeader-residentName": "Nimi",
     "homeResidents-tableHeader-activity": "Viimeaikaisten aktiviteettien m\u00e4\u00e4r\u00e4 (aktiviteettitaso)",
     "homeResidents-loadingMessage": "Ladataan asukkaita",
