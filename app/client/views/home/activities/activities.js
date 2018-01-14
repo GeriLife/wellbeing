@@ -12,8 +12,16 @@ Template.homeActivities.created = function () {
     // Update the activities reactive variable
     instance.activities.set(activities);
   });
-};
 
+};
+Template.homeActivities.rendered = function() {
+    $("#datepicker").datepicker( {
+        setDate: moment().startOf('month').toDate(),
+        format: "mm-yyyy",
+        startView: "months",
+        minViewMode: "months"
+    });
+}
 Template.homeActivities.helpers({
   homeActivities: function () {
     // Get reference to template instance

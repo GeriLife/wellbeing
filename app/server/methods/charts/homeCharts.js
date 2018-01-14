@@ -5,10 +5,9 @@ Methods returning data to render charts on the Home profile
 import d3 from 'd3';
 
 Meteor.methods({
-  getHomeActivitiesFacilitatorRolesCountsLast30days (homeId) {
-    // Get activties for current home (ID) from last 30 days
-    let activityIds = Meteor.call('getHomeCurrentResidentsActivityIdsLast30Days', homeId);
-
+  getHomeActivitiesFacilitatorRolesCounts (homeId, date = null ) {
+    let activityIds = Meteor.call('getResidentsActivityIds', homeId, date);
+    console.log('hom',activityIds);
     // Set up query to get activities by ID
     const query = {
       _id: {
@@ -39,9 +38,9 @@ Meteor.methods({
 
     return facilitatorRoleCounts;
   },
-  getHomeActivityTypeCountsLast30days (homeId) {
+  getHomeActivityTypeCounts (homeId, date = null) {
     // Get activties for current home (ID) from last 30 days
-    let activityIds = Meteor.call('getHomeCurrentResidentsActivityIdsLast30Days', homeId);
+    let activityIds = Meteor.call('getResidentsActivityIds', homeId, date);
 
     // Set up query to get activities by ID
     const query = {

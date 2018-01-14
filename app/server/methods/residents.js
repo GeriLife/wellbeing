@@ -85,20 +85,23 @@ Meteor.methods({
     //  sort in reverse order by activity date
     return Activities.find({'residentIds': residentId, activityDate: {$gte: twoWeeksAgo, $lte: now}}, {sort : {activityDate:  -1} });
   },
-  'getResidentRecentActivitiesByType': function (residentId, activityTypeId) {
+  'getResidentRecentActivitiesByType': function (residentId, activityTypeId, date) {
     // Date two weeks ago
-    var twoWeeksAgo = moment().subtract(4, "weeks").toDate();
+    let startDate = moment().subtract(4, "weeks").toDate();
 
     // Date today
-    var now = new Date();
-
+    let endDate = new Date();
+    if(date) {
+      startDate = date;
+      endDate = moment(date).endOf('month').toDate();
+    }
     // Get all activities of a specific type involving resident
     // make sure activities are in the past (i.e. not planned)
     //  sort in reverse order by activity date
-    var activities = Activities.find({
+    let activities = Activities.find({
       'residentIds': residentId,
       'activityTypeId': activityTypeId,
-      activityDate: {$gte: twoWeeksAgo, $lte: now}},
+      activityDate: {$gte: startDate, $lte: endDate}},
       {sort : {activityDate:  -1}
     }).fetch();
 
@@ -106,8 +109,8 @@ Meteor.methods({
       return activities;
     };
   },
-  'getSumOfResidentRecentActivitiesByType': function (residentId, activityTypeId) {
-    var activities = Meteor.call('getResidentRecentActivitiesByType', residentId, activityTypeId);
+  'getSumOfResidentRecentActivitiesByType': function (residentId, activityTypeId, date =null) {
+    var activities = Meteor.call('getResidentRecentActivitiesByType', residentId, activityTypeId, date);
 
     // Placeholder for sum of activities
     var sumOfActivities = 0;

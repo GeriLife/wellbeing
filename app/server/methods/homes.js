@@ -41,6 +41,20 @@ Meteor.methods({
     // return the resident IDs array
     return residentIds;
   },
+    'getHomeAllResidentIds': function (homeId) {
+        var residents = Residents.find(
+            {'homeId': homeId},
+            {sort: {firstName: 1}}
+        ).fetch();
+
+        // Create an array containing only resident IDs
+        var residentIds = _.map(residents, function (resident) {
+            return resident._id;
+        });
+
+        // return the resident IDs array
+        return residentIds;
+    },
   'getHomeCurrentAndActiveResidentCount': function (homeId) {
     // Get all current residents for specific home (not departed or on hiatus)
     const homeCurrentResidentIds = Meteor.call("getHomeCurrentAndActiveResidentIds", homeId);
@@ -50,7 +64,7 @@ Meteor.methods({
 
     return homeCurrentResidentsCount;
   },
-  'getHomeActivities': function (homeId) {
+  'getHomeActivities': function (homeId, date= null) {
     // Get all resident of this home
     var homeResidentIds = Meteor.call('getHomeCurrentResidentIds', homeId);
 
@@ -76,7 +90,8 @@ Meteor.methods({
 
     return homeActivitiesArray;
   },
-  'getHomeResidentsActivitySumsByType': function (homeId) {
+  'getHomeResidentsActivitySumsByType': function (homeId, date = null) {
+    console.log(date);
     // Get all activity types
     var activityTypes = ActivityTypes.find({}, {sort: {name: 1}}).fetch();
 
@@ -102,7 +117,7 @@ Meteor.methods({
           var resident = Residents.findOne(residentId);
 
           // Get count of activities by current type for current resident
-          var activityCount = Meteor.call("getSumOfResidentRecentActivitiesByType", residentId, activityType._id);
+          var activityCount = Meteor.call("getSumOfResidentRecentActivitiesByType", residentId, activityType._id, date);
 
           // Placeholder object for resident name / activity count
           var residentActivityCount = {};
@@ -125,7 +140,7 @@ Meteor.methods({
 
       return residentActivityCountsByCurrentType;
     });
-
+    console.log(allResidentActivitySumsByType);
     return allResidentActivitySumsByType;
   },
   "getHomeActivityLevelCounts": function (homeId) {

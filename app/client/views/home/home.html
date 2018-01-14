@@ -42,6 +42,10 @@
       <h2 class="panel-header">
         <i class="fa fa-lg fa-heartbeat"></i>&nbsp;
         {{_ "home-activitiesPanel-heading" }}
+          <div class="input-group date" >
+              <input type="text" class="form-control" id="datepicker">
+              <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+          </div>
       </h2>
     </div>
     <div class="panel-body">
@@ -61,7 +65,7 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="activity-chart">
-          {{> homeResidentActivitySumsByType }}
+          {{> homeResidentActivitySumsByType date=date }}
         </div>
         <div role="tabpanel" class="tab-pane" id="activity-table">
           {{> homeActivities }}
@@ -70,12 +74,12 @@
       <div class="row">
         <div class="col-md-6">
           <!-- Activity counts by activity type -->
-          {{> homeActivityCountsByActivityType homeId=home._id }}
+          {{> homeActivityCountsByActivityType date=date  }}
         </div>
         
         <div class="col-md-6">
           <!-- Activity counts by facilitator role -->
-          {{> homeActivityCountsByFacilitatorRole homeId=home._id }}
+          {{> homeActivityCountsByFacilitatorRole date=date }}
         </div>
       </div>
     </div>

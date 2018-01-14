@@ -41,19 +41,28 @@ Meteor.methods({
       return residentsLatestActivityIdsByType;
     }
   },
-  'getHomeCurrentResidentsActivityIdsLast30Days' (homeId) {
+  'getResidentsActivityIds' (homeId, date = null) {
     /*
     Get all activities in past 30 days
     for residents of a given home (provided by home ID)
+    or if there is a date argument get all activities for that month
     */
 
-
-    // Get date 30 days ago (converting to JavaScript date)
-    const previousDate = moment().subtract(30, 'days').toDate();
-
-    // Get current resident IDs for given home
-    const residentIds = Meteor.call('getHomeCurrentAndActiveResidentIds', homeId);
-
+    let startDate;
+    let endDate;
+    let residentIds;
+    // Get current resident IDs for given home if there isn't a date. Get all from the month if there is
+      if(!date) {
+          // Get date 30 days ago and now (converting to JavaScript date)
+          residentIds = Meteor.call('getHomeCurrentAndActiveResidentIds', homeId);
+          startDate  = moment().subtract(30, 'days').toDate();
+          endDate = moment().toDate();
+      } else {
+          //get the Month given by date argument
+          residentIds = Meteor.call('getHomeAllResidentIds', homeId)
+          startDate = date;
+          endDate = moment(date).endOf('month').toDate();
+      }
     // Set up MongoDB query object
     // activities where one or more activity.residentIds matched in residentIds
       // (searching array field with array of values)
@@ -65,13 +74,13 @@ Meteor.methods({
         }
       },
       activityDate: {
-        $gte: previousDate
+        $gte: startDate, $lte: endDate
       }
     };
 
     // Get activties documents cursor
     const activities = Activities.find(query).fetch();
-
+    console.log(activities)
     // Create an array of activity IDs
     const activityIds = _.map(activities, function (activity) {
       return activity._id;
@@ -79,6 +88,46 @@ Meteor.methods({
 
     return activityIds;
   },
+    'getResidentsActivityIdsByDate' (homeId, date) {
+        /*
+        Get all activities in past 30 days
+        for residents of a given home (provided by home ID)
+        */
+
+
+        // Get date 30 days ago (converting to JavaScript date)
+        const startDate = date;
+        const endDate = moment(date).endOf('month').toDate();
+
+        // Get current resident IDs for given home
+        const residentIds = Meteor.call('getHomeCurrentAndActiveResidentIds', homeId);
+
+        // Set up MongoDB query object
+        // activities where one or more activity.residentIds matched in residentIds
+        // (searching array field with array of values)
+        // and activityDate greater than or equal to 'previousDate' (30 days ago)
+        const query = {
+            residentIds: {
+                $elemMatch: {
+                    $in: residentIds
+                }
+            },
+            activityDate: {
+                $gte: startDate,
+                $lte: endDate
+            }
+        };
+
+        // Get activties documents cursor
+        const activities = Activities.find(query).fetch();
+
+        // Create an array of activity IDs
+        const activityIds = _.map(activities, function (activity) {
+            return activity._id;
+        });
+
+        return activityIds;
+    },
   'getLatestActivityIds': function () {
     // Get all activity type IDs
     var activityTypeIds = Meteor.call('getAllActivityTypeIds');
