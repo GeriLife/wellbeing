@@ -23,7 +23,9 @@ var anonymousRoutes = [
   'atSignIn',
   'atSignUp',
   'atVerifyEmail',
-  'atresendVerificationEmail'
+  'atresendVerificationEmail',
+  // Allow anonymous access to resident profile
+  'resident',
 ];
 
 // User login required for all areas of site
