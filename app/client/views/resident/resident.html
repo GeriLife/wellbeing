@@ -1,6 +1,7 @@
 <template name="resident">
   {{#if Template.subscriptionsReady}}
     <h1 class="page-header">
+      {{# if currentUser }}
       <button type="button" class="btn btn-success pull-right" id="add-feeling">
         <i class="fa fa-stethoscope"></i>
         {{_ "resident-addFeeling-buttonText" }}
@@ -9,6 +10,7 @@
         <i class="fa fa-heartbeat"></i>
         {{_ "resident-addActivity-buttonText" }}
       </button>
+      {{/ if }}<!-- current user -->
 
       {{ resident.firstName }} {{ resident.lastInitial }}
 
