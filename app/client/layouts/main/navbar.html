@@ -14,8 +14,8 @@
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        {{# if currentUser }}
         <ul class="nav navbar-nav">
+          {{# if currentUser }}
           <li>
             <a href="{{ pathFor route='residents' }}">
               <i class="fa fa-users"></i>&nbsp;
@@ -34,6 +34,7 @@
               {{_ "mainLayoutNavbar-homesLink" }}
             </a>
           </li>
+          {{/ if }}
         </ul>
 
 
@@ -43,23 +44,27 @@
               {{> i18n_dropdown}}
             </form>
           </li>
-          <li>
-            <a href="{{ pathFor 'userProfile'}}">
-              <i class="fa fa-user"></i>&nbsp;
-              {{_ "mainLayoutNavbar-profileLink" }}
-            </a>
-          </li>
-          {{# if isInRole 'admin' }}
+          {{# if currentUser }}
             <li>
-              <a href="{{ pathFor 'settings'}}">
-                <i class="fa fa-cog"></i>&nbsp;
-                {{_ "mainLayoutNavbar-settingsLink" }}
+              <a href="{{ pathFor 'userProfile'}}">
+                <i class="fa fa-user"></i>&nbsp;
+                {{_ "mainLayoutNavbar-profileLink" }}
               </a>
             </li>
+            {{# if isInRole 'admin' }}
+              <li>
+                <a href="{{ pathFor 'settings'}}">
+                  <i class="fa fa-cog"></i>&nbsp;
+                  {{_ "mainLayoutNavbar-settingsLink" }}
+                </a>
+              </li>
+            {{/ if }}
+            <li>
+              {{> logout }}
+            </li>
           {{/ if }}
-          <li>{{> logout }}</li>
         </ul>
-        {{/ if }}
+
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
