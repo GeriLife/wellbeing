@@ -1,66 +1,59 @@
 <template name="mainLayoutNavbar">
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/">GeriLife<sup>®</sup></a>
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand" href="/">GeriLife<sup>®</sup></a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse">
+      {{# if currentUser }}
+      <div class="navbar-nav mr-auto">
+
+          <a href="{{ pathFor route='residents' }}" class="nav-item nav-link">
+            <i class="fa fa-users"></i>&nbsp;
+            {{_ "mainLayoutNavbar-residentsLink" }}
+          </a>
+
+
+          <a href="{{ pathFor route='activities' }}" class="nav-item nav-link">
+            <i class="fa fa-heartbeat"></i>&nbsp;
+            {{_ "mainLayoutNavbar-activitesLink" }}
+          </a>
+
+          <a href="{{ pathFor route='homes' }}" class="nav-item nav-link">
+            <i class="fa fa-home"></i>&nbsp;
+            {{_ "mainLayoutNavbar-homesLink" }}
+          </a>
+
       </div>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        {{# if currentUser }}
-        <ul class="nav navbar-nav">
-          <li>
-            <a href="{{ pathFor route='residents' }}">
-              <i class="fa fa-users"></i>&nbsp;
-              {{_ "mainLayoutNavbar-residentsLink" }}
-            </a>
-          </li>
-          <li>
-            <a href="{{ pathFor route='activities' }}">
-              <i class="fa fa-heartbeat"></i>&nbsp;
-              {{_ "mainLayoutNavbar-activitesLink" }}
-            </a>
-          </li>
-          <li>
-            <a href="{{ pathFor route='homes' }}">
-              <i class="fa fa-home"></i>&nbsp;
-              {{_ "mainLayoutNavbar-homesLink" }}
-            </a>
-          </li>
-        </ul>
 
-
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <form class="navbar-form form-inline">
-              {{> i18n_dropdown}}
-            </form>
-          </li>
-          <li>
-            <a href="{{ pathFor 'userProfile'}}">
-              <i class="fa fa-user"></i>&nbsp;
-              {{_ "mainLayoutNavbar-profileLink" }}
+      <ul class="navbar-nav my-2">
+        <li class="nav-item">
+          <form class="navbar-form form-inline">
+            {{> i18n_dropdown}}
+          </form>
+        </li>
+        <li class="nav-item">
+          <a href="{{ pathFor 'userProfile'}}" class="nav-link">
+            <i class="fa fa-user"></i>&nbsp;
+            {{_ "mainLayoutNavbar-profileLink" }}
+          </a>
+        </li>
+        {{# if isInRole 'admin' }}
+          <li class="nav-item">
+            <a href="{{ pathFor 'settings'}}" class="nav-link">
+              <i class="fa fa-cog"></i>&nbsp;
+              {{_ "mainLayoutNavbar-settingsLink" }}
             </a>
           </li>
-          {{# if isInRole 'admin' }}
-            <li>
-              <a href="{{ pathFor 'settings'}}">
-                <i class="fa fa-cog"></i>&nbsp;
-                {{_ "mainLayoutNavbar-settingsLink" }}
-              </a>
-            </li>
-          {{/ if }}
-          <li>{{> logout }}</li>
-        </ul>
         {{/ if }}
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+        <li class="nav-item">{{> logout }}</li>
+      </ul>
+      {{/ if }}
+    </div><!-- /.navbar-collapse -->
+
   </nav>
 </template>

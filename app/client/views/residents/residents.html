@@ -1,48 +1,45 @@
 <template name="residents">
-  <div class="page-header">
-    {{# if isInRole 'admin' }}
-    <button id="new-resident" class="btn btn-primary pull-right">
-      {{_ "residents-header-addResidencyButton" }}
-    </button>
-    {{/ if }}
     <h1>
-      <i class="fa fa-users"></i>&nbsp;
+      <i class="fa fa-users"></i>
       {{_ "residents-header" }}
+      {{# if isInRole 'admin' }}
+        <div class="pull-right">
+          <button id="new-resident" class="btn btn-primary" type="button">
+            {{_ "residents-header-addResidencyButton" }}
+          </button>
+        </div>
+      {{/ if }}
     </h1>
-  </div>
-  <div class="clearfix"></div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2 class="panel-title">
+
+    <div class="row">
+      <p>
         {{_ "residents-filterPanel-header" }}
-      </h2>
-    </div>
-    <div class="panel-body">
-      <div class="col-xs-12 col-sm-5">
+      </p>
+      <div class="col">
         {{>
           reactiveTableFilter
           id="nameFilter"
           label=filterLabels.fullName
           fields=nameFilterFields }}
       </div>
-      <div class="col-xs-12 col-sm-5">
+      <div class="col">
         {{>
           reactiveTableFilter
           id="homeFilter"
           label=filterLabels.homeName
           fields=homeFilterFields }}
       </div>
-      <div class="col-xs-12 col-sm-2">
+      <div class="col">
         <label>
           <input id="include-departed" type="checkbox">&nbsp;
            {{_ "residents-filterPanel-includeDeparted" }}
          </label>
       </div>
-    </div>
+
   </div>
   {{# if Template.subscriptionsReady }}
-  {{> reactiveTable collection=residents settings=tableSettings }}
+    {{> reactiveTable collection=residents settings=tableSettings }}
   {{ else }}
-  {{> spinner }}
+    {{> spinner }}
   {{/ if }}
 </template>

@@ -1,24 +1,22 @@
 <template name="homeGroup">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2 id="{{ name }}-title" class="panel-title">
-        {{# if isInRole 'admin' }}
-          <button type="button" class="edit-home btn btn-default btn-xs pull-right">
-            {{_ "homeGroup-editButton-text" }}
-          </button>
-        {{/ if }}
-        <i class="fa fa-cubes"></i>&nbsp;
-        {{ name }}
-      </h2>
-    </div>
-    <div class="panel-body">
-      <table class="table table-compact table-striped">
+  <div class="row">
+    <h2 id="{{ name }}-title">
+      {{ name }}
+      {{# if isInRole 'admin' }}
+        <button type="button" class="edit-home btn btn-default">
+          {{_ "homeGroup-editButton-text" }}
+        </button>
+      {{/ if }}
+    </h2>
+
+
+      <table class="table table-compact table-striped table-responsive-sm">
         <caption>
           {{_ "homeGroup-tableCaption" }}
         </caption>
         <thead>
           <tr>
-            <th class="col-sm-1 col-md-2">
+            <th width="33%">
               <i class="fa fa-home"></i>&nbsp;
                 {{_ "homeGroup-tableHeader-name" }}
              </th>
@@ -48,6 +46,6 @@
           {{/ each }}
         </tbody>
       </table>
-    </div>
+
   </div>
 </template>

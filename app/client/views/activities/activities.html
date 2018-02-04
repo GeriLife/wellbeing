@@ -1,35 +1,37 @@
 <template name="activities">
-  <div class="page-heading">
-    <button id="add-activity" class="btn btn-primary pull-right">
-      {{_ "activities-addActivityButton" }}
-    </button>
-    <h1 class="page-header">
+    <h1>
       <i class="fa fa-heartbeat"></i>&nbsp;
       {{_ "activities-pageHeader" }}
-    </h1>
-  </div>
-  {{# if Template.subscriptionsReady }}
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2 class="panel-title">
-        {{_ "activities-filterActivities-heading" }}
-        <button id="clear-filters" class="btn btn-xs btn-primary pull-right">
-          <i class="fa fa-times" aria-hidden="true"></i>
-          {{_ "activities-filterActivities-clearFiltersText" }}
+
+      <div class="pull-right">
+        <button id="add-activity" class="btn btn-primary">
+          {{_ "activities-addActivityButton" }}
         </button>
-      </h2>
-    </div>
-    <div class="panel-body">
-      <div class="col-sm-3 col-xs-12">
+      </div>
+    </h1>
+
+  {{# if Template.subscriptionsReady }}
+    <h2>
+      {{_ "activities-filterActivities-heading" }}
+
+      <button id="clear-filters" class="btn btn-xs btn-default">
+        <i class="fa fa-times" aria-hidden="true"></i>
+        {{_ "activities-filterActivities-clearFiltersText" }}
+      </button>
+
+    </h2>
+
+    <div class="row">
+      <div class="col">
         {{> activitiesTableResidentNamesFilter }}
       </div>
-      <div class="col-sm-3 col-xs-12">
+      <div class="col">
         {{> activitiesTableActivityTypeFilter }}
       </div>
     </div>
-  </div>
-  {{> reactiveTable collection='allActivities-paginated' settings=tableSettings }}
+
+    {{> reactiveTable collection='allActivities-paginated' settings=tableSettings }}
   {{ else }}
-  {{> spinner }}
+    {{> spinner }}
   {{/ if }}
 </template>
