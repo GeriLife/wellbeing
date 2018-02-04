@@ -165,6 +165,9 @@
   "newFeeling-header": "Record new feeling",
   "newFeeling-save": "Save",
   "newFeeling-success": "Successfully recorded feeling",
+  "newHome-cancelButton-text": "Cancel",
+  "newHome-header-text": "Create new home",
+  "newHome-saveButton-text": "Save",
   "newResidentAndResidencySchema-homeId-label": "Home",
   "newUser-cancelButton": "Cancel",
   "newUser-header": "Create new User",
@@ -296,6 +299,17 @@
   "usersEnroll-form-submitButton-text": "Send invite(s)",
   "usersEnroll-header-text": "Enroll users",
   "usersEnroll-introduction-text": "Create one or more user accounts and send an activation email.",
+  "users": {
+    "email": {
+      "label": "Email"
+    },
+    "password": {
+      "label": "Password"
+    },
+    "isAdmin": {
+      "label": "System administrator"
+    }
+  },
   "usersEnrollSchema": {
     "subject": {
       "label": "Subject"

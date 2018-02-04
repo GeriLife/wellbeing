@@ -1,3 +1,5 @@
+import SimpleSchema from 'simpl-schema';
+
 EditUserSchema = new SimpleSchema({
   "email": {
     type: String,
@@ -9,6 +11,3 @@ EditUserSchema = new SimpleSchema({
     defaultValue: false
   }
 });
-
-// Add i18n tags
-EditUserSchema.i18n("editUser");

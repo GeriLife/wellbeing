@@ -51,12 +51,16 @@
             </div>
           {{/ if }}
 
-          {{> afQuickField
+          <label for="residentId">
+            {{_ "feelings.residentId.label" }}
+          </label>
+          {{> afFieldInput
             name="residentId"
             options=residentOptions
             value=residentId
            }}
-          {{> afQuickField
+
+          {{> afFieldInput
             name="feeling"
             type="hidden"
             value=selectedFeeling

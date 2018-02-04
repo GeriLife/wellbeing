@@ -1,3 +1,5 @@
+import SimpleSchema from 'simpl-schema';
+
 Homes = new Mongo.Collection('homes');
 
 var HomesSchema = new SimpleSchema({
@@ -6,21 +8,8 @@ var HomesSchema = new SimpleSchema({
   },
   groupId: {
     type: String,
-    autoform: {
-      options: function() {
-        return _.map(Groups.find().fetch(), function(group) {
-          return {
-            label: group.name,
-            value: group._id
-          };
-        });
-      }
-    }
   }
 });
-
-// Add i18n tags
-HomesSchema.i18n("homes");
 
 Homes.attachSchema(HomesSchema);
 

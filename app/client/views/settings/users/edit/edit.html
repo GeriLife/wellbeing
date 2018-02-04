@@ -11,7 +11,15 @@
         {{# autoForm id="editUserForm" schema="EditUserSchema" doc=formUser }}
 
         <div class="modal-body">
-            {{> afQuickFields}}
+          <label for="email">
+            {{_ "users.email.label" }}
+          </label>
+          {{> afFieldInput name="email" }}
+
+          <label for="isAdmin">
+            {{_ "users.isAdmin.label" }}
+          </label>
+          {{> afFieldInput name="isAdmin" }}
         </div>
 
         <div class="modal-footer">
