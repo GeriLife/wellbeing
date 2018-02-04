@@ -13,8 +13,11 @@ const usersEnrollSchema = new SimpleSchema({
   },
   emailAddresses: {
     type: Array,
-    regEx: SimpleSchema.RegEx.Email,
     optional: false
+  },
+  'emailAddresses.$': {
+    type: String,
+    regEx: SimpleSchema.RegEx.Email,
   }
 });
 
