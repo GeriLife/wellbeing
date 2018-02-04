@@ -54,7 +54,7 @@ Template.newActivity.helpers({
 
     return rolesOptions;
   },
-  residentIdOptions () {
+  residentsSelectOptions () {
     // Get list of homes, sorted alphabetically
     const homes = Homes.find({}, {sort: {name: 1}}).fetch();
 
