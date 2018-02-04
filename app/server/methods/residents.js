@@ -56,23 +56,6 @@ Meteor.methods({
 
     return residentsLatestActivityByType;
   },
-  'getResidentsWithoutActivityByType': function (activityTypeId) {
-    // // Get resident latest activity by type
-    // var residentLastActivityByType = Meteor.call('getResidentsLatestActivityByType', activityTypeId);
-    //
-    // // Get all resident IDs
-    // var residentIds = Residents.find({}, {fields: {_id: 1}}).fetch();
-    //
-    // // Get residents who have participated in the activity type
-    // var residentsWithPreviousActivity = _.map(residentLastActivityByType, function (resident) {
-    //   return resident._id;
-    // });
-    //
-    // // Get residents who have not participated in activity type
-    // var residentsWithoutPreviousActivity = _.difference(residentIds, residentsWithPreviousActivity);
-    //
-    // return residentsWithoutPreviousActivity;
-  },
   'getResidentRecentActivities': function (residentId) {
     // Date two weeks ago
     var twoWeeksAgo = moment().subtract(2, "weeks").toDate();
@@ -85,9 +68,9 @@ Meteor.methods({
     //  sort in reverse order by activity date
     return Activities.find({'residentIds': residentId, activityDate: {$gte: twoWeeksAgo, $lte: now}}, {sort : {activityDate:  -1} });
   },
-  'getResidentRecentActivitiesByType': function (residentId, activityTypeId) {
-    // Date two weeks ago
-    var twoWeeksAgo = moment().subtract(4, "weeks").toDate();
+  'getResidentActivitiesByTypeLast30Days': function (residentId, activityTypeId) {
+    // Date thirty days ago
+    var thirtyDaysAgo = moment().subtract(30, "days").toDate();
 
     // Date today
     var now = new Date();
@@ -98,7 +81,7 @@ Meteor.methods({
     var activities = Activities.find({
       'residentIds': residentId,
       'activityTypeId': activityTypeId,
-      activityDate: {$gte: twoWeeksAgo, $lte: now}},
+      activityDate: {$gte: thirtyDaysAgo, $lte: now}},
       {sort : {activityDate:  -1}
     }).fetch();
 
@@ -106,8 +89,8 @@ Meteor.methods({
       return activities;
     };
   },
-  'getSumOfResidentRecentActivitiesByType': function (residentId, activityTypeId) {
-    var activities = Meteor.call('getResidentRecentActivitiesByType', residentId, activityTypeId);
+  'getSumOfResidentActivitiesByTypeLast30Days': function (residentId, activityTypeId) {
+    var activities = Meteor.call('getResidentActivitiesByTypeLast30Days', residentId, activityTypeId);
 
     // Placeholder for sum of activities
     var sumOfActivities = 0;

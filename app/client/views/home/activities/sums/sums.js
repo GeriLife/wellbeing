@@ -9,7 +9,7 @@ Template.homeResidentActivitySumsByType.created = function () {
  instance.homeResidentsActivitySumsByType = new ReactiveVar();
 
   // Get home resident activity sums from server method
-  Meteor.call('getHomeResidentsActivitySumsByType', instance.homeId, function (error, activitySums) {
+  Meteor.call('getHomeResidentsActivitySumsByTypeLast30Days', instance.homeId, function (error, activitySums) {
     //Set the home resident activity sums variable with the returned activity sums
     instance.homeResidentsActivitySumsByType.set(activitySums);
   });

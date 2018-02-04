@@ -10,7 +10,6 @@ Template.homeActivityCountsByFacilitatorRole.onCreated(function () {
 
   // Call method to fetch data, assigning it to reactive variable
   Meteor.call('getHomeActivitiesFacilitatorRolesCountsLast30days', homeId, function (error, chartData) {
-    console.log('chartData', chartData);
     // update chart data reactive variable
     templateInstance.chartData.set(chartData);
   });

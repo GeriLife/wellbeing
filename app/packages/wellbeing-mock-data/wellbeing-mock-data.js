@@ -130,20 +130,110 @@ function createMockActivities() {
   }
 }
 
+
+function getRandomHomeButExcludeCurrent(currentHomeId) {
+  var homeIds = Homes.find({'_id': {'$ne' : 'currentHomeId'}}).map(function (e) { return e._id; });
+  console.log(currentHomeId);
+  console.log(homeIds);
+  return _.sample(homeIds)
+}
+
+  /*
+    This function assumes residents are already added.
+    then adds residency for every resident
+    Depending on the percentMovedOut some residents will have multiple residencies
+
+  */
+function createMockResidency(startingPoint, percentMovedOut) {
+  console.log("Creating Mock Residencies")
+  //get all residents
+  const residents = Residents.find().fetch();
+
+  //Get list of homeIds that do not equal the currentHomeId
+  const getRandomHomeButExcludeCurrent = function(currentHomeId) {
+    const homeIds = Homes.find({'_id': {$ne : currentHomeId}}).map(function (e) { return e._id; });
+    return _.sample(homeIds)
+  }
+
+  /*
+
+    Get random date from the range of today - startingpoint
+    @param start = months from today
+    creates two dates one of them being today
+    and second one being today minus months set in parameters
+  */
+ const getRandomMoveInDate = function(start) {
+    const endDate = new Date();
+    const startDate = new Date();
+    startDate.setMonth(endDate.getMonth() - start);
+    moveInDate = randomDate(endDate, startDate);
+    return moveInDate;
+  }
+
+
+  /*  this is the number from where residents are moved out. So if the percentMovedout is 0.25
+      this index will be at the 75% percent point of the resident list
+      when the loop reaches this index it will move the residents randomly either to another home or just move them out completely
+  */
+  const indexWhereMovedOut = residents.length - Math.round(residents.length * percentMovedOut)
+  residents.forEach(function(resident, index) {
+    let moveInDate = getRandomMoveInDate(startingPoint);
+    var args = { "residentId": resident._id, 'homeId': resident.homeId, 'moveIn': moveInDate }
+    if (index >= indexWhereMovedOut) {
+      let moveOutDate = randomDate(moveInDate, new Date());
+      args['moveOut'] = moveOutDate;
+      // some residents moved out permanently and some to another house >0.5 moved out permanently < 0.5 new house
+      let MovedOutPermanently = Math.random()
+      if (MovedOutPermanently < 0.5) {
+        let randomHome = getRandomHomeButExcludeCurrent(resident.homeId);
+        //move them into new house day after they left their old one( adding two days since the UTC 0:0:0 time)
+        let newMoveInDate = new Date(moveOutDate.getFullYear(), moveOutDate.getMonth(), moveOutDate.getDate() + 2);
+        let newArgs = { "residentId": resident._id, 'homeId': randomHome, 'moveIn': newMoveInDate };
+        Residencies.insert(newArgs)
+      }
+    }
+  Residencies.insert(args);
+  });
+}
+
+
 Meteor.methods({
-  'createMockData': function() {
+  'createMockData': function (start, percentMovedOut) {
     createMockGroups();
     createMockRoles();
     createMockHomes();
     createMockResidents();
     createMockActivityTypes();
     createMockActivities();
+    createMockResidency(start, percentMovedOut);
   },
-  'removeAllData': function() {
-    Groups._dropCollection();
-    Homes._dropCollection();
-    Residents._dropCollection();
-    ActivityTypes._dropCollection();
-    Activities._dropCollection();
+  'createMockGroups': function () {
+    createMockGroups();
+  },
+  'createMockRoles': function () {
+    createMockRoles();
+  },
+  'createMockHomes': function () {
+    createMockHomes();
+    createMockHomes();
+  },
+  'createMockActivities': function () {
+    createMockActivities();
+  },
+  'createMockResidency': function (start, percentMovedOut) {
+    createMockResidency(start, percentMovedOut);
+  },
+  'removeAllData': function () {
+    const currentUserId = Meteor.userId();
+    const userIsAdmin = Roles.userIsInRole(currentUserId, 'admin');
+    if(userIsAdmin) {
+      Groups._dropCollection();
+      Homes._dropCollection();
+      Residents._dropCollection();
+      ActivityTypes._dropCollection();
+      Activities._dropCollection();
+      Meteor.roles.remove({})
+      Residencies._dropCollection();
+    }
   },
 });

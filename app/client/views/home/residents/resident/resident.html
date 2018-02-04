@@ -1,11 +1,18 @@
 <template name="homeResident">
     <tr  id="resident-{{ _id }}" class="resident">
-      <td>{{ firstName }} {{ lastInitial }}</td>
-      <td class="activity-count {{ activityLabelClass }}">
-        {{ recentActiveDaysCount }}&nbsp;
+      <td>{{ resident.firstName }} {{ resident.lastInitial }}</td>
+      <td class="activity-count">
+        {{ recentActiveDaysCount }}
+      </td>
+      <td class="{{ activityLabelClass }}">
         {{#if activityLabelText }}
-        ({{ activityLabelText }})
+        {{ activityLabelText }}
         {{/ if }}
       </td>
+      {{# each day in pastSevenDays }}
+        <td>
+          {{> homeResidentActiveOnDate resident=resident day=day }}
+        </td>
+      {{/ each }}
     </tr>
 </template>
