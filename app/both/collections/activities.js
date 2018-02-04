@@ -16,7 +16,9 @@ var ActivitiesSchema = new SimpleSchema({
   residentIds: {
     type: Array,
   },
-  'residentIds.$': String,
+  'residentIds.$': {
+    type: String,
+  },
   activityTypeId: {
     type: String,
   },
