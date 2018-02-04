@@ -128,7 +128,7 @@
   "homeGroup-activityLevelsLegend-inactive": "Inactive",
   "homeGroup-activityLevelsLegend-semiActive": "Moderate",
   "homeGroup-editButton-text": "Edit",
-  "homeGroup-tableCaption": "Homes with count of residents per seven day activiy level.",
+  "homeGroup-tableCaption": "Homes with percentage of current residents for each activiy level.",
   "homeGroup-tableHeader-activityLevels": "Activity levels",
   "homeGroup-tableHeader-name": "Name",
   "homes": {
