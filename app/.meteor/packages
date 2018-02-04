@@ -8,7 +8,6 @@ aldeed:autoform@6.2.0
 dburles:collection-helpers
 iron:router
 accounts-password@1.5.0
-twbs:bootstrap
 useraccounts:bootstrap
 alanning:roles
 fortawesome:fontawesome
@@ -55,3 +54,4 @@ dynamic-import@0.2.0
 aldeed:autoform-select2@3.0.0
 tmeasday:publish-counts
 aldeed:collection2-core@2.0.0
+fourseven:scss

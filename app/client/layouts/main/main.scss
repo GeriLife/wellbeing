@@ -1,0 +1,9 @@
+@import "{}/node_modules/bootstrap/scss/bootstrap.scss";
+
+.glyphicon-minus:before {
+  content: "-";
+}
+
+.glyphicon-plus:before {
+  content: "+";
+}
