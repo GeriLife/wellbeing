@@ -1,3 +1,6 @@
+import SlimSelect from 'slim-select';
+import 'slim-select/dist/slimselect.css';
+
 AutoForm.addHooks(['newActivityForm'], {
   'onSuccess': function () {
     // Hide the modal dialogue
@@ -20,9 +23,10 @@ Template.autoForm.onRendered(function () {
     // Get a reference to the resident select field
     const residentSelect = $('[name=residentIds]');
 
-    // Activate the improved multi-select widget
-    residentSelect.selectpicker({
-      header: "Select resident(s)"
+    const select = new SlimSelect({
+      select: '[name=residentIds]',
+      placeholder: TAPi18n.__('newActivity-residentSelect-placeholder'),
+      closeOnSelect: false,
     });
   }
 });

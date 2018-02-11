@@ -12,3 +12,7 @@
   background-color: #3c8dbc !important;
   font-weight: bold;
 }
+
+#newActivityForm .ss-main {
+  padding: 0;
+}
