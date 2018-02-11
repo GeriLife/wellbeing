@@ -13,11 +13,6 @@ Template.activitiesTableResidentNamesFilter.events({
    }
 });
 
-Template.activitiesTableResidentNamesFilter.onRendered(function () {
-  // Render Bootstrap select widget on resident filter
-  $('#resident-filter').selectpicker();
-});
-
 Template.activitiesTableResidentNamesFilter.helpers({
   residentNamesGroupedtByHomes () {
     // Get list of homes, sorted alphabetically

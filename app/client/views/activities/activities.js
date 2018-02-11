@@ -15,11 +15,14 @@ Template.activities.events({
     Modal.show('newActivity');
   },
   'click #clear-filters' () {
-    // Clear value for all selectpickers
-    $('.selectpicker').selectpicker('val', null);
+    // Clear value for all filter selects
+    $('#resident-filter').val(undefined);
+    $('#activity-type-filter').val(undefined);
 
     // Trigger change event to refresh table
-    $('.selectpicker').trigger('change');
+    $('select').trigger('change');
+
+
   }
 });
 
