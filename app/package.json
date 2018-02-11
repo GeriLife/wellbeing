@@ -19,7 +19,8 @@
     "popper.js": "^1.12.9",
     "select2": "^4.0.5",
     "select2-bootstrap-theme": "0.1.0-beta.10",
-    "simpl-schema": "^1.4.1"
+    "simpl-schema": "^1.4.1",
+    "slim-select": "^1.10.0"
   },
   "devDependencies": {},
   "scripts": {
