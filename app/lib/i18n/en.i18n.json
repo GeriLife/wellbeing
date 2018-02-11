@@ -28,6 +28,7 @@
       "label": "Name"
     }
   },
+  "activitiesTableActivityTypeFilter-chooseActivityType": "Choose activity type",
   "activitiesTableResidentNamesFilter-chooseResident": "Choose resident",
   "activityTypesSettings-activityTypeTable-helpText": "For data integrity, activity types can only be removed when they are related to no recorded activities.",
   "activityTypesSettings-addActivityTypeButton": "Add Activity Type",
