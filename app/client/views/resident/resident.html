@@ -1,40 +1,39 @@
 <template name="resident">
   {{#if Template.subscriptionsReady}}
-    <h1 class="page-header">
-      <button type="button" class="btn btn-success pull-right" id="add-feeling">
-        <i class="fa fa-stethoscope"></i>
-        {{_ "resident-addFeeling-buttonText" }}
-      </button>
-      <button type="button" class="btn btn-success pull-right" id="add-activity">
-        <i class="fa fa-heartbeat"></i>
-        {{_ "resident-addActivity-buttonText" }}
-      </button>
-
+    <h1>
       {{ resident.firstName }} {{ resident.lastInitial }}
 
       {{# if isInRole 'admin' }}
-      <button id="edit-resident" class="btn btn-default">
-        {{_ "resident-editButton" }}
-      </button>
+        <!-- edit resident button -->
+        <button id="edit-resident" class="btn btn-default">
+          {{_ "resident-editButton" }}
+        </button>
       {{/ if }}
+
+      <!-- add feeling button -->
+      <button type="button" class="btn btn-success float-right" id="add-feeling">
+        <i class="fa fa-stethoscope"></i>
+        {{_ "resident-addFeeling-buttonText" }}
+      </button>
+
+      <!-- add activity button -->
+      <button type="button" class="btn btn-success float-right" id="add-activity">
+        <i class="fa fa-heartbeat"></i>
+        {{_ "resident-addActivity-buttonText" }}
+      </button>
     </h1>
+
     <div class="row">
       {{> residentFeelings residentId=resident._id }}
     </div>
-    <!-- make sure resident has activities -->
-    {{# if activities }}
-      <div class="row">
-        {{>
-          residentActivities
-          resident=resident
-          activities=activities
-        }}
-      </div>
-    {{ else }}
-      <p>
-        {{_ "resident-noRecordedActivities-text" }}
-      </p>
-    {{/ if }}
+
+    <!-- resident activities charts -->
+    {{>
+      residentActivities
+      resident=resident
+      activities=activities
+    }}
+
   {{ else }}
     {{> spinner }}
   {{/ if }}
