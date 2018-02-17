@@ -4,31 +4,44 @@
     <h2>
       {{_ "residentActivities-header" }}
     </h2>
+
     <!-- trend chart -->
     <div class="row">
       <div class="col-sm-12">
         {{> residentActivityTrendChart activities=activities }}
       </div>
     </div>
+
     <!-- histograms -->
     <div class="row">
-      <div class="col-md-6 col-sm-12">
+      <div class="col-md">
       {{> residentActivityTypesChart activities=activities }}
       </div>
-      <div class="col-md-6 col-sm-12">
+      <div class="col-md">
       {{> residentFacilitatorRolesChart activities=activities }}
       </div>
     </div>
+
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active">
-        <a href="#calendar" aria-controls="calendar" role="tab" data-toggle="tab">
-          {{_ "residentActivities-tabs-calendar" }}
+      <li class="nav-item">
+        <a
+          class="nav-link active"
+          href="#calendar"
+          aria-controls="calendar"
+          role="tab"
+          data-toggle="tab">
+            {{_ "residentActivities-tabs-calendar" }}
         </a>
       </li>
-      <li role="presentation">
-        <a href="#table" aria-controls="table" role="tab" data-toggle="tab">
-          {{_ "residentActivities-tabs-table" }}
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          href="#table"
+          aria-controls="table"
+          role="tab"
+          data-toggle="tab">
+            {{_ "residentActivities-tabs-table" }}
         </a>
       </li>
     </ul>
