@@ -25,7 +25,7 @@ callback-hook@1.1.0
 cfs:http-methods@0.0.32
 check@1.3.0
 coffeescript@1.0.17
-d3js:d3@3.4.13
+d3js:d3@3.5.5
 dburles:collection-helpers@1.1.0
 ddp@1.4.0
 ddp-client@2.3.1
@@ -83,6 +83,7 @@ mongo-livedata@1.0.12
 mrt:flash-messages@1.0.1
 npm-bcrypt@0.9.3
 npm-mongo@2.2.34
+nvd3:nvd3@1.8.2
 observe-sequence@1.0.16
 ordered-dict@1.1.0
 peppelg:bootstrap-3-modal@1.0.4
