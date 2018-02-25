@@ -6,6 +6,10 @@ Template.homeGroup.events({
     // Show the group modal (edit)
     Modal.show('groupModal', { group });
   },
+  'click .new-home' () {
+    // Show the edit home modal
+    Modal.show('newHome');
+  },
   'click .home' () {
     // Save Home ID that was clicked
     var homeId = this._id;

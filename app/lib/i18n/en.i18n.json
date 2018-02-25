@@ -142,9 +142,8 @@
     }
   },
   "homes-header": "Homes",
-  "homes-header-addNewButton": "Add new",
-  "homes-header-addNewButton-group": "Group",
-  "homes-header-addNewButton-home": "Home",
+  "homes-header-addNewButton-group": "Add Group",
+  "homes-homeGroup-addNewButton-home": "Add Home",
   "homeResident-activityLabelText-onHiatus": "on hiatus",
   "homeResidentActivitySumsByType-heading": "Activity summary by type",
   "homeResidentActivitySumsByType-subheading": "(last 30 days)",
