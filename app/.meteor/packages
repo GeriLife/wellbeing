@@ -13,7 +13,6 @@ alanning:roles
 fortawesome:fontawesome
 momentjs:moment
 mrt:flash-messages
-d3js:d3
 reactive-var@1.0.11
 aslagle:reactive-table
 sacha:spin
