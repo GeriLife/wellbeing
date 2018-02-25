@@ -1,4 +1,4 @@
-Template.editHome.created = function () {
+Template.editHome.onCreated(function () {
   // Get reference to template instance
   var instance = this;
 
@@ -13,11 +13,4 @@ Template.editHome.created = function () {
 
   // Subscribe to all groups, for the group select options
   instance.subscribe('allGroups');
-};
-
-AutoForm.addHooks(['editHomeForm'], {
-  'onSuccess': function () {
-    // Hide the modal dialogue
-    Modal.hide('editHome');
-  }
 });
