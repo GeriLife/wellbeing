@@ -15,7 +15,6 @@ reactive-var@1.0.11
 aslagle:reactive-table
 sacha:spin
 peppelg:bootstrap-3-modal
-aldeed:autoform-bs-datepicker@2.0.0
 brylie:first-user-admin
 meteor-base@1.3.0
 mobile-experience@1.0.5
