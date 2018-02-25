@@ -2,8 +2,11 @@ import moment from 'moment';
 
 Template.dateCell.helpers({
   'formattedDate': function () {
-    // Load the Finnish locale
-    moment.locale('fi');
+    // Get client locale
+    const clientLocale = TAPi18n.getLanguage();
+
+    // Load the client locale into Moment
+    moment.locale(clientLocale);
 
     // Create resident latest activity variable
     var activity = this;
