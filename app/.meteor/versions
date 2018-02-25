@@ -2,7 +2,6 @@ accounts-base@1.4.2
 accounts-password@1.5.1
 alanning:roles@1.2.16
 aldeed:autoform@6.3.0
-aldeed:autoform-bs-datepicker@2.0.0
 aldeed:collection2-core@2.1.2
 aldeed:simple-schema@1.5.3
 allow-deny@1.1.0
