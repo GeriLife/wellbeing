@@ -16,10 +16,11 @@ Template.activities.events({
   },
   'click #clear-filters' () {
     // Clear value for all selectpickers
-    $('.selectpicker').selectpicker('val', null);
+    $('#resident-filter').val(undefined);
+    $('#activity-type-filter').val(undefined);
 
     // Trigger change event to refresh table
-    $('.selectpicker').trigger('change');
+    $('select').trigger('change');
   }
 });
 
