@@ -16,8 +16,6 @@
     "jquery": "^2.2.4",
     "meteor-node-stubs": "^0.3.2",
     "moment": "^2.20.1",
-    "select2": "^4.0.5",
-    "select2-bootstrap-theme": "0.1.0-beta.10",
     "simpl-schema": "^1.4.1"
   },
   "devDependencies": {},

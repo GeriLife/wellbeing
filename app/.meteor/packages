@@ -51,6 +51,5 @@ standard-minifier-js@2.2.0
 shell-server@0.3.0
 sergeyt:dimple
 dynamic-import@0.2.0
-aldeed:autoform-select2@3.0.0
 tmeasday:publish-counts
 aldeed:collection2-core@2.0.0
