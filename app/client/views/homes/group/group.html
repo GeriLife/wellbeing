@@ -2,13 +2,19 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h2 id="{{ name }}-title" class="panel-title">
+        <i class="fa fa-cubes"></i>
+        {{ name }}
+
         {{# if isInRole 'admin' }}
-          <button type="button" class="edit-home btn btn-default btn-xs pull-right">
+          <button type="button" class="edit-home btn btn-default btn-xs">
             {{_ "homeGroup-editButton-text" }}
           </button>
+
+          <button type="button" class="new-home btn btn-primary btn-xs pull-right">
+            <i class="fa fa-home"></i>
+            {{_ "homes-homeGroup-addNewButton-home" }}
+          </button>
         {{/ if }}
-        <i class="fa fa-cubes"></i>&nbsp;
-        {{ name }}
       </h2>
     </div>
     <div class="panel-body">
