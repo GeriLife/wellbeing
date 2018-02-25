@@ -3,12 +3,7 @@
   font-weight: bold;
 }
 
-.select2-container {
-  border: solid rgb(210, 214, 222) 0.5px;
-  width: 100% !important;
-}
-
-.select2-selection__choice {
-  background-color: #3c8dbc !important;
-  font-weight: bold;
+#newActivityForm .ss-main {
+  padding: 0;
+  border-color: #fff;
 }
