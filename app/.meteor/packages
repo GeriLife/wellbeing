@@ -8,7 +8,6 @@ aldeed:autoform@6.2.0
 dburles:collection-helpers
 iron:router
 accounts-password@1.5.0
-twbs:bootstrap
 useraccounts:bootstrap
 alanning:roles
 fortawesome:fontawesome
