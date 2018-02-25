@@ -40,8 +40,8 @@ tap:i18n-ui
 standard-minifier-css@1.4.0
 standard-minifier-js@2.3.1
 shell-server@0.3.1
-sergeyt:dimple
 dynamic-import@0.3.0
 tmeasday:publish-counts
 aldeed:collection2-core@2.0.0
 aldeed:autoform
+sergeyt:dimple
