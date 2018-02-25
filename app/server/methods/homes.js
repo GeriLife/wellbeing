@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 Meteor.methods({
   'getHomeResidentIds': function (homeId) {
     // Get all residents of specific home

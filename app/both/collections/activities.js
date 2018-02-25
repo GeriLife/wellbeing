@@ -1,3 +1,4 @@
+import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
 
 Activities = new Mongo.Collection('activities');

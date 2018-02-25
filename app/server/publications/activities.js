@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 Meteor.publish('allActivities', function () {
   return Activities.find();
 });
