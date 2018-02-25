@@ -51,7 +51,7 @@ Template.activities.helpers({
           label: 'Activity Date',
           sortOrder: 0,
           sortDirection: 'descending',
-          tmpl: Template.dateCell,
+          tmpl: Template.activityDateCell,
         },
         {
           key: '_id',

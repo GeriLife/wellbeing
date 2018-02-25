@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-Template.dateCell.helpers({
+Template.activityDateCell.helpers({
   'formattedDate': function () {
     // Get client locale
     const clientLocale = TAPi18n.getLanguage();
