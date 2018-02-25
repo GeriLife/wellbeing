@@ -14,3 +14,20 @@ Template.editHome.onCreated(function () {
   // Subscribe to all groups, for the group select options
   instance.subscribe('allGroups');
 });
+
+Template.editHome.helpers({
+  groupOptions () {
+    // Get all groups
+    const groups = Groups.find().fetch();
+    
+    // Create options list of groups with label/value keys
+    const groupOptions = _.map(groups, function (group) {
+      return {
+        label: group.name,
+        value: group._id,
+      }
+    });
+
+    return groupOptions;
+  }
+})
