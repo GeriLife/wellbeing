@@ -7,8 +7,11 @@ Template.homeGroup.events({
     Modal.show('groupModal', { group });
   },
   'click .new-home' () {
-    // Show the edit home modal
-    Modal.show('newHome');
+    // Get reference to group ID
+    const groupId = this._id;
+
+    // Show the edit home modal, passing in group ID
+    Modal.show('newHome', { groupId });
   },
   'click .home' () {
     // Save Home ID that was clicked
