@@ -5,7 +5,7 @@
     </label>
     <select class="form-control" id="activity-type-filter">
       <option value="" disabled selected>
-        Choose activity type
+        {{_ "activitiesTableActivityTypeFilter-chooseActivityType" }}
       </option>
       {{# each activityType in activityTypes }}
         <option value="{{ activityType._id }}">
