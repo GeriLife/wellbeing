@@ -44,7 +44,7 @@ Template.activityTable.helpers({
         {
           key: 'activityDate',
           label: activityDateLabel,
-          tmpl: Template.dateCell,
+          tmpl: Template.activityDateCell,
           sortOrder: 0,
           sortDirection: 'descending'
         },
