@@ -1,5 +1,5 @@
 Template.homeGroup.events({
-  'click .edit-home' () {
+  'click .edit-group' () {
     // Get reference to group
     const group = this;
 
