@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 Meteor.methods({
   'getAllResidentIds': function () {
     // TODO: determine how to secure this method to prevent client abuse

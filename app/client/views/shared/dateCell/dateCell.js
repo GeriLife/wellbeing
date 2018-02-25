@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 Template.dateCell.helpers({
   'formattedDate': function () {
     // Load the Finnish locale

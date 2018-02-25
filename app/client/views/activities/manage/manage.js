@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 Template.manageActivityButtons.helpers({
   activityDateIsWithinOneWeek: function () {
     // Get activity date from template data context
