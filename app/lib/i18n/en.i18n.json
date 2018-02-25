@@ -144,6 +144,7 @@
   "homes-header": "Homes",
   "homes-header-addNewButton-group": "Add Group",
   "homes-homeGroup-addNewButton-home": "Add Home",
+  "homeGroup-noHomesAdded-text": "No homes added to Group.",
   "homeResident-activityLabelText-onHiatus": "on hiatus",
   "homeResidentActivitySumsByType-heading": "Activity summary by type",
   "homeResidentActivitySumsByType-subheading": "(last 30 days)",

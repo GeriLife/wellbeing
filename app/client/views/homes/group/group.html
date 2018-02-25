@@ -18,42 +18,11 @@
       </h2>
     </div>
     <div class="panel-body">
-      <table class="table table-compact table-striped">
-        <caption>
-          {{_ "homeGroup-tableCaption" }}
-        </caption>
-        <thead>
-          <tr>
-            <th class="col-sm-1 col-md-2">
-              <i class="fa fa-home"></i>&nbsp;
-                {{_ "homeGroup-tableHeader-name" }}
-             </th>
-            <th>
-              {{_ "homeGroup-tableHeader-activityLevels" }}
-              <div class="legend pull-right">
-                <small>
-                  <i class="fa fa-square" id="legend-inactive"></i>&nbsp;
-                  {{_ "homeGroup-activityLevelsLegend-inactive" }}
-                  <i class="fa fa-square" id="legend-semiactive"></i>&nbsp;
-                  {{_ "homeGroup-activityLevelsLegend-semiActive" }}
-                  <i class="fa fa-square" id="legend-active"></i>&nbsp;
-                  {{_ "homeGroup-activityLevelsLegend-active" }}
-                </small>
-              </div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {{# each homes }}
-            <tr id="home-{{ _id }}" class="home">
-              <td>
-                {{ name }}
-              </td>
-               {{> singleHomeActivityStatus home=this }}
-             </tr>
-          {{/ each }}
-        </tbody>
-      </table>
+      {{#if homes }}
+        {{> homeGroupHomesTable homes=homes }}
+      {{ else }}
+        {{_ "homeGroup-noHomesAdded-text" }}
+      {{/ if }}
     </div>
   </div>
 </template>
