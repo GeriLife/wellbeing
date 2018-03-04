@@ -4,18 +4,18 @@ Template.addResidencyModal.onCreated(function () {
   // Get reference to template instance
   const templateInstance = this;
 
-  // Subscribe to all residents, for the resident select options
-  templateInstance.subscribe('allResidents');
-
-  // Subscribe to all homes, for the home select options
-  templateInstance.subscribe('allHomes');
-
-  // Subscribe to all groups, so homes can be grouped in select menu
-  templateInstance.subscribe('allGroups');
-
   // Create reactive variable to hold state of 'new or existing resident' radio
   // initialize to 'new' to match template markup
   templateInstance.newOrExistingResident = new ReactiveVar('new');
+
+  // reactive placeholder for home select options with groups
+  templateInstance.homeSelectOptionsWithGroups = new ReactiveVar();
+
+  // get home select options with groups from server
+  Meteor.call('getHomeSelectOptionsWithGroups', (error, homeSelectOptionsWithGroups) => {
+    // update reactive variable with home select options
+    templateInstance.homeSelectOptionsWithGroups.set(homeSelectOptionsWithGroups)
+  });
 });
 
 Template.addResidencyModal.helpers({
@@ -41,38 +41,11 @@ Template.addResidencyModal.helpers({
   newResidentAndResidencySchema () {
     return newResidentAndResidencySchema;
   },
-  homeIdOptions: function() {
-    // Get all Groups
-    var groups = Groups.find().fetch();
+  homeSelectOptionsWithGroups () {
+    // Get reference to template instance
+    const templateInstance = Template.instance();
 
-    // Create an array of Group IDs
-    var groupIDs = _.map(groups, function (group) {
-      return group._id;
-    });
-
-    // Create select options for Homes input
-    // Grouping homes by group
-    var homeSelectOptions = _.map(groupIDs, function (groupId) {
-      // Find the name of this group
-      var groupName = Groups.findOne(groupId).name;
-
-      // Get all homes of this group
-      var groupHomes = Homes.find({groupId: groupId}).fetch();
-
-      // Create a homes array with name/ID pairs for label/value
-      var homesOptions = _.map(groupHomes, function (groupHome) {
-        // Combine resident first name and last initial
-        var homeName = groupHome.name;
-
-        // Create option for this home, with home ID as the value
-        return {label: homeName, value: groupHome._id};
-      });
-
-      // Return residents and home as option group
-      return {optgroup: groupName, options: homesOptions};
-    });
-
-    return homeSelectOptions;
+    return templateInstance.homeSelectOptionsWithGroups.get();
   },
 });
 
