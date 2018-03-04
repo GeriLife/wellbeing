@@ -6,10 +6,6 @@ Template.activityForm.created = function () {
 };
 
 Template.activityForm.helpers({
-  'today': function () {
-    // Default date today, as a string
-    return Date();
-  },
   activityTypeIdOptions: function() {
     // Get all activity types from db
     var activityTypes = ActivityTypes.find().fetch();
@@ -39,6 +35,19 @@ Template.activityForm.helpers({
     });
 
     return rolesOptions;
+  },
+  formType () {
+    // Get reference to template instance
+    const templateInstance = Template.instance();
+
+    // Check if current activity is available
+    if (templateInstance.data && templateInstance.data.currentActivity) {
+      // form type is 'update'
+      return 'update';
+    }
+
+    // Default form type is 'insert'
+    return 'insert';
   },
   residentsSelectOptions () {
     // Get list of homes, sorted alphabetically
