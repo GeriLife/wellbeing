@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 Meteor.methods({
-  'getAllResidentIds': function () {
+  getAllResidentIds () {
     // TODO: determine how to secure this method to prevent client abuse
 
     // Get all residents
@@ -14,7 +14,7 @@ Meteor.methods({
 
     return residentIds;
   },
-  'getCurrentResidentIds': function () {
+  getCurrentResidentIds () {
     // TODO: determine how to secure this method to prevent client abuse
 
     // Get all residents
@@ -27,7 +27,7 @@ Meteor.methods({
 
     return residentIds;
   },
-  'getResidentsNameHomeAndLatestActivityByType': function (activityTypeId) {
+  getResidentsNameHomeAndLatestActivityByType (activityTypeId) {
     // Get all resident IDs
     var residentIds = Meteor.call('getCurrentAllResidentIds');
 
@@ -58,7 +58,7 @@ Meteor.methods({
 
     return residentsLatestActivityByType;
   },
-  'getResidentRecentActivities': function (residentId) {
+  getResidentRecentActivities (residentId) {
     // Date two weeks ago
     var twoWeeksAgo = moment().subtract(2, "weeks").toDate();
 
@@ -70,7 +70,7 @@ Meteor.methods({
     //  sort in reverse order by activity date
     return Activities.find({'residentIds': residentId, activityDate: {$gte: twoWeeksAgo, $lte: now}}, {sort : {activityDate:  -1} });
   },
-  'getResidentActivitiesByTypeLast30Days': function (residentId, activityTypeId) {
+  getResidentActivitiesByTypeLast30Days (residentId, activityTypeId) {
     // Date thirty days ago
     var thirtyDaysAgo = moment().subtract(30, "days").toDate();
 
@@ -91,7 +91,7 @@ Meteor.methods({
       return activities;
     };
   },
-  'getSumOfResidentActivitiesByTypeLast30Days': function (residentId, activityTypeId) {
+  getSumOfResidentActivitiesByTypeLast30Days (residentId, activityTypeId) {
     var activities = Meteor.call('getResidentActivitiesByTypeLast30Days', residentId, activityTypeId);
 
     // Placeholder for sum of activities
@@ -107,7 +107,7 @@ Meteor.methods({
 
     return sumOfActivities;
   },
-  'getSumOfAllResidentRecentActivitiesByType': function (residentId) {
+  getSumOfAllResidentRecentActivitiesByType (residentId) {
     // Get all activity type IDs
     var activityTypeIds = Meteor.call('getAllActivityTypeIds');
 
@@ -137,7 +137,7 @@ Meteor.methods({
 
     return residentActivitySumsByType;
   },
-  'getAllResidentsActivitySumsByType': function () {
+  getAllResidentsActivitySumsByType () {
     // Get all resident IDs
     var residentIds = Meteor.call('getCurrentResidentIds');
 
