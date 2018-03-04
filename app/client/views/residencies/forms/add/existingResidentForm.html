@@ -1,5 +1,5 @@
 <template name="addResidencyForExistingResidentForm">
-  {{#autoForm id="addResidencyForm" type="insert" collection="Residencies" }}
+  {{#autoForm id="addResidencyForExistingResident" type="insert" collection="Residencies" }}
     <label for="residentId">
       {{_ "residencies.residentId.label" }}
     </label>
@@ -26,6 +26,5 @@
     <button type="button" class="btn btn-danger" data-dismiss="modal">
       {{_ "addResidencyForm-cancel" }}
     </button>
-
   {{/ autoForm }}
 </template>

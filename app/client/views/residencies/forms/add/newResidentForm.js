@@ -1,4 +1,7 @@
-Template.addResidencyForExistingResidentForm.onCreated(function () {
+import newResidentAndResidencySchema from '/both/schemas/newResidentAndResidencySchema';
+
+Template.addResidencyForNewResidentForm.onCreated(function () {
+  // Get reference to template instance
   const templateInstance = this;
 
   // reactive placeholder for home select options with groups
@@ -9,27 +12,17 @@ Template.addResidencyForExistingResidentForm.onCreated(function () {
     // update reactive variable with home select options
     templateInstance.homeSelectOptionsWithGroups.set(homeSelectOptionsWithGroups)
   });
-});
+})
 
-Template.addResidencyForExistingResidentForm.helpers({
+Template.addResidencyForNewResidentForm.helpers({
+  newResidentAndResidencySchema () {
+    return newResidentAndResidencySchema;
+  },
   homeSelectOptionsWithGroups () {
     // Get reference to template instance
     const templateInstance = Template.instance();
 
-    // Get home select options with groups
-    return templateInstance.homeSelectOptionsWithGroups.get()
-  },
-  residentIdOptions () {
-    // Get all residents
-    const residents = Residents.find({}, {sort: {firstName: 1, lastInitial: 1}}).fetch();
-
-    // create options list for select
-    residentOptions = _.map(residents, function (resident) {
-      // Create option for this resident, with ID as the value
-      return {label: resident.fullName(), value: resident._id};
-    });
-
-    return residentOptions;
+    return templateInstance.homeSelectOptionsWithGroups.get();
   },
   today () {
     // Default date today, as a string

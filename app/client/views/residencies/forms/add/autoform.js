@@ -1,5 +1,5 @@
 AutoForm.hooks({
-  'addNewResidentAndResidency': {
+  addNewResidentAndResidency: {
     onSuccess (formType, success) {
       // check if submission was successful
       if (success) {
@@ -8,4 +8,13 @@ AutoForm.hooks({
       }
     },
   },
+  addResidencyForExistingResident: {
+    onSuccess (formType, success) {
+      // check if submission was successful
+      if (success) {
+        // Hide modal dialogue
+        Modal.hide('addResidencyModal');
+      }
+    },
+  }
 });
