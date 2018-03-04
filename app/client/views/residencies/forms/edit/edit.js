@@ -5,6 +5,9 @@ Template.editResidencyModal.onCreated(function () {
   // Get resident and home IDs
   const { residentId, homeId } = templateInstance.data;
 
+  // Create options list for residentId select
+  templateInstance.residentIdSelectOptions = new ReactiveVar();
+
   // Subscribe to single residency, if available
   templateInstance.subscribe('singleResidency', residentId, homeId);
 
@@ -16,6 +19,11 @@ Template.editResidencyModal.onCreated(function () {
 
   // Subscribe to all groups, so homes can be grouped in select menu
   templateInstance.subscribe('allGroups');
+
+  Meteor.call('getAllResidentSelectOptions', (error, residentIdSelectOptions) => {
+    // update the resident ID select options reactive variable
+    templateInstance.residentIdSelectOptions.set(residentIdSelectOptions);
+  })
 });
 
 Template.editResidencyModal.helpers({
@@ -36,4 +44,10 @@ Template.editResidencyModal.helpers({
       return Residencies.findOne({ residentId, homeId })
     }
   },
+  residentIdOptions () {
+    // Get reference to template instance
+    const templateInstance = Template.instance();
+
+    return templateInstance.residentIdSelectOptions.get();
+  }
 });
