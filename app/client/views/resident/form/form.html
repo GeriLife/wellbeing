@@ -15,28 +15,28 @@
         {{#autoForm id="residentForm" type=formType collection="Residents" doc=resident  }}
 
         <div class="modal-body">
+          <!-- First name -->
           <label for="firstName">
             {{_ "residents.firstName.label" }}
           </label>
           {{> afFieldInput name="firstName"}}
 
+          <!-- Last initial -->
           <label for="lastInitial">
             {{_ "residents.lastInitial.label" }}
           </label>
           {{> afFieldInput name="lastInitial"}}
 
-          <label for="onHiatus">
-            {{_ "residents.onHiatus.label" }}
-          </label>
-          {{> afFieldInput name="onHiatus"}}
+          <!-- On hiatus -->
+          <input type="checkbox" name="onHiatus"> {{_ "residents.onHiatus.label" }}
+
           <p class="help-block">
             {{_ "residentForm-onHiatus-helpText" }}
           </p>
 
-          <label for="departed">
-            {{_ "residents.departed.label" }}
-          </label>
-          {{> afFieldInput name="departed"}}
+          <!-- Departed -->
+          <input type="checkbox" name="departed"> {{_ "residents.departed.label" }}
+
           <p class="help-block">
             {{_ "residentForm-departed-helpText" }}
           </p>
