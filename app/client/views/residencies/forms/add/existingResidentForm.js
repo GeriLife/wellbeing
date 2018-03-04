@@ -1,4 +1,4 @@
-Template.addResidencyForm.onCreated(function () {
+Template.addResidencyForExistingResidentForm.onCreated(function () {
   const templateInstance = this;
 
   // reactive placeholder for home select options with groups
@@ -11,11 +11,11 @@ Template.addResidencyForm.onCreated(function () {
   });
 });
 
-Template.addResidencyForm.helpers({
+Template.addResideaddResidencyForExistingResidentFormncyForm.helpers({
   homeSelectOptionsWithGroups () {
     // Get reference to template instance
     const templateInstance = Template.instance();
-    
+
     // Get home select options with groups
     return templateInstance.homeSelectOptionsWithGroups.get()
   },
