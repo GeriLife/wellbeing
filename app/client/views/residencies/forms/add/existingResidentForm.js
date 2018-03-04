@@ -11,7 +11,7 @@ Template.addResidencyForExistingResidentForm.onCreated(function () {
   });
 });
 
-Template.addResideaddResidencyForExistingResidentFormncyForm.helpers({
+Template.addResidencyForExistingResidentForm.helpers({
   homeSelectOptionsWithGroups () {
     // Get reference to template instance
     const templateInstance = Template.instance();
