@@ -34,7 +34,7 @@
   "activityForm-residentSelect-placeholder": "Select resident(s)",
   "activityForm-save": "Save",
   "activityForm-success": "Activity added",
-  "activityFormModal-header": "Create new activity",
+  "activityFormModal-header": "Activity",
   "activityTypesSettings-activityTypeTable-helpText": "For data integrity, activity types can only be removed when they are related to no recorded activities.",
   "activityTypesSettings-addActivityTypeButton": "Add Activity Type",
   "activityTypesSettings-header": "Activity Types",
