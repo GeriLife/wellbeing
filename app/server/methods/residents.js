@@ -156,5 +156,25 @@ Meteor.methods({
     allResidentActivitySumsByTypeFlattened = _.flatten(allResidentActivitySumsByType)
 
     return allResidentActivitySumsByTypeFlattened;
-  }
+  },
+  getAllResidentSelectOptions () {
+    /*
+    return an array of resident objects in the form of:
+       label: firstName lastInitial
+       value: residentId
+   */
+
+   // Get all residents
+   const residents = Residents.find().fetch();
+
+   // Create array of resident select options
+   const residentSelectOptions = _.map(residents, (resident) => {
+     return {
+       label: `${resident.firstName} ${resident.lastInitial}`,
+       value: resident._id,
+     }
+   });
+
+   return residentSelectOptions;
+  },
 });
