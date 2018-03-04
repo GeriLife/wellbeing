@@ -31,7 +31,7 @@
     "activityForm-residentSelect-placeholder": "Valitse asukas(asukkaat)",
     "activityForm-save": "Tallenna",
     "activityForm-success": "Aktiviteetti lis\u00e4tty",
-    "activityFormModal-header": "Luo uusi aktiviteetti",
+    "activityFormModal-header": "Aktiviteetti",
     "activityTypes": {
         "name": {
             "label": "Nimi"
