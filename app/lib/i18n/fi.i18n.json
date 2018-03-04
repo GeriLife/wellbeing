@@ -27,6 +27,11 @@
     "activities-filterActivities-homeFilterLabel": "Ryhm\u00e4koti",
     "activities-filterActivities-residentFilterLabel": "Asukas",
     "activities-filterActivities-showOnlyLatest": "N\u00e4yt\u00e4 vain viimeisin",
+    "activityForm-cancel": "Peruuta",
+    "activityForm-residentSelect-placeholder": "Valitse asukas(asukkaat)",
+    "activityForm-save": "Tallenna",
+    "activityForm-success": "Aktiviteetti lis\u00e4tty",
+    "activityFormModal-header": "Luo uusi aktiviteetti",
     "activityTypes": {
         "name": {
             "label": "Nimi"
@@ -282,11 +287,6 @@
     "mainLayoutNavbar-profileLink": "Profiili",
     "mainLayoutNavbar-residentsLink": "Asukkaat",
     "mainLayoutNavbar-settingsLink": "Asetukset",
-    "newActivity-cancel": "Peruuta",
-    "newActivity-header": "Luo uusi aktiviteetti",
-    "newActivity-residentSelect-placeholder": "Valitse asukas(asukkaat)",
-    "newActivity-save": "Tallenna",
-    "newActivity-success": "Aktiviteetti lis\u00e4tty",
     "newActivityType-cancelButton": "Peruuta",
     "newActivityType-header": "Luo uusi aktiviteettityyppi",
     "newActivityType-saveButton": "Tallenna",

@@ -1,0 +1,42 @@
+<template name="activityForm">
+  {{# autoForm id="activityForm" type="insert" collection="Activities"  }}
+    <div class="modal-body">
+      <label for="activityTypeId">
+        {{_ 'activities.residentIds.label'}}
+      </label>
+      {{> afFieldInput
+          name="residentIds"
+          multiple=true
+          options=residentsSelectOptions
+          value=residentIds
+      }}
+
+      <label for="activityTypeId">
+        {{_ 'activities.activityTypeId.label'}}
+      </label>
+      {{> afFieldInput name="activityTypeId" options=activityTypeIdOptions }}
+
+      <label for="activityDate">
+        {{_ 'activities.activityDate.label'}}
+      </label>
+      {{> afFieldInput name="activityDate" buttonClasses="fa fa-calendar" value=today }}
+
+      <label for="duration">
+        {{_ 'activities.duration.label'}}
+      </label>
+      {{> afFieldInput name="duration"}}
+
+      <label for="facilitatorRoleId">
+        {{_ 'activities.facilitatorRoleId.label'}}
+      </label>
+      {{> afFieldInput name="facilitatorRoleId" options=facilitatorRoleIdOptions }}
+    </div>
+
+    <button type="submit" class="btn btn-success">
+      {{_ "activityForm-save" }}
+    </button>
+    <button type="button" class="btn btn-danger" data-dismiss="modal">
+      {{_ "activityForm-cancel" }}
+    </button>
+  {{/ autoForm }}
+</template>
