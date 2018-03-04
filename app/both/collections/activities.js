@@ -27,7 +27,8 @@ var ActivitiesSchema = new SimpleSchema({
     type: Date,
     min: function () {
       // Only allow activities to be recorded for the past seven days
-      return moment().subtract(7, "days").toDate();
+      // based on end of current day
+      return new moment().endOf('day').subtract(7, 'days').toDate();
 
     },
     max: function () {
