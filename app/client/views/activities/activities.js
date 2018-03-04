@@ -12,7 +12,7 @@ Template.activities.onCreated(function () {
 Template.activities.events({
   'click #add-activity' () {
     // Show the add activity modal
-    Modal.show('newActivity');
+    Modal.show('activityFormModal');
   },
   'click #clear-filters' () {
     // Clear value for all selectpickers

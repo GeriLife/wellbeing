@@ -1,12 +1,12 @@
 import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.min.css';
 
-AutoForm.addHooks(['newActivityForm'], {
+AutoForm.addHooks(['activityForm'], {
   'onSuccess': function () {
     // Hide the modal dialogue
-    Modal.hide('newActivity');
+    Modal.hide('activityForm');
 
-    const successMessage = TAPi18n.__("newActivity-success");
+    const successMessage = TAPi18n.__("activityForm-success");
 
     const successMessageWithIcon = '<i class="fa fa-check"></i> ' + successMessage
 
@@ -19,9 +19,9 @@ Template.autoForm.onRendered(function () {
   const instance = this;
 
   // Make sure the new activity form is being rendered
-  if (instance.data.id === "newActivityForm") {
+  if (instance.data.id === "activityForm") {
     // Get localized placeholder text
-    const placeholder = TAPi18n.__('newActivity-residentSelect-placeholder');
+    const placeholder = TAPi18n.__('activityForm-residentSelect-placeholder');
 
     // Render multi-select widget on 'select residents' field
     new SlimSelect({

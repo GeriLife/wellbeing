@@ -1,11 +1,11 @@
-Template.newActivity.created = function () {
+Template.activityForm.created = function () {
   this.subscribe('allCurrentResidents');
   this.subscribe('allHomes');
   this.subscribe('allActivityTypes');
   this.subscribe('allRolesExceptAdmin');
 };
 
-Template.newActivity.helpers({
+Template.activityForm.helpers({
   'today': function () {
     // Default date today, as a string
     return Date();
