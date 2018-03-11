@@ -2,11 +2,19 @@ import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.min.css';
 
 AutoForm.addHooks(['activityForm'], {
-  'onSuccess': function () {
+  'onSuccess': function (formType) {
     // Hide the modal dialogue
     Modal.hide('activityForm');
 
-    const successMessage = TAPi18n.__("activityForm-success");
+    // placeholder for success message text
+    let successMessage;
+
+    // Get relevant success message for form type
+    if (formType === 'update') {
+      successMessage = TAPi18n.__("activityForm-update-success");
+    } else {
+      successMessage = TAPi18n.__("activityForm-add-success");
+    }
 
     const successMessageWithIcon = '<i class="fa fa-check"></i> ' + successMessage
 
