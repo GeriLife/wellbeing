@@ -41,7 +41,7 @@ Template.activityForm.helpers({
     const templateInstance = Template.instance();
 
     // Check if current activity is available
-    if (templateInstance.data && templateInstance.data.currentActivity) {
+    if (templateInstance.data && templateInstance.data.activity) {
       // form type is 'update'
       return 'update';
     }

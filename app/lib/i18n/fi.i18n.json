@@ -30,7 +30,7 @@
     "activityForm-cancel": "Peruuta",
     "activityForm-residentSelect-placeholder": "Valitse asukas(asukkaat)",
     "activityForm-save": "Tallenna",
-    "activityForm-success": "Aktiviteetti lis\u00e4tty",
+    "activityForm-add-success": "Aktiviteetti lis\u00e4tty",
     "activityFormModal-header": "Aktiviteetti",
     "activityTypes": {
         "name": {
