@@ -1,5 +1,6 @@
 import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
+import UserEventLog from '/both/collections/userEventLog';
 
 Activities = new Mongo.Collection('activities');
 
@@ -133,4 +134,34 @@ Activities.allow({
       return false;
     }
   }
+});
+
+Activities.after.insert(function (userId, activity) {
+  // Add event log
+  UserEventLog.insert({
+    userId,
+    action: 'insert',
+    entityType: 'activity',
+    entityId: activity._id,
+  })
+});
+
+Activities.after.update(function (userId, activity) {
+  // Add event log
+  UserEventLog.insert({
+    userId,
+    action: 'update',
+    entityType: 'activity',
+    entityId: activity._id,
+  })
+});
+
+Activities.after.remove(function (userId, activity) {
+  // Add event log
+  UserEventLog.insert({
+    userId,
+    action: 'remove',
+    entityType: 'activity',
+    entityId: activity._id,
+  })
 });
