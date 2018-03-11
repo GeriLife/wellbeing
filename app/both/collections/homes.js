@@ -1,4 +1,5 @@
 import SimpleSchema from 'simpl-schema';
+import UserEventLog from '/both/collections/userEventLog';
 
 Homes = new Mongo.Collection('homes');
 

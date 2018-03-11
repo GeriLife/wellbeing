@@ -1,5 +1,6 @@
 import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
+import UserEventLog from '/both/collections/userEventLog';
 
 Residents = new Mongo.Collection('residents');
 
