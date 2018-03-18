@@ -1,0 +1,15 @@
+<template name="userEventLog">
+  <section class="content-header">
+    <h1>
+      <i class="fa fa-list-alt"></i>&nbsp;
+      {{_ "userEventLog-header" }}
+     </h1>
+  </section>
+  <section class="content">
+    <div class="box box-primary">
+      <div class="box-body">
+        {{> reactiveTable collection="userEventLog-paginated" settings=tableSettings }}
+      </div>
+    </div>
+  </section>
+</template>
