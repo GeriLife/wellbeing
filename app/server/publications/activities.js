@@ -4,7 +4,13 @@ Meteor.publish('allActivities', function () {
   return Activities.find();
 });
 
-ReactiveTable.publish('allActivities-paginated', Activities);
+ReactiveTable.publish('allActivities-paginated', function () {
+  if (this.userId) {
+      return Activities;
+    } else {
+      return [];
+    }
+});
 
 Meteor.publish('singleActivity', function (activityId) {
   return Activities.find(activityId);
