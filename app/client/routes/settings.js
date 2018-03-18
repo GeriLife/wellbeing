@@ -50,6 +50,16 @@ Router.route('/settings/roles', function () {
 });
 
 /*
+User event log
+*/
+Router.route('/settings/event-log', function () {
+  this.layout('settingsLayout');
+  this.render('userEventLog');
+}, {
+  name: 'userEventLog'
+});
+
+/*
 Users
 */
 Router.route('/settings/users', function () {
