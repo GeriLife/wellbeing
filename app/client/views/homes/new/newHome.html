@@ -4,18 +4,32 @@
       <div class="modal-content">
         {{# if Template.subscriptionsReady }}
         <div class="modal-header">
-          <h4 class="modal-title"><i class="fa fa-home"></i> Create new home</h4>
+          <h2 class="modal-title">
+            <i class="fa fa-home"></i>
+            {{_ "newHome-header-text" }}
+          </h2>
         </div>
-        {{#autoForm id="newHomeForm" type="insert" collection="Homes"  }}
+        {{#autoForm id="newHomeForm" type="insert" collection="Homes" }}
 
         <div class="modal-body">
-          {{> afQuickField name="name"}}
-          {{> afQuickField name="groupId"}}
+          <label for="name">
+            {{_ "homes.name.label" }}
+          </label>
+          {{> afFieldInput name="name"}}
+
+          <label for="groupId">
+            {{_ "homes.groupId.label" }}
+          </label>
+          {{> afFieldInput name="groupId" options=groupIdOptions value=groupId }}
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Save</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success">
+            {{_ "newHome-saveButton-text" }}
+          </button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            {{_ "newHome-cancelButton-text" }}
+          </button>
         </div>
         {{/ autoForm }}
         {{ else }}

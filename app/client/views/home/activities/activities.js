@@ -60,7 +60,7 @@ Template.homeActivities.helpers({
         {
           key: 'activityDate',
           label: 'Activity Date',
-          tmpl: Template.dateCell,
+          tmpl: Template.activityDateCell,
           sortOrder: 0,
           sortDirection: 'descending'
         },

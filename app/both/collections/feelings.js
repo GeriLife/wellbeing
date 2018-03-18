@@ -1,3 +1,5 @@
+import SimpleSchema from 'simpl-schema';
+
 Feelings = new Mongo.Collection("feelings");
 
 Feelings.Schema = new SimpleSchema({
@@ -16,14 +18,8 @@ Feelings.Schema = new SimpleSchema({
 
       return currentDate;
     },
-    autoform: {
-      type: "hidden"
-    }
   }
 });
-
-// Add i18n tags
-Feelings.Schema.i18n("feelings");
 
 Feelings.attachSchema(Feelings.Schema);
 

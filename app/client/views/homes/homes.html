@@ -1,31 +1,10 @@
 <template name="homes">
   <div class="page-header">
     {{# if isInRole 'admin' }}
-    <div class="btn-group pull-right">
-      <button
-        type="button"
-        class="btn btn-primary dropdown-toggle"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false">
-        {{_ "homes-header-addNewButton" }}&nbsp;
-        <span class="caret"></span>
+      <button id="new-group" class="btn btn-primary pull-right">
+        <i class="fa fa-cubes"></i>&nbsp;
+        {{_ "homes-header-addNewButton-group" }}
       </button>
-      <ul class="dropdown-menu">
-        <li>
-          <a id="new-group">
-            <i class="fa fa-cubes"></i>&nbsp;
-            {{_ "homes-header-addNewButton-group" }}
-          </a>
-        </li>
-        <li>
-          <a id="new-home">
-            <i class="fa fa-home"></i>&nbsp;
-            {{_ "homes-header-addNewButton-home" }}
-          </a>
-        </li>
-      </ul>
-    </div>
     {{/ if }}
     <h1>
       <i class="fa fa-home"></i>&nbsp;

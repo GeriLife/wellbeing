@@ -27,6 +27,11 @@
     "activities-filterActivities-homeFilterLabel": "Ryhm\u00e4koti",
     "activities-filterActivities-residentFilterLabel": "Asukas",
     "activities-filterActivities-showOnlyLatest": "N\u00e4yt\u00e4 vain viimeisin",
+    "activityForm-cancel": "Peruuta",
+    "activityForm-residentSelect-placeholder": "Valitse asukas(asukkaat)",
+    "activityForm-save": "Tallenna",
+    "activityForm-add-success": "Aktiviteetti lis\u00e4tty",
+    "activityFormModal-header": "Aktiviteetti",
     "activityTypes": {
         "name": {
             "label": "Nimi"
@@ -152,9 +157,8 @@
         }
     },
     "homes-header": "Kodit",
-    "homes-header-addNewButton": "Lis\u00e4\u00e4 uusi",
-    "homes-header-addNewButton-group": "Ryhm\u00e4",
-    "homes-header-addNewButton-home": "Koti",
+    "homes-header-addNewButton-group": "Lis\u00e4\u00e4 Ryhm\u00e4",
+    "homes-homeGroup-addNewButton-home": "Lis\u00e4\u00e4 Koti",
     "homeResident-activityLabelText-onHiatus": "Keskeytys",
     "homeResidentActivitySumsByType-heading": "Aktiviteettien yhteenveto tyypin mukaan",
     "homeResidentActivitySumsByType-subheading": "(viimeiset 30 p\u00e4iv\u00e4\u00e4)",
@@ -283,11 +287,6 @@
     "mainLayoutNavbar-profileLink": "Profiili",
     "mainLayoutNavbar-residentsLink": "Asukkaat",
     "mainLayoutNavbar-settingsLink": "Asetukset",
-    "newActivity-cancel": "Peruuta",
-    "newActivity-header": "Luo uusi aktiviteetti",
-    "newActivity-residentSelect-placeholder": "Valitse asukas(asukkaat)",
-    "newActivity-save": "Tallenna",
-    "newActivity-success": "Aktiviteetti lis\u00e4tty",
     "newActivityType-cancelButton": "Peruuta",
     "newActivityType-header": "Luo uusi aktiviteettityyppi",
     "newActivityType-saveButton": "Tallenna",

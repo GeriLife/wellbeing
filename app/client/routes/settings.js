@@ -40,16 +40,6 @@ Router.route('/settings/datetime', function () {
 });
 
 /*
-Residencies
-*/
-Router.route('/settings/residencies', function () {
-  this.layout('settingsLayout');
-  this.render('residenciesSettings');
-}, {
-  name: 'residenciesSettings'
-});
-
-/*
 Roles
 */
 Router.route('/settings/roles', function () {

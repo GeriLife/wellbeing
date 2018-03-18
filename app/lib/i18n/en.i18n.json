@@ -28,6 +28,14 @@
       "label": "Name"
     }
   },
+  "activitiesTableActivityTypeFilter-chooseActivityType": "Choose activity type",
+  "activitiesTableResidentNamesFilter-chooseResident": "Choose resident",
+  "activityForm-cancel": "Cancel",
+  "activityForm-residentSelect-placeholder": "Select resident(s)",
+  "activityForm-save": "Save",
+  "activityForm-add-success": "Activity added",
+  "activityFormModal-header": "Activity",
+  "activityForm-update-success": "Activity updated",
   "activityTypesSettings-activityTypeTable-helpText": "For data integrity, activity types can only be removed when they are related to no recorded activities.",
   "activityTypesSettings-addActivityTypeButton": "Add Activity Type",
   "activityTypesSettings-header": "Activity Types",
@@ -140,9 +148,9 @@
     }
   },
   "homes-header": "Homes",
-  "homes-header-addNewButton": "Add new",
-  "homes-header-addNewButton-group": "Group",
-  "homes-header-addNewButton-home": "Home",
+  "homes-header-addNewButton-group": "Add Group",
+  "homes-homeGroup-addNewButton-home": "Add Home",
+  "homeGroup-noHomesAdded-text": "No homes added to Group.",
   "homeResident-activityLabelText-onHiatus": "on hiatus",
   "homeResidentActivitySumsByType-heading": "Activity summary by type",
   "homeResidentActivitySumsByType-subheading": "(last 30 days)",
@@ -165,6 +173,9 @@
   "newFeeling-header": "Record new feeling",
   "newFeeling-save": "Save",
   "newFeeling-success": "Successfully recorded feeling",
+  "newHome-cancelButton-text": "Cancel",
+  "newHome-header-text": "Create new home",
+  "newHome-saveButton-text": "Save",
   "newResidentAndResidencySchema-homeId-label": "Home",
   "newUser-cancelButton": "Cancel",
   "newUser-header": "Create new User",
@@ -269,11 +280,6 @@
   "mainLayoutNavbar-profileLink": "Profile",
   "mainLayoutNavbar-residentsLink": "Residents",
   "mainLayoutNavbar-settingsLink": "Settings",
-  "newActivity-cancel": "Cancel",
-  "newActivity-header": "Create new activity",
-  "newActivity-residentSelect-placeholder": "Select resident(s)",
-  "newActivity-save": "Save",
-  "newActivity-success": "Activity added",
   "newActivityType-cancelButton": "Cancel",
   "newActivityType-header": "Create new Activity Type",
   "newActivityType-saveButton": "Save",
@@ -296,6 +302,17 @@
   "usersEnroll-form-submitButton-text": "Send invite(s)",
   "usersEnroll-header-text": "Enroll users",
   "usersEnroll-introduction-text": "Create one or more user accounts and send an activation email.",
+  "users": {
+    "email": {
+      "label": "Email"
+    },
+    "password": {
+      "label": "Password"
+    },
+    "isAdmin": {
+      "label": "System administrator"
+    }
+  },
   "usersEnrollSchema": {
     "subject": {
       "label": "Subject"

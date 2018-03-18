@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 Template.homeResidentActiveOnDate.onCreated(function () {
   const templateInstance = this;
 

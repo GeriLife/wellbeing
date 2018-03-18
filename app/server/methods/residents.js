@@ -1,5 +1,7 @@
+import moment from 'moment';
+
 Meteor.methods({
-  'getAllResidentIds': function () {
+  getAllResidentIds () {
     // TODO: determine how to secure this method to prevent client abuse
 
     // Get all residents
@@ -12,7 +14,7 @@ Meteor.methods({
 
     return residentIds;
   },
-  'getCurrentResidentIds': function () {
+  getCurrentResidentIds () {
     // TODO: determine how to secure this method to prevent client abuse
 
     // Get all residents
@@ -25,7 +27,7 @@ Meteor.methods({
 
     return residentIds;
   },
-  'getResidentsNameHomeAndLatestActivityByType': function (activityTypeId) {
+  getResidentsNameHomeAndLatestActivityByType (activityTypeId) {
     // Get all resident IDs
     var residentIds = Meteor.call('getCurrentAllResidentIds');
 
@@ -56,7 +58,7 @@ Meteor.methods({
 
     return residentsLatestActivityByType;
   },
-  'getResidentRecentActivities': function (residentId) {
+  getResidentRecentActivities (residentId) {
     // Date two weeks ago
     var twoWeeksAgo = moment().subtract(2, "weeks").toDate();
 
@@ -108,7 +110,7 @@ Meteor.methods({
 
     return sumOfActivities;
   },
-  'getSumOfAllResidentRecentActivitiesByType': function (residentId) {
+  getSumOfAllResidentRecentActivitiesByType (residentId) {
     // Get all activity type IDs
     var activityTypeIds = Meteor.call('getAllActivityTypeIds');
 
@@ -138,7 +140,7 @@ Meteor.methods({
 
     return residentActivitySumsByType;
   },
-  'getAllResidentsActivitySumsByType': function () {
+  getAllResidentsActivitySumsByType () {
     // Get all resident IDs
     var residentIds = Meteor.call('getCurrentResidentIds');
 
@@ -157,5 +159,25 @@ Meteor.methods({
     allResidentActivitySumsByTypeFlattened = _.flatten(allResidentActivitySumsByType)
 
     return allResidentActivitySumsByTypeFlattened;
-  }
+  },
+  getAllResidentSelectOptions () {
+    /*
+    return an array of resident objects in the form of:
+       label: firstName lastInitial
+       value: residentId
+   */
+
+   // Get all residents
+   const residents = Residents.find().fetch();
+
+   // Create array of resident select options
+   const residentSelectOptions = _.map(residents, (resident) => {
+     return {
+       label: `${resident.firstName} ${resident.lastInitial}`,
+       value: resident._id,
+     }
+   });
+
+   return residentSelectOptions;
+  },
 });

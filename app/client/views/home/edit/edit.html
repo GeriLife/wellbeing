@@ -8,11 +8,18 @@
             {{_ "editHome-title" }}
           </h4>
         </div>
-        {{#autoForm id="editHomeForm" type="update" collection="Homes" doc=this  }}
+        {{#autoForm id="editHomeForm" type="update" collection="Homes" doc=this }}
 
         <div class="modal-body">
-          {{> afQuickField name="name"}}
-          {{> afQuickField name="groupId"}}
+          <label for="name">
+            {{_ "homes.name.label" }}
+          </label>
+          {{> afFieldInput name="name"}}
+
+          <label for="groupId">
+            {{_ "homes.groupId.label" }}
+          </label>
+          {{> afFieldInput name="groupId" options=groupOptions }}
         </div>
 
         <div class="modal-footer">
