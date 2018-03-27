@@ -34,7 +34,7 @@ Meteor.methods({
     ).fetch();
 
     // Create an array containing only resident IDs
-    var residentIds = _.map(residents, function (resident) {
+    const residentIds = _.map(residents, function (resident) {
       return resident._id;
     });
 
@@ -91,9 +91,8 @@ Meteor.methods({
     return homeActivitiesArray;
   },
   'getHomeResidentsActivitySumsByType': function (homeId, date = null) {
-    console.log(date);
     // Get all activity types
-    var activityTypes = ActivityTypes.find({}, {sort: {name: 1}}).fetch();
+    const activityTypes = ActivityTypes.find({}, {sort: {name: 1}}).fetch();
 
     // Get all resident IDs
     var residentIds = Meteor.call('getHomeCurrentResidentIds', homeId);

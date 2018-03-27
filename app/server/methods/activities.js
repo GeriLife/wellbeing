@@ -80,7 +80,6 @@ Meteor.methods({
 
     // Get activties documents cursor
     const activities = Activities.find(query).fetch();
-    console.log(activities)
     // Create an array of activity IDs
     const activityIds = _.map(activities, function (activity) {
       return activity._id;

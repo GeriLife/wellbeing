@@ -81,7 +81,7 @@ Meteor.methods({
     // Get all activities of a specific type involving resident
     // make sure activities are in the past (i.e. not planned)
     //  sort in reverse order by activity date
-    let activities = Activities.find({
+    const activities = Activities.find({
       'residentIds': residentId,
       'activityTypeId': activityTypeId,
       activityDate: {$gte: startDate, $lte: endDate}},

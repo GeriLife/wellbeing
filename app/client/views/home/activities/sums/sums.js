@@ -5,12 +5,7 @@ Template.homeResidentActivitySumsByType.created = function () {
     instance.homeId = Router.current().params.homeId;
     // set up home resident activity sums by type reactive variable
     instance.homeResidentsActivitySumsByType = new ReactiveVar();
-    //instance.date = instance.data.date;
-    // Get home resident activity sums from server method
-    Meteor.call('getHomeResidentsActivitySumsByType', instance.homeId,instance.data.date.get(), function (error, activitySums) {
-        //Set the home resident activity sums variable with the returned activity sums
-        instance.homeResidentsActivitySumsByType.set(activitySums);
-    });
+
     instance.autorun(
         function () {
             let date = instance.data.date.get();
@@ -59,7 +54,6 @@ Template.homeResidentActivitySumsByType.rendered = function () {
     instance.autorun(function () {
         // Get the chart data
         var homeResidentsActivitySumsByType = instance.homeResidentsActivitySumsByType.get();
-        console.log(homeResidentsActivitySumsByType);
         if (homeResidentsActivitySumsByType !== undefined) {
             // render the chart when data is available
             d3.select('#residentActivitiesSummary svg')
