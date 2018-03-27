@@ -3,8 +3,10 @@
     <label for="resident-filter">
       {{_ "activities-filterActivities-residentFilterLabel" }}
     </label>
-    <select class="form-control selectpicker" id="resident-filter">
-      <option value="" disabled selected>Choose resident</option>
+    <select class="form-control" id="resident-filter">
+      <option value="" disabled selected>
+        {{_ "activitiesTableResidentNamesFilter-chooseResident" }}
+      </option>
       {{# each item in residentNamesGroupedtByHomes }}
         <optgroup label="{{ item.optgroup }}">
           {{# each option in item.options }}

@@ -11,7 +11,10 @@
         {{# autoForm id="newRoleForm" type="insert" collection="Meteor.roles"  }}
 
         <div class="modal-body">
-          {{> afQuickField name="name"}}
+          <label for="name">
+            {{_ "roles.name.label" }}
+          </label>
+          {{> afFieldInput name="name"}}
         </div>
 
         <div class="modal-footer">

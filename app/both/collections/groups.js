@@ -1,3 +1,5 @@
+import SimpleSchema from 'simpl-schema';
+
 Groups = new Mongo.Collection('groups');
 
 var GroupsSchema = new SimpleSchema({
@@ -5,9 +7,6 @@ var GroupsSchema = new SimpleSchema({
     type: String
   }
 });
-
-// Add i18n tags
-GroupsSchema.i18n("groups");
 
 Groups.attachSchema(GroupsSchema);
 

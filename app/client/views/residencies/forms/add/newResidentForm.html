@@ -1,0 +1,35 @@
+<template name="addResidencyForNewResidentForm">
+  {{#autoForm
+    schema=newResidentAndResidencySchema
+    id="addNewResidentAndResidency"
+    type="method"
+    meteormethod="addNewResidentAndResidency" }}
+
+    <label for="firstName">
+      {{_ "residents.firstName.label" }}
+    </label>
+    {{> afFieldInput name="firstName"}}
+
+    <label for="lastInitial">
+      {{_ "residents.lastInitial.label" }}
+    </label>
+    {{> afFieldInput name="lastInitial"}}
+
+    <label for="homeId">
+      {{_ "residencies.homeId.label" }}
+    </label>
+    {{> afFieldInput name="homeId" options=homeSelectOptionsWithGroups }}
+
+    <label for="moveIn">
+      {{_ "residencies.moveIn.label" }}
+    </label>
+    {{> afFieldInput name="moveIn" buttonClasses="fa fa-calendar" value=today }}
+
+    <button type="submit" class="btn btn-success">
+      {{_ "addResidencyForm-save" }}
+    </button>
+    <button type="button" class="btn btn-danger" data-dismiss="modal">
+      {{_ "addResidencyForm-cancel" }}
+    </button>
+  {{/ autoForm }}
+</template>

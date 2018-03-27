@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 Template.homeResidentActivityLevelTrend.rendered = function () {
   // Get reference to template instance
   var instance = this;
