@@ -6,7 +6,7 @@ Template.resident.onCreated(function () {
   instance.residentId = Router.current().params.residentId;
 
   // Subscribe to current resident
-  instance.subscribe('residentComposite', instance.residentId);
+  instance.subscribe('residentProfileComposite', instance.residentId);
 
   // Subscribe to all roles except admin
   instance.subscribe("allRolesExceptAdmin");

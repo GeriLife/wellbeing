@@ -1,4 +1,4 @@
-Meteor.publishComposite('residentComposite', function (residentId) {
+Meteor.publishComposite('residentProfileComposite', function (residentId) {
   return {
     find: function () {
       return Residents.find(residentId);
@@ -18,12 +18,6 @@ Meteor.publishComposite('residentComposite', function (residentId) {
           }
         ]
       },
-      {
-        find: function (resident) {
-          // Get resident Home
-          return Homes.find(resident.homeId);
-        }
-      }
     ]
   }
 });
