@@ -1,3 +1,5 @@
+import SimpleSchema from 'simpl-schema';
+
 const usersEnrollSchema = new SimpleSchema({
   subject: {
     type: String,
@@ -10,12 +12,13 @@ const usersEnrollSchema = new SimpleSchema({
     optional: false
   },
   emailAddresses: {
-    type: [String],
-    regEx: SimpleSchema.RegEx.Email,
+    type: Array,
     optional: false
+  },
+  'emailAddresses.$': {
+    type: String,
+    regEx: SimpleSchema.RegEx.Email,
   }
 });
-
-usersEnrollSchema.i18n("usersEnrollSchema");
 
 export default usersEnrollSchema;

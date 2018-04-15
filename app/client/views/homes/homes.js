@@ -10,10 +10,6 @@ Template.homes.created = function () {
 };
 
 Template.homes.events({
-  'click #new-home': function () {
-    // Show the edit home modal
-    Modal.show('newHome');
-  },
   'click #new-group': function () {
     // Show the group modal (create new)
     Modal.show('groupModal');

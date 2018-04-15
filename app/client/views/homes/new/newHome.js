@@ -6,9 +6,13 @@ Template.newHome.created = function () {
   instance.subscribe('allGroups');
 };
 
-AutoForm.addHooks(['newHomeForm'], {
-  'onSuccess': function () {
-    // Hide the modal dialogue
-    Modal.hide('newHome');
+Template.newHome.helpers({
+  groupIdOptions: function() {
+    return _.map(Groups.find().fetch(), function(group) {
+      return {
+        label: group.name,
+        value: group._id
+      };
+    });
   }
 });

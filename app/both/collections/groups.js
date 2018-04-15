@@ -1,3 +1,6 @@
+import SimpleSchema from 'simpl-schema';
+import UserEventLog from '/both/collections/userEventLog';
+
 Groups = new Mongo.Collection('groups');
 
 var GroupsSchema = new SimpleSchema({
@@ -5,9 +8,6 @@ var GroupsSchema = new SimpleSchema({
     type: String
   }
 });
-
-// Add i18n tags
-GroupsSchema.i18n("groups");
 
 Groups.attachSchema(GroupsSchema);
 
@@ -48,4 +48,34 @@ Groups.allow({
       return true;
     }
   }
+});
+
+Groups.after.insert(function (userId, group) {
+  // Add event log
+  UserEventLog.insert({
+    userId,
+    action: 'insert',
+    entityType: 'group',
+    entityId: group._id,
+  })
+});
+
+Groups.after.update(function (userId, group) {
+  // Add event log
+  UserEventLog.insert({
+    userId,
+    action: 'update',
+    entityType: 'group',
+    entityId: group._id,
+  })
+});
+
+Groups.after.remove(function (userId, group) {
+  // Add event log
+  UserEventLog.insert({
+    userId,
+    action: 'remove',
+    entityType: 'group',
+    entityId: group._id,
+  })
 });

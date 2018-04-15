@@ -1,3 +1,6 @@
+import SimpleSchema from 'simpl-schema';
+import UserEventLog from '/both/collections/userEventLog';
+
 Homes = new Mongo.Collection('homes');
 
 var HomesSchema = new SimpleSchema({
@@ -6,21 +9,8 @@ var HomesSchema = new SimpleSchema({
   },
   groupId: {
     type: String,
-    autoform: {
-      options: function() {
-        return _.map(Groups.find().fetch(), function(group) {
-          return {
-            label: group.name,
-            value: group._id
-          };
-        });
-      }
-    }
   }
 });
-
-// Add i18n tags
-HomesSchema.i18n("homes");
 
 Homes.attachSchema(HomesSchema);
 
@@ -44,4 +34,34 @@ Homes.allow({
   update: function () {
     return true;
   }
+});
+
+Homes.after.insert(function (userId, home) {
+  // Add event log
+  UserEventLog.insert({
+    userId,
+    action: 'insert',
+    entityType: 'home',
+    entityId: home._id,
+  })
+});
+
+Homes.after.update(function (userId, home) {
+  // Add event log
+  UserEventLog.insert({
+    userId,
+    action: 'update',
+    entityType: 'home',
+    entityId: home._id,
+  })
+});
+
+Homes.after.remove(function (userId, home) {
+  // Add event log
+  UserEventLog.insert({
+    userId,
+    action: 'remove',
+    entityType: 'home',
+    entityId: home._id,
+  })
 });

@@ -3,11 +3,6 @@ Template.activitiesTableActivityTypeFilter.onCreated(function () {
   this.filter = new ReactiveTable.Filter('typeFilter', ['activityTypeId']);
 });
 
-Template.activitiesTableActivityTypeFilter.onRendered(function () {
-  // Render Bootstrap select widget on activity type filter
-  $('#activity-type-filter').selectpicker();
-});
-
 Template.activitiesTableActivityTypeFilter.events({
    "change #activity-type-filter": function (event, templateInstance) {
      // get selected activity type ID

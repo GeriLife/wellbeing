@@ -8,14 +8,22 @@ Template.editResidencyModal.onCreated(function () {
   // Subscribe to single residency, if available
   templateInstance.subscribe('singleResidency', residentId, homeId);
 
-  // Subscribe to all residents, for the resident select options
-  templateInstance.subscribe('allResidents');
+  // reactive placeholder for residentId select
+  templateInstance.residentIdSelectOptions = new ReactiveVar();
 
-  // Subscribe to all homes, for the home select options
-  templateInstance.subscribe('allHomes');
+  // reactive placeholder for home select options with groups
+  templateInstance.homeSelectOptionsWithGroups = new ReactiveVar();
 
-  // Subscribe to all groups, so homes can be grouped in select menu
-  templateInstance.subscribe('allGroups');
+  Meteor.call('getAllResidentSelectOptions', (error, residentIdSelectOptions) => {
+    // update the resident ID select options reactive variable
+    templateInstance.residentIdSelectOptions.set(residentIdSelectOptions);
+  });
+
+  // get home select options with groups from server
+  Meteor.call('getHomeSelectOptionsWithGroups', (error, homeSelectOptionsWithGroups) => {
+    // update reactive variable with home select options
+    templateInstance.homeSelectOptionsWithGroups.set(homeSelectOptionsWithGroups)
+  });
 });
 
 Template.editResidencyModal.helpers({
@@ -36,4 +44,16 @@ Template.editResidencyModal.helpers({
       return Residencies.findOne({ residentId, homeId })
     }
   },
+  residentIdOptions () {
+    // Get reference to template instance
+    const templateInstance = Template.instance();
+
+    return templateInstance.residentIdSelectOptions.get();
+  },
+  homeSelectOptionsWithGroups () {
+    // Get reference to template instance
+    const templateInstance = Template.instance();
+
+    return templateInstance.homeSelectOptionsWithGroups.get();
+  }
 });

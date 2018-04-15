@@ -1,7 +1,21 @@
-Meteor.publishComposite('residentComposite', function (residentId) {
+Meteor.publishComposite('residentProfileComposite', function (residentId) {
   return {
     find: function () {
-      return Residents.find(residentId);
+      // Default fields for anonymous users
+      let fields = {
+        _id: 1,
+        firstName: 1,
+      }
+
+      // Some fields should only be published to authenticated users
+      if (Meteor.user) {
+        fields.lastInitial = 1;
+        fields.homeId = 1;
+        fields.onHiatus = 1;
+        fields.departed = 1;
+      }
+
+      return Residents.find(residentId, { fields });
     },
     children: [
       {
@@ -18,12 +32,6 @@ Meteor.publishComposite('residentComposite', function (residentId) {
           }
         ]
       },
-      {
-        find: function (resident) {
-          // Get resident Home
-          return Homes.find(resident.homeId);
-        }
-      }
     ]
   }
 });

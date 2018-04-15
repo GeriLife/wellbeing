@@ -12,14 +12,15 @@ Template.activities.onCreated(function () {
 Template.activities.events({
   'click #add-activity' () {
     // Show the add activity modal
-    Modal.show('newActivity');
+    Modal.show('activityFormModal');
   },
   'click #clear-filters' () {
     // Clear value for all selectpickers
-    $('.selectpicker').selectpicker('val', null);
+    $('#resident-filter').val(undefined);
+    $('#activity-type-filter').val(undefined);
 
     // Trigger change event to refresh table
-    $('.selectpicker').trigger('change');
+    $('select').trigger('change');
   }
 });
 
@@ -50,7 +51,7 @@ Template.activities.helpers({
           label: 'Activity Date',
           sortOrder: 0,
           sortDirection: 'descending',
-          tmpl: Template.dateCell,
+          tmpl: Template.activityDateCell,
         },
         {
           key: '_id',

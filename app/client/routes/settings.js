@@ -40,16 +40,6 @@ Router.route('/settings/datetime', function () {
 });
 
 /*
-Residencies
-*/
-Router.route('/settings/residencies', function () {
-  this.layout('settingsLayout');
-  this.render('residenciesSettings');
-}, {
-  name: 'residenciesSettings'
-});
-
-/*
 Roles
 */
 Router.route('/settings/roles', function () {
@@ -57,6 +47,16 @@ Router.route('/settings/roles', function () {
   this.render('rolesSettings');
 }, {
   name: 'rolesSettings'
+});
+
+/*
+User event log
+*/
+Router.route('/settings/event-log', function () {
+  this.layout('settingsLayout');
+  this.render('userEventLog');
+}, {
+  name: 'userEventLog'
 });
 
 /*

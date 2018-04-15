@@ -15,7 +15,10 @@
         {{# autoForm id="groupForm" type=formType collection="Groups" doc=group }}
 
         <div class="modal-body">
-          {{> afQuickField name="name"}}
+          <label for="name">
+            {{_ "groups.name.label" }}
+          </label>
+          {{> afFieldInput name="name"}}
         </div>
 
         <div class="modal-footer">

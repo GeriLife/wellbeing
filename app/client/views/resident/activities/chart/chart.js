@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 Template.residentActivityTrendChart.rendered = function () {
   // Get reference to template instance
   const instance = this;
@@ -7,7 +9,7 @@ Template.residentActivityTrendChart.rendered = function () {
 
   instance.autorun(function () {
     $("#activity-chart").empty();
-    
+
     // Get the resident activities from template instance
     const activities = Template.currentData().activities;
 

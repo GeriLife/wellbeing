@@ -11,7 +11,10 @@
         {{# autoForm id="newActivityTypeForm" type="insert" collection="ActivityTypes"  }}
 
         <div class="modal-body">
-          {{> afQuickField name="name"}}
+          <label for="name">
+            {{_ "activityTypes.name.label" }}
+          </label>
+          {{> afFieldInput name="name"}}
         </div>
 
         <div class="modal-footer">
