@@ -10,7 +10,6 @@ Template.homeActivityCountsByFacilitatorRole.onCreated(function () {
 
   // Call method to fetch data, assigning it to reactive variable
   Meteor.call('getHomeActivitiesFacilitatorRolesCounts', templateInstance.homeId,templateInstance.data.date.get(), function (error, chartData) {
-    console.log('chartData', chartData);
     // update chart data reactive variable
     templateInstance.chartData.set(chartData);
   });
@@ -29,7 +28,6 @@ Template.homeActivityCountsByFacilitatorRole.onRendered(function () {
     // Get reference to template instance
     const templateInstance = this;
     const svg = dimple.newSvg("#homeActivityCountsByFacilitatorRoleChart", "100%", "100%");
-    console.log(svg)
     // Initialize the activity type chart
     const facilitatorRolesChart = new dimple.chart(svg);
     facilitatorRolesChart.setBounds("20%", "5%", "75%", "60%");
