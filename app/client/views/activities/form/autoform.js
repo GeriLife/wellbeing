@@ -3,6 +3,7 @@ import 'slim-select/dist/slimselect.min.css';
 import flatpickr from "flatpickr";
 import 'flatpickr/dist/flatpickr.min.css';
 import moment from 'moment';
+import { Finnish } from "flatpickr/dist/l10n/fi.js"
 
 AutoForm.addHooks(['activityForm'], {
   'onSuccess': function (formType) {
@@ -31,8 +32,14 @@ Template.autoForm.onRendered(function () {
 
   // Make sure the new activity form is being rendered
   if (instance.data.id === "activityForm") {
+    // Locale used for calendar widget; undefined means English (default locale)
+    let locale;
+
     // Get localized placeholder text
     const placeholder = TAPi18n.__('activityForm-residentSelect-placeholder');
+
+    // Get user locale
+    const userLocale = TAPi18n.getLanguage();
 
     // Render multi-select widget on 'select residents' field
     new SlimSelect({
@@ -41,10 +48,17 @@ Template.autoForm.onRendered(function () {
       placeholder,
     });
 
+    // Localize calendar widget based on user locale
+    if (userLocale === 'fi') {
+      locale = Finnish;
+    }
+
     // Render cross-platform date picker on date field
     flatpickr("#activityDate", {
-      minDate: moment().subtract(7, 'days').startOf('day').toDate(),
+      // Minimum day should be within previous seven days, including today
+      minDate: moment().subtract(6, 'days').startOf('day').toDate(),
       maxDate: moment().endOf('day').toDate(),
+      locale,
     });
   }
 });
