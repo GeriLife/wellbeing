@@ -1,5 +1,8 @@
 import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.min.css';
+import flatpickr from "flatpickr";
+import 'flatpickr/dist/flatpickr.min.css';
+import moment from 'moment';
 
 AutoForm.addHooks(['activityForm'], {
   'onSuccess': function (formType) {
@@ -36,6 +39,12 @@ Template.autoForm.onRendered(function () {
       select: '[name=residentIds]',
       closeOnSelect: false,
       placeholder,
+    });
+
+    // Render cross-platform date picker on date field
+    flatpickr("#activityDate", {
+      minDate: moment().subtract(7, 'days').startOf('day').toDate(),
+      maxDate: moment().endOf('day').toDate(),
     });
   }
 });
