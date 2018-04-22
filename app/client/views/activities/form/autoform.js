@@ -57,7 +57,7 @@ Template.autoForm.onRendered(function () {
     flatpickr("#activityDate", {
       // Minimum day should be within previous seven days, including today
       minDate: moment().subtract(6, 'days').startOf('day').toDate(),
-      maxDate: moment().endOf('day').toDate(),
+      maxDate: "today",
       locale,
     });
   }
