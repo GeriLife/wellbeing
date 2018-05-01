@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import UserEventLog from '/collections/user_event_log/';
 
-ActivityTypes = new Mongo.Collection('activityTypes');
+export default ActivityTypes = new Mongo.Collection('activityTypes');
 
 var ActivityTypesSchema = new SimpleSchema({
   name: {

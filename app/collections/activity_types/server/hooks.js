@@ -1,3 +1,5 @@
+import ActivityTypes from '../';
+
 ActivityTypes.after.insert(function (userId, activityType) {
   // Add event log
   UserEventLog.insert({
