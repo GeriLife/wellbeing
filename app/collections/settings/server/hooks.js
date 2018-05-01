@@ -1,4 +1,5 @@
 import Settings from '../';
+import UserEventLog from '/collections/user_event_log';
 
 Settings.after.insert(function (userId, setting) {
   // Add event log

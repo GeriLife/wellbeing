@@ -1,4 +1,5 @@
 import Residencies from '../';
+import UserEventLog from '/collections/user_event_log';
 
 Residencies.after.insert(function (userId, residency) {
   // Add event log
