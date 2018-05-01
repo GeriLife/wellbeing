@@ -2,7 +2,7 @@ import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
 import UserEventLog from '/collections/user_event_log/';
 
-Activities = new Mongo.Collection('activities');
+export default Activities = new Mongo.Collection('activities');
 
 var ActivitiesSchema = new SimpleSchema({
   residentIds: {
