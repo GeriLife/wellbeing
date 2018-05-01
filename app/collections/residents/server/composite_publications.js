@@ -1,3 +1,6 @@
+import Activities from '/collections/activities';
+import ActivityTypes from '/collections/activity_types';
+import Homes from '/collections/homes';
 import Residents from '../';
 
 Meteor.publishComposite('residentsHomesComposite', {
