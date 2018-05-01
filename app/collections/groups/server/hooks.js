@@ -1,4 +1,5 @@
 import Groups from '../';
+import UserEventLog from '/collections/user_event_log';
 
 Groups.after.insert(function (userId, group) {
   // Add event log
