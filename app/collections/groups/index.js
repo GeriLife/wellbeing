@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import UserEventLog from '/collections/user_event_log/';
 
-Groups = new Mongo.Collection('groups');
+export default Groups = new Mongo.Collection('groups');
 
 var GroupsSchema = new SimpleSchema({
   name: {

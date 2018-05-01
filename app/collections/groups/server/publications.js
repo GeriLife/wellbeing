@@ -1,3 +1,5 @@
+import Groups from '../';
+
 Meteor.publish('allGroups', function () {
   // Publish all groups
   return Groups.find();

@@ -1,3 +1,5 @@
+import Groups from '../';
+
 Groups.after.insert(function (userId, group) {
   // Add event log
   UserEventLog.insert({

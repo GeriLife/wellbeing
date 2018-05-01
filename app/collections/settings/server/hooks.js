@@ -1,3 +1,5 @@
+import Settings from '../';
+
 Settings.after.insert(function (userId, setting) {
   // Add event log
   UserEventLog.insert({

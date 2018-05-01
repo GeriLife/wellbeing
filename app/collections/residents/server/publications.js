@@ -1,3 +1,5 @@
+import Residents from '../';
+
 Meteor.publish('allResidents', function () {
   // Publish all residents
   return Residents.find();

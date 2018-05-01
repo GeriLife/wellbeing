@@ -1,3 +1,5 @@
+import Residents from '../';
+
 Residents.after.insert(function (userId, resident) {
   // Add event log
   UserEventLog.insert({

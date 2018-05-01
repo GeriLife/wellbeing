@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import UserEventLog from '/collections/user_event_log/';
 
-Settings = new Mongo.Collection("settings");
+export default Settings = new Mongo.Collection("settings");
 
 Settings.allow({
   insert: function () {

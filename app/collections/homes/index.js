@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import UserEventLog from '/collections/user_event_log/';
 
-Homes = new Mongo.Collection('homes');
+export default Homes = new Mongo.Collection('homes');
 
 var HomesSchema = new SimpleSchema({
   name:{

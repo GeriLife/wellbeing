@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import UserEventLog from '/collections/user_event_log/';
 
-Residencies = new Mongo.Collection('residencies');
+export default Residencies = new Mongo.Collection('residencies');
 
 var ResidenciesSchema = new SimpleSchema({
   residentId: {

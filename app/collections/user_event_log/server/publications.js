@@ -1,4 +1,4 @@
-import UserEventLog from '/collections/user_event_log/';
+import UserEventLog from '../';
 
 ReactiveTable.publish('userEventLog-paginated', function () {
   if (this.userId) {

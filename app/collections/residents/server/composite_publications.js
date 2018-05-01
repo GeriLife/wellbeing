@@ -1,3 +1,5 @@
+import Residents from '../';
+
 Meteor.publishComposite('residentsHomesComposite', {
   find: function () {
     return Residents.find();

@@ -1,3 +1,5 @@
+import Homes from '../';
+
 Homes.after.insert(function (userId, home) {
   // Add event log
   UserEventLog.insert({
