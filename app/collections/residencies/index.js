@@ -1,4 +1,4 @@
-import ResideciesSchema from './schema';
+import ResidenciesSchema from './schema';
 
 export default Residencies = new Mongo.Collection('residencies');
 
