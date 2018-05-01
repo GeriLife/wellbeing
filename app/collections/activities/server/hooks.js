@@ -1,4 +1,5 @@
 import Activities from '../';
+import UserEventLog from '/collections/user_event_log';
 
 Activities.after.insert(function (userId, activity) {
   // Add event log

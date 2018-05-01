@@ -1,3 +1,3 @@
-import RolesSchema from './schema'
+import RolesSchema from './schema';
 
 Meteor.roles.attachSchema(RolesSchema);
