@@ -1,4 +1,5 @@
 import Feelings from '../';
+import UserEventLog from '/collections/user_event_log';
 
 Feelings.after.insert(function (userId, feeling) {
   // Add event log
