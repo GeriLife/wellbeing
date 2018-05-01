@@ -1,3 +1,5 @@
+import Feelings from '../';
+
 Feelings.after.insert(function (userId, feeling) {
   // Add event log
   UserEventLog.insert({
