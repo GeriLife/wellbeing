@@ -28,6 +28,28 @@ function insert(collection, args, amount, insertFunctionOutcome) {
 
   }
 }
+
+//Get list of homeIds that do not equal the currentHomeId
+function getRandomHomeButExcludeCurrent (currentHomeId) {
+  const homeIds = Homes.find({'_id': {$ne : currentHomeId}}).map(function (e) { return e._id; });
+  return _.sample(homeIds)
+}
+
+/*
+
+  Get random date from the range of today - startingpoint
+  @param start = months from today
+  creates two dates one of them being today
+  and second one being today minus months set in parameters
+*/
+function getRandomMoveInDate (start) {
+  const endDate = new Date();
+  const startDate = new Date();
+  startDate.setMonth(endDate.getMonth() - start);
+  moveInDate = randomDate(endDate, startDate);
+  return moveInDate;
+}
+
 function createMockGroups () {
   console.log('Creating mock groups');
 
@@ -148,27 +170,6 @@ function createMockResidency(startingPoint, percentMovedOut) {
   console.log("Creating Mock Residencies")
   //get all residents
   const residents = Residents.find().fetch();
-
-  //Get list of homeIds that do not equal the currentHomeId
-  const getRandomHomeButExcludeCurrent = function(currentHomeId) {
-    const homeIds = Homes.find({'_id': {$ne : currentHomeId}}).map(function (e) { return e._id; });
-    return _.sample(homeIds)
-  }
-
-  /*
-
-    Get random date from the range of today - startingpoint
-    @param start = months from today
-    creates two dates one of them being today
-    and second one being today minus months set in parameters
-  */
- const getRandomMoveInDate = function(start) {
-    const endDate = new Date();
-    const startDate = new Date();
-    startDate.setMonth(endDate.getMonth() - start);
-    moveInDate = randomDate(endDate, startDate);
-    return moveInDate;
-  }
 
 
   /*  this is the number from where residents are moved out. So if the percentMovedout is 0.25
