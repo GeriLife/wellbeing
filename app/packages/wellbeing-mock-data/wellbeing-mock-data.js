@@ -16,8 +16,23 @@ Default values used in create mock createMockResidency
 const defaultStartingPoint = moment().subtract(1, 'years').toDate();
 const defaultPercentMovedOut = 90;
 
-function randomDate(start, end) {
-  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+function randomDate(startDate, endDate) {
+  // Get start/end timestamps in unix epoch
+  const startTime= startDate.getTime();
+  const endTime = endDate.getTime();
+
+  // Get difference between end and start timestamps
+  const timeDelta = endTime - startTime;
+
+  // Get a random fraction of the
+  // time difference between start and end
+  const randomEndTime = Math.random() * timeDelta;
+
+  // Get the actual date string by adding delta to start time (unix epoch)
+  const randomDate = startTime + randomEndTime
+
+  // Return a date object from the unix timestamp
+  return new Date(randomDate);
 }
 
 function insert(collection, args, amount, insertFunctionOutcome) {
@@ -52,11 +67,11 @@ function getRandomHomeButExcludeCurrent (currentHomeId) {
   creates two dates one of them being today
   and second one being today minus months set in parameters
 */
-function getRandomMoveInDate (start) {
-  const endDate = new Date();
-  const startDate = new Date();
-  startDate.setMonth(endDate.getMonth() - start);
-  moveInDate = randomDate(endDate, startDate);
+function getRandomMoveInDate (startDate) {
+  const now = new Date();
+
+  moveInDate = randomDate(startDate, now);
+
   return moveInDate;
 }
 
@@ -175,7 +190,7 @@ function getRandomHomeButExcludeCurrent(currentHomeId) {
 
   */
 function createMockResidency(startingPoint = defaultStartingPoint, percentMovedOut = defaultPercentMovedOut) {
-  console.log(startingPoint)
+  //console.log(startingPoint)
   console.log("Creating Mock Residencies")
   //get all residents
   const residents = Residents.find().fetch();
@@ -188,6 +203,9 @@ function createMockResidency(startingPoint = defaultStartingPoint, percentMovedO
   const indexWhereMovedOut = residents.length - Math.round(residents.length * percentMovedOut)
   residents.forEach(function(resident, index) {
     let moveInDate = getRandomMoveInDate(startingPoint);
+
+    console.log(moveInDate);
+
     var args = { "residentId": resident._id, 'homeId': resident.homeId, 'moveIn': moveInDate }
     if (index >= indexWhereMovedOut) {
       let moveOutDate = randomDate(moveInDate, new Date());
