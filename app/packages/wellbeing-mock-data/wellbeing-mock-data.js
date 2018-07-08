@@ -233,17 +233,4 @@ Meteor.methods({
   'createMockResidency': function (start, percentMovedOut) {
     createMockResidency(start, percentMovedOut);
   },
-  'removeAllData': function () {
-    const currentUserId = Meteor.userId();
-    const userIsAdmin = Roles.userIsInRole(currentUserId, 'admin');
-    if(userIsAdmin) {
-      Groups._dropCollection();
-      Homes._dropCollection();
-      Residents._dropCollection();
-      ActivityTypes._dropCollection();
-      Activities._dropCollection();
-      Meteor.roles.remove({})
-      Residencies._dropCollection();
-    }
-  },
 });
