@@ -12,7 +12,9 @@ const UserEventLogSchema = new SimpleSchema({
   },
   userId: {
     type: String,
-    optional: false,
+    // sometimes system events can generate data,
+    // so user ID is optional
+    optional: true,
   },
   action: {
     type: String,
