@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 //TODO: Change these for actual group names
 
 var groups = ['Onnela', 'Tammela','Puistola'];
@@ -5,6 +7,14 @@ var activities = ['Ulkoilu', 'Retki', 'Tapahtuma (esim. konsertti)',
             'Musiikki','Taide', 'Lukeminen'];
 
 var facilitatorRoles = ['Henkiökunta', 'Vapaaehtoinen', 'Perhe', 'Itse'];
+
+/*
+Default values used in create mock createMockResidency
+  - starting point is a date
+  - percent moved out is an integer between 0 and 100
+*/
+const defaultStartingPoint = moment().subtract(1, 'years').toDate();
+const defaultPercentMovedOut = 90;
 
 function randomDate(start, end) {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
@@ -55,7 +65,7 @@ function createMockGroups () {
 
   for (var i = 0; i < groups.length; i++) {
     var groupName = groups[i];
-    console.log(groupName);
+
     Groups.insert({'name': groupName});
   }
 }
@@ -65,7 +75,7 @@ function createMockRoles() {
 
   for (var i = 0; i < facilitatorRoles.length; i++) {
     var roleName = facilitatorRoles[i];
-    console.log(roleName);
+
     Roles.createRole(roleName);
   }
 }
@@ -77,7 +87,7 @@ function createMockHomes() {
 
   for (var i = 0; i < groups.length; i++) {
     var groupName = groups[i];
-    console.log(groupName);
+
     var Group = Groups.findOne({'name': groupName});
     var args = {'name': address,'groupId': Group._id};
     insert(Homes, args, amount, true);
@@ -123,7 +133,6 @@ function createMockActivities() {
 
   // Select a random facilitator role (ID)
   var roleId = function () {
-    console.log(roles[Math.floor(Math.random() * roles.length)].name);
     return roles[Math.floor(Math.random() * roles.length)]._id;
   }
 
@@ -155,8 +164,7 @@ function createMockActivities() {
 
 function getRandomHomeButExcludeCurrent(currentHomeId) {
   var homeIds = Homes.find({'_id': {'$ne' : 'currentHomeId'}}).map(function (e) { return e._id; });
-  console.log(currentHomeId);
-  console.log(homeIds);
+
   return _.sample(homeIds)
 }
 
@@ -166,7 +174,8 @@ function getRandomHomeButExcludeCurrent(currentHomeId) {
     Depending on the percentMovedOut some residents will have multiple residencies
 
   */
-function createMockResidency(startingPoint, percentMovedOut) {
+function createMockResidency(startingPoint = defaultStartingPoint, percentMovedOut = defaultPercentMovedOut) {
+  console.log(startingPoint)
   console.log("Creating Mock Residencies")
   //get all residents
   const residents = Residents.find().fetch();
