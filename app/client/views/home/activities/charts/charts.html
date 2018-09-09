@@ -1,11 +1,13 @@
 <template name="homeResidentActivitySummaryCharts">
   <h3>
-    {{_ "homeResidentActivitySumsByType-heading" }}&nbsp;
+    Activity summaries
     <small>{{_ "homeResidentActivitySumsByType-subheading" }}</small>
   </h3>
 
   <div class="row">
-    {{> homeResidentActivitySumsByType }}
+    <div class="col-md-12">
+      {{> homeResidentActivitySumsByType }}
+    </div>
   </div>
 
   <div class="row">
