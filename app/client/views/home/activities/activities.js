@@ -1,4 +1,4 @@
-Template.homeActivities.created = function () {
+Template.homeActivitiesTable.created = function () {
   // Create reference to template instance
   var instance = this;
 
@@ -14,7 +14,7 @@ Template.homeActivities.created = function () {
   });
 };
 
-Template.homeActivities.helpers({
+Template.homeActivitiesTable.helpers({
   homeActivities: function () {
     // Get reference to template instance
     var instance = Template.instance();
