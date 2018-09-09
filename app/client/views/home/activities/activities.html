@@ -6,11 +6,12 @@
         {{_ "home-activitiesPanel-heading" }}
       </h2>
     </div>
+
     <div class="panel-body">
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
-          <a href="#activity-chart" aria-controls="chart" role="tab" data-toggle="tab">
+          <a href="#activity-charts" aria-controls="chart" role="tab" data-toggle="tab">
             {{_ "home-activitiesPanel-activitySummaryTab" }}
           </a>
         </li>
@@ -22,22 +23,11 @@
       </ul>
       <!-- Tab panes -->
       <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="activity-chart">
-          {{> homeResidentActivitySumsByType }}
+        <div role="tabpanel" class="tab-pane active" id="activity-charts">
+          {{> homeResidentActivitySummaryCharts home=home }}
         </div>
         <div role="tabpanel" class="tab-pane" id="activity-table">
           {{> homeActivitiesTable }}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <!-- Activity counts by activity type -->
-          {{> homeActivityCountsByActivityType homeId=home._id }}
-        </div>
-
-        <div class="col-md-6">
-          <!-- Activity counts by facilitator role -->
-          {{> homeActivityCountsByFacilitatorRole homeId=home._id }}
         </div>
       </div>
     </div>
