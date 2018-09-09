@@ -11,75 +11,15 @@
   </h1>
   <div class="row">
     <div class="col-xs-12 col-lg-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-header">
-            <i class="fa fa-lg fa-users"></i>&nbsp;
-             {{_ "home-residentsPanel-heading" }}
-          </h2>
-        </div>
-        <div class="panel-body">
-          {{> homeResidents residents=residents }}
-        </div>
-      </div>
+      {{> homeResidents residents=residents }}
     </div>
     <div class="col-xs-12 col-lg-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2 class="panel-header">
-            <i class="fa fa-lg fa-users"></i>&nbsp;
-            {{_ "home-activityLevelTrendsPanel-heading" }}
-          </h2>
-        </div>
-        <div class="panel-body">
-          {{> homeResidentActivityLevelTrend }}
-        </div>
-      </div>
+      {{> homeResidentActivityLevelTrend }}
     </div>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2 class="panel-header">
-        <i class="fa fa-lg fa-heartbeat"></i>&nbsp;
-        {{_ "home-activitiesPanel-heading" }}
-      </h2>
-    </div>
-    <div class="panel-body">
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active">
-          <a href="#activity-chart" aria-controls="chart" role="tab" data-toggle="tab">
-            {{_ "home-activitiesPanel-activitySummaryTab" }}
-          </a>
-        </li>
-        <li role="presentation">
-          <a href="#activity-table" aria-controls="calendar" role="tab" data-toggle="tab">
-            {{_ "home-activitiesPanel-activityTableTab" }}
-          </a>
-        </li>
-      </ul>
-      <!-- Tab panes -->
-      <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="activity-chart">
-          {{> homeResidentActivitySumsByType }}
-        </div>
-        <div role="tabpanel" class="tab-pane" id="activity-table">
-          {{> homeActivitiesTable }}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <!-- Activity counts by activity type -->
-          {{> homeActivityCountsByActivityType homeId=home._id }}
-        </div>
 
-        <div class="col-md-6">
-          <!-- Activity counts by facilitator role -->
-          {{> homeActivityCountsByFacilitatorRole homeId=home._id }}
-        </div>
-      </div>
-    </div>
-  </div>
+  {{> homeActivities home=home }}
+
   {{ else }}
     {{> spinner }}
   {{/ if }}
