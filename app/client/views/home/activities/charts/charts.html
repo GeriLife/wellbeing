@@ -3,21 +3,21 @@
     Activity summaries
     <!-- <small>{{_ "homeResidentActivitySumsByType-subheading" }}</small> -->
 
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <div class="btn-group btn-group-toggle" id="activityMetricToggle" data-toggle="buttons">
       <label class="btn btn-default btn-sm active">
-        <input type="radio" name="activityMetric" checked> Activity count
+        <input type="radio" name="activityMetric" value="count" checked> Activity count
       </label>
       <label class="btn btn-default btn-sm">
-        <input type="radio" name="activityMetric"> Activity minutes
+        <input type="radio" name="activityMetric"  value="minutes"> Activity minutes
       </label>
     </div>
 
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
       <label class="btn btn-default btn-sm active">
-        <input type="radio" name="activityPeriod" checked> 7 days
+        <input type="radio" name="activityPeriod" value="7" checked> 7 days
       </label>
       <label class="btn btn-default btn-sm">
-        <input type="radio" name="activityPeriod"> 30 days
+        <input type="radio" name="activityPeriod" value="30"> 30 days
       </label>
     </div>
   </h3>
