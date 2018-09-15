@@ -21,10 +21,29 @@ Template.homeResidentActivitySummaryCharts.onRendered(function() {
 });
 
 Template.homeResidentActivitySummaryCharts.events({
-  'change input[name="activityMetric"]' (event) {
-    console.log(event.currentTarget.value)
+  'change input[name="activityMetric"]' (event, templateInstance) {
+    const activityMetric = event.currentTarget.value;
+
+    templateInstance.activityMetric.set(activityMetric);
   },
-  'change input[name="activityPeriod"]' (event) {
-    console.log(event.currentTarget.value)
+  'change input[name="activityPeriod"]' (event, templateInstance) {
+    const activityPeriod = event.currentTarget.value;
+
+    templateInstance.activityPeriod.set(activityPeriod);
   },
 });
+
+Template.homeResidentActivitySummaryCharts.helpers({
+  activityMetric () {
+    // get reference to template instance
+    const templateInstance = Template.instance();
+
+    return templateInstance.activityMetric.get()
+  },
+  activityPeriod () {
+    // get reference to template instance
+    const templateInstance = Template.instance();
+
+    return templateInstance.activityPeriod.get()
+  }
+})
