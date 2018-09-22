@@ -26,7 +26,7 @@ Template.resident.events({
     // Show the Add Activity Modal
     // Pass in resident ID (to be automatically selected on form)
     // note: form field is 'residentIds' (plural)
-    Modal.show('newActivity', { residentIds: templateInstance.residentId });
+    Modal.show('activityFormModal', { residentIds: templateInstance.residentId });
   },
   'click #add-feeling' (event, templateInstance) {
     // Show the New Feeling modal
