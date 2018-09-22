@@ -1,6 +1,37 @@
+import _ from 'lodash';
 import moment from 'moment';
 
 Meteor.methods({
+  'getAllHomeResidentActivities' (homeId) {
+    // Get all home Residencies
+    const query = {
+      homeId,
+    };
+
+    const homeResidencies = Residencies.find(query).fetch();
+
+    // get activities for each resident during residency period
+    const homeResidentActivities = _.flatMap(homeResidencies, function (residency) {
+      let homeActivitiesQuery = {
+        residentIds: residency.residentId,
+        activityDate: {
+          $gte: residency.moveIn
+        }
+      };
+
+      // Check if residency has move out date
+      if (residency.hasOwnProperty('moveOut')) {
+        // set query to be before residency move out
+        homeActivitiesQuery.activityDate['$lte'] = residency.moveOut;
+      }
+
+      const homeResidentActivities = Activities.find(homeActivitiesQuery).fetch();
+
+      return homeResidentActivities;
+    });
+
+    return homeResidentActivities;
+  },
   'getResidentLatestActivityIdByType': function (residentId, activityTypeId) {
     /*
     Get the resident's most recent activity by type
