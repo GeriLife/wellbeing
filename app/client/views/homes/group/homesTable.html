@@ -5,6 +5,7 @@
     </caption>
     <thead>
       <tr>
+        <th>View home</th>
         <th class="col-sm-1 col-md-2">
           <i class="fa fa-home"></i>&nbsp;
             {{_ "homeGroup-tableHeader-name" }}
@@ -22,19 +23,26 @@
             </small>
           </div>
         </th>
+        <th>View report</th>
       </tr>
     </thead>
     <tbody>
       {{# each homes }}
         <tr id="home-{{ _id }}" class="home">
           <td>
+            <button type="button" class="btn btn-default viewHome">
+              <span class="fa fa-eye fa-lg" aria-hidden="true"></span>
+              View
+            </button>
+          </td>
+          <td>
             {{ name }}
           </td>
            {{> singleHomeActivityStatus home=this }}
            <td>
-             <button type="button" class="btn btn-default" aria-label="Left Align">
+             <button type="button" class="btn btn-default homeReport">
                <span class="fa fa-line-chart fa-lg" aria-hidden="true"></span>
-               Reports
+               Report
              </button>
            </td>
          </tr>
