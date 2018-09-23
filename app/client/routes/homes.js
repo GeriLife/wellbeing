@@ -13,6 +13,12 @@ Router.route('/home/:homeId', function () {
   name: 'home'
 });
 
+Router.route('/home/:homeId/report', function () {
+  this.render('homeReport');
+}, {
+  name: 'homeReport'
+});
+
 Router.route('/latest-activities', function () {
   this.render('latestActivitiesByType');
 }, {
