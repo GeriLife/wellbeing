@@ -8,13 +8,7 @@ Router.route('/homes', function () {
 });
 
 Router.route('/home/:homeId', function () {
-  var controller = this;
-  var homeId = controller.params.homeId;
-  this.render('home', {
-    data: function() {
-      return Homes.findOne(homeId);
-    }
-  });
+  this.render('home');
 }, {
   name: 'home'
 });
