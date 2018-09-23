@@ -2,6 +2,40 @@ import _ from 'lodash';
 import moment from 'moment';
 
 Meteor.methods({
+  annotateActivities (activities) {
+    /*
+    Given an array of Activity objects
+    add 'activityTypeName' attribute
+
+    recipe by William Schroeder McKinley:
+    https://stackoverflow.com/a/46248696
+    */
+
+    // get activity types, flatten to lookup dict
+    // key: activityTypeId
+    // value: activityTypeName
+    const activityTypes = ActivityTypes.find().fetch();
+
+    const activityTypesDict = _(activityTypes)
+                                            .keyBy('_id')
+                                            .mapValues('name')
+                                            .value();
+
+    // map over activity objects
+    // add attributes to each
+    //  - activityTypeName
+    //  - facilitatorRoleName
+    const annotatedActivities = _.map(activities, function (activity) {
+      const activityTypeId = activity.activityTypeId;
+      const facilitatorRoleId = activity.facilitatorRoleId;
+
+      activity['activityTypeName'] = activityTypesDict[activityTypeId];
+
+      return activity;
+    });
+
+    return annotatedActivities;
+  },
   'getAllHomeResidentActivities' (homeId) {
     // Get all home Residencies
     const query = {
