@@ -13,11 +13,18 @@ Template.homeGroup.events({
     // Show the edit home modal, passing in group ID
     Modal.show('newHome', { groupId });
   },
-  'click .home' () {
+  'click .viewHome' () {
     // Save Home ID that was clicked
     var homeId = this._id;
 
     // Show the page for individual home that was clicked
     Router.go('home', {homeId: homeId});
+  },
+  'click .homeReport' () {
+    // Save Home ID that was clicked
+    var homeId = this._id;
+
+    // Show the page for individual home that was clicked
+    Router.go('homeReport', {homeId: homeId});
   }
 });
