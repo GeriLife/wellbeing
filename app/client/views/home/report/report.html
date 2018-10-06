@@ -1,4 +1,8 @@
 <template name="homeReport">
-  <h1>Home report</h1>
+  <h1>
+    <i class="fa fa-home"></i>&nbsp;
+    {{ home.name }}&nbsp;
+    <span class="small">({{_ "homeReport-header" }})</span>
+  </h1>
   <div id="homeActivityChart"></div>
 </template>
