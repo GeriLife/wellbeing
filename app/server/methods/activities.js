@@ -73,7 +73,7 @@ Meteor.methods({
     const homeResidencies = Residencies.find(query).fetch();
 
     // get activities for each resident during residency period
-    const homeResidentActivities = _.flatMap(homeResidencies, function (residency) {
+    const homeResidentsActivities = _.flatMap(homeResidencies, function (residency) {
       let homeActivitiesQuery = {
         residentIds: residency.residentId,
         activityDate: {
@@ -87,12 +87,25 @@ Meteor.methods({
         homeActivitiesQuery.activityDate['$lte'] = residency.moveOut;
       }
 
-      const homeResidentActivities = Activities.find(homeActivitiesQuery).fetch();
+      const homeResidentActivities = Activities.find(
+        homeActivitiesQuery,
+        {
+          sort: {
+            activityDate: 1
+          }
+        }
+      ).fetch();
 
       return homeResidentActivities;
     });
 
-    return homeResidentActivities;
+    // Sort home residents activities array by activity date
+    const homeResidentsActivitiesSorted = _.sortBy(
+      homeResidentsActivities,
+      'activityDate'
+    )
+
+    return homeResidentsActivitiesSorted;
   },
   'getResidentLatestActivityIdByType': function (residentId, activityTypeId) {
     /*
