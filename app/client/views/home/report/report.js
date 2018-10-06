@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import Plotly from 'plotly.js-dist';
 
 Template.homeReport.onCreated(function () {
   // get a reference to template instance
@@ -8,10 +7,8 @@ Template.homeReport.onCreated(function () {
   // Get Home ID from template instance
   templateInstance.homeId = Router.current().params.homeId;
 
+  // Get home data for page elements
   templateInstance.subscribe('singleHome', templateInstance.homeId);
-
-  // TODO: add localization
-  //Plotly.setLocale('fi')
 
   // set reactive variable to hold chart data (attached to template instance)
   templateInstance.activityData = new ReactiveVar();
@@ -34,14 +31,19 @@ Template.homeReport.onRendered(function () {
 
     // Make sure we have some activity data
     if (activityData) {
+      // Chart data consists of multiple traces
       const data = _.map(activityData, function (activityCategoryData) {
+        // Create a trace for each activity type
         const trace = {
           type: 'scatter',
           mode: 'lines',
           name: activityCategoryData.key,
+          // X values are activity dates
           x: _.map(activityCategoryData.values, function(activityCategoryDay) {
             return new Date(activityCategoryDay.key);
           }),
+          // Y values are (currently) activity minutes
+          // TODO: add page element to toggle between activity counts and minutes
           y: _.map(activityCategoryData.values, function(activityCategoryDay) {
             return activityCategoryDay.value.activity_minutes;
           }),
@@ -50,12 +52,16 @@ Template.homeReport.onRendered(function () {
         return trace;
       })
 
-      // TODO: add localization
+      // Add plot layout configuration
       const layout = {
-        title: 'Home resident activities',
+        title: TAPi18n.__('homeResidentsActivitiesChart-title'),
       }
 
-      Plotly.newPlot('homeActivityChart', data, layout)
+      // Get client locale
+      const locale = TAPi18n.getLanguage();
+
+      // Render plot
+      Plotly.newPlot('homeResidentsActivitiesChart', data, layout, { locale })
     }
   })
 });
