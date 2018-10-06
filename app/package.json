@@ -19,6 +19,7 @@
     "lodash": "^4.17.11",
     "meteor-node-stubs": "^0.3.2",
     "moment": "^2.20.1",
+    "plotly.js-dist": "^1.41.3",
     "simpl-schema": "^1.4.2",
     "slim-select": "^1.11.1"
   },
