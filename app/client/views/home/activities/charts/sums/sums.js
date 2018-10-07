@@ -1,23 +1,32 @@
-Template.homeResidentActivitySumsByType.created = function () {
+Template.homeResidentActivitySumsByType.onCreated(function () {
   // Get reference to template instance
-  var instance = this;
+  var templateInstance = this;
 
   // Get current home ID
-  instance.homeId = Router.current().params.homeId;
+  templateInstance.homeId = Router.current().params.homeId;
 
   // set up home resident activity sums by type reactive variable
- instance.homeResidentsActivitySumsByType = new ReactiveVar();
+ templateInstance.homeResidentsActivitySumsByType = new ReactiveVar();
+
+ query = {
+   homeId: templateInstance.homeId,
+   activityMetric: templateInstance.activityMetric,
+   activityPeriod: templateInstance.activityPeriod,
+ };
 
   // Get home resident activity sums from server method
-  Meteor.call('getHomeResidentsActivitySumsByTypeLast30Days', instance.homeId, function (error, activitySums) {
-    //Set the home resident activity sums variable with the returned activity sums
-    instance.homeResidentsActivitySumsByType.set(activitySums);
+  Meteor.call(
+    'getHomeResidentsActivitySumsByType',
+    query,
+    function (error, activitySums) {
+      //Set the home resident activity sums variable with the returned activity sums
+      templateInstance.homeResidentsActivitySumsByType.set(activitySums);
   });
-};
+});
 
-Template.homeResidentActivitySumsByType.rendered = function () {
+Template.homeResidentActivitySumsByType.onRendered(function () {
   // Get reference to template instance
-  var instance = this;
+  var templateInstance = this;
 
   var activityCountChart = nv.models.multiBarHorizontalChart();
 
@@ -38,12 +47,13 @@ Template.homeResidentActivitySumsByType.rendered = function () {
     .color(customColors)
 
   activityCountChart
+    // TODO: add localization
     .yAxis.axisLabel("Activity count")
     .tickFormat(d3.format('d'));
 
-  instance.autorun(function () {
+  templateInstance.autorun(function () {
     // Get the chart data
-    var homeResidentsActivitySumsByType = instance.homeResidentsActivitySumsByType.get();
+    var homeResidentsActivitySumsByType = templateInstance.homeResidentsActivitySumsByType.get();
 
      if (homeResidentsActivitySumsByType !== undefined) {
        // render the chart when data is available
@@ -56,4 +66,4 @@ Template.homeResidentActivitySumsByType.rendered = function () {
         nv.utils.windowResize(activityCountChart.update);
       };
   });
-};
+});
