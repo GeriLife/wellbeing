@@ -45,39 +45,53 @@ Meteor.methods({
       return residency.residentId;
     });
 
-    // find activities within activity period
-    // where one of activity.residentIds is in residentIds
-    const activitiesQuery = {
-      activityDate: {
-        $gte: activityPeriodStart,
-      },
-      residentIds: {
-        $in: residentIds,
+    const groupedResidentActivities = _.map(residentIds, function (residentId) {
+      // query to find activities for current resident within activity period
+      const activitiesQuery = {
+        activityDate: {
+          $gte: activityPeriodStart,
+        },
+        residentIds: residentId
       }
-    }
 
-    // get activities for residents (by ID) where activityDate gte activityPeriod
-    const activities = Activities.find(activitiesQuery).fetch();
+      // get activities for current resident during time period
+      const residentActivities = Activities.find(activitiesQuery).fetch();
 
-    // annotate activities with name and facilitator role
-    const annotatedActivities = Meteor.call('annotateActivities', activities);
+      return {
+        name: Residents.findOne(residentId).fullName(),
+        activities: residentActivities
+      }
+    });
+
+
+    const residentGroupedAnnotatedActivities = _.map(groupedResidentActivities, function (resident) {
+      // annotate activities with name and facilitator role
+      const annotatedActivities = Meteor.call('annotateActivities', resident.activities);
+
+      return {
+        name: resident.name,
+        activities: annotatedActivities
+      }
+    });
+
+    return residentGroupedAnnotatedActivities;
 
     // aggregate activities into daily bins grouped by type
     //  - activity count
     //  - activity minutes
-    var nestedActivities = d3.nest()
-      .key(function(activity) { return activity.activityTypeName })
-      .rollup(function(groupedActivities) {
-         return {
-           "activity_count": groupedActivities.length,
-           "activity_minutes": d3.sum(groupedActivities, function(activity) {
-             return parseFloat(activity.duration);
-           })
-         }
-       })
-      .entries(annotatedActivities);
-
-     return nestedActivities;
+    // var nestedActivities = d3.nest()
+    //   .key(function(activity) { return activity.activityTypeName })
+    //   .rollup(function(groupedActivities) {
+    //      return {
+    //        "activity_count": groupedActivities.length,
+    //        "activity_minutes": d3.sum(groupedActivities, function(activity) {
+    //          return parseFloat(activity.duration);
+    //        })
+    //      }
+    //    })
+    //   .entries(annotatedActivities);
+    //
+    //  return nestedActivities;
   },
   getHomeActivitiesFacilitatorRolesCountsLast30days (homeId) {
     // Get activties for current home (ID) from last 30 days
