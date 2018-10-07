@@ -87,7 +87,20 @@ Meteor.methods({
       };
     });
 
-    return groupedResidencyActivities;
+    const mergedResidentActivities = {};
+
+    groupedResidencyActivities.forEach(function (residencyActivities) {
+      const residentId = residencyActivities['residentId'];
+      const currentActivities = residencyActivities['activities']
+
+      if (residentId in mergedResidentActivities) {
+        mergedResidentActivities[residentId].push(currentActivities)
+      } else {
+        mergedResidentActivities[residentId] = currentActivities;
+      }
+    });
+
+    return mergedResidentActivities;
 
     // const residentActivitySummaries = _.map(groupedResidencyActivities, function (resident) {
     //   // annotate activities with name and facilitator role
