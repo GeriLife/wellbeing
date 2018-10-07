@@ -36,7 +36,6 @@ Template.homeReport.onRendered(function () {
         // Create a trace for each activity type
         const trace = {
           type: 'bar',
-          mode: 'lines',
           name: activityCategoryData.key,
           // X values are activity dates
           x: _.map(activityCategoryData.values, function(activityCategoryDay) {
@@ -55,6 +54,9 @@ Template.homeReport.onRendered(function () {
       // Add plot layout configuration
       const layout = {
         title: TAPi18n.__('homeResidentsActivitiesChart-title'),
+        yaxis: {
+          title: TAPi18n.__('homeResidentsActivitiesChart-yaxis-title'),
+        }
       }
 
       // Get client locale
