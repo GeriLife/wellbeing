@@ -3,61 +3,45 @@ Methods returning data to render charts on the Home profile
 */
 
 import d3 from 'd3';
+import moment from 'moment';
 
 Meteor.methods({
   'getHomeResidentsActivitySumsByType': function ({homeId, activityMetric, activityPeriod}) {
-    // Get all activity types
-    var activityTypes = ActivityTypes.find({}, {sort: {name: 1}}).fetch();
+    /*
+    homeId - id for home
+    activityMetric - either 'count' or 'minutes'
+    activityPeriod - number of days prior to current date
+    */
+    
+    // Get all home Residencies
+    const query = {
+      "$and": [
+        { homeId },
+        {
+          "$or": [
+            {
+              "moveOut": {
+                // haven't moved out
+                "$exists": false
+              }
+            },
+            {
+              "moveOut": {
+                // moved out after activity period start
+                "$gte": moment().subtract(activityPeriod, 'days').toDate()
+              }
+            }
+          ]
+        }
+      ],
+    };
+    console.log(query)
+    const residencies = Residencies.find(query).fetch();
+    return residencies
+    // get resident IDs
 
-    // Get all resident IDs
-    const residentIds = Meteor.call('getHomeCurrentAndActiveResidentIds', homeId);
-
-    // Placeholder for all resident activity sums by type
-    var allResidentActivitySumsByType = _.map(activityTypes, function (activityType) {
-      // Create an object in the form of
-      //  key: activtyType.name
-      //  values: [
-      //    {
-      //      "label": "Resident Name",
-      //      "value": activity count or minutes (integer)
-      //    },
-      //    ...
-      //  ]
-
-      var residentActivityCountsByCurrentType = {
-        key: activityType.name,
-        values: _.map(residentIds, function (residentId) {
-          // Get resident
-          var resident = Residents.findOne(residentId);
-
-          // Get count of activities by current type for current resident
-          var activityCount = Meteor.call("getSumOfResidentActivitiesByTypeLast30Days", residentId, activityType._id);
-
-          // Placeholder object for resident name / activity count
-          var residentActivityCount = {};
-
-          if (activityCount > 0) {
-            residentActivityCount = {
-              "label": resident.fullName(),
-              "value": activityCount
-            };
-          } else {
-            residentActivityCount = {
-              "label": resident.fullName(),
-              "value": 0
-            };
-          }
-
-          return residentActivityCount;
-        })
-      }
-
-      return residentActivityCountsByCurrentType;
-    });
-
-    return allResidentActivitySumsByType;
+    // get activities for residents (by ID) where activityDate gte activityPeriod
   },
-///
   getHomeActivitiesFacilitatorRolesCountsLast30days (homeId) {
     // Get activties for current home (ID) from last 30 days
     let activityIds = Meteor.call('getHomeCurrentResidentsActivityIdsLast30Days', homeId);
