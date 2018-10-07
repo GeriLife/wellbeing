@@ -1,0 +1,53 @@
+<template name="homeResidentActivitySummaryCharts">
+  <h3>
+    {{_ "homeResidentActivitySummaryCharts-heading" }}
+    <!-- <small>{{_ "homeResidentActivitySumsByType-subheading" }}</small> -->
+
+    <div class="btn-group btn-group-toggle" id="activityMetricToggle" data-toggle="buttons">
+      <label class="btn btn-default btn-sm active">
+        <input type="radio" name="activityMetric" value="count" checked> Activity count
+      </label>
+      <label class="btn btn-default btn-sm">
+        <input type="radio" name="activityMetric"  value="minutes"> Activity minutes
+      </label>
+    </div>
+
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-default btn-sm active">
+        <input type="radio" name="activityPeriod" value="7" checked> 7 days
+      </label>
+      <label class="btn btn-default btn-sm">
+        <input type="radio" name="activityPeriod" value="30"> 30 days
+      </label>
+    </div>
+  </h3>
+
+  <div class="row">
+    <div class="col-md-12">
+      {{> homeResidentActivitySumsByType
+        activityMetric=activityMetric
+        activityPeriod=activityPeriod
+      }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <!-- Activity counts by activity type -->
+      {{> homeActivityCountsByActivityType
+        homeId=home._id
+        activityMetric=activityMetric
+        activityPeriod=activityPeriod
+      }}
+    </div>
+
+    <div class="col-md-6">
+      <!-- Activity counts by facilitator role -->
+      {{> homeActivityCountsByFacilitatorRole
+        homeId=home._id
+        activityMetric=activityMetric
+        activityPeriod=activityPeriod
+      }}
+    </div>
+  </div>
+</template>

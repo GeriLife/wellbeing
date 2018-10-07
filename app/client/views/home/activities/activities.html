@@ -1,8 +1,35 @@
 <template name="homeActivities">
-  <h2>Activities</h2>
-  {{# if Template.subscriptionsReady }}
-  {{> reactiveTable collection=homeActivities settings=tableSettings }}
-  {{ else }}
-  {{> spinner }}
-  {{/ if }}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-header">
+        <i class="fa fa-lg fa-heartbeat"></i>&nbsp;
+        {{_ "home-activitiesPanel-heading" }}
+      </h2>
+    </div>
+
+    <div class="panel-body">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+          <a href="#activity-charts" aria-controls="chart" role="tab" data-toggle="tab">
+            {{_ "home-activitiesPanel-activitySummaryTab" }}
+          </a>
+        </li>
+        <li role="presentation">
+          <a href="#activity-table" aria-controls="calendar" role="tab" data-toggle="tab">
+            {{_ "home-activitiesPanel-activityTableTab" }}
+          </a>
+        </li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="activity-charts">
+          {{> homeResidentActivitySummaryCharts home=home }}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="activity-table">
+          {{> homeActivitiesTable }}
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
