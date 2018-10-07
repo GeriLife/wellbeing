@@ -41,26 +41,56 @@ Meteor.methods({
     const residencies = Residencies.find(residenciesQuery).fetch();
 
     // get resident IDs
-    const residentIds = _.map(residencies, function (residency) {
-      return residency.residentId;
-    });
+    // const residentIds = _.map(residencies, function (residency) {
+    //   return residency.residentId;
+    // });
 
-    const groupedResidentActivities = _.map(residentIds, function (residentId) {
+    const groupedResidentActivities = _.map(residencies, function (residency) {
       // query to find activities for current resident within activity period
-      const activitiesQuery = {
-        activityDate: {
-          $gte: activityPeriodStart,
-        },
-        residentIds: residentId
+      const residencyActivitiesQuery = {
+        // activities for current resident
+        residentIds: residency.residentId,
+        // while they lived at the home, during the activity period
+          '$and': [
+            {
+              activityDate: {
+                // activities during the activity period
+                '$gte': activityPeriodStart,
+              }
+            },
+            {
+              activityDate: {
+                // while residency was living at home
+                // as they could have moved between homes
+                '$gte': residency.moveIn
+              }
+            },
+          ]
       }
+
+      // Check if residency has move out date
+      if (residency.hasOwnProperty('moveOut')) {
+        // set query to be before residency move out
+        residencyActivitiesQuery['$and'].push({
+          activityDate: {
+            '$lte': residency.moveOut
+          }
+        });
+      }
+
+      console.log(residencyActivitiesQuery)
 
       // get activities for current resident during time period
-      const residentActivities = Activities.find(activitiesQuery).fetch();
+      const residentActivities = Activities.find(residencyActivitiesQuery).fetch();
+      return residencyActivitiesQuery;
 
-      return {
-        name: Residents.findOne(residentId).fullName(),
-        activities: residentActivities
-      }
+      //console.log(Residents.findOne(residentId).fullName(), residentId)
+
+      // return {
+      //   name: Residents.findOne(residentId).fullName(),
+      //   residentId,
+      //   activities: residentActivities
+      // }
     });
 
     const residentActivitySummaries = _.map(groupedResidentActivities, function (resident) {
