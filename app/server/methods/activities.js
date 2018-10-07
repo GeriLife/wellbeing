@@ -64,6 +64,33 @@ Meteor.methods({
 
     return nestedActivities;
   },
+  getMonthlyAggregatedHomeResidentActivities (homeId) {
+    // Get all home activities
+    const allHomeActivities = Meteor.call('getAllHomeResidentActivities', homeId);
+
+    // annotate activities with name and facilitator role
+    const annotatedActivities = Meteor.call('annotateActivities', allHomeActivities);
+
+    // aggregate activities into daily bins grouped by type
+    //  - activity count
+    //  - activity minutes
+    var nestedActivities = d3.nest()
+      .key(function(activity) { return activity.activityTypeName })
+      .key(function(activity) {
+        return moment(activity.activityDate).startOf('month').toDate()
+      })
+      .rollup(function(dailyActivities) {
+         return {
+           "activity_count": dailyActivities.length,
+           "activity_minutes": d3.sum(dailyActivities, function(activity) {
+             return parseFloat(activity.duration);
+           })
+         }
+       })
+      .entries(annotatedActivities);
+
+    return nestedActivities;
+  },
   'getAllHomeResidentActivities' (homeId) {
     // Get all home Residencies
     const query = {
