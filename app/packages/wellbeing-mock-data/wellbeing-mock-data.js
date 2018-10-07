@@ -76,8 +76,6 @@ function getRandomMoveInDate (startDate) {
 }
 
 function createMockGroups () {
-  console.log('Creating mock groups');
-
   for (var i = 0; i < groups.length; i++) {
     var groupName = groups[i];
 
@@ -86,8 +84,6 @@ function createMockGroups () {
 }
 
 function createMockRoles() {
-  console.log('Creating mock roles');
-
   for (var i = 0; i < facilitatorRoles.length; i++) {
     var roleName = facilitatorRoles[i];
 
@@ -96,7 +92,6 @@ function createMockRoles() {
 }
 
 function createMockHomes() {
-  console.log('Creating mock homes');
   var amount = 3;
   var address = function() {return faker.address.city();};
 
@@ -111,7 +106,6 @@ function createMockHomes() {
 }
 
 function createMockResidents() {
-  console.log('Creating mock residents');
   var amount = 6;
   var homes = Homes.find().fetch();
   var firstName = function() {return faker.name.firstName();};
@@ -123,14 +117,12 @@ function createMockResidents() {
 
 }
 function createMockActivityTypes() {
-  console.log('Creating mock activiity types');
   for (var i = 0; i < activities.length; i++) {
     ActivityTypes.insert({'name': activities[i]});
   }
 }
 
 function createMockActivities() {
-  console.log('Creating mock activies');
   // Number of activities to create per resident
   var amount =  25;
 
@@ -190,8 +182,6 @@ function getRandomHomeButExcludeCurrent(currentHomeId) {
 
   */
 function createMockResidency(startingPoint = defaultStartingPoint, percentMovedOut = defaultPercentMovedOut) {
-  //console.log(startingPoint)
-  console.log("Creating Mock Residencies")
   //get all residents
   const residents = Residents.find().fetch();
 
@@ -203,8 +193,6 @@ function createMockResidency(startingPoint = defaultStartingPoint, percentMovedO
   const indexWhereMovedOut = residents.length - Math.round(residents.length * percentMovedOut)
   residents.forEach(function(resident, index) {
     let moveInDate = getRandomMoveInDate(startingPoint);
-
-    console.log(moveInDate);
 
     var args = { "residentId": resident._id, 'homeId': resident.homeId, 'moveIn': moveInDate }
     if (index >= indexWhereMovedOut) {
