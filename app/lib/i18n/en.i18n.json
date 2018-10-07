@@ -158,6 +158,7 @@
   "homeResidentActivitySumsByType-subheading": "(last 30 days)",
   "homeResidentActivitySummaryChart-residentAxisTitle": "Resident Name / Activity Count",
   "homeResidentActivitySummaryChart-activitiesAxisTitle": "Number of Activities",
+  "homeResidentActivitySummaryCharts-heading": "Activity summaries",
   "homeResidentActivityLevelTrend-chartTitle": "Number of residents per activity level for past seven days.",
   "homeResidentActivityLevelTrend-chartDescription": "Daily count of residents with inactive, moderate, and excellent activity level.",
   "homeResidentActivityLevelTrend-legend-active": "Excellent",
