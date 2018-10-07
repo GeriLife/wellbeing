@@ -1,6 +1,8 @@
+import { Template } from 'meteor/templating';
+
 Template.homeResidentActivitySumsByType.onCreated(function () {
   // Get reference to template instance
-  var templateInstance = this;
+  const templateInstance = this;
 
   // Get current home ID
   templateInstance.homeId = Router.current().params.homeId;
@@ -8,25 +10,38 @@ Template.homeResidentActivitySumsByType.onCreated(function () {
   // set up home resident activity sums by type reactive variable
  templateInstance.homeResidentsActivitySumsByType = new ReactiveVar();
 
- query = {
-   homeId: templateInstance.homeId,
-   activityMetric: templateInstance.activityMetric,
-   activityPeriod: templateInstance.activityPeriod,
- };
+ this.autorun(function() {
+   const params = Template.currentData();
 
-  // Get home resident activity sums from server method
-  Meteor.call(
-    'getHomeResidentsActivitySumsByType',
-    query,
-    function (error, activitySums) {
-      //Set the home resident activity sums variable with the returned activity sums
-      templateInstance.homeResidentsActivitySumsByType.set(activitySums);
-  });
+   // Make sure query parameters exist
+   if (
+     typeof params.activityMetric !== 'undefined'
+     &&
+     typeof params.activityPeriod !== 'undefined'
+   ) {
+     query = {
+       homeId: templateInstance.homeId,
+       activityMetric: params.activityMetric,
+       activityPeriod: params.activityPeriod,
+     };
+
+      // Get home resident activity sums from server method
+      Meteor.call(
+        'getHomeResidentsActivitySumsByType',
+        query,
+        function (error, activitySums) {
+          console.log(activitySums)
+          //Set the home resident activity sums variable with the returned activity sums
+          //templateInstance.homeResidentsActivitySumsByType.set(activitySums);
+      });
+   }
+ });
 });
 
 Template.homeResidentActivitySumsByType.onRendered(function () {
   // Get reference to template instance
-  var templateInstance = this;
+  const templateInstance = this;
+  //console.log(this)
 
   var activityCountChart = nv.models.multiBarHorizontalChart();
 
