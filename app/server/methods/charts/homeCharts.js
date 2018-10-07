@@ -5,7 +5,7 @@ Methods returning data to render charts on the Home profile
 import d3 from 'd3';
 
 Meteor.methods({
-  'getHomeResidentsActivitySumsByTypeLast30Days': function (homeId) {
+  'getHomeResidentsActivitySumsByType': function ({homeId, activityMetric, activityPeriod}) {
     // Get all activity types
     var activityTypes = ActivityTypes.find({}, {sort: {name: 1}}).fetch();
 
@@ -15,11 +15,11 @@ Meteor.methods({
     // Placeholder for all resident activity sums by type
     var allResidentActivitySumsByType = _.map(activityTypes, function (activityType) {
       // Create an object in the form of
-      //  key: actiivtyType.name
+      //  key: activtyType.name
       //  values: [
       //    {
       //      "label": "Resident Name",
-      //      "value": activity count (integer)
+      //      "value": activity count or minutes (integer)
       //    },
       //    ...
       //  ]
