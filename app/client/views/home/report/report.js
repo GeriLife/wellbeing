@@ -14,7 +14,7 @@ Template.homeReport.onCreated(function () {
   templateInstance.activityData = new ReactiveVar();
 
   // call method to retrieve aggregated activity data
-  Meteor.call('getDailyAggregatedHomeResidentActivities', templateInstance.homeId, function (error, activities) {
+  Meteor.call('getMonthlyAggregatedHomeResidentActivities', templateInstance.homeId, function (error, activities) {
     // set activity data in the reactive variable
     templateInstance.activityData.set(activities);
   })
@@ -35,7 +35,7 @@ Template.homeReport.onRendered(function () {
       const data = _.map(activityData, function (activityCategoryData) {
         // Create a trace for each activity type
         const trace = {
-          type: 'scatter',
+          type: 'bar',
           mode: 'lines',
           name: activityCategoryData.key,
           // X values are activity dates
@@ -45,7 +45,7 @@ Template.homeReport.onRendered(function () {
           // Y values are (currently) activity minutes
           // TODO: add page element to toggle between activity counts and minutes
           y: _.map(activityCategoryData.values, function(activityCategoryDay) {
-            return activityCategoryDay.value.activity_minutes;
+            return activityCategoryDay.value.activity_count;
           }),
         }
 
