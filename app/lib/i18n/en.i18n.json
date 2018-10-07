@@ -152,6 +152,7 @@
   "homes-homeGroup-addNewButton-home": "Add Home",
   "homeGroup-noHomesAdded-text": "No homes added to Group.",
   "homeResidentsActivitiesChart-title": "Home residents activities",
+  "homeResidentsActivitiesChart-yaxis-title": "Activity count",
   "homeResident-activityLabelText-onHiatus": "on hiatus",
   "homeResidentActivitySumsByType-heading": "Activity summary by type",
   "homeResidentActivitySumsByType-subheading": "(last 30 days)",
