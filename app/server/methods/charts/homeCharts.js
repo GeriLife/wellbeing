@@ -58,6 +58,26 @@ Meteor.methods({
 
     // get activities for residents (by ID) where activityDate gte activityPeriod
     const activities = Activities.find(activitiesQuery).fetch();
+
+    // annotate activities with name and facilitator role
+    const annotatedActivities = Meteor.call('annotateActivities', activities);
+
+    // aggregate activities into daily bins grouped by type
+    //  - activity count
+    //  - activity minutes
+    var nestedActivities = d3.nest()
+      .key(function(activity) { return activity.activityTypeName })
+      .rollup(function(groupedActivities) {
+         return {
+           "activity_count": groupedActivities.length,
+           "activity_minutes": d3.sum(groupedActivities, function(activity) {
+             return parseFloat(activity.duration);
+           })
+         }
+       })
+      .entries(annotatedActivities);
+
+     return nestedActivities;
   },
   getHomeActivitiesFacilitatorRolesCountsLast30days (homeId) {
     // Get activties for current home (ID) from last 30 days
