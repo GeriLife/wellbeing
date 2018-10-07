@@ -63,35 +63,32 @@ Meteor.methods({
       }
     });
 
-
-    const residentGroupedAnnotatedActivities = _.map(groupedResidentActivities, function (resident) {
+    const residentActivitySummaries = _.map(groupedResidentActivities, function (resident) {
       // annotate activities with name and facilitator role
       const annotatedActivities = Meteor.call('annotateActivities', resident.activities);
 
+      // aggregate activities into daily bins grouped by type
+      //  - activity count
+      //  - activity minutes
+      const nestedActivities = d3.nest()
+        .key(function(activity) { return activity.activityTypeName })
+        .rollup(function(groupedActivities) {
+           return {
+             "activity_count": groupedActivities.length,
+             "activity_minutes": d3.sum(groupedActivities, function(activity) {
+               return parseFloat(activity.duration);
+             })
+           }
+         })
+        .entries(annotatedActivities);
+
       return {
         name: resident.name,
-        activities: annotatedActivities
+        activities: nestedActivities
       }
     });
 
-    return residentGroupedAnnotatedActivities;
-
-    // aggregate activities into daily bins grouped by type
-    //  - activity count
-    //  - activity minutes
-    // var nestedActivities = d3.nest()
-    //   .key(function(activity) { return activity.activityTypeName })
-    //   .rollup(function(groupedActivities) {
-    //      return {
-    //        "activity_count": groupedActivities.length,
-    //        "activity_minutes": d3.sum(groupedActivities, function(activity) {
-    //          return parseFloat(activity.duration);
-    //        })
-    //      }
-    //    })
-    //   .entries(annotatedActivities);
-    //
-    //  return nestedActivities;
+    return residentActivitySummaries;
   },
   getHomeActivitiesFacilitatorRolesCountsLast30days (homeId) {
     // Get activties for current home (ID) from last 30 days
