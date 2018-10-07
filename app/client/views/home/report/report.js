@@ -63,7 +63,7 @@ Template.homeReport.onRendered(function () {
       const locale = TAPi18n.getLanguage();
 
       // Render plot
-      Plotly.newPlot('homeResidentsActivitiesChart', data, layout, { locale })
+      Plotly.newPlot('homeResidentsActivitiesChart', data, layout, { locale });
     }
   })
 });
