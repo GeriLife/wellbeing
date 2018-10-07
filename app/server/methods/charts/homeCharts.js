@@ -12,9 +12,11 @@ Meteor.methods({
     activityMetric - either 'count' or 'minutes'
     activityPeriod - number of days prior to current date
     */
-    
+
+    const activityPeriodStart = moment().subtract(activityPeriod, 'days').toDate();
+
     // Get all home Residencies
-    const query = {
+    const residenciesQuery = {
       "$and": [
         { homeId },
         {
@@ -28,19 +30,34 @@ Meteor.methods({
             {
               "moveOut": {
                 // moved out after activity period start
-                "$gte": moment().subtract(activityPeriod, 'days').toDate()
+                "$gte": activityPeriodStart
               }
             }
           ]
         }
       ],
     };
-    console.log(query)
-    const residencies = Residencies.find(query).fetch();
-    return residencies
+
+    const residencies = Residencies.find(residenciesQuery).fetch();
+
     // get resident IDs
+    const residentIds = _.map(residencies, function (residency) {
+      return residency.residentId;
+    });
+
+    // find activities within activity period
+    // where one of activity.residentIds is in residentIds
+    const activitiesQuery = {
+      activityDate: {
+        $gte: activityPeriodStart,
+      },
+      residentIds: {
+        $in: residentIds,
+      }
+    }
 
     // get activities for residents (by ID) where activityDate gte activityPeriod
+    const activities = Activities.find(activitiesQuery).fetch();
   },
   getHomeActivitiesFacilitatorRolesCountsLast30days (homeId) {
     // Get activties for current home (ID) from last 30 days
