@@ -1,6 +1,6 @@
 {
   "name": "gerilife-wellbeing",
-  "version": "0.5.0",
+  "version": "0.13.0",
   "description": "Wellbeing instrument and shared log book for staff working in assisted living communities.",
   "main": "index.js",
   "directories": {
