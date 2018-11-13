@@ -7,7 +7,12 @@
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <li class="header">{{_ "settingsLayoutSidebar-header" }}</li>
-        <!-- Optionally, you can add icons to the links -->
+        <li>
+          <a href='{{ pathFor "activityTypeSettings" }}'>
+            <i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp;
+            <span>{{_ "settingsLayoutSidebar-activityTypesLink" }}</span>
+          </a>
+        </li>
         <li>
           <a href='{{ pathFor "dataSettings" }}'>
             <i class="fa fa-database" aria-hidden="true"></i>&nbsp;
