@@ -24,13 +24,19 @@ Meteor.methods({
     // note: we are checking that the activity count is greater than zero
     return (residentActivityCountOnDate > 0);
   },
-  getResidentRecentActiveDaysCount (residentId, date = new Date()) {
+  residentRecentActivity (residentId, date = new Date()) {
     /*
     Get count of recent days (within past seven days) where resident was active
+
+    return an object with two keys
+      - activeDays: list of true/false indicating whether resident was active each recent day
+      - activeDaysCount: number of active days in recent days
     */
 
     // Initialize counter for resident active days
     let activeDaysCount = 0;
+
+    let recentDays = [];
 
     // Date one week ago (six days, since today counts as one day)
     const startDate = moment(date).subtract(6, 'days');
@@ -45,12 +51,17 @@ Meteor.methods({
       // Check whether resident was active on current day
       const residentWasActive = Meteor.call('checkIfResidentWasActiveOnDate', residentId, currentDay.toDate());
 
+      recentDays.push({ residentWasActive });
+
       if (residentWasActive) {
         // Add one to active days count
         activeDaysCount += 1;
       }
     }
 
-    return activeDaysCount;
+    return {
+      recentDays,
+      activeDaysCount,
+    };
   },
 });
