@@ -8,10 +8,15 @@ Template.homeResident.onCreated(function () {
   // Create resident activity count reactive variable
   instance.residentRecentActiveDaysCount = new ReactiveVar();
 
+  // Create resident recent active days reactive variable
+  instance.residentRecentActiveDays = new ReactiveVar();
+
   // Get resident activity count from server, and set reactive variable
-  Meteor.call('getResidentRecentActiveDaysCount', residentId, function (error, activeDaysCount) {
+  Meteor.call('getResidentRecentActiveDaysAndCount', residentId, function (error, recentActivity) {
     // set the value of the resident activity count reactive variable
-    instance.residentRecentActiveDaysCount.set(activeDaysCount);
+    instance.residentRecentActiveDaysCount.set(recentActivity.activeDaysCount);
+
+    instance.residentRecentActiveDays.set(recentActivity.recentActiveDays);
   });
 });
 
@@ -76,6 +81,11 @@ Template.homeResident.helpers({
     } else if ( recentActiveDaysCount === 0 ) {
       return inactive;
     }
+  },
+  recentActiveDays () {
+    const instance = Template.instance()
+
+    return instance.residentRecentActiveDays.get()
   },
   recentActiveDaysCount () {
     // Get reference to template instance
