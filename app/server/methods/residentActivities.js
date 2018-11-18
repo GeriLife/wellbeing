@@ -57,8 +57,8 @@ Meteor.methods({
 
     // each value in recent active days is boolean
     // true/false based on whether resident was active
-    recentActiveDays.forEach(function (residentWasActive) {
-      if (residentWasActive) {
+    recentActiveDays.forEach(function (day) {
+      if (day.residentWasActive) {
         // Add one to active days count
         activeDaysCount += 1;
       }
@@ -74,7 +74,7 @@ Meteor.methods({
     // active days are recent active days that are 'true',
     // meaning resident was active
     // https://stackoverflow.com/a/42317235/1191545
-    const activeDaysCount = recentActiveDays.filter(Boolean).length;
+    const activeDaysCount = recentActiveDays.filter(day => day.residentWasActive === true).length;
 
     return {
       recentActiveDays,
