@@ -40,7 +40,7 @@ Meteor.methods({
       // Check whether resident was active on current day
       const residentWasActive = Meteor.call('checkIfResidentWasActiveOnDate', residentId, currentDay.toDate());
 
-      recentActiveDays.push(residentWasActive);
+      recentActiveDays.push({residentWasActive});
     }
 
     return recentActiveDays;
@@ -59,7 +59,6 @@ Meteor.methods({
     // true/false based on whether resident was active
     recentActiveDays.forEach(function (residentWasActive) {
       if (residentWasActive) {
-        console.log(residentWasActive)
         // Add one to active days count
         activeDaysCount += 1;
       }
@@ -67,4 +66,19 @@ Meteor.methods({
 
     return activeDaysCount;
   },
+  getResidentRecentActiveDaysAndCount (residentId, date = new Date()) {
+    const residentRecentActiveDaysAndCount = {};
+
+    const recentActiveDays = Meteor.call('getResidentRecentActiveDays', residentId, date);
+
+    // active days are recent active days that are 'true',
+    // meaning resident was active
+    // https://stackoverflow.com/a/42317235/1191545
+    const activeDaysCount = recentActiveDays.filter(Boolean).length;
+
+    return {
+      recentActiveDays,
+      activeDaysCount,
+    }
+  }
 });
