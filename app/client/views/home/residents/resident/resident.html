@@ -9,9 +9,11 @@
         {{ activityLabelText }}
         {{/ if }}
       </td>
-      {{# each day in pastSevenDays }}
+      {{# each day in recentActiveDays }}
         <td>
-          {{> homeResidentActiveOnDate resident=resident day=day }}
+          {{# if day.residentWasActive }}
+            <i class="fa fa-check"></i>
+          {{/ if }}
         </td>
       {{/ each }}
     </tr>
