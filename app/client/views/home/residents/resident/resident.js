@@ -1,6 +1,6 @@
 Template.homeResident.onCreated(function () {
   // Get reference to template instance
-  var instance = this;
+  const instance = this;
 
   // Get resident ID as instance variable, for clarity
   const residentId = instance.data.resident._id;
@@ -23,7 +23,7 @@ Template.homeResident.onCreated(function () {
 Template.homeResident.helpers({
   activityLabelClass () {
     // Get reference to template instance
-    var instance = Template.instance();
+    const instance = Template.instance();
 
     // Get resident
     const resident = instance.data.resident;
@@ -34,7 +34,7 @@ Template.homeResident.helpers({
     }
 
     // Get resident activity count
-    var recentActiveDaysCount = instance.residentRecentActiveDaysCount.get();
+    const recentActiveDaysCount = instance.residentRecentActiveDaysCount.get();
 
     // Case for returning Bootstrap class based on activity level
     if (recentActiveDaysCount >= 5) {
@@ -47,7 +47,7 @@ Template.homeResident.helpers({
   },
    activityLabelText () {
     // Get reference to template instance
-    var instance = Template.instance();
+    const instance = Template.instance();
 
     // Map the resident activity level to a Bootstrap class
 
@@ -63,10 +63,10 @@ Template.homeResident.helpers({
     }
 
     // Get resident ID from template instance
-    var residentId = instance.residentId;
+    const residentId = instance.residentId;
 
     // Get resident activity count
-    var recentActiveDaysCount = instance.residentRecentActiveDaysCount.get();
+    const recentActiveDaysCount = instance.residentRecentActiveDaysCount.get();
 
     // Get activity level translations
     const active = TAPi18n.__("residentActivityLevel-active");
@@ -89,10 +89,10 @@ Template.homeResident.helpers({
   },
   recentActiveDaysCount () {
     // Get reference to template instance
-    var instance = Template.instance();
+    const instance = Template.instance();
 
     // Get resident activity count
-    var recentActiveDaysCount = instance.residentRecentActiveDaysCount.get();
+    const recentActiveDaysCount = instance.residentRecentActiveDaysCount.get();
 
     // Return the activity count as a string
     return recentActiveDaysCount;
