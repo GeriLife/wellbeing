@@ -46,6 +46,6 @@ Template.home.helpers({
     var homeId = instance.homeId;
 
     // Return all residents for current home, sorting by first name
-    return Residents.find({'homeId': homeId}, {sort: {firstName: 1}});
+    return Residents.find({}, {sort: {firstName: 1}});
   }
 });
