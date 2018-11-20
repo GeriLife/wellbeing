@@ -18,11 +18,6 @@ Meteor.publish('selectResidents', function (residentIdsArray) {
   return Residents.find({_id: {$in: residentIdsArray}});
 });
 
-Meteor.publish('homeResidents', function (homeId) {
-  // Publish all residents of a given home
-  return Residents.find({homeId: homeId});
-});
-
 Meteor.publish('homeCurrentResidents', function (homeId) {
   // Find all residencies for given home
   const homeResidencies = Residencies.find({
@@ -36,5 +31,5 @@ Meteor.publish('homeCurrentResidents', function (homeId) {
   });
 
   // Publish all current residents of a given home
-  return Residents.find({"_id": {"$in": homeResidentIds}});
+  return Residents.find({_id: {$in: homeResidentIds}});
 });
