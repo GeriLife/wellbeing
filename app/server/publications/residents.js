@@ -24,6 +24,17 @@ Meteor.publish('homeResidents', function (homeId) {
 });
 
 Meteor.publish('homeCurrentResidents', function (homeId) {
+  // Find all residencies for given home
+  const homeResidencies = Residencies.find({
+    homeId,
+    moveOut: {$exists: false},
+  }).fetch();
+
+  // Get resident IDs from residencies
+  const homeResidentIds = _.map(homeResidencies, (residency) => {
+    return residency.residentId;
+  });
+
   // Publish all current residents of a given home
-  return Residents.find({homeId: homeId, departed: false});
+  return Residents.find({"_id": {"$in": homeResidentIds}});
 });
