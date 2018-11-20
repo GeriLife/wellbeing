@@ -46,6 +46,7 @@ Template.home.helpers({
     var homeId = instance.homeId;
 
     // Return all residents for current home, sorting by first name
-    return Residents.find({}, {sort: {firstName: 1}});
+    // TODO: deprecate the departed field
+    return Residents.find({departed: false}, {sort: {firstName: 1}});
   }
 });
