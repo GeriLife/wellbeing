@@ -51,10 +51,3 @@ Template.residentForm.helpers({
     }
   }
 });
-
-AutoForm.addHooks('residentForm', {
-  'onSuccess': function () {
-    // Hide the modal dialogue
-    Modal.hide('residentForm');
-  }
-});
