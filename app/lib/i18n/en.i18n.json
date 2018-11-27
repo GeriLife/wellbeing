@@ -184,6 +184,7 @@
   "newUser-header": "Create new User",
   "newUser-saveButton": "Save",
   "resident-editButton": "Edit resident",
+  "resident-onHiatus": "On hiatus",
   "residentCurrentResidency-editResidencyButton": "Edit Residency",
   "residencies": {
     "homeId": {
