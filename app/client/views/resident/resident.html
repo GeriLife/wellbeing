@@ -19,6 +19,10 @@
         {{ resident.lastInitial }}
       {{/ if }}
 
+      {{# if resident.onHiatus }}
+        <span class="label label-info">on hiatus</span>
+      {{/ if }}
+
       {{# if isInRole 'admin' }}
       <button id="edit-resident" class="btn btn-default">
         {{_ "resident-editButton" }}
