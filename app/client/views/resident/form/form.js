@@ -1,6 +1,6 @@
 Template.residentForm.onCreated(function () {
   // Get reference to template instance
-  var templateInstance = this;
+  const templateInstance = this;
 
   // Check whether residentId was passed in to template data context
   if (templateInstance.data && templateInstance.data.residentId) {
@@ -10,12 +10,6 @@ Template.residentForm.onCreated(function () {
     // Subscribe to single resident, based on Resident ID
     templateInstance.subscribe('singleResident', residentId);
   }
-
-  // Subscribe to all homes, for the home select options
-  templateInstance.subscribe('allHomes');
-
-  // Subscribe to all groups
-  templateInstance.subscribe('allGroups');
 });
 
 Template.residentForm.helpers({
