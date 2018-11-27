@@ -20,7 +20,10 @@
       {{/ if }}
 
       {{# if resident.onHiatus }}
-        <span class="label label-info">on hiatus</span>
+        <span class="label label-info">
+          {{_ "resident-onHiatus" }}
+        </span>
+        &nbsp;
       {{/ if }}
 
       {{# if isInRole 'admin' }}

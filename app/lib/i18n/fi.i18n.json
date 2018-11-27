@@ -184,6 +184,7 @@
     "newUser-header": "Luo uusi k\u00e4ytt\u00e4j\u00e4",
     "newUser-saveButton": "Tallenna",
     "resident-editButton": "Muokkaa asukasta",
+    "resident-onHiatus": "Keskeytys",
     "residentCurrentResidency-editResidencyButton": "Muokkaa asiakkuutta",
     "residencies": {
         "homeId": {
