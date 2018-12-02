@@ -1,61 +1,60 @@
-Template.residents.created = function () {
-  // Get reference to template instance
-  var instance = this;
+Template.residents.onCreated(function () {
+  const templateInstance = this;
 
   // Reactive variable to toggle resident subscription based on departed status
-  instance.includeDeparted = new ReactiveVar();
+  templateInstance.includeDeparted = new ReactiveVar();
 
   // Subscribe to all homes, for data table
-  instance.subscribe("allHomes");
+  templateInstance.subscribe("allHomes");
+  templateInstance.subscribe("allResidents")
 
   // Toggle resident subscription based on departed status
-  instance.autorun(function () {
+  templateInstance.autorun(function () {
     // If include departed is checked
-    if (instance.includeDeparted.get() === true) {
+    if (templateInstance.includeDeparted.get() === true) {
       // Show all residents
-      instance.subscribe("allResidents");
+      templateInstance.subscribe("allResidencies");
     } else {
       // Otherwise, show only current residents
-      instance.subscribe("allCurrentResidents");
+      templateInstance.subscribe("allCurrentResidencies");
     }
   });
-};
+});
 
 Template.residents.helpers({
-  'residents': function () {
-    // Get reference to template instance
-    var instance = Template.instance();
+  residencies() {
+    const templateInstance = Template.instance();
 
     // Make sure subscriptions are ready
-    if (instance.subscriptionsReady()) {
-      // Create a placeholder array for resident objects
-      var residentsArray = [];
+    if (templateInstance.subscriptionsReady()) {
+      // Create a placeholder array for residency details objects
+      const residencyDetailsArray = [];
 
-      // Get all residents
-      var residents = Residents.find().fetch();
+      const residencies = Residencies.find().fetch();
 
-        // Iterate through residents
-        // set full name and home name from collection helpers
-        residents.forEach(function (resident) {
-          var residentObject = {
-            fullName: resident.fullName(),
-            homeName: resident.homeName(),
-            residentId: resident._id,
-            homeId: resident.homeId,
-          };
+      // Iterate through residents
+      // set full name and home name from collection helpers
+      residencies.forEach(function (residency) {
+        const resident = Residents.findOne(residency.residentId)
 
-          // Add resident object to residents list
-          residentsArray.push(residentObject);
+        const residencyDetails = {
+          ...residency,
+          residentName: resident.fullName(),
+          homeName: resident.homeName(),
+        };
 
-        });
+        // Add resident object to residents list
+        residencyDetailsArray.push(residencyDetails);
 
-      return residentsArray;
+      });
+
+      return residencyDetailsArray;
     }
 
     // return an empty array if no data is available
     return [];
   },
-  'tableSettings': function () {
+  tableSettings() {
     // Create placeholder object for filter labels
     const tableLabels = {};
 
@@ -65,7 +64,7 @@ Template.residents.helpers({
     tableLabels.homeName = TAPi18n.__("residents-tableLabels-homeName");
     tableLabels.residency = TAPi18n.__("residents-tableLabels-residency");
 
-    var tableSettings = {
+    const tableSettings = {
       showFilter: false,
       fields: [
         {
@@ -74,7 +73,7 @@ Template.residents.helpers({
           tmpl: Template.residentViewButton,
         },
         {
-          key: 'fullName',
+          key: 'residentName',
           label: tableLabels.fullName,
           sortOrder: 0,
           sortDirection: 'ascending'
@@ -109,15 +108,15 @@ Template.residents.helpers({
 
     return tableSettings;
   },
-  "nameFilterFields": function () {
+  nameFilterFields () {
     // Return relevant field name(s) for name filter
-    return ['fullName'];
+    return ['residentName'];
   },
-  "homeFilterFields": function () {
+  homeFilterFields() {
     // Return relevant field name(s) for home filter
     return ['homeName'];
   },
-  "filterLabels": function () {
+  filterLabels () {
     // Create placeholder object for filter labels
     const filterLabels = {};
 
@@ -130,25 +129,14 @@ Template.residents.helpers({
 });
 
 Template.residents.events({
-  // TODO: add a 'view resident' button to trigger this event
-  // https://github.com/GeriLife/wellbeing/issues/144
-  // 'click .reactive-table tbody tr': function (event) {
-  //   event.preventDefault();
-  //
-  //   // Get Resident ID from table
-  //   var residentId = this.residentId;
-  //
-  //   // Show view for selected resident
-  //   Router.go('resident', {residentId: residentId})
-  // },
-  'click #new-resident': function () {
+  'click #new-resident' () {
     // Show the edit home modal
     Modal.show('addResidencyModal');
   },
-  'click #include-departed': function (event) {
-    var instance = Template.instance();
+  'click #include-departed' (event) {
+    const instance = Template.instance();
 
-    var includeDepartedValue = event.target.checked;
+    const includeDepartedValue = event.target.checked;
 
     instance.includeDeparted.set(includeDepartedValue);
   }
