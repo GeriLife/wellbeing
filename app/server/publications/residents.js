@@ -4,8 +4,18 @@ Meteor.publish('allResidents', function () {
 });
 
 Meteor.publish('allCurrentResidents', function () {
-  // Publish all residents who are not departed
-  return Residents.find({departed: false});
+  // Find all current residencies
+  const currentResidencies = Residencies.find({
+    moveOut: {$exists: false},
+  }).fetch();
+
+  // Get resident IDs from residencies
+  const currentResidentIds = _.map(currentResidencies, (residency) => {
+    return residency.residentId;
+  });
+
+  // Publish all current residents
+  return Residents.find({_id: {$in: currentResidentIds}});
 });
 
 Meteor.publish('singleResident', function (residentId) {
