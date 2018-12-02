@@ -12,10 +12,10 @@ Template.residents.onCreated(function () {
   templateInstance.autorun(function () {
     // If include departed is checked
     if (templateInstance.includeDeparted.get() === true) {
-      // Show all residents
+      // Get all residencies
       templateInstance.subscribe("allResidencies");
     } else {
-      // Otherwise, show only current residents
+      // Otherwise, get only current residencies
       templateInstance.subscribe("allCurrentResidencies");
     }
   });
