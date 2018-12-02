@@ -1,5 +1,6 @@
 Template.activityForm.created = function () {
   this.subscribe('allCurrentResidents');
+  this.subscribe('allCurrentResidencies');
   this.subscribe('allHomes');
   this.subscribe('allActivityTypes');
   this.subscribe('allRolesExceptAdmin');
@@ -58,9 +59,6 @@ Template.activityForm.helpers({
       // Get home ID
       const homeId = home._id;
 
-      // do not show departed residents
-      const departed = false;
-
       // do not show residents who are on hiatus
       const onHiatus = false;
 
@@ -68,15 +66,26 @@ Template.activityForm.helpers({
       const sort = {firstName: 1}
 
       // Get a list of residents for current home
-      const homeResidents = Residents.find({ homeId, departed, onHiatus }, {sort}).fetch();
+      const homeResidencies = Residencies.find({
+          homeId,
+          moveOut: {$exists: false},
+        },
+        {sort}
+      ).fetch();
+
+      const homeResidentIds = _.map(homeResidencies, function(residency) {
+        return residency.residentId;
+      });
 
       // Create an object containing a home and its residents
       const homeGroup = {
         optgroup: home.name,
-        options: _.map(homeResidents, function (resident) {
+        options: _.map(homeResidentIds, function (residentId) {
+          const resident = Residents.findOne(residentId);
+
           // Create an object containing the resident name and ID
           const residentObject = {
-            value: resident._id,
+            value: residentId,
             label: resident.fullName()
           };
 
