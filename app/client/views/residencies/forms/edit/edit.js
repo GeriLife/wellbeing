@@ -2,12 +2,6 @@ Template.editResidencyModal.onCreated(function () {
   // Get reference to template instance
   const templateInstance = this;
 
-  // Get resident and home IDs
-  const { residentId, homeId } = templateInstance.data;
-
-  // Subscribe to single residency, if available
-  templateInstance.subscribe('singleResidency', residentId, homeId);
-
   // reactive placeholder for residentId select
   templateInstance.residentIdSelectOptions = new ReactiveVar();
 
@@ -32,26 +26,18 @@ Template.editResidencyModal.helpers({
     return Date();
   },
   residency () {
-    // Get reference to template instance
     const templateInstance = Template.instance();
 
-    // Get resident and home IDs from template instance
-    const { residentId, homeId } = templateInstance.data;
-
-    if (residentId && homeId) {
-      // Check for existing residency
-      // Return residency document or undefined
-      return Residencies.findOne({ residentId, homeId })
+    if (templateInstance.data.residency) {
+      return templateInstance.data.residency;
     }
   },
   residentIdOptions () {
-    // Get reference to template instance
     const templateInstance = Template.instance();
 
     return templateInstance.residentIdSelectOptions.get();
   },
   homeSelectOptionsWithGroups () {
-    // Get reference to template instance
     const templateInstance = Template.instance();
 
     return templateInstance.homeSelectOptionsWithGroups.get();
