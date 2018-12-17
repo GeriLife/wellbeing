@@ -184,6 +184,8 @@
   "newUser-header": "Create new User",
   "newUser-saveButton": "Save",
   "report-header": "All Homes Report",
+  "reportPageActivitiesChart-title": "All home activities over time",
+  "reportPageActivitiesChart-yaxis-title": "Activity count",
   "resident-editButton": "Edit resident",
   "resident-onHiatus": "On hiatus",
   "residentCurrentResidency-editResidencyButton": "Edit Residency",
