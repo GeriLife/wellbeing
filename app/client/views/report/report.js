@@ -38,10 +38,10 @@ Template.report.onRendered(function () {
           y: _.map(activityCategoryData.values, function(activityCategoryDay) {
             return activityCategoryDay.value.activity_count;
           }),
-        }
+        };
 
         return trace;
-      })
+      });
 
       // Add plot layout configuration
       const layout = {
@@ -49,7 +49,7 @@ Template.report.onRendered(function () {
         yaxis: {
           title: TAPi18n.__('homeResidentsActivitiesChart-yaxis-title'),
         }
-      }
+      };
 
       // Get client locale
       const locale = TAPi18n.getLanguage();
