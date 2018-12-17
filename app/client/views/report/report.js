@@ -45,9 +45,9 @@ Template.report.onRendered(function () {
 
       // Add plot layout configuration
       const layout = {
-        title: TAPi18n.__('homeResidentsActivitiesChart-title'),
+        title: TAPi18n.__('reportPageActivitiesChart-title'),
         yaxis: {
-          title: TAPi18n.__('homeResidentsActivitiesChart-yaxis-title'),
+          title: TAPi18n.__('reportPageActivitiesChart-yaxis-title'),
         }
       };
 
