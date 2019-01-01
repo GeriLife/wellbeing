@@ -6,6 +6,7 @@ Template.report.onCreated(function () {
   templateInstance.activityData = new ReactiveVar();
   templateInstance.activityMetric = new ReactiveVar();
   templateInstance.timePeriod = new ReactiveVar();
+  templateInstance.barMode = new ReactiveVar();
 });
 
 Template.report.onRendered(function () {
@@ -34,6 +35,7 @@ Template.report.onRendered(function () {
   templateInstance.autorun(function () {
     const activityData = templateInstance.activityData.get();
     const activityMetric = templateInstance.activityMetric.get();
+    const barmode = templateInstance.barMode.get();
 
     // Make sure we have some activity data
     if (activityData) {
@@ -60,7 +62,8 @@ Template.report.onRendered(function () {
         title: TAPi18n.__('reportPageActivitiesChart-title'),
         yaxis: {
           title: TAPi18n.__(`reportPageActivitiesChart-yaxis-${ activityMetric }`),
-        }
+        },
+        barmode,
       };
 
       // Get client locale
@@ -77,6 +80,11 @@ Template.report.events({
     const activityMetric = $('input[name="activityMetric"]:checked').val();
 
     templateInstance.activityMetric.set(activityMetric);
+  },
+  'change #barMode'(event, templateInstance) {
+    const barMode = $('input[name="barMode"]:checked').val();
+
+    templateInstance.barMode.set(barMode);
   },
   'change #timePeriod'(event, templateInstance) {
     const timePeriod = $('input[name="timePeriod"]:checked').val();
