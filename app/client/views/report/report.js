@@ -5,12 +5,7 @@ Template.report.onCreated(function () {
 
   templateInstance.activityData = new ReactiveVar();
   templateInstance.activityMetric = new ReactiveVar();
-
-  // call method to retrieve aggregated activity data
-  Meteor.call('getMonthlyAggregatedActivities', templateInstance.homeId, function (error, activityData) {
-    // set activity data in the reactive variable
-    templateInstance.activityData.set(activityData);
-  })
+  templateInstance.timePeriod = new ReactiveVar();
 });
 
 Template.report.onRendered(function () {
@@ -20,10 +15,23 @@ Template.report.onRendered(function () {
   const activityMetric = $('input[name="activityMetric"]:checked').val();
   templateInstance.activityMetric.set(activityMetric);
 
+  // Set initial time period from template
+  const timePeriod = $('input[name="timePeriod"]:checked').val();
+  templateInstance.timePeriod.set(timePeriod);
+
+  // fetch chart data in reactive context
   templateInstance.autorun(function () {
-    //TODO: add reactive data source to toggle between
-    //  - 'activity_minutes'
-    //  - 'activity_count'
+    const timePeriod = templateInstance.timePeriod.get();
+
+    // call method to retrieve aggregated activity data
+    Meteor.call('getAggregatedActivities', timePeriod, function (error, activityData) {
+      // set activity data in the reactive variable
+      templateInstance.activityData.set(activityData);
+    });
+  });
+
+  // Render chart in reactive context
+  templateInstance.autorun(function () {
     const activityData = templateInstance.activityData.get();
     const activityMetric = templateInstance.activityMetric.get();
 
@@ -69,5 +77,10 @@ Template.report.events({
     const activityMetric = $('input[name="activityMetric"]:checked').val();
 
     templateInstance.activityMetric.set(activityMetric);
+  },
+  'change #timePeriod'(event, templateInstance) {
+    const timePeriod = $('input[name="timePeriod"]:checked').val();
+
+    templateInstance.timePeriod.set(timePeriod);
   },
 });
