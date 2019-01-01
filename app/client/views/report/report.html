@@ -18,5 +18,20 @@
         </label>
     </div>
 
+    <div class="form-group">
+        <label class="control-label" for="timePeriod">
+            {{_ "report-timePeriod-label" }}
+        </label>
+        &nbsp;
+        <label class="radio-inline">
+            <input id="timePeriod" name="timePeriod" type="radio" value="week" checked="checked">
+            {{_ "report-timePeriod-week" }}
+        </label>
+        <label class="radio-inline">
+            <input id="timePeriod" name="timePeriod" type="radio" value="month">
+            {{_ "report-timePeriod-month" }}
+        </label>
+    </div>
+
     <div id="residentsActivitiesChart"></div>
 </template>
