@@ -60,8 +60,11 @@ Template.report.onRendered(function () {
       // Add plot layout configuration
       const layout = {
         title: TAPi18n.__('reportPageActivitiesChart-title'),
+        xaxis: {
+          title: TAPi18n.__('reportPageActivitiesChart-xaxis-title'),
+        },
         yaxis: {
-          title: TAPi18n.__(`reportPageActivitiesChart-yaxis-${ activityMetric }`),
+          title: TAPi18n.__(`reportPageActivitiesChart-yaxis-${activityMetric}`),
         },
         barmode,
       };
