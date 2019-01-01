@@ -3,5 +3,20 @@
         {{_ "report-header" }}
     </h1>
 
+    <div class="form-group">
+        <label class="control-label" for="activityMetric">
+            {{_ "report-activityMetric-label" }}
+        </label>
+        &nbsp;
+        <label class="radio-inline">
+            <input id="activityMetric" name="activityMetric" type="radio" value="activity_count" checked="checked">
+            {{_ "report-activityMetric-activity_count" }}
+        </label>
+        <label class="radio-inline">
+            <input id="activityMetric" name="activityMetric" type="radio" value="activity_minutes">
+            {{_ "report-activityMetric-activity_minutes" }}
+        </label>
+    </div>
+
     <div id="residentsActivitiesChart"></div>
 </template>
