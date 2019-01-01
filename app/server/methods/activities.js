@@ -37,14 +37,14 @@ Meteor.methods({
 
     return annotatedActivities;
   },
-  aggregateActivities(annotatedActivities) {
+  aggregateActivities(annotatedActivities, timePeriod) {
     // aggregate activities into daily bins grouped by type
     //  - activity count
     //  - activity minutes
     const nestedActivities = d3.nest()
       .key(function(activity) { return activity.activityTypeName })
       .key(function(activity) {
-        return moment(activity.activityDate).startOf('month').toDate()
+        return moment(activity.activityDate).startOf(timePeriod).toDate()
       })
       .rollup(function(dailyActivities) {
          return {
@@ -85,7 +85,7 @@ Meteor.methods({
 
     return nestedActivities;
   },
-  getMonthlyAggregatedActivities () {
+  getAggregatedActivities(timePeriod) {
     const activities = Activities.find().fetch();
 
     // TODO: work out how to annotate the aggregated data,
@@ -93,7 +93,7 @@ Meteor.methods({
     // to increase performance of this function
     const annotatedActivities = Meteor.call('annotateActivities', activities);
 
-    const nestedActivities = Meteor.call('aggregateActivities', annotatedActivities);
+    const nestedActivities = Meteor.call('aggregateActivities', annotatedActivities, timePeriod);
 
     return nestedActivities;
   },
