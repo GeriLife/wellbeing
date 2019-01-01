@@ -5,16 +5,16 @@
 
     <div class="form-group">
         <label class="control-label" for="activityMetric">
-            Activity metric
+            {{_ "report-activityMetric-label" }}
         </label>
         &nbsp;
         <label class="radio-inline">
-            <input name="activityMetric" type="radio" value="activityCount" checked="checked">
-            Activity Count
+            <input id="activityMetric" name="activityMetric" type="radio" value="activity_count" checked="checked">
+            {{_ "report-activityMetric-activity_count" }}
         </label>
         <label class="radio-inline">
-            <input name="activityMetric" type="radio" value="activityMinutes">
-            Activity Minutes
+            <input id="activityMetric" name="activityMetric" type="radio" value="activity_minutes">
+            {{_ "report-activityMetric-activity_minutes" }}
         </label>
     </div>
 
