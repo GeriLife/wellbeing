@@ -1,51 +1,17 @@
 <template name="report">
     <h1>
         {{_ "report-header" }}
+        <button class="btn btn-primary btn-xs" type="button" data-toggle="collapse" data-target="#chartSettings"
+                aria-expanded="false" aria-controls="collapseExample">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+            Chart settings
+        </button>
     </h1>
 
-    <div class="form-group">
-        <label class="control-label" for="activityMetric">
-            {{_ "report-activityMetric-label" }}
-        </label>
-        &nbsp;
-        <label class="radio-inline">
-            <input id="activityMetric" name="activityMetric" type="radio" value="activity_count" checked="checked">
-            {{_ "report-activityMetric-activity_count" }}
-        </label>
-        <label class="radio-inline">
-            <input id="activityMetric" name="activityMetric" type="radio" value="activity_minutes">
-            {{_ "report-activityMetric-activity_minutes" }}
-        </label>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label" for="timePeriod">
-            {{_ "report-timePeriod-label" }}
-        </label>
-        &nbsp;
-        <label class="radio-inline">
-            <input id="timePeriod" name="timePeriod" type="radio" value="week" checked="checked">
-            {{_ "report-timePeriod-week" }}
-        </label>
-        <label class="radio-inline">
-            <input id="timePeriod" name="timePeriod" type="radio" value="month">
-            {{_ "report-timePeriod-month" }}
-        </label>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label" for="barMode">
-            {{_ "report-barMode-label" }}
-        </label>
-        &nbsp;
-        <label class="radio-inline">
-            <input id="barMode" name="barMode" type="radio" value="group" checked="checked">
-            {{_ "report-barMode-group" }}
-        </label>
-        <label class="radio-inline">
-            <input id="barMode" name="barMode" type="radio" value="stack">
-            {{_ "report-barMode-stack" }}
-        </label>
+    <div class="collapse" id="chartSettings">
+        <div class="well">
+            {{> sharedReportSettingsForm }}
+        </div>
     </div>
 
     <div id="residentsActivitiesChart"></div>
