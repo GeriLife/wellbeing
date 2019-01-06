@@ -97,6 +97,20 @@ Meteor.methods({
 
     return nestedActivities;
   },
+  getResidentAggregatedActivities(residentId, timePeriod) {
+    const activities = Activities.find({
+      residentIds: residentId,
+    }).fetch();
+
+    // TODO: work out how to annotate the aggregated data,
+    // rather than all individual activities
+    // to increase performance of this function
+    const annotatedActivities = Meteor.call('annotateActivities', activities);
+
+    const nestedActivities = Meteor.call('aggregateActivities', annotatedActivities, timePeriod);
+
+    return nestedActivities;
+  },
   getMonthlyAggregatedHomeResidentActivities: function (homeId) {
     // Get all home activities
     const allHomeActivities = Meteor.call('getAllHomeResidentActivities', homeId);
