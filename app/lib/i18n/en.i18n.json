@@ -236,7 +236,7 @@
       "label": "On hiatus"
     }
   },
-  "residentActivityTrendChart-title": "Daily activity in minutes",
+  "residentActivityTrendChart-title": "Resident activity overview",
   "residentActivityTrendChart-description": "Daily sum of activity minutes",
   "residentActivityTrendChart-yLabel": "Minutes",
   "residentActivityTrendChart-mouseoverLabel": "minutes",
