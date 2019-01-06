@@ -1,23 +1,24 @@
 Template.resident.onCreated(function () {
-  // Get reference to template instance
-  var instance = this;
+  const templateInstance = this;
+
+  // used to pass all resident activities into some charts
+  templateInstance.activities = new ReactiveVar();
 
   // Get Resident ID from router
-  instance.residentId = Router.current().params.residentId;
+  templateInstance.residentId = Router.current().params.residentId;
 
   // Subscribe to current resident
-  instance.subscribe('residentProfileComposite', instance.residentId);
+  templateInstance.subscribe('residentProfileComposite', templateInstance.residentId);
 
   // Subscribe to all roles except admin
-  instance.subscribe("allRolesExceptAdmin");
-
-  instance.activities = new ReactiveVar();
+  templateInstance.subscribe("allRolesExceptAdmin");
 });
+
 
 Template.resident.events({
   'click #edit-resident' () {
     // Get reference to template instance
-    var templateInstance = Template.instance();
+    const templateInstance = Template.instance();
 
     // Show the edit home modal
     Modal.show('residentForm', {residentId: templateInstance.residentId});
@@ -38,10 +39,10 @@ Template.resident.events({
 Template.resident.helpers({
   'resident' () {
     // Get reference to template instance
-    var templateInstance = Template.instance();
+    const templateInstance = Template.instance();
 
     // Get resident from template instance
-    var resident = Residents.findOne(templateInstance.residentId);
+    const resident = Residents.findOne(templateInstance.residentId);
 
     return resident;
   },
@@ -50,8 +51,8 @@ Template.resident.helpers({
     const templateInstance = Template.instance();
 
     // Get activities from template instance
-    var activities = Activities.find({residentIds: templateInstance.residentId}).fetch();
+    const activities = Activities.find({residentIds: templateInstance.residentId}).fetch();
 
     return activities;
-  }
-})
+  },
+});
