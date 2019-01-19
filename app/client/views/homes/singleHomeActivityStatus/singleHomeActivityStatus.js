@@ -2,7 +2,7 @@ Template.singleHomeActivityStatus.onCreated(function () {
     const templateInstance = this;
 
     // Get ID of current home
-    templateInstance.homeId = instance.data.home._id;
+    templateInstance.homeId = templateInstance.data.home._id;
 
     // Add variable to hold activity counts
     templateInstance.activityLevelCounts = new ReactiveVar();
@@ -20,7 +20,7 @@ Template.singleHomeActivityStatus.onCreated(function () {
         Re-structure activity level counts data to an object containing:
         type: the type of activity level (inactive, semiActive, active)
         count: the number of residents with a given activity level
-        homePercentage: percengage of home residents with the activity level
+        homePercentage: percentage of home residents with the activity level
         */
         const activityLevelTypes = _.keys(activityLevelCounts);
 
@@ -57,7 +57,7 @@ Template.singleHomeActivityStatus.onRendered(function () {
   /*
   Set up chart
   */
-
+  // TODO: Replace this chart with one from Plotly.js
   // Set up ID string for chart element
   const svgId = `#activityLevelCountsChart-${homeId}`;
 
