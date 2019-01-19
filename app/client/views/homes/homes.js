@@ -1,12 +1,12 @@
 Template.homes.created = function () {
   // Get reference to template instance
-  var instance = this;
+  const templateInstance = this;
 
   // Subscribe to all homes
-  instance.subscribe('allHomes');
+  templateInstance.subscribe('allHomes');
 
   // Subscribe to all groups
-  instance.subscribe('allGroups');
+  templateInstance.subscribe('allGroups');
 };
 
 Template.homes.events({
