@@ -15,14 +15,14 @@ Template.homeGroup.events({
   },
   'click .viewHome' () {
     // Save Home ID that was clicked
-    var homeId = this._id;
+    const homeId = this._id;
 
     // Show the page for individual home that was clicked
     Router.go('home', {homeId: homeId});
   },
   'click .homeReport' () {
     // Save Home ID that was clicked
-    var homeId = this._id;
+    const homeId = this._id;
 
     // Show the page for individual home that was clicked
     Router.go('homeReport', {homeId: homeId});
