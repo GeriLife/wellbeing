@@ -1,26 +1,26 @@
-Template.homeActivities.created = function () {
+Template.homeActivities.onCreated(function () {
   // Create reference to template instance
-  var instance = this;
+  const templateInstance = this;
 
-  // Get the home id from data context
-  instance.homeId = Router.current().params.homeId;
+  // Get the home ID from data context
+  const homeId = Router.current().params.homeId;
 
   // Create activities reactive variable
-  instance.activities = new ReactiveVar();
+  templateInstance.activities = new ReactiveVar();
 
-  Meteor.call('getHomeActivities', instance.homeId, function (error, activities) {
+  Meteor.call('getHomeActivities', homeId, function (error, activities) {
     // Update the activities reactive variable
-    instance.activities.set(activities);
+    templateInstance.activities.set(activities);
   });
-};
+});
 
 Template.homeActivities.helpers({
   homeActivities: function () {
     // Get reference to template instance
-    var instance = Template.instance();
+    const instance = Template.instance();
 
     // Get all activities, from template subscription
-    var activities = instance.activities.get();
+    const activities = instance.activities.get();
 
     // Return activities if available, otherwise return an empty array
     if (activities ) {
@@ -30,7 +30,7 @@ Template.homeActivities.helpers({
     }
   },
   tableSettings: function () {
-    var tableSettings = {
+    const tableSettings = {
       showFilter: false,
       fields: [
         {
