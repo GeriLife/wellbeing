@@ -36,44 +36,15 @@ Meteor.methods({
     }
   },
   getSumOfResidentActivitiesByTypeLast30Days (residentId, activityTypeId) {
-    var activities = Meteor.call('getResidentActivitiesByTypeLast30Days', residentId, activityTypeId);
+    const activities = Meteor.call('getResidentActivitiesByTypeLast30Days', residentId, activityTypeId);
 
     // Placeholder for sum of activities
-    var sumOfActivities = 0;
+    let activityCount = 0;
 
     if (activities) {
-      // Count each activity
-      activities.forEach(function (activity) {
-        // Count the resident activity
-        sumOfActivities += 1;
-      });
-    };
-
-    return sumOfActivities;
-  },
-  getSumOfAllResidentRecentActivitiesByType (residentId) {
-    // Get all activity type IDs
-    var activityTypeIds = Meteor.call('getAllActivityTypeIds');
-
-    // Placeholder for resident activity sums
-    var residentActivitySumsByType = [];
-
-    activityTypeIds.forEach(function (activityTypeId) {
-      // Get the activity type
-      var activityType = ActivityTypes.findOne(activityTypeId);
-
-      // Get the resident
-      var resident = Residents.findOne(residentId);
-
-      // Get sum of activity type for the current resident
-      var activitySum = Meteor.call('getSumOfResidentRecentActivitiesByType', residentId, activityTypeId);
-
-      // Create an object with the activity type name and sum
-      var activityTypeSum = {
-        residentName: resident.fullName(),
-        activityTypeName: activityType.name,
-        sum: activitySum
-      }
+      // Count the resident activity
+      activityCount = activities.length;
+    }
 
     return activityCount;
   },
