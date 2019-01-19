@@ -44,5 +44,12 @@ Meteor.methods({
         'Resident and residency document is not valid.'
       )
     }
+  },
+  getCurrentResidencies () {
+    return Residencies.find({
+      moveOut: {
+        $exists: false,
+      }
+    }).fetch();
   }
 });
