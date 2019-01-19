@@ -1,18 +1,28 @@
 import moment from 'moment';
 
-Template.homeResidentActivityLevelTrend.rendered = function () {
-  // Get reference to template instance
-  var instance = this;
+Template.homeResidentActivityLevelTrend.onCreated(function () {
+    const templateInstance = this;
 
-  instance.autorun(function () {
+    templateInstance.dailyActivityData = new ReactiveVar();
+
     // Get reference to Route
-    var router = Router.current();
+    const router = Router.current();
 
     // Get current Home ID
-    var homeId = router.params.homeId;
+    const homeId = router.params.homeId;
 
+    Meteor.call("getHomeActivityCountTrend", homeId, function (error, result) {
+        templateInstance.dailyActivityData.set(result);
+    });
+});
+
+Template.homeResidentActivityLevelTrend.onRendered(function () {
+  // Get reference to template instance
+  const templateInstance = this;
+
+  templateInstance.autorun(function () {
     // Get data for trend line chart
-    var dailyActivityData = ReactiveMethod.call("getHomeActivityCountTrend", homeId);
+    const dailyActivityData = templateInstance.dailyActivityData.get();
 
     // Render the chart, if data is available
     if (dailyActivityData) {
@@ -39,6 +49,8 @@ Template.homeResidentActivityLevelTrend.rendered = function () {
 
       // Render the timezone adjusted data in a multi-line chart
       // coloring activity levels to match the 'traffic lights' theme :-)
+        // TODO: replace this chart with one from Plotly.js
+        // TODO: add localization to chart dates
       MG.data_graphic({
           title: activityLevelTrendTitle,
           description: activityLevelTrendDescription,
@@ -57,4 +69,4 @@ Template.homeResidentActivityLevelTrend.rendered = function () {
       });
     }
   });
-}
+});
