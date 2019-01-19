@@ -1,26 +1,26 @@
 Template.home.onCreated(function () {
-  const instance = this;
+  const templateInstance = this;
 
   // Set current Home ID from router
-  instance.homeId = Router.current().params.homeId;
+  templateInstance.homeId = Router.current().params.homeId;
 
   // Subscribe to current home
-  instance.subscribe('singleHome', instance.homeId);
+  templateInstance.subscribe('singleHome', templateInstance.homeId);
 
   // Subscribe to Home Residents
-  instance.subscribe('homeCurrentResidents', instance.homeId);
+  templateInstance.subscribe('homeCurrentResidents', templateInstance.homeId);
 });
 
 Template.home.events({
   'click #edit-home': function () {
     // Get reference to template instance
-    var instance = Template.instance();
+    const templateInstance = Template.instance();
 
     // Get Home ID
-    var homeId = instance.homeId;
+    const homeId = templateInstance.homeId;
 
     // Get home
-    var home = Homes.findOne(homeId);
+    const home = Homes.findOne(homeId);
 
     // Show the edit home modal
     Modal.show('editHome', home);
@@ -30,23 +30,17 @@ Template.home.events({
 Template.home.helpers({
   'home': function () {
     // Create reference to template instance
-    var instance = Template.instance();
+    const templateInstance = Template.instance();
 
     // Get Home ID from template instance
-    var homeId = instance.homeId;
+    const homeId = templateInstance.homeId;
 
     // Return current Home
     return Homes.findOne(homeId);
   },
   'residents': function () {
-    // Create reference to template instance
-    var instance = Template.instance();
-
-    // Get Home ID from template instance
-    var homeId = instance.homeId;
-
     // Return all residents for current home, sorting by first name
-    // TODO: deprecate the departed field
-    return Residents.find({departed: false}, {sort: {firstName: 1}});
+    //NOTE: these should be filtered by the subscription, as they are dependent on residency status
+    return Residents.find({}, {sort: {firstName: 1}});
   }
 });
