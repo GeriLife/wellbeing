@@ -1,21 +1,21 @@
 Template.singleHomeActivityStatus.onCreated(function () {
-    var instance = this;
+    const templateInstance = this;
 
     // Get ID of current home
-    instance.homeId = instance.data.home._id;
+    templateInstance.homeId = instance.data.home._id;
 
     // Add variable to hold activity counts
-    instance.activityLevelCounts = new ReactiveVar();
+    templateInstance.activityLevelCounts = new ReactiveVar();
 
-    instance.autorun(function () {
+    templateInstance.autorun(function () {
       // Get count of home current residents (not departed or on hiatus)
-      instance.homeCurrentResidentsCount = ReactiveMethod.call("getHomeCurrentAndActiveResidentCount", instance.homeId);
+      templateInstance.homeCurrentResidentsCount = ReactiveMethod.call("getHomeCurrentAndActiveResidentCount", templateInstance.homeId);
 
       // Retrieve home resident activity level counts from server
-      const activityLevelCounts = ReactiveMethod.call("getHomeActivityLevelCounts", instance.homeId);
+      const activityLevelCounts = ReactiveMethod.call("getHomeActivityLevelCounts", templateInstance.homeId);
 
       // Make sure activity level counts exist
-      if (activityLevelCounts && instance.homeCurrentResidentsCount) {
+      if (activityLevelCounts && templateInstance.homeCurrentResidentsCount) {
         /*
         Re-structure activity level counts data to an object containing:
         type: the type of activity level (inactive, semiActive, active)
@@ -26,7 +26,7 @@ Template.singleHomeActivityStatus.onCreated(function () {
 
         const activityLevelData = _.map(activityLevelTypes, function (type) {
           // Calculate the percentage of home residents in activity level class
-          const homePercentage = activityLevelCounts[type] / instance.homeCurrentResidentsCount;
+          const homePercentage = activityLevelCounts[type] / templateInstance.homeCurrentResidentsCount;
 
           // Construct an object with the type and count keys
           const activityLevelCountObject = {
@@ -42,17 +42,17 @@ Template.singleHomeActivityStatus.onCreated(function () {
         });
 
         // Update the reactive variable, to trigger the graph to render
-        instance.activityLevelCounts.set(activityLevelData);
+        templateInstance.activityLevelCounts.set(activityLevelData);
       }
     });
   });
 
 Template.singleHomeActivityStatus.onRendered(function () {
   // Get reference to template instance
-  const instance = this;
+  const templateInstance = this;
 
   // Get home ID
-  const homeId = instance.homeId;
+  const homeId = templateInstance.homeId;
 
   /*
   Set up chart
@@ -95,9 +95,9 @@ Template.singleHomeActivityStatus.onRendered(function () {
   // Define bar chart series
   activityLevelsChart.addSeries(null, dimple.plot.bar);
 
-  instance.autorun(function () {
+  templateInstance.autorun(function () {
     // Get activity level counts
-    const activityLevelCounts = instance.activityLevelCounts.get();
+    const activityLevelCounts = templateInstance.activityLevelCounts.get();
 
     if (activityLevelCounts) {
       // Add activity level data to chart
