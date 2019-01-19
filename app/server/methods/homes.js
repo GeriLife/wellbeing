@@ -13,30 +13,50 @@ Meteor.methods({
     // return the resident IDs array
     return residentIds;
   },
-  'getHomeCurrentResidentIds': function (homeId) {
+  getHomeCurrentResidencies (homeId) {
+    /*
+    Get all residencies for a home where the resident has not moved out.
+     */
     // Get all residents of specific home who are not departed
-    var residents = Residents.find({'homeId': homeId, departed: false}, {sort: {firstName: 1}}).fetch();
+    return Residencies.find({
+      homeId,
+      moveOut: {
+        $exists: false,
+      },
+    }).fetch();
+  },
+  getHomeCurrentResidentIds (homeId) {
+    /*
+    Get all resident IDs for a given home based on residency status.
+     */
+    const homeCurrentResidencies = Meteor.call("getHomeCurrentResidencies", homeId);
 
-    // Create an array containing only resident IDs
-    var residentIds = _.map(residents, function (resident) {
-      return resident._id;
+    const homeCurrentResidentIds =  _.map(homeCurrentResidencies, function(residency) {
+      return residency.residentId;
     });
 
-    // return the resident IDs array
-    return residentIds;
+    return homeCurrentResidentIds
   },
   'getHomeCurrentAndActiveResidentIds': function (homeId) {
-    // Get all residents of specific home who are not departed or on hiatus
-    const departed = false;
+    /*
+    Get all residents of specific home who have an active residency and are not on hiatus
+     */
     const onHiatus = false;
 
-    var residents = Residents.find(
-      {'homeId': homeId, departed, onHiatus},
+    const currentResidentIds = Meteor.call("getHomeCurrentResidentIds", homeId);
+
+    const residents = Residents.find(
+      {
+        _id: {
+          $in: currentResidentIds,
+        },
+        onHiatus
+      },
       {sort: {firstName: 1}}
     ).fetch();
 
     // Create an array containing only resident IDs
-    var residentIds = _.map(residents, function (resident) {
+    const residentIds = _.map(residents, function (resident) {
       return resident._id;
     });
 
@@ -114,12 +134,12 @@ Meteor.methods({
 
     return residentActivityLevelCounts;
   },
-  "getHomeActivityCountTrend": function (homeId) {
+  getHomeActivityCountTrend (homeId) {
     // Get home residents
-    var residentIds = Meteor.call("getHomeCurrentAndActiveResidentIds",homeId);
+    const residentIds = Meteor.call("getHomeCurrentAndActiveResidentIds",homeId);
 
     // Placeholder array for daily activity level counts
-    var activityCountsArray = [];
+    const activityCountsArray = [];
 
     // Date one week ago (six days, since today counts as one day)
     const startDate = moment().subtract(6, 'days');
@@ -129,7 +149,7 @@ Meteor.methods({
 
     for (let currentDay = moment(startDate); currentDay.isBefore(endDate); currentDay.add(1, 'day')) {
       // Set up placeholder activity counts object
-      var dailyActivityCounts = {
+      const dailyActivityCounts = {
         date: currentDay.toDate(),
         inactive: 0,
         semiActive: 0,
@@ -139,7 +159,7 @@ Meteor.methods({
       // Get activity level for each resident
       // Compare it against the baseline
       _.each(residentIds, function (residentId) {
-        var result = Meteor.call(
+        const result = Meteor.call(
           "getResidentRecentActiveDaysCount",
           residentId,
           currentDay.toDate()
@@ -151,12 +171,12 @@ Meteor.methods({
           dailyActivityCounts.semiActive += 1;
         } else if (result >= 5) {
           dailyActivityCounts.active += 1;
-        };
+        }
       });
 
       // Add daily activity levels to activity counts array
       activityCountsArray.push(dailyActivityCounts);
-    };
+    }
 
     return activityCountsArray;
   },
