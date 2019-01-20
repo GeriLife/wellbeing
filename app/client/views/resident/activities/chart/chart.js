@@ -50,7 +50,6 @@ Template.residentActivityTrendChart.onRendered(function () {
       // Get translation strings
       const activityTrendTitle = TAPi18n.__("residentActivityTrendChart-title");
 
-      // render chart
       // Chart data consists of multiple traces
       const data = _.map(activityData, function (activityCategoryData) {
         // Create a trace for each activity type
