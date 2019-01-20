@@ -136,9 +136,13 @@
   "homeGroup-activityLevelsLegend-inactive": "Inactive",
   "homeGroup-activityLevelsLegend-semiActive": "Moderate",
   "homeGroup-editButton-text": "Edit",
+  "homeGroup-home-reportButton-text": "Report",
+  "homeGroup-home-viewButton-text": "View",
   "homeGroup-tableCaption": "Homes with count of residents per seven day activiy level.",
   "homeGroup-tableHeader-activityLevels": "Activity levels",
   "homeGroup-tableHeader-name": "Name",
+  "homeGroup-tableHeader-viewHome": "View home",
+  "homeGroup-tableHeader-viewReport": "View report",
   "homes": {
     "name": {
       "label": "Home name"
@@ -190,6 +194,7 @@
   "report-barMode-label": "Bar mode",
   "report-barMode-group": "group",
   "report-barMode-stack": "stack",
+  "report-chartSettingsButton-text": "chart settings",
   "report-header": "All Homes Report",
   "report-timePeriod-label": "Time period",
   "report-timePeriod-week": "week",
@@ -236,6 +241,7 @@
       "label": "On hiatus"
     }
   },
+  "residentActivityTrendChart-chartSettingsButton-text": "chart settings",
   "residentActivityTrendChart-title": "Resident activity overview",
   "residentActivityTrendChart-description": "Daily sum of activity minutes",
   "residentActivityTrendChart-yLabel": "Minutes",
