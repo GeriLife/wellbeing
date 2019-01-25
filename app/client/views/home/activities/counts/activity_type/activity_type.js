@@ -15,12 +15,15 @@ Template.homeActivityCountsByActivityType.onCreated(function () {
   });
 });
 
-Template.homeActivityCountsByActivityType.onCreated(function () {
+Template.homeActivityCountsByActivityType.onRendered(function () {
   // Get reference to template instance
   const templateInstance = this;
 
   // Autorun to render chart when reactive data available
   templateInstance.autorun(function () {
+    // Empty the activity type chart, in case of localization changed
+    $("#homeActivityCountsByActivityTypeChart").empty();
+
     const chartData = templateInstance.chartData.get();
 
     if (chartData) {
