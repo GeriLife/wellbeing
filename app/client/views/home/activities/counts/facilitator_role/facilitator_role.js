@@ -15,7 +15,7 @@ Template.homeActivityCountsByFacilitatorRole.onCreated(function () {
   });
 });
 
-Template.homeActivityCountsByFacilitatorRole.onCreated(function () {
+Template.homeActivityCountsByFacilitatorRole.onRendered(function () {
   // Get reference to template instance
   const templateInstance = this;
 
@@ -24,6 +24,9 @@ Template.homeActivityCountsByFacilitatorRole.onCreated(function () {
     const chartData = templateInstance.chartData.get();
 
     if (chartData) {
+        // Empty the activity facilitator role chart, in case of localization changed
+      $("#homeActivityCountsByFacilitatorRoleChart").empty();
+
       // Get reference to chart container
       const svg = dimple.newSvg("#homeActivityCountsByFacilitatorRoleChart", "100%", "100%");
 
