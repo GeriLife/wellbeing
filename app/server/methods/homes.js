@@ -136,10 +136,13 @@ Meteor.methods({
   },
   getHomeActivityCountTrend (homeId) {
     // Get home residents
-    const residentIds = Meteor.call("getHomeCurrentAndActiveResidentIds",homeId);
+    const residentIds = Meteor.call("getHomeCurrentAndActiveResidentIds", homeId);
 
-    // Placeholder array for daily activity level counts
-    const activityCountsArray = [];
+    // Arrays for daily activity level counts
+    const inactivityCounts = [];
+    const semiActivityCounts = [];
+    const activityCounts = [];
+    const date = [];
 
     // Date one week ago (six days, since today counts as one day)
     const startDate = moment().subtract(6, 'days');
@@ -174,11 +177,14 @@ Meteor.methods({
         }
       });
 
-      // Add daily activity levels to activity counts array
-      activityCountsArray.push(dailyActivityCounts);
+      // Add daily activity levels to activity counts arrays
+      inactivityCounts.push(dailyActivityCounts.inactive);
+      semiActivityCounts.push(dailyActivityCounts.semiActive);
+      activityCounts.push(dailyActivityCounts.active);
+      date.push(dailyActivityCounts.date);
     }
 
-    return activityCountsArray;
+    return { activityCounts, inactivityCounts, semiActivityCounts, date };
   },
   getHomeSelectOptionsWithGroups () {
     // Get all Groups
