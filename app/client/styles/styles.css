@@ -7,3 +7,9 @@ h2.panel-header {
 .picker__input {
   background-color: #fff !important;
 }
+
+.navbar-brand > img.navbar-logo {
+  width: 20px;
+  display: inline;
+  margin-bottom: 4px;
+}
