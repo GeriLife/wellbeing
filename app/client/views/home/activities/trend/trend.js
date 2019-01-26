@@ -1,19 +1,17 @@
-import moment from 'moment';
-
 Template.homeResidentActivityLevelTrend.onCreated(function () {
-    const templateInstance = this;
+  const templateInstance = this;
 
-    templateInstance.dailyActivityData = new ReactiveVar();
+  templateInstance.dailyActivityData = new ReactiveVar();
 
-    // Get reference to Route
-    const router = Router.current();
+  // Get reference to Route
+  const router = Router.current();
 
-    // Get current Home ID
-    const homeId = router.params.homeId;
+  // Get current Home ID
+  const homeId = router.params.homeId;
 
-    Meteor.call("getHomeActivityCountTrend", homeId, function (error, result) {
-        templateInstance.dailyActivityData.set(result);
-    });
+  Meteor.call("getHomeActivityCountTrend", homeId, function (error, result) {
+    templateInstance.dailyActivityData.set(result);
+  });
 });
 
 Template.homeResidentActivityLevelTrend.onRendered(function () {
@@ -26,47 +24,58 @@ Template.homeResidentActivityLevelTrend.onRendered(function () {
 
     // Render the chart, if data is available
     if (dailyActivityData) {
-      // Make sure all daily activity data is in user local timezone
-      // (fixes chart legend 'misalignment' due to timezone offset)
-      var userLocalTimezoneData = _.map(dailyActivityData, function (dailyActivity) {
-        // Format daily activity date in YYYY-MM-DD
-        // (stripping timezone and time from date object)
-        const dateString = moment(dailyActivity.date).format("YYYY-MM-DD");
+      // Chart data consists of multiple traces
+      const inactiveTrace = {
+        mode: 'lines',
+        name: TAPi18n.__("homeResidentActivityLevelTrend-legend-inactive"),
+        line: { color: 'red' },
+        // X values are activity dates
+        x: dailyActivityData.date,
+        // Y values are activity counts
+        y: dailyActivityData.inactivityCounts
+      };
 
-        // Create new date object, based on cleaned date string
-        dailyActivity.date = moment(dateString).toDate();
+      const semiActiveTrace = {
+        mode: 'lines',
+        name: TAPi18n.__("homeResidentActivityLevelTrend-legend-semiActive"),
+        line: { color: 'gold' },
+        // X values are activity dates
+        x: dailyActivityData.date,
+        // Y values are activity counts
+        y: dailyActivityData.semiActivityCounts,
+      };
 
-        return dailyActivity;
-      });
+      const activeTrace = {
+        mode: 'lines',
+        name: TAPi18n.__("homeResidentActivityLevelTrend-legend-active"),
+        line: { color: 'green' },
+        // X values are activity dates
+        x: dailyActivityData.date,
+        // Y values are activity counts
+        y: dailyActivityData.activityCounts,
+      };
 
-      // Get i18n texts for chart
-      const activityLevelTrendTitle = TAPi18n.__("homeResidentActivityLevelTrend-chartTitle");
-      const activityLevelTrendDescription = TAPi18n.__("homeResidentActivityLevelTrend-chartDescription");
-      const yAxisLabel = TAPi18n.__("homeResidentActivityLevelTrend-yAxis-label");
-      const legendInactive = TAPi18n.__("homeResidentActivityLevelTrend-legend-inactive");
-      const legendSemiActive = TAPi18n.__("homeResidentActivityLevelTrend-legend-semiActive");
-      const legendActive = TAPi18n.__("homeResidentActivityLevelTrend-legend-active");
+      // Add chart layout configuration
+      const layout = {
+        showlegend: true,
+        height: 333,
+        legend: {
+          x: 0,
+          y: 1.1,
+          orientation: 'h'
+        },
+        title: TAPi18n.__("homeResidentActivityLevelTrend-chartTitle"),
+        yaxis: {
+          title: TAPi18n.__("homeResidentActivityLevelTrend-yAxis-label"),
+        }
+      };
 
-      // Render the timezone adjusted data in a multi-line chart
+      // Get client locale
+      const locale = TAPi18n.getLanguage();
+
+      // Render chart
       // coloring activity levels to match the 'traffic lights' theme :-)
-        // TODO: replace this chart with one from Plotly.js
-        // TODO: add localization to chart dates
-      MG.data_graphic({
-          title: activityLevelTrendTitle,
-          description: activityLevelTrendDescription,
-          data: userLocalTimezoneData,
-          x_axis: true,
-          y_label: yAxisLabel,
-          y_accessor: ['inactive', 'semiActive', 'active'],
-          interpolate: 'basic',
-          full_width: true,
-          height: 333,
-          right: 49,
-          target: '#trend-chart',
-          legend: [legendInactive, legendSemiActive, legendActive],
-          colors: ['red', 'gold', 'green'],
-          aggregate_rollover: true
-      });
+      Plotly.newPlot('trend-chart', [inactiveTrace, semiActiveTrace, activeTrace], layout, { locale });
     }
   });
 });
