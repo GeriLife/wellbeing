@@ -1,4 +1,27 @@
 {
+    "homeGroup-home-reportButton-text": "Raportti",
+    "homeGroup-home-viewButton-text": "Katso",
+    "homeGroup-tableHeader-viewHome": "Yksikk\u00f6n\u00e4kym\u00e4",
+    "homeGroup-tableHeader-viewReport": "Raporttin\u00e4kym\u00e4",
+    "homeResidentActivitySummaryCharts-heading": "Aktiviteettien yhteenveto",
+    "report-activityMetric-label": "Aktiviteettimittarit",
+    "report-activityMetric-activity_count": "lukum\u00e4\u00e4r\u00e4",
+    "report-activityMetric-activity_minutes": "minuutit",
+    "report-barMode-label": "Taulukkotyypit",
+    "report-barMode-group": "pylv\u00e4skaavio",
+    "report-barMode-stack": "pinottu pylv\u00e4skaavio",
+    "report-chartSettingsButton-text": "taulukkoasetukset",
+    "report-header": "Kokonaisraportti",
+    "report-timePeriod-label": "Ajanjakso",
+    "report-timePeriod-week": "viikko",
+    "report-timePeriod-month": "kuukausi",
+    "reportPageActivitiesChart-title": "Kaikkien yksik\u00f6iden raportti",
+    "reportPageActivitiesChart-xaxis-title": "Ajanjaksot",
+    "reportPageActivitiesChart-yaxis-activity_count": "Aktiviteettien lukum\u00e4\u00e4r\u00e4t",
+    "reportPageActivitiesChart-yaxis-activity_minutes": "Aktiviteettiminuutit",
+    "resident-onHiatus": "Keskeytyksell\u00e4",
+    "residentActivityTrendChart-chartSettingsButton-text": "taulukkoasetukset",
+    "mainLayoutNavbar-reportLink": "Raportti",
     "activities": {
         "residentIds": {
             "label": "Asukkaat"
@@ -44,7 +67,7 @@
     "addResidencyForm-newOrExisting-existing": "Palveluun kirjattu asukas",
     "addResidencyForm-newOrExisting-new": "Uusi asukas",
     "addResidencyModal-header": "Lis\u00e4\u00e4 asiakkuus",
-    "dataSettings-header": "Data-asetukset",
+    "dataSettings-header": "Tietoasetukset",
     "dataSettings-rawData-exportRawDataButton": "Vie tiedosto",
     "dataSettings-rawData-header": "Vie tiedosto",
     "dataSettings-rawData-helpText": "Paina alla olevaa nappia tiedoston siirtoon.",
@@ -81,7 +104,7 @@
             "label": "S\u00e4hk\u00f6posti"
         },
         "isAdmin": {
-            "label": "on j\u00e4rjestelm\u00e4nvalvoja"
+            "label": "j\u00e4rjestelm\u00e4nvalvoja"
         }
     },
     "editUser-cancelButton": "Peruuta",
@@ -124,7 +147,7 @@
     "home-residentsPanel-heading": "Asukkaat",
     "home-activityLevelTrendsPanel-heading": "Aktiviteettitason trendit",
     "home-activitiesPanel-heading": "Aktiviteetit",
-    "home-activitiesPanel-activitySummaryTab": "Yhteenveto asukkaan aktiviteeteista",
+    "home-activitiesPanel-activitySummaryTab": "Yhteenveto asukkaiden aktiviteeteista",
     "home-activitiesPanel-activityTableTab": "Aktiviteettitaulukko",
     "homeActivityCountsByActivityTypeChart-headingText": "Aktiviteettim\u00e4\u00e4r\u00e4t tyypeitt\u00e4in",
     "homeActivityCountsByActivityTypeChart-xAxis-title": "Aktiviteettien m\u00e4\u00e4r\u00e4",
@@ -159,16 +182,16 @@
     "homeResidentActivitySummaryChart-residentAxisTitle": "Asukkaan nimi \/ aktiviteettien m\u00e4\u00e4r\u00e4",
     "homeResidentActivitySummaryChart-activitiesAxisTitle": "Aktiviteettien m\u00e4\u00e4r\u00e4",
     "homeResidentActivityLevelTrend-chartTitle": "Aktiviteettitaso viimeisen seitsem\u00e4n p\u00e4iv\u00e4n ajalta",
-    "homeResidentActivityLevelTrend-chartDescription": "P\u00e4ivitt\u00e4inen m\u00e4\u00e4r\u00e4 asukkaita, joiden aktiviteettitaso on passiivinen,  kohtalainen ja erinomainen.",
+    "homeResidentActivityLevelTrend-chartDescription": "P\u00e4ivitt\u00e4inen m\u00e4\u00e4r\u00e4 asukkaita, joiden aktiviteettitaso on erinomainen,  kohtalainen tai passiivinen.",
     "homeResidentActivityLevelTrend-legend-active": "Erinomainen",
     "homeResidentActivityLevelTrend-legend-inactive": "Passiivinen",
     "homeResidentActivityLevelTrend-legend-semiActive": "Kohtalainen",
     "homeResidentActivityLevelTrend-yAxis-label": "Asukkaiden lukum\u00e4\u00e4r\u00e4",
-    "homeResidents-tableCaption": "Asukastaulukko. Taulukko n\u00e4ytt\u00e4\u00e4 niiden p\u00e4ivien lukum\u00e4\u00e4r\u00e4n jolloin asukkaalla on ollut v\u00e4hint\u00e4\u00e4n yksi aktiviteetti, yhteenveto aktiviteettitasosta ja aktiiviset p\u00e4iv\u00e4t viimeisen viikon aikana.\n",
+    "homeResidents-tableCaption": "Aktiviteettip\u00e4iv\u00e4t ja yhteenveto toteutuneista aktiviteeteista viimeisen seitsem\u00e4n p\u00e4iv\u00e4n ajalta.",
     "homeResidents-tableHeader-residentName": "Nimi",
     "homeResidents-tableHeader-activeDaysCount": "P\u00e4iv\u00e4t",
     "homeResidents-tableHeader-activityLevel": "Taso",
-    "homeResidents-tableHeader-pastWeek": "Kulunut viikko (n\u00e4ytt\u00e4\u00e4 aktiiviset p\u00e4iv\u00e4t)",
+    "homeResidents-tableHeader-pastWeek": "Aktiviteettip\u00e4iv\u00e4t viimeisen viikon aikana",
     "homeResidents-loadingMessage": "Ladataan asukkaita",
     "homeReport-header": "Kaikkien aktiviteettien raportti",
     "logout-logoutButton": "Kirjaudu ulos",
@@ -184,7 +207,6 @@
     "newUser-header": "Luo uusi k\u00e4ytt\u00e4j\u00e4",
     "newUser-saveButton": "Tallenna",
     "resident-editButton": "Muokkaa asukasta",
-    "resident-onHiatus": "Keskeytys",
     "residentCurrentResidency-editResidencyButton": "Muokkaa asiakkuutta",
     "residencies": {
         "homeId": {
@@ -221,7 +243,7 @@
             "label": "Keskeytys"
         }
     },
-    "residentActivityTrendChart-title": "P\u00e4ivitt\u00e4iset aktiviteetit minuuteissa",
+    "residentActivityTrendChart-title": "Kokonaisn\u00e4kym\u00e4",
     "residentActivityTrendChart-description": "Aktiviteettiminuuttien p\u00e4ivitt\u00e4inen summa",
     "residentActivityTrendChart-yLabel": "Minuutit",
     "residentActivityTrendChart-mouseoverLabel": "minuuttia",
@@ -252,7 +274,7 @@
     "residentFeelings-chart-title": "Tunnetila",
     "residentForm-cancel": "Peruuta",
     "residentForm-departed-helpText": "Asukas on poistunut yhteis\u00f6st\u00e4",
-    "residentForm-onHiatus-helpText": "Asukas on v\u00e4liaikaisesti keskeytyksell\u00e4",
+    "residentForm-onHiatus-helpText": "Asukas on v\u00e4liaikaisesti poistunut yksik\u00f6st\u00e4",
     "residentForm-header-add": "Lis\u00e4\u00e4 asukas",
     "residentForm-header-edit": "Muokkaa asukasta",
     "residentForm-save": "Tallenna",
@@ -308,7 +330,7 @@
     "userEventLog-header": "Tapahtumaloki",
     "usersEnroll-form-submitButton-text": "L\u00e4het\u00e4 kutsu(t)",
     "usersEnroll-header-text": "Rekister\u00f6i k\u00e4ytt\u00e4j\u00e4t",
-    "usersEnroll-introduction-text": "Luo yksi tai useampi k\u00e4ytt\u00e4j\u00e4tili, ja l\u00e4het\u00e4 s\u00e4hk\u00f6postin aktivointilinkki.",
+    "usersEnroll-introduction-text": "Luo yksi tai useampi k\u00e4ytt\u00e4j\u00e4tili, ja l\u00e4het\u00e4 aktivointilinkki s\u00e4hk\u00f6postiin.",
     "users": {
         "email": {
             "label": "S\u00e4hk\u00f6posti"
