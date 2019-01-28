@@ -24,46 +24,61 @@ Template.homeActivityCountsByFacilitatorRole.onRendered(function () {
     const chartData = templateInstance.chartData.get();
 
     if (chartData) {
-        // Empty the activity facilitator role chart, in case of localization changed
-      $("#homeActivityCountsByFacilitatorRoleChart").empty();
+      // Chart data
+      const data = [
+        {
+          type: 'bar',
+          orientation: 'h',
+          marker: { color: '#8e8e8e' },
+          x: _.map(chartData, item => item.value),
+          y: _.map(chartData, item => item.key),
+        }
+      ];
 
-      // Get reference to chart container
-      const svg = dimple.newSvg("#homeActivityCountsByFacilitatorRoleChart", "100%", "100%");
+      // Add plot layout configuration
+      const layout = {
+        autosize: true,
+        height: 250,
+        xaxis: {
+          title: TAPi18n.__("homeActivityCountsByFacilitatorRoleChart-xAxis-title"),
+          showgrid: false,
+          showline: true,
+          automargin: true,
+          showticklabels: true,
+          tickfont: {
+            size: 10,
+          },
+          tickwidth: 1,
+          ticklen: 8
+        },
+        yaxis: {
+          title: TAPi18n.__("homeActivityCountsByFacilitatorRoleChart-yAxis-title"),
+          showgrid: false,
+          showline: true,
+          automargin: true,
+          showticklabels: true,
+          tickfont: {
+            size: 10,
+          },
+          tickwidth: 1,
+          ticklen: 8
+        },
+        margin: {
+          autoexpand: true,
+          r: 10,
+          t: 60,
+          b: 20,
+          l: 80
+        },
+        bargap: 0.05,
+        showlegend: false,
+      };
 
-      // Initialize the activity type chart
-      const facilitatorRolesChart = new dimple.chart(svg, chartData);
+      // Get client locale
+      const locale = TAPi18n.getLanguage();
 
-      // Set chart boundaries based on parent container size
-      facilitatorRolesChart.setBounds("20%", "5%", "75%", "60%");
-
-      // Change bar color to grey, to avoid confusion with activity type colors
-      facilitatorRolesChart.defaultColors = [new dimple.color("#8e8e8e")];
-
-      // Add facilitator roles to x axis
-      const xAxis = facilitatorRolesChart.addMeasureAxis("x", "value");
-
-      // Set x axis title
-      const xAxisTitle = TAPi18n.__("homeActivityCountsByFacilitatorRoleChart-xAxis-title");
-      xAxis.title = xAxisTitle;
-
-      // Disable grid lines
-      xAxis.showGridlines = false;
-
-      // Add facilitator role counts to y axis
-      const yAxis = facilitatorRolesChart.addCategoryAxis("y", "key");
-
-      // Set y axis title
-      const yAxisTitle = TAPi18n.__("homeActivityCountsByFacilitatorRoleChart-yAxis-title");
-      yAxis.title = yAxisTitle;
-
-      // Disable grid lines
-      yAxis.showGridlines = false;
-
-      // Add bar plot
-      facilitatorRolesChart.addSeries(null, dimple.plot.bar);
-
-      // Render chart
-      facilitatorRolesChart.draw();
+      // Render plot
+      Plotly.newPlot('homeActivityCountsByFacilitatorRoleChart', data, layout, {locale});
     }
   })
 });

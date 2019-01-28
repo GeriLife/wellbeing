@@ -21,49 +21,65 @@ Template.homeActivityCountsByActivityType.onRendered(function () {
 
   // Autorun to render chart when reactive data available
   templateInstance.autorun(function () {
-    // Empty the activity type chart, in case of localization changed
-    $("#homeActivityCountsByActivityTypeChart").empty();
-
     const chartData = templateInstance.chartData.get();
 
     if (chartData) {
-      // Get reference to chart container
-      const svg = dimple.newSvg("#homeActivityCountsByActivityTypeChart", "100%", "100%");
 
-      // Initialize the activity type chart
-      const activityTypesChart = new dimple.chart(svg, chartData);
+      // Chart data
+      const data = [
+        {
+          type: 'bar',
+          orientation: 'h',
+          marker: { color: '#8e8e8e' },
+          x: _.map(chartData, item => item.value),
+          y: _.map(chartData, item => item.key),
+        }
+      ];
 
-      // Set chart boundaries based on parent container size
-      activityTypesChart.setBounds("35%", "5%", "65%", "60%");
+      // Add plot layout configuration
+      const layout = {
+        autosize: true,
+        height: 250,
+        xaxis: {
+          title: TAPi18n.__("homeActivityCountsByActivityTypeChart-xAxis-title"),
+          showgrid: false,
+          showline: true,
+          automargin: true,
+          showticklabels: true,
+          tickfont: {
+            size: 10,
+          },
+          tickwidth: 1,
+          ticklen: 8
+        },
+        yaxis: {
+          title: TAPi18n.__("homeActivityCountsByActivityTypeChart-yAxis-title"),
+          showgrid: false,
+          showline: true,
+          automargin: true,
+          showticklabels: true,
+          tickfont: {
+            size: 10,
+          },
+          tickwidth: 1,
+          ticklen: 8
+        },
+        margin: {
+          autoexpand: true,
+          r: 10,
+          t: 60,
+          b: 20,
+          l: 80
+        },
+        bargap: 0.05,
+        showlegend: false,
+      };
 
-      // Change bar color to grey, to avoid confusion with activity type colors
-      activityTypesChart.defaultColors = [new dimple.color("#8e8e8e")];
+      // Get client locale
+      const locale = TAPi18n.getLanguage();
 
-      // Add activity types to x axis
-      const xAxis = activityTypesChart.addMeasureAxis("x", "value");
-
-      // Set x axis title
-      const xAxisTitle = TAPi18n.__("homeActivityCountsByActivityTypeChart-xAxis-title");
-      xAxis.title = xAxisTitle;
-
-      // Disable grid lines
-      xAxis.showGridlines = false;
-
-      // Add facilitator role counts to y axis
-      const yAxis = activityTypesChart.addCategoryAxis("y", "key");
-
-      // Set y axis title
-      const yAxisTitle = TAPi18n.__("homeActivityCountsByActivityTypeChart-yAxis-title");
-      yAxis.title = yAxisTitle;
-
-      // Disable grid lines
-      yAxis.showGridlines = false;
-
-      // Add bar plot
-      activityTypesChart.addSeries(null, dimple.plot.bar);
-
-      // Render chart
-      activityTypesChart.draw();
+      // Render plot
+      Plotly.newPlot('homeActivityCountsByActivityTypeChart', data, layout, {locale});
     }
   })
 });
