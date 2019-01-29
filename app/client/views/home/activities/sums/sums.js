@@ -1,59 +1,86 @@
-Template.homeResidentActivitySumsByType.created = function () {
+Template.homeResidentActivitySumsByType.onCreated(function () {
   // Get reference to template instance
-  var instance = this;
+  const templateInstance = this;
 
   // Get current home ID
-  instance.homeId = Router.current().params.homeId;
+  templateInstance.homeId = Router.current().params.homeId;
 
   // set up home resident activity sums by type reactive variable
- instance.homeResidentsActivitySumsByType = new ReactiveVar();
+ templateInstance.homeResidentsActivitySumsByType = new ReactiveVar();
 
   // Get home resident activity sums from server method
-  Meteor.call('getHomeResidentsActivitySumsByTypeLast30Days', instance.homeId, function (error, activitySums) {
+  Meteor.call('getHomeResidentsActivitySumsByTypeLast30Days', templateInstance.homeId, function (error, activitySums) {
     //Set the home resident activity sums variable with the returned activity sums
-    instance.homeResidentsActivitySumsByType.set(activitySums);
+    templateInstance.homeResidentsActivitySumsByType.set(activitySums);
   });
-};
+});
 
-Template.homeResidentActivitySumsByType.rendered = function () {
+Template.homeResidentActivitySumsByType.onRendered(function () {
   // Get reference to template instance
-  var instance = this;
+  const templateInstance = this;
 
-  var activityCountChart = nv.models.multiBarHorizontalChart();
-
-  // Get colors from D3, twenty category
-  var colors = d3.scale.category20().range();
-
-  // Remove red from the colors list
-  var customColors = _.without(colors, "#d62728");
-
-  activityCountChart
-    //.height(800)
-    .x(function(d) { return d.label })
-    .y(function(d) { return d.value })
-    .duration(250)
-    .margin({bottom: 25, left: 70})
-    .stacked(true)
-    .showControls(false)
-    .color(customColors)
-
-  activityCountChart
-    .yAxis.axisLabel("Activity count")
-    .tickFormat(d3.format('d'));
-
-  instance.autorun(function () {
+  templateInstance.autorun(function () {
     // Get the chart data
-    var homeResidentsActivitySumsByType = instance.homeResidentsActivitySumsByType.get();
+    const homeResidentsActivitySumsByType = templateInstance.homeResidentsActivitySumsByType.get();
 
-     if (homeResidentsActivitySumsByType !== undefined) {
-       // render the chart when data is available
-      d3.select('#residentActivitiesSummary svg')
-        .datum(homeResidentsActivitySumsByType)
-        .call(activityCountChart);
+     if (homeResidentsActivitySumsByType) {
+      // Chart data
+      const data = _.map(homeResidentsActivitySumsByType, dataset => {
+        return {
+          type: 'bar',
+          orientation: 'h',
+          // Activity type
+          name: dataset.key,
+          // Activity count
+          x: _.map(dataset.values, item => item.value),
+          // Resident name
+          y: _.map(dataset.values, item => item.label),
+        }
+      })
 
-        // Refresh the chart when window resizes, so chart fills space
-        // Note, this must be envoked after ".call(chart)"
-        nv.utils.windowResize(activityCountChart.update);
+      // Add plot layout configuration
+      const layout = {
+        autosize: true,
+        height: 300,
+        xaxis: {
+          showline: true,
+          automargin: true,
+          showticklabels: true,
+          tickfont: {
+            size: 10,
+          },
+          tickwidth: 1,
+          ticklen: 4
+        },
+        yaxis: {
+          showline: true,
+          automargin: true,
+          showticklabels: true,
+          tickfont: {
+            size: 10,
+          },
+          tickwidth: 1,
+          ticklen: 4
+        },
+        margin: {
+          r: 10,
+          t: 10,
+          b: 40,
+          l: 10
+        },
+        bargap: 0.05,
+        barmode: 'stack',
+        showlegend: true,
+        legend: {
+          traceorder: 'normal',
+          x: 0,
+          y: 5,
+          orientation: 'h'
+        }
+      };
+
+      // Render plot
+      Plotly.newPlot('residentActivitiesSummary', data, layout, {displayModeBar: false}); 
       };
   });
-};
+})
