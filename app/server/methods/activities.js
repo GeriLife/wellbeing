@@ -207,15 +207,15 @@ Meteor.methods({
       return residentsLatestActivityIdsByType;
     }
   },
-  'getHomeCurrentResidentsActivityIdsLast30Days' (homeId) {
+  getHomeCurrentResidentsActivityIds ({ homeId, period }) {
     /*
-    Get all activities in past 30 days
+    Get all activities in past period
     for residents of a given home (provided by home ID)
     */
 
 
-    // Get date 30 days ago (converting to JavaScript date)
-    const previousDate = moment().subtract(30, 'days').toDate();
+    // Get date period days ago (converting to JavaScript date)
+    const previousDate = moment().subtract(period, 'days').toDate();
 
     // Get current resident IDs for given home
     const residentIds = Meteor.call('getHomeCurrentAndActiveResidentIds', homeId);

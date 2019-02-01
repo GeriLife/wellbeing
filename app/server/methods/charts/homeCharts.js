@@ -5,7 +5,7 @@ Methods returning data to render charts on the Home profile
 import d3 from 'd3';
 
 Meteor.methods({
-  'getHomeResidentsActivitySumsByTypeLast30Days': function (homeId) {
+  getHomeResidentsActivitySumsByType ({ homeId, period }) {
     // Get all activity types
     const activityTypes = ActivityTypes.find({}, {sort: {name: 1}}).fetch();
 
@@ -15,11 +15,12 @@ Meteor.methods({
     // Placeholder for all resident activity sums by type
     const allResidentActivitySumsByType = _.map(activityTypes, function (activityType) {
       // Create an object in the form of
-      //  key: actiivtyType.name
+      //  key: activityType.name
       //  values: [
       //    {
       //      "label": "Resident Name",
-      //      "value": activity count (integer)
+      //      "count": activity count (integer),
+      //      "minutes": activity minutes (integer),
       //    },
       //    ...
       //  ]
@@ -31,7 +32,8 @@ Meteor.methods({
           const resident = Residents.findOne(residentId);
 
           // Get count of activities by current type for current resident
-          const activityCount = Meteor.call("getSumOfResidentActivitiesByTypeLast30Days", residentId, activityType._id);
+          const activityCount = Meteor.call("getSumOfResidentActivitiesByType", { residentId, activityTypeId: activityType._id, period });
+          const activityMinutes = Meteor.call("getMinutesOfResidentActivitiesByType", { residentId, activityTypeId: activityType._id, period });
 
           // Placeholder object for resident name / activity count
           let residentActivityCount = {};
@@ -39,12 +41,14 @@ Meteor.methods({
           if (activityCount > 0) {
             residentActivityCount = {
               "label": resident.fullName(),
-              "value": activityCount
+              "count": activityCount,
+              "minutes": activityMinutes,
             };
           } else {
             residentActivityCount = {
               "label": resident.fullName(),
-              "value": 0
+              "count": 0,
+              "minutes": activityMinutes,
             };
           }
 
@@ -57,10 +61,9 @@ Meteor.methods({
 
     return allResidentActivitySumsByType;
   },
-///
-  getHomeActivitiesFacilitatorRolesCountsLast30days (homeId) {
-    // Get activties for current home (ID) from last 30 days
-    let activityIds = Meteor.call('getHomeCurrentResidentsActivityIdsLast30Days', homeId);
+  getHomeActivitiesFacilitatorRolesCounts ({ homeId, period }) {
+    // Get activties for current home (ID) from last Period
+    let activityIds = Meteor.call('getHomeCurrentResidentsActivityIds', { homeId, period });
 
     // Set up query to get activities by ID
     const query = {
@@ -86,16 +89,22 @@ Meteor.methods({
       .key(function (activity) {
         return activity.facilitatorRoleName;
       })
-      // Count the number of activies per facilitator role
-      .rollup(function (facilitatorRole) { return facilitatorRole.length })
+      // Count the number & minutes of activies per facilitator role
+      .rollup(function(facilitatorRole) {
+        return {
+          "count": facilitatorRole.length,
+          "minutes": d3.sum(facilitatorRole, function(activity) {
+            return parseFloat(activity.duration);
+          })
+        }
+      })
       .entries(activities);
 
     return facilitatorRoleCounts;
   },
-///
-  getHomeActivityTypeCountsLast30days (homeId) {
-    // Get activties for current home (ID) from last 30 days
-    let activityIds = Meteor.call('getHomeCurrentResidentsActivityIdsLast30Days', homeId);
+  getHomeActivityTypeCounts ({ homeId, period }) {
+    // Get activties for current home (ID) from last period
+    let activityIds = Meteor.call('getHomeCurrentResidentsActivityIds', { homeId, period });
 
     // Set up query to get activities by ID
     const query = {
@@ -118,11 +127,16 @@ Meteor.methods({
 
     // Group activities by facilitator role
     const activityTypeCounts = d3.nest()
-      .key(function (activity) {
-        return activity.activityTypeName;
+      .key(function(activity) { return activity.activityTypeName })
+      // Count the number & minutes of activies per facilitator role
+      .rollup(function(dailyActivities) {
+        return {
+          "count": dailyActivities.length,
+          "minutes": d3.sum(dailyActivities, function(activity) {
+            return parseFloat(activity.duration);
+          })
+        }
       })
-      // Count the number of activies per facilitator role
-      .rollup(function (activityTypeName) { return activityTypeName.length })
       .entries(activities);
 
     return activityTypeCounts;

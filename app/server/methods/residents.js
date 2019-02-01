@@ -14,9 +14,9 @@ Meteor.methods({
 
     return residentIds;
   },
-  getResidentActivitiesByTypeLast30Days (residentId, activityTypeId) {
-    // Date thirty days ago
-    const thirtyDaysAgo = moment().subtract(30, "days").toDate();
+  getResidentActivitiesByType ({ residentId, activityTypeId, period }) {
+    // Date period ago
+    const activityPeriodStart = moment().subtract(period, "days").toDate();
 
     // Date today
     const now = new Date();
@@ -27,7 +27,7 @@ Meteor.methods({
     const activities = Activities.find({
       'residentIds': residentId,
       'activityTypeId': activityTypeId,
-      activityDate: {$gte: thirtyDaysAgo, $lte: now}},
+      activityDate: {$gte: activityPeriodStart, $lte: now}},
       {sort : {activityDate:  -1}
     }).fetch();
 
@@ -35,8 +35,8 @@ Meteor.methods({
       return activities;
     }
   },
-  getSumOfResidentActivitiesByTypeLast30Days (residentId, activityTypeId) {
-    const activities = Meteor.call('getResidentActivitiesByTypeLast30Days', residentId, activityTypeId);
+  getSumOfResidentActivitiesByType ({ residentId, activityTypeId, period }) {
+    const activities = Meteor.call('getResidentActivitiesByType', { residentId, activityTypeId, period });
 
     // Placeholder for sum of activities
     let activityCount = 0;
@@ -68,4 +68,24 @@ Meteor.methods({
 
    return residentSelectOptions;
   },
+  getMinutesOfResidentActivitiesByType ({ residentId, activityTypeId, period }) {
+    // Date period ago
+    const activityPeriodStart = moment().subtract(period, "days").toDate();
+
+    // Date today
+    const now = new Date();
+
+    const residentActivities = Activities.find(
+      {
+        residentIds: residentId,
+        activityTypeId: activityTypeId,
+        activityDate: {$gte: activityPeriodStart, $lte: now}
+        },
+      {
+        sort : { activityDate:  -1 }
+      }).fetch();
+
+    // Sum of duration for particular resident & activity
+    return residentActivities.reduce((prevResult, document) => prevResult + document.duration, 0)
+  }
 });
