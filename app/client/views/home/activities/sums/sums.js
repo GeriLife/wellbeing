@@ -2,17 +2,27 @@ Template.homeResidentActivitySumsByType.onCreated(function () {
   // Get reference to template instance
   const templateInstance = this;
 
+  let currentActivityPeriod;
   // Get current home ID
-  templateInstance.homeId = Router.current().params.homeId;
+  const homeId = Router.current().params.homeId;
 
   // set up home resident activity sums by type reactive variable
  templateInstance.homeResidentsActivitySumsByType = new ReactiveVar();
 
-  // Get home resident activity sums from server method
-  Meteor.call('getHomeResidentsActivitySumsByTypeLast30Days', templateInstance.homeId, function (error, activitySums) {
-    //Set the home resident activity sums variable with the returned activity sums
-    templateInstance.homeResidentsActivitySumsByType.set(activitySums);
-  });
+  this.autorun(() => {
+    const activityPeriod = Template.currentData().activityPeriod;
+
+    // Not fetch data if period isn't changed
+    if (currentActivityPeriod !== activityPeriod) {
+      // Get home resident activity sums from server method
+      Meteor.call('getHomeResidentsActivitySumsByType', { homeId, period: activityPeriod }, function (error, activitySums) {
+        // Set the home resident activity sums variable with the returned activity sums
+        templateInstance.homeResidentsActivitySumsByType.set(activitySums);
+        // Re-save current period
+        currentActivityPeriod = activityPeriod;
+      });
+    }
+  })
 });
 
 Template.homeResidentActivitySumsByType.onRendered(function () {
@@ -22,9 +32,10 @@ Template.homeResidentActivitySumsByType.onRendered(function () {
   templateInstance.autorun(function () {
     // Get the chart data
     const homeResidentsActivitySumsByType = templateInstance.homeResidentsActivitySumsByType.get();
+    const activityMetric = Template.currentData().activityMetric;
 
      if (homeResidentsActivitySumsByType) {
-      // Chart data
+      // Render chart then data is ready
       const data = _.map(homeResidentsActivitySumsByType, dataset => {
         return {
           type: 'bar',
@@ -32,11 +43,11 @@ Template.homeResidentActivitySumsByType.onRendered(function () {
           // Activity type
           name: dataset.key,
           // Activity count
-          x: _.map(dataset.values, item => item.value),
+          x: _.map(dataset.values, item => item[activityMetric]),
           // Resident name
           y: _.map(dataset.values, item => item.label),
         }
-      })
+      });
 
       // Add plot layout configuration
       const layout = {
@@ -80,7 +91,7 @@ Template.homeResidentActivitySumsByType.onRendered(function () {
       };
 
       // Render plot
-      Plotly.newPlot('residentActivitiesSummary', data, layout, {displayModeBar: false}); 
-      };
+      Plotly.newPlot('residentActivitiesSummary', data, layout, { displayModeBar: false });
+      }
   });
-})
+});
