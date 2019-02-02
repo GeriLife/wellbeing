@@ -32,7 +32,7 @@ Meteor.methods({
           const resident = Residents.findOne(residentId);
 
           // Get count of activities by current type for current resident
-          const activityCount = Meteor.call("getSumOfResidentActivitiesByType", { residentId, activityTypeId: activityType._id, period });
+          const activityCount = Meteor.call("getCountOfResidentActivitiesByType", { residentId, activityTypeId: activityType._id, period });
           const activityMinutes = Meteor.call("getMinutesOfResidentActivitiesByType", { residentId, activityTypeId: activityType._id, period });
 
           // Placeholder object for resident name / activity count
@@ -61,7 +61,7 @@ Meteor.methods({
 
     return allResidentActivitySumsByType;
   },
-  getHomeActivitiesFacilitatorRolesCounts ({ homeId, period }) {
+  getHomeActivitiesFacilitatorRoleMetrics ({ homeId, period }) {
     // Get activties for current home (ID) from last Period
     let activityIds = Meteor.call('getHomeCurrentResidentsActivityIds', { homeId, period });
 
@@ -102,7 +102,7 @@ Meteor.methods({
 
     return facilitatorRoleCounts;
   },
-  getHomeActivityTypeCounts ({ homeId, period }) {
+  getHomeActivityTypeMetrics ({ homeId, period }) {
     // Get activties for current home (ID) from last period
     let activityIds = Meteor.call('getHomeCurrentResidentsActivityIds', { homeId, period });
 

@@ -35,7 +35,7 @@ Meteor.methods({
       return activities;
     }
   },
-  getSumOfResidentActivitiesByType ({ residentId, activityTypeId, period }) {
+  getCountOfResidentActivitiesByType ({ residentId, activityTypeId, period }) {
     const activities = Meteor.call('getResidentActivitiesByType', { residentId, activityTypeId, period });
 
     // Placeholder for sum of activities
