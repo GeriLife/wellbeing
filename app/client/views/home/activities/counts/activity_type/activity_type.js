@@ -52,7 +52,7 @@ Template.homeActivityCountsByActivityType.onRendered(function () {
         autosize: true,
         height: 250,
         xaxis: {
-          title: TAPi18n.__("homeActivityCountsByActivityTypeChart-xAxis-title"),
+          title: TAPi18n.__(`homeActivityCountsByActivityTypeChart-xAxis-${activityMetric}`),
           showgrid: false,
           showline: true,
           automargin: true,
