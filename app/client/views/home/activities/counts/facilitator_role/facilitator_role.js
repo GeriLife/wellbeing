@@ -15,7 +15,7 @@ Template.homeActivityCountsByFacilitatorRole.onCreated(function () {
     // Not fetch data if period isn't changed
     if (currentActivityPeriod !== activityPeriod) {
       // Call method to fetch data, assigning it to reactive variable
-      Meteor.call('getHomeActivitiesFacilitatorRolesCounts', { homeId, period: activityPeriod }, function (error, chartData) {
+      Meteor.call('getHomeActivitiesFacilitatorRoleMetrics', { homeId, period: activityPeriod }, function (error, chartData) {
         // update chart data reactive variable
         templateInstance.chartData.set(chartData);
         // Re-save current period
