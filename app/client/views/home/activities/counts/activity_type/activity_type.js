@@ -15,7 +15,7 @@ Template.homeActivityCountsByActivityType.onCreated(function () {
     // Not fetch data if period isn't changed
     if (currentActivityPeriod !== activityPeriod) {
       // Call method to fetch data, assigning it to reactive variable
-      Meteor.call('getHomeActivityTypeCounts', { homeId, period: activityPeriod }, function (error, chartData) {
+      Meteor.call('getHomeActivityTypeMetrics', { homeId, period: activityPeriod }, function (error, chartData) {
         // update chart data reactive variable
         templateInstance.chartData.set(chartData);
         // Re-save current period
