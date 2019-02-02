@@ -51,7 +51,7 @@ Template.homeActivityCountsByFacilitatorRole.onRendered(function () {
         autosize: true,
         height: 250,
         xaxis: {
-          title: TAPi18n.__("homeActivityCountsByFacilitatorRoleChart-xAxis-title"),
+          title: TAPi18n.__(`homeActivityCountsByFacilitatorRoleChart-xAxis-${activityMetric}`),
           showgrid: false,
           showline: true,
           automargin: true,

@@ -178,7 +178,7 @@
     "homeResidentsActivitiesChart-yaxis-title": "Aktiviteettien lukum\u00e4\u00e4r\u00e4",
     "homeResident-activityLabelText-onHiatus": "Keskeytys",
     "homeResidentActivitySumsByType-heading": "Aktiviteettien yhteenveto tyypin mukaan",
-    "homeResidentActivitySumsByType-subheading": "(viimeiset 30 p\u00e4iv\u00e4\u00e4)",
+    "homeResidentActivitySumsByType-subheading": "(viimeiset __period__ p\u00e4iv\u00e4\u00e4)",
     "homeResidentActivitySummaryChart-residentAxisTitle": "Asukkaan nimi \/ aktiviteettien m\u00e4\u00e4r\u00e4",
     "homeResidentActivitySummaryChart-activitiesAxisTitle": "Aktiviteettien m\u00e4\u00e4r\u00e4",
     "homeResidentActivityLevelTrend-chartTitle": "Aktiviteettitaso viimeisen seitsem\u00e4n p\u00e4iv\u00e4n ajalta",
