@@ -58,13 +58,18 @@ Template.homeResidentActivityLevelTrend.onRendered(function () {
       // Add chart layout configuration
       const layout = {
         showlegend: true,
-        height: 333,
+        height: 232,
         legend: {
           x: 0,
-          y: 1.1,
+          y: 1.3,
           orientation: 'h'
         },
-        title: TAPi18n.__("homeResidentActivityLevelTrend-chartTitle"),
+        margin: {
+          r: 40,
+          t: 40,
+          b: 40,
+          l: 40
+        },
         yaxis: {
           title: TAPi18n.__("homeResidentActivityLevelTrend-yAxis-label"),
         }
@@ -75,7 +80,7 @@ Template.homeResidentActivityLevelTrend.onRendered(function () {
 
       // Render chart
       // coloring activity levels to match the 'traffic lights' theme :-)
-      Plotly.newPlot('trend-chart', [inactiveTrace, semiActiveTrace, activeTrace], layout, { locale });
+      Plotly.newPlot('trend-chart', [inactiveTrace, semiActiveTrace, activeTrace], layout, { locale, displayModeBar: false });
     }
   });
 });
