@@ -35,17 +35,31 @@ Template.residents.helpers({
       // Iterate through residents
       // set full name and home name from collection helpers
       residencies.forEach(function (residency) {
-        const resident = Residents.findOne(residency.residentId)
+        let residentName, homeName;
+
+        const resident = Residents.findOne(residency.residentId);
+        const home = Homes.findOne(residency.homeId);
+
+        if (resident) {
+          residentName = resident.fullName();
+        } else {
+          residentName = 'unknown';
+        }
+
+        if (home) {
+          homeName = home.name;
+        } else {
+          homeName = 'unknown';
+        }
 
         const residencyDetails = {
           ...residency,
-          residentName: resident.fullName(),
-          homeName: resident.homeName(),
+          residentName,
+          homeName,
         };
 
         // Add resident object to residents list
         residencyDetailsArray.push(residencyDetails);
-
       });
 
       return residencyDetailsArray;
