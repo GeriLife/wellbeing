@@ -104,7 +104,7 @@ Template.singleHomeActivityStatus.onRendered(function () {
           showticklabels: false,
         },
         margin: {
-          r: 10,
+          r: 15,
           t: 10,
           b: 5,
           l: 10
@@ -114,7 +114,7 @@ Template.singleHomeActivityStatus.onRendered(function () {
       };
 
       // Render plot
-      Plotly.newPlot(`activityLevelCountsChart-${homeId}`, data, layout, { displayModeBar: false });
+      Plotly.newPlot(`activityLevelCountsChart-${homeId}`, data, layout, { displayModeBar: false, responsive: true });
     }
   });
 });
