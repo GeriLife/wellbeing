@@ -15,7 +15,7 @@ Template.singleHomeActivityStatus.onCreated(function () {
       const activityLevelCounts = ReactiveMethod.call("getHomeActivityLevelCounts", templateInstance.homeId);
 
       // Make sure activity level counts exist
-      if (activityLevelCounts && templateInstance.homeCurrentResidentsCount) {
+      if (activityLevelCounts && templateInstance.homeCurrentResidentsCount !== undefined) {
         /*
         Re-structure activity level counts data to an object containing:
         type: the type of activity level (inactive, semiActive, active)
@@ -25,8 +25,14 @@ Template.singleHomeActivityStatus.onCreated(function () {
         const activityLevelTypes = _.keys(activityLevelCounts);
 
         const activityLevelData = _.map(activityLevelTypes, function (type) {
-          // Calculate the percentage of home residents in activity level class
-          const homePercentage = activityLevelCounts[type] / templateInstance.homeCurrentResidentsCount;
+          // Default value is 0
+          let homePercentage = 0;
+
+          // Avoid dividing by 0
+          if (templateInstance.homeCurrentResidentsCount !== 0) {
+            // Calculate the percentage of home residents in activity level class
+            homePercentage = Math.round(activityLevelCounts[type] / templateInstance.homeCurrentResidentsCount * 100);
+          }
 
           // Construct an object with the type and count keys
           const activityLevelCountObject = {
@@ -48,66 +54,67 @@ Template.singleHomeActivityStatus.onCreated(function () {
   });
 
 Template.singleHomeActivityStatus.onRendered(function () {
+  const colors = ['#d9534f', '#e6c829', '#5cb85c'];
   // Get reference to template instance
   const templateInstance = this;
 
   // Get home ID
   const homeId = templateInstance.homeId;
 
-  /*
-  Set up chart
-  */
-  // TODO: Replace this chart with one from Plotly.js
-  // Set up ID string for chart element
-  const svgId = `#activityLevelCountsChart-${homeId}`;
-
-  // Get reference to chart element
-  const svg = dimple.newSvg(svgId, "100%", 50);
-
-  // Initialize chart with empty data array
-  const activityLevelsChart = new dimple.chart(svg, []);
-
-  // Set chart boundaries
-  activityLevelsChart.setBounds(10, 0, "90%", "65%");
-
-  // Add home resident percentage to x axis
-  const xAxis = activityLevelsChart.addMeasureAxis("x", "homePercentage");
-
-  // Format x axis as percentage
-  // Note: both chart.addPctAxis and axis.showPercentage caused d3 NaN errors
-  xAxis.tickFormat = "%";
-
-  // Set x axis max to 100% for easy cross-comparison
-  xAxis.overrideMax = 1;
-
-  // Remove x axis grid lines
-  xAxis.showGridlines = false;
-
-  // Add activity level type to y axis
-  const yAxis = activityLevelsChart.addCategoryAxis("y", "type");
-
-  // Hide the y axis labels
-  yAxis.hidden = true;
-
-  // Sort the y axis activity levels
-  yAxis.addOrderRule(["active", "semiActive", "inactive"]);
-
-  // Define bar chart series
-  activityLevelsChart.addSeries(null, dimple.plot.bar);
-
   templateInstance.autorun(function () {
     // Get activity level counts
     const activityLevelCounts = templateInstance.activityLevelCounts.get();
 
     if (activityLevelCounts) {
-      // Add activity level data to chart
-      activityLevelsChart.data = activityLevelCounts;
+      // Render chart then data is ready
+      const data = _.map(activityLevelCounts, (dataset, index) => {
+        return {
+          type: 'bar',
+          orientation: 'h',
+          // Activity type
+          name: dataset.type,
+          // Activity count
+          x: [dataset.homePercentage],
+          marker: { color: colors[index]},
+          width: [0.8],
+          hoverinfo: 'x+'
+        }
+      });
 
-      // Draw the chart
-      activityLevelsChart.draw(1000);
+      // Add plot layout configuration
+      const layout = {
+        autosize: true,
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
+        height: 50,
+        xaxis: {
+          showline: true,
+          automargin: true,
+          showticklabels: true,
+          tickfont: {
+            size: 10,
+          },
+          ticklen: 4,
+          ticksuffix: '%',
+          range: [0, 100]
+        },
+        yaxis: {
+          showline: false,
+          automargin: true,
+          showticklabels: false,
+        },
+        margin: {
+          r: 15,
+          t: 10,
+          b: 5,
+          l: 10
+        },
+        barmode: 'stack',
+        showlegend: false,
+      };
 
-      // Remove x axis title
-      xAxis.titleShape.remove();
+      // Render plot
+      Plotly.newPlot(`activityLevelCountsChart-${homeId}`, data, layout, { displayModeBar: false, responsive: true });
     }
   });
 });
