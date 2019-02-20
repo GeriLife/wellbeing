@@ -52,7 +52,6 @@ Template.homeResidentActivitySumsByType.onRendered(function () {
       // Add plot layout configuration
       const layout = {
         autosize: true,
-        height: 300,
         xaxis: {
           showline: true,
           automargin: true,
@@ -76,7 +75,6 @@ Template.homeResidentActivitySumsByType.onRendered(function () {
         margin: {
           r: 10,
           t: 10,
-          b: 40,
           l: 10
         },
         bargap: 0.05,
@@ -91,7 +89,7 @@ Template.homeResidentActivitySumsByType.onRendered(function () {
       };
 
       // Render plot
-      Plotly.newPlot('residentActivitiesSummary', data, layout, { displayModeBar: false });
-      }
+      Plotly.newPlot('residentActivitiesSummary', data, layout, { displayModeBar: false, responsive: true });
+    }
   });
 });
