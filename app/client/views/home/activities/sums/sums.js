@@ -53,6 +53,7 @@ Template.homeResidentActivitySumsByType.onRendered(function () {
       const layout = {
         autosize: true,
         xaxis: {
+          title: TAPi18n.__(`homeResidentsActivitySumsByType-chart-xaxisTitle-${ activityMetric }`),
           showline: true,
           automargin: true,
           showticklabels: true,
