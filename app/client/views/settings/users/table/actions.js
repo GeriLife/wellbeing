@@ -34,5 +34,12 @@ Template.usersSettingsTableActions.events({
 
     // Show edit modal, passing in user as data context
     Modal.show("editUser", {"data": user}, {});
+  },
+  'click .edit-user-groups' (event, template) {
+    // Save reference to user
+    const user = this;
+
+    // Show edit modal, passing in user as data context
+    Modal.show("editUserGroups", {"data": user}, {});
   }
 });
