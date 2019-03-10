@@ -1,0 +1,42 @@
+<template name="editUserGroups">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <i class="fa fa-user"></i>&nbsp;
+             <!--{{_ "editUserGroups-header" }}-->
+             Edit user group(s)
+           </h4>
+        </div>
+
+        <form>
+
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="">
+              Group(s)
+            </label>
+            <select multiple class="form-control" name="editUserGroups" id="">
+              <option value="group-1">Group 1</option>
+              <option value="group-2">Group 2</option>
+              <option value="group-3">Group 3</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">
+            <!--{{_ "editUserGroups-saveButton" }}-->
+            Save
+          </button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            <!--{{_ "editUserGroups-cancelButton" }}-->
+            Cancel
+          </button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
