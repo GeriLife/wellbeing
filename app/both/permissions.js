@@ -1,4 +1,5 @@
 import SimpleSchema from "simpl-schema";
+import UserEventLog from "/both/collections/userEventLog";
 
 Permissions = new Mongo.Collection("permissions");
 
@@ -21,4 +22,34 @@ Meteor.startup(function() {
     // Make sure groupId field is indexed for performance
     Permissions._ensureIndex({ groupId: 1 });
   }
+});
+
+Permissions.after.insert(function(userId, permission) {
+  // Add event log
+  UserEventLog.insert({
+    userId,
+    action: "insert",
+    entityType: "permission",
+    entityId: permission._id
+  });
+});
+
+Permissions.after.update(function(userId, permission) {
+  // Add event log
+  UserEventLog.insert({
+    userId,
+    action: "update",
+    entityType: "permission",
+    entityId: permission._id
+  });
+});
+
+Permissions.after.remove(function(userId, permission) {
+  // Add event log
+  UserEventLog.insert({
+    userId,
+    action: "remove",
+    entityType: "permission",
+    entityId: permission._id
+  });
 });
