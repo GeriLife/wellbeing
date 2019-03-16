@@ -3,7 +3,7 @@
   font-weight: bold;
 }
 /* Simple Select tweaks */
-.ss-main {
+.ss-main.form-control {
   padding: 0;
   border-color: #fff;
 }
