@@ -4,7 +4,7 @@ import UserEventLog from "/both/collections/userEventLog";
 Permissions = new Mongo.Collection("permissions");
 
 const PermissionsSchema = new SimpleSchema({
-  residentId: {
+  userId: {
     type: String
   },
   groupId: {
@@ -17,7 +17,7 @@ Permissions.attachSchema(PermissionsSchema);
 Meteor.startup(function() {
   if (Meteor.isServer) {
     // Make sure residentId field is indexed for performance
-    Permissions._ensureIndex({ residentId: 1 });
+    Permissions._ensureIndex({ userId: 1 });
 
     // Make sure groupId field is indexed for performance
     Permissions._ensureIndex({ groupId: 1 });
