@@ -18,9 +18,9 @@
               Group(s)
             </label>
             <select multiple class="form-control" name="editUserGroups" id="">
-              <option value="group-1">Group 1</option>
-              <option value="group-2">Group 2</option>
-              <option value="group-3">Group 3</option>
+              {{#each groups}}
+                <option value="{{ _id }}">{{ name }}</option>
+              {{/each}}
             </select>
           </div>
         </div>
