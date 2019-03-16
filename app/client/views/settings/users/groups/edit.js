@@ -1,14 +1,25 @@
-import SlimSelect from 'slim-select';
-import 'slim-select/dist/slimselect.min.css';
+import SlimSelect from "slim-select";
+import "slim-select/dist/slimselect.min.css";
 
-Template.editUserGroups.onRendered(function () {
-    const placeholder = "Select one or more groups";
+Template.editUserGroups.onCreated(function() {
+  const templateInstance = this;
 
-    // Render multi-select widget on 'select residents' field
-    new SlimSelect({
-        select: '[name=editUserGroups]',
-        closeOnSelect: false,
-        placeholder,
-      });
-})
+  templateInstance.subscribe("allGroups");
+});
 
+Template.editUserGroups.onRendered(function() {
+  const placeholder = "Select one or more groups";
+
+  // Render multi-select widget on 'select residents' field
+  new SlimSelect({
+    select: "[name=editUserGroups]",
+    closeOnSelect: false,
+    placeholder
+  });
+});
+
+Template.editUserGroups.helpers({
+  groups() {
+    return Groups.find().fetch();
+  }
+});
