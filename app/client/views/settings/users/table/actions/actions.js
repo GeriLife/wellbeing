@@ -1,5 +1,5 @@
 Template.usersSettingsTableActions.helpers({
-  "userCanDeleteAccount" () {
+  userCanDeleteAccount() {
     // Prevent user from deleting own account
     // by hiding delete button
 
@@ -17,29 +17,29 @@ Template.usersSettingsTableActions.helpers({
 
     // otherwise, don't allow delete (hide button)
     return false;
-  },
+  }
 });
 
 Template.usersSettingsTableActions.events({
-  'click .delete-user' (event, template) {
+  "click .delete-user"(event, template) {
     // Save reference to user
     var user = this;
 
     // Show edit modal, passing in user as data context
-    Modal.show("deleteUser", {"data": user}, {});
+    Modal.show("deleteUser", { data: user }, {});
   },
-  'click .edit-user' (event, template) {
+  "click .edit-user"(event, template) {
     // Save reference to user
     var user = this;
 
     // Show edit modal, passing in user as data context
-    Modal.show("editUser", {"data": user}, {});
+    Modal.show("editUser", { data: user }, {});
   },
-  'click .edit-user-groups' (event, template) {
+  "click .edit-user-groups"(event, template) {
     // Save reference to user
     const user = this;
 
     // Show edit modal, passing in user as data context
-    Modal.show("editUserGroups", {"data": user}, {});
+    Modal.show("editUserGroups", { user }, {});
   }
 });
