@@ -28,14 +28,19 @@ Template.editUserGroups.helpers({
 
 Template.editUserGroups.events({
   "click #saveGroups"(event, templateInstance) {
-    console.log("save");
-
     // get selected group IDs
-    const selectedGroups = templateInstance.groupSelect.selected();
-    console.log(selectedGroups);
+    const groupIds = templateInstance.groupSelect.selected();
+    const userId = templateInstance.data.user._id;
 
     // Call server method to save user/group permissions
-
-    // in callback, check success and close modal
+    Meteor.call("addSingleUserPermissions", userId, groupIds, function(
+      error,
+      response
+    ) {
+      // check success and close modal
+      if (response) {
+        Modal.hide("editUserGroups");
+      }
+    });
   }
 });
