@@ -12,3 +12,13 @@ const PermissionsSchema = new SimpleSchema({
 });
 
 Permissions.attachSchema(PermissionsSchema);
+
+Meteor.startup(function() {
+  if (Meteor.isServer) {
+    // Make sure residentId field is indexed for performance
+    Permissions._ensureIndex({ residentId: 1 });
+
+    // Make sure groupId field is indexed for performance
+    Permissions._ensureIndex({ groupId: 1 });
+  }
+});
