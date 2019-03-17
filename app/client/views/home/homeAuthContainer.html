@@ -1,7 +1,11 @@
 <template name="homeAuthContainer">
-  {{#if userIsAuthorized }}
-    {{> home }}
+  {{#if showSpinner }}
+    {{> spinner}}
   {{else}}
-    <h1>Not Authorized</h1>
+    {{#if userIsAuthorized }}
+      {{> home }}
+    {{else}}
+      <h1>Not Authorized</h1>
+    {{/if}}
   {{/if}}
 </template>
