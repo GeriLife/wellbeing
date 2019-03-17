@@ -35,6 +35,9 @@ Template.editUserGroups.onRendered(function() {
       );
 
       // Add existing groups to select widget, if any
+      // Warning: for some reason, this 'set' method seems to fail on ocassion
+      // even when the existing user group IDs are verified to be available.
+      // Consider whether to open a bug with SlimSelect, if this becomes a problem.
       templateInstance.groupSelect.set(existingUserGroupIds);
     }
   });
