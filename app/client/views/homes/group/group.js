@@ -1,30 +1,44 @@
+Template.homeGroup.onCreated(function() {
+  const templateInstance = this;
+  const groupId = templateInstance.data._id;
+
+  // Subscribe to all homes
+  templateInstance.subscribe("homesBelongingToGroup", groupId);
+});
+
 Template.homeGroup.events({
-  'click .edit-group' () {
+  "click .edit-group"() {
     // Get reference to group
     const group = this;
 
     // Show the group modal (edit)
-    Modal.show('groupModal', { group });
+    Modal.show("groupModal", { group });
   },
-  'click .new-home' () {
+  "click .new-home"() {
     // Get reference to group ID
     const groupId = this._id;
 
     // Show the edit home modal, passing in group ID
-    Modal.show('newHome', { groupId });
+    Modal.show("newHome", { groupId });
   },
-  'click .viewHome' () {
+  "click .viewHome"() {
     // Save Home ID that was clicked
     const homeId = this._id;
 
     // Show the page for individual home that was clicked
-    Router.go('home', {homeId: homeId});
+    Router.go("home", { homeId: homeId });
   },
-  'click .homeReport' () {
+  "click .homeReport"() {
     // Save Home ID that was clicked
     const homeId = this._id;
 
     // Show the page for individual home that was clicked
-    Router.go('homeReport', {homeId: homeId});
+    Router.go("homeReport", { homeId: homeId });
+  }
+});
+
+Template.homeGroup.helpers({
+  homes() {
+    return Homes.find();
   }
 });
