@@ -17,7 +17,7 @@
             </label>
             <select multiple class="form-control" name="editUserGroups" id="">
               {{#each groups}}
-                <option value="{{ _id }}">{{ name }}</option>
+                <option value="{{ _id }}" {{selected}}>{{ name }}</option>
               {{/each}}
             </select>
           </div>
