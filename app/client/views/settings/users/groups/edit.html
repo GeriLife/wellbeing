@@ -5,15 +5,14 @@
         <div class="modal-header">
           <h4 class="modal-title">
             <i class="fa fa-user"></i>&nbsp;
-             <!--{{_ "editUserGroups-header" }}-->
-             Edit user group(s)
+             {{_ "editUserGroups-header" }}
            </h4>
         </div>
 
         <div class="modal-body">
           <div class="form-group">
             <label for="">
-              Group(s)
+              {{_ "editUserGroups-groupsLabel" }}
             </label>
             <select multiple class="form-control" name="editUserGroups" id="">
               {{#each groups}}
@@ -25,12 +24,10 @@
 
         <div class="modal-footer">
           <button id="saveGroups" type="submit" class="btn btn-success">
-            <!--{{_ "editUserGroups-saveButton" }}-->
-            Save
+            {{_ "editUserGroups-saveButton" }}
           </button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">
-            <!--{{_ "editUserGroups-cancelButton" }}-->
-            Cancel
+            {{_ "editUserGroups-cancelButton" }}
           </button>
         </div>
 

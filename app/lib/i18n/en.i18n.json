@@ -97,6 +97,10 @@
   "editUser-cancelButton": "Cancel",
   "editUser-header": "Edit user",
   "editUser-saveButton": "Save",
+  "editUserGroups-cancelButton": "Cancel",
+  "editUserGroups-groupsLabel": "Group(s)",
+  "editUserGroups-header": "Edit user group(s)",
+  "editUserGroups-saveButton": "Save",
   "feelings": {
     "date": {
       "label": "Date"
