@@ -1,23 +1,23 @@
-Template.homes.created = function () {
+Template.homes.created = function() {
   // Get reference to template instance
   const templateInstance = this;
 
   // Subscribe to all homes
-  templateInstance.subscribe('allHomes');
+  templateInstance.subscribe("allHomes");
 
   // Subscribe to all groups
-  templateInstance.subscribe('allGroups');
+  templateInstance.subscribe("currentUserGroups");
 };
 
 Template.homes.events({
-  'click #new-group': function () {
+  "click #new-group": function() {
     // Show the group modal (create new)
-    Modal.show('groupModal');
+    Modal.show("groupModal");
   }
 });
 
 Template.homes.helpers({
-  'groups': function () {
+  groups: function() {
     // Get all Groups
     return Groups.find();
   }
