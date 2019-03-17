@@ -23,29 +23,39 @@ Template.editUserGroups.onRendered(function() {
         closeOnSelect: false,
         placeholder
       });
-
-      // Check for existing permissions
-      const existingUserPermissions = Permissions.find({ userId }).fetch();
-
-      const existingUserGroupIds = _.map(
-        existingUserPermissions,
-        permission => {
-          return permission.groupId;
-        }
-      );
-
-      // Add existing groups to select widget, if any
-      // Warning: for some reason, this 'set' method seems to fail on ocassion
-      // even when the existing user group IDs are verified to be available.
-      // Consider whether to open a bug with SlimSelect, if this becomes a problem.
-      templateInstance.groupSelect.set(existingUserGroupIds);
     }
   });
 });
 
 Template.editUserGroups.helpers({
   groups() {
-    return Groups.find().fetch();
+    const templateInstance = Template.instance();
+
+    const allGroups = Groups.find().fetch();
+
+    const userId = templateInstance.data.user._id;
+
+    // Check for existing permissions
+    const existingUserPermissions = Permissions.find({ userId }).fetch();
+
+    const existingUserPermissionGroupIds = existingUserPermissions.map(
+      permission => permission.groupId
+    );
+
+    // annotate groups with "selected", based on group membership
+    // used by select widget
+    const annotatedGroups = allGroups.map(function(group) {
+      const groupId = group._id;
+
+      const userIsInGroup = existingUserPermissionGroupIds.includes(groupId);
+
+      // mark group as "selected", if user already assigned
+      const selected = userIsInGroup ? "selected" : undefined;
+
+      return Object.assign({ selected }, group);
+    });
+
+    return annotatedGroups;
   }
 });
 
