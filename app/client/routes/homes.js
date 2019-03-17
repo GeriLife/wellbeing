@@ -14,7 +14,7 @@ Router.route(
 Router.route(
   "/home/:homeId",
   function() {
-    this.render("home");
+    this.render("homeAuthContainer");
   },
   {
     name: "home"
