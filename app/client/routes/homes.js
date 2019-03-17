@@ -30,26 +30,3 @@ Router.route(
     name: "homeReport"
   }
 );
-
-Router.onBeforeAction(currentUserCanAccessHome, {
-  only: ["home", "homeReport"]
-});
-
-function currentUserCanAccessHome() {
-  if (Meteor.user()) {
-    const currentUserId = Meteor.user()._id;
-
-    const userGroups = ["test"];
-
-    const homeGroup = "test";
-
-    const userIsInSameGroup = userGroups.includes(homeGroup);
-
-    const userIsAdmin = Roles.userIsInRole(currentUserId, ["admin"]);
-
-    if (userIsInSameGroup || userIsAdmin) {
-      this.next();
-    }
-  }
-  this.render("NotAuthorized");
-}
