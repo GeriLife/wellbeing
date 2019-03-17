@@ -36,9 +36,3 @@ Template.homeGroup.events({
     Router.go("homeReport", { homeId: homeId });
   }
 });
-
-Template.homeGroup.helpers({
-  homes() {
-    return Homes.find();
-  }
-});
