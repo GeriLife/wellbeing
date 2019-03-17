@@ -15,24 +15,29 @@ Template.editUserGroups.onRendered(function() {
 
   const placeholder = "Select one or more groups";
 
-  if (templateInstance.subscriptionsReady()) {
-    // Render multi-select widget on 'select residents' field
-    templateInstance.groupSelect = new SlimSelect({
-      select: "[name=editUserGroups]",
-      closeOnSelect: false,
-      placeholder
-    });
+  templateInstance.autorun(function() {
+    if (templateInstance.subscriptionsReady()) {
+      // Render multi-select widget on 'select residents' field
+      templateInstance.groupSelect = new SlimSelect({
+        select: "[name=editUserGroups]",
+        closeOnSelect: false,
+        placeholder
+      });
 
-    // Check for existing permissions
-    const existingUserPermissions = Permissions.find({ userId }).fetch();
+      // Check for existing permissions
+      const existingUserPermissions = Permissions.find({ userId }).fetch();
 
-    const existingUserGroupIds = _.map(existingUserPermissions, permission => {
-      return permission.groupId;
-    });
+      const existingUserGroupIds = _.map(
+        existingUserPermissions,
+        permission => {
+          return permission.groupId;
+        }
+      );
 
-    // Add existing groups to select widget, if any
-    templateInstance.groupSelect.set(existingUserGroupIds);
-  }
+      // Add existing groups to select widget, if any
+      templateInstance.groupSelect.set(existingUserGroupIds);
+    }
+  });
 });
 
 Template.editUserGroups.helpers({
