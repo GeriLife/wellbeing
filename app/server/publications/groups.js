@@ -7,7 +7,12 @@ Meteor.publish("currentUserGroups", function() {
   if (Meteor.user()) {
     const userId = Meteor.user()._id;
 
-    // Check for existing permissions
+    // Admin users can see all groups
+    if (Roles.userIsInRole(userId, ["admin"])) {
+      return Groups.find();
+    }
+
+    // Check for existing user permissions
     const existingUserPermissions = Permissions.find({ userId }).fetch();
 
     const existingUserPermissionGroupIds = existingUserPermissions.map(
