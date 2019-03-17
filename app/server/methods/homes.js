@@ -1,6 +1,23 @@
 import moment from "moment";
 
 Meteor.methods({
+  currentUserCanAccessHome(homeId) {
+    const currentUserId = Meteor.userId();
+
+    const home = Homes.findOne(homeId);
+
+    const userGroupIds = Meteor.call("getSingleUserGroupIds", currentUserId);
+
+    const userIsInHomeGroup = userGroupIds.includes(home.groupId);
+
+    const userIsAdmin = Roles.userIsInRole(currentUserId, ["admin"]);
+
+    if (userIsInHomeGroup || userIsAdmin) {
+      return true;
+    }
+
+    return false;
+  },
   getHomeResidentIds: function(homeId) {
     // Get all residents of specific home
     var residents = Residents.find({ homeId: homeId }).fetch();
