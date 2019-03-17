@@ -1,19 +1,19 @@
-import moment from 'moment';
+import moment from "moment";
 
 Meteor.methods({
-  'getHomeResidentIds': function (homeId) {
+  getHomeResidentIds: function(homeId) {
     // Get all residents of specific home
-    var residents = Residents.find({'homeId': homeId}).fetch();
+    var residents = Residents.find({ homeId: homeId }).fetch();
 
     // Create an array containing only resident IDs
-    var residentIds = _.map(residents, function (resident) {
+    var residentIds = _.map(residents, function(resident) {
       return resident._id;
     });
 
     // return the resident IDs array
     return residentIds;
   },
-  getHomeCurrentResidencies (homeId) {
+  getHomeCurrentResidencies(homeId) {
     /*
     Get all residencies for a home where the resident has not moved out.
      */
@@ -21,23 +21,28 @@ Meteor.methods({
     return Residencies.find({
       homeId,
       moveOut: {
-        $exists: false,
-      },
+        $exists: false
+      }
     }).fetch();
   },
-  getHomeCurrentResidentIds (homeId) {
+  getHomeCurrentResidentIds(homeId) {
     /*
     Get all resident IDs for a given home based on residency status.
      */
-    const homeCurrentResidencies = Meteor.call("getHomeCurrentResidencies", homeId);
+    const homeCurrentResidencies = Meteor.call(
+      "getHomeCurrentResidencies",
+      homeId
+    );
 
-    const homeCurrentResidentIds =  _.map(homeCurrentResidencies, function(residency) {
+    const homeCurrentResidentIds = _.map(homeCurrentResidencies, function(
+      residency
+    ) {
       return residency.residentId;
     });
 
-    return homeCurrentResidentIds
+    return homeCurrentResidentIds;
   },
-  'getHomeCurrentAndActiveResidentIds': function (homeId) {
+  getHomeCurrentAndActiveResidentIds: function(homeId) {
     /*
     Get all residents of specific home who have an active residency and are not on hiatus
      */
@@ -48,38 +53,41 @@ Meteor.methods({
     const residents = Residents.find(
       {
         _id: {
-          $in: currentResidentIds,
+          $in: currentResidentIds
         },
         onHiatus
       },
-      {sort: {firstName: 1}}
+      { sort: { firstName: 1 } }
     ).fetch();
 
     // Create an array containing only resident IDs
-    const residentIds = _.map(residents, function (resident) {
+    const residentIds = _.map(residents, function(resident) {
       return resident._id;
     });
 
     // return the resident IDs array
     return residentIds;
   },
-  'getHomeCurrentAndActiveResidentCount': function (homeId) {
+  getHomeCurrentAndActiveResidentCount: function(homeId) {
     // Get all current residents for specific home (not departed or on hiatus)
-    const homeCurrentResidentIds = Meteor.call("getHomeCurrentAndActiveResidentIds", homeId);
+    const homeCurrentResidentIds = Meteor.call(
+      "getHomeCurrentAndActiveResidentIds",
+      homeId
+    );
 
     // Count the length of current resident IDs list
     const homeCurrentResidentsCount = homeCurrentResidentIds.length;
 
     return homeCurrentResidentsCount;
   },
-  'getHomeActivities': function (homeId) {
+  getHomeActivities: function(homeId) {
     // Get all resident of this home
-    var homeResidentIds = Meteor.call('getHomeCurrentResidentIds', homeId);
+    var homeResidentIds = Meteor.call("getHomeCurrentResidentIds", homeId);
 
     // Get an array of all activity Ids for residents of this home
     var homeResidentActivitiesQuery = Activities.find(
-      {'residentIds': {$elemMatch: {$in: homeResidentIds}}},
-      {sort: {activityDate: -1}}
+      { residentIds: { $elemMatch: { $in: homeResidentIds } } },
+      { sort: { activityDate: -1 } }
     );
 
     // return all activities from activity IDs array
@@ -87,20 +95,20 @@ Meteor.methods({
 
     // Create a custom activities array using collection helpers
     // for resident names, activity type, and time ago
-    var homeActivitiesArray = homeActivities.map(function (activity) {
+    var homeActivitiesArray = homeActivities.map(function(activity) {
       return {
         residents: activity.residentNames(),
         type: activity.activityType(),
         duration: activity.duration,
         activityDate: activity.activityDate
-      }
+      };
     });
 
     return homeActivitiesArray;
   },
-  "getHomeActivityLevelCounts": function (homeId) {
+  getHomeActivityLevelCounts: function(homeId) {
     // // Get home residents by calling getHomeResidentIds
-    var residentIds = Meteor.call("getHomeCurrentAndActiveResidentIds",homeId);
+    var residentIds = Meteor.call("getHomeCurrentAndActiveResidentIds", homeId);
 
     var residentActivityLevelCounts = {
       inactive: 0,
@@ -108,9 +116,9 @@ Meteor.methods({
       active: 0
     };
 
-    if (residentIds){
+    if (residentIds) {
       // Get count of recent active days for each resident
-      _.each(residentIds, function (residentId) {
+      _.each(residentIds, function(residentId) {
         const residentRecentActiveDaysCount = Meteor.call(
           "getResidentRecentActiveDaysCount",
           residentId
@@ -134,9 +142,12 @@ Meteor.methods({
 
     return residentActivityLevelCounts;
   },
-  getHomeActivityCountTrend (homeId) {
+  getHomeActivityCountTrend(homeId) {
     // Get home residents
-    const residentIds = Meteor.call("getHomeCurrentAndActiveResidentIds", homeId);
+    const residentIds = Meteor.call(
+      "getHomeCurrentAndActiveResidentIds",
+      homeId
+    );
 
     // Arrays for daily activity level counts
     const inactivityCounts = [];
@@ -145,12 +156,16 @@ Meteor.methods({
     const date = [];
 
     // Date one week ago (six days, since today counts as one day)
-    const startDate = moment().subtract(6, 'days');
+    const startDate = moment().subtract(6, "days");
 
     // Get a date object for the end of day today
-    const endDate = moment().endOf('day');
+    const endDate = moment().endOf("day");
 
-    for (let currentDay = moment(startDate); currentDay.isBefore(endDate); currentDay.add(1, 'day')) {
+    for (
+      let currentDay = moment(startDate);
+      currentDay.isBefore(endDate);
+      currentDay.add(1, "day")
+    ) {
       // Set up placeholder activity counts object
       const dailyActivityCounts = {
         date: currentDay.toDate(),
@@ -161,7 +176,7 @@ Meteor.methods({
 
       // Get activity level for each resident
       // Compare it against the baseline
-      _.each(residentIds, function (residentId) {
+      _.each(residentIds, function(residentId) {
         const result = Meteor.call(
           "getResidentRecentActiveDaysCount",
           residentId,
@@ -186,37 +201,37 @@ Meteor.methods({
 
     return { activityCounts, inactivityCounts, semiActivityCounts, date };
   },
-  getHomeSelectOptionsWithGroups () {
+  getHomeSelectOptionsWithGroups() {
     // Get all Groups
     var groups = Groups.find().fetch();
 
     // Create an array of Group IDs
-    var groupIDs = _.map(groups, function (group) {
+    var groupIDs = _.map(groups, function(group) {
       return group._id;
     });
 
     // Create select options for Homes input
     // Grouping homes by group
-    var homeSelectOptionsWithGroups = _.map(groupIDs, function (groupId) {
+    var homeSelectOptionsWithGroups = _.map(groupIDs, function(groupId) {
       // Find the name of this group
       var groupName = Groups.findOne(groupId).name;
 
       // Get all homes of this group
-      var groupHomes = Homes.find({groupId: groupId}).fetch();
+      var groupHomes = Homes.find({ groupId: groupId }).fetch();
 
       // Create a homes array with name/ID pairs for label/value
-      var homesOptions = _.map(groupHomes, function (groupHome) {
+      var homesOptions = _.map(groupHomes, function(groupHome) {
         // Combine resident first name and last initial
         var homeName = groupHome.name;
 
         // Create option for this home, with home ID as the value
-        return {label: homeName, value: groupHome._id};
+        return { label: homeName, value: groupHome._id };
       });
 
       // Return residents and home as option group
-      return {optgroup: groupName, options: homesOptions};
+      return { optgroup: groupName, options: homesOptions };
     });
 
     return homeSelectOptionsWithGroups;
-  },
+  }
 });
