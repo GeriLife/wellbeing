@@ -11,5 +11,11 @@ Meteor.methods({
     }
 
     return true;
+  },
+  getSingleUserGroupIds(userId) {
+    // Check for existing permissions
+    const existingUserPermissions = Permissions.find({ userId }).fetch();
+
+    return existingUserPermissions.map(permission => permission.groupId);
   }
 });
