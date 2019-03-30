@@ -3,7 +3,7 @@ Template.newFeeling.created = function () {
   const templateInstance = this;
 
   // Subscribe to residents and homes
-  this.subscribe('allResidents');
+  this.subscribe('allCurrentResidents');
   this.subscribe('allHomes');
 
   // Create reactive variable for selected feeling
