@@ -44,12 +44,12 @@
           </p>
           
           <button type="button" class="btn btn-primary">
-            <label for="inputFile">Import data</label>
+            <label for="inputFile" class="no-margin">Import data</label>
             <input id="inputFile" accept="application/json" style="display: none;" class="file-upload-input file-upload" type="file" />
           </button>
   
           {{# if isFileInvalid}}
-            <p style="color:red;"> {{_ "dataSettings-invalid-json"}} </p>
+            <p class="warning"> {{_ "dataSettings-invalid-json"}} </p>
           {{/if}}
           
   
