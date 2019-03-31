@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.40",
+    "async": "^2.6.2",
     "babel-runtime": "^6.26.0",
     "bootstrap": "^3.3.7",
     "bootstrap-datepicker": "^1.7.1",

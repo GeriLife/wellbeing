@@ -6,6 +6,8 @@ Template.dataSettings.onCreated(function () {
 
   // 'fetching data' variable for UI state
   templateInstance.fetchingData = new ReactiveVar(false);
+
+  templateInstance.isFileInvalid = new ReactiveVar(false);
 });
 
 Template.dataSettings.events({
@@ -30,6 +32,23 @@ Template.dataSettings.events({
       }
     });
   },
+
+  "change .file-upload-input": function(event, templateInstance){
+    
+    var file = event.currentTarget.files[0];
+    if(file.type!=="application/json"){
+      templateInstance.isFileInvalid.set(true);
+      return
+    } 
+    var reader = new FileReader();
+    
+    reader.onload = function(fileLoadEvent) {
+      console.log(reader.result)
+       Meteor.call('file-upload', reader.result);
+    };
+    reader.readAsText(file);
+ }
+
 });
 
 Template.dataSettings.helpers({
@@ -41,3 +60,6 @@ Template.dataSettings.helpers({
     return templateInstance.fetchingData.get();
   }
 })
+async function _readFileAndReturnJSON(file){
+  fs.readFile(file)
+}

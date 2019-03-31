@@ -23,10 +23,22 @@
           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;
           {{_ "dataSettings-rawData-exportRawDataButton" }}
         </button>
+       
+        
+        <input accept="application/json" class="file-upload-input file-upload"  type="file"/>
+        
 
+      
+
+        
+
+        {{# if isFileInvalid}}
+          <p> {{_ "dataSettings-invalid-json"}} </p>
+        {{/if}}
+        
         {{# if showSpinner }}
           {{> spinner }}
-        {{/ if }}
+        {{/if }}
       </div><!-- /.box-body -->
     </div><!-- /.box -->
   </section>
