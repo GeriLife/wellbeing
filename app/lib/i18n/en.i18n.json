@@ -49,6 +49,8 @@
   "dataSettings-rawData-header": "Export data",
   "dataSettings-rawData-helpText": "Click the button below to export all data.",
   "dataSettings-invalid-json": "Invalid JSON file",
+  "dataSettings-rawData-import-header": "Import Data",
+  "dataSettings-rawData-import-helpText": "Import Data by uploading a JSON file",
   "dateTimeSettings-header": "Date/time settings",
   "dateTimeSettings-timezone-header": "Timezone",
   "dateTimeSettings-timezone-helpText": "Select timezone for use in scheduled reports.",

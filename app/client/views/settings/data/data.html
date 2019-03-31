@@ -23,23 +23,45 @@
           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;
           {{_ "dataSettings-rawData-exportRawDataButton" }}
         </button>
-       
-        
-        <input accept="application/json" class="file-upload-input file-upload"  type="file"/>
-        
-
       
-
-        
-
-        {{# if isFileInvalid}}
-          <p> {{_ "dataSettings-invalid-json"}} </p>
-        {{/if}}
         
         {{# if showSpinner }}
           {{> spinner }}
         {{/if }}
       </div><!-- /.box-body -->
     </div><!-- /.box -->
-  </section>
+  
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">
+            {{_ "dataSettings-rawData-import-header" }}
+          </h3>
+        </div><!-- /.box-header -->
+  
+        <div class="box-body">
+          <p>
+            {{_ "dataSettings-rawData-import-helpText" }}
+          </p>
+          
+          <button type="button" class="btn btn-primary">
+            <label for="inputFile">Import data</label>
+            <input id="inputFile" accept="application/json" style="display: none;" class="file-upload-input file-upload" type="file" />
+          </button>
+  
+          {{# if isFileInvalid}}
+            <p style="color:red;"> {{_ "dataSettings-invalid-json"}} </p>
+          {{/if}}
+          
+  
+        
+  
+          
+  
+          
+          {{# if showSpinner }}
+            {{> spinner }}
+          {{/if }}
+        </div><!-- /.box-body -->
+      </div><!-- /.box -->
+    </section>
 </template>
