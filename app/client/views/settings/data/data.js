@@ -58,6 +58,11 @@ Template.dataSettings.helpers({
 
     // return current value of 'fetchingData'
     return templateInstance.fetchingData.get();
+  },
+
+  isFileInvalid(){
+    const templateInstance = Template.instance();
+    return templateInstance.isFileInvalid.get();
   }
 })
 async function _readFileAndReturnJSON(file){
