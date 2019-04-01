@@ -3,7 +3,7 @@
     <h1>
       <i class="fa fa-database" aria-hidden="true"></i>
       {{_ "dataSettings-header" }}
-     </h1>
+    </h1>
   </section>
   <section class="content">
     <!-- data export -->
@@ -12,56 +12,98 @@
         <h3 class="box-title">
           {{_ "dataSettings-rawData-header" }}
         </h3>
-        <span class="label label-primary pull-right"><i class="fa fa-2x fa-database" aria-hidden="true"></i></span>
-      </div><!-- /.box-header -->
+        <span class="label label-primary pull-right"
+          ><i class="fa fa-2x fa-database" aria-hidden="true"></i
+        ></span>
+      </div>
+      <!-- /.box-header -->
 
       <div class="box-body">
         <p>
           {{_ "dataSettings-rawData-helpText" }}
         </p>
-        <button type="button" class="btn btn-success" id="export-data" disabled={{ fetchingData }}>
+        <button
+          type="button"
+          class="btn btn-success"
+          id="export-data"
+          disabled="{{ fetchingData }}"
+        >
           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;
           {{_ "dataSettings-rawData-exportRawDataButton" }}
         </button>
-      
-        
+
         {{# if showSpinner }}
-          {{> spinner }}
+        {{> spinner }}
         {{/if }}
-      </div><!-- /.box-body -->
-    </div><!-- /.box -->
-  
-      <div class="box box-primary">
-        <div class="box-header with-border">
-          <h3 class="box-title">
-            {{_ "dataSettings-rawData-import-header" }}
-          </h3>
-        </div><!-- /.box-header -->
-  
-        <div class="box-body">
-          <p>
-            {{_ "dataSettings-rawData-import-helpText" }}
-          </p>
-          
-          <button type="button" class="btn btn-primary">
-            <label for="inputFile" class="no-margin">Import data</label>
-            <input id="inputFile" accept="application/json" style="display: none;" class="file-upload-input file-upload" type="file" />
-          </button>
-  
-          {{# if isFileInvalid}}
-            <p class="warning"> {{_ "dataSettings-invalid-json"}} </p>
-          {{/if}}
-          
-  
-        
-  
-          
-  
-          
-          {{# if showSpinner }}
-            {{> spinner }}
-          {{/if }}
-        </div><!-- /.box-body -->
-      </div><!-- /.box -->
-    </section>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">
+          {{_ "dataSettings-rawData-import-header" }}
+        </h3>
+      </div>
+      <!-- /.box-header -->
+
+      <div class="box-body">
+        <p>
+          {{_ "dataSettings-rawData-import-helpText" }}
+        </p>
+
+        {{# if shouldShowAlert}}
+        <div class="alert alert-danger pull-right col-xs-4" role="alert">
+          {{_ "dataSettings-invalid-json"}}
+        </div>
+        {{/if}}
+        {{#if respMessage}}
+        {{#if isRespError}}
+        <div class="alert alert-danger pull-right col-xs-4" role="alert">
+          {{ respMessage }}
+        </div>
+        {{ else}}
+        <div class="alert alert-success pull-right col-xs-4" role="alert">
+          {{ respMessage }}
+        </div>
+        {{/ if}}
+        {{/ if}}
+
+        <div class="container">
+          <div class="row">
+            <input
+              id="inputFile"
+              accept="application/json"
+              style="display: none;"
+              class="file-upload-input file-upload"
+              type="file"
+            />
+            <a
+              ><label for="inputFile" class="no-margin"
+                >Click here to browse files</label
+              ></a
+            >
+            {{# if isDisabled  }}
+            <button type="button" id="importData" class="btn btn-primary">
+              Import Data
+            </button>
+            {{/ if}}
+          </div>
+          {{# if notnotA file}}
+          <div class="row">
+            <span>
+              {{ file.name }}
+            </span>
+            <!--  <button class="btn btn-sm " id="clear">
+              <i class="fa fa-remove"> </i>
+            </button> -->
+          </div>
+          {{/ if}}
+        </div>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+  </section>
 </template>
