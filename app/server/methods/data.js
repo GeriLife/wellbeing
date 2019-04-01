@@ -1,64 +1,22 @@
-const async = require("async");
-
-async function _exportDataToConcernedColection(collectionName, data) {
+function _exportDataToConcernedColection(collectionName, data) {
   if (!Array.isArray(data)) throw "Data not in required format";
 
-  console.log("Calling data for coll: ", collectionName);
-
-  switch (collectionName) {
-    case "activities":
-      return await _insert(Activities.insert, data);
-
-    case "activityTypes":
-      return await _insert(ActivityTypes.insert, data);
-
-    case "feelings":
-      return await _insert(Feelings.insert, data);
-
-    case "groups":
-      return await _insert(Groups.insert, data);
-
-    case "homes":
-      return await _insert(Homes.insert, data);
-
-    case "residents":
-      return await _insert(Residents.insert, data);
-
-    case "roles":
-      return await _insert(Meteor.roles.insert, data);
-
-    case "settings":
-      return await _insert(Settings.insert, data);
-
-    case "users":
-      return await _insert(Meteor.users.insert, data);
-  }
-  function _insert(func, data) {
-    // let insertMethod = Meteor.wrapAsync(func);
-
-    return new Promise((resolve, reject) => {
-      async.each(
-        data,
-        Meteor.bindEnvironment((row, cb) => {
-          func(
-            row,
-            Meteor.bindEnvironment((err, res) => {
-              if (err) cb(err);
-              else cb();
-            })
-          );
-          /* data.forEach(row => {
-      insertMethod(row);
-    }); */
-        }),
-        Meteor.bindEnvironment(err => {
-          if (err) return reject(err);
-
-          return resolve("Success");
-        })
-      );
-    });
-  }
+  let collections = {
+    activities: Activities,
+    activityTypes: ActivityTypes,
+    feelings: Feelings,
+    groups: Groups,
+    homes: Homes,
+    residents: Residents,
+    residencies: Residencies,
+    roles: Meteor.roles,
+    settings: Settings,
+    users: Meteor.users
+  };
+  return data.every(function(row) {
+    let res = collections[collectionName].insert(row);
+    return res;
+  });
 }
 
 Meteor.methods({
@@ -87,8 +45,8 @@ Meteor.methods({
     }
   },
 
-  "file-upload": async function(fileData) {
-    if (!fileData) return "No Data recieved!!";
+  JSONFileImport(fileData, cb) {
+    if (!fileData) return { error: { message: "No Data recieved!!" } };
 
     let jsonData;
     try {
@@ -96,21 +54,20 @@ Meteor.methods({
 
       if (!typeof jsonData === "object") throw "JSON not in required format";
 
-      Object.keys(jsonData).forEach(Meteor.bindEnvironment(async collectionName => {
+      Object.keys(jsonData).forEach(collectionName => {
         try {
-          let data = await _exportDataToConcernedColection(
+          _exportDataToConcernedColection(
             collectionName,
             jsonData[collectionName]
           );
-          console.log("Response of insert ", data);
+
+          return { message: "Data imported successfully!" };
         } catch (e) {
-          console.log("in inner catch: ", e);
-          return e;
+          return { error: { message: "Error displaying data", data: e } };
         }
-      }));
+      });
     } catch (e) {
-      console.log("outer catch", e);
-      return "Data not in required format";
+      return { error: { message: e } };
     }
   }
 });
