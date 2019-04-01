@@ -1,6 +1,24 @@
-import FileSaver from 'file-saver';
+import FileSaver from "file-saver";
 
-Template.dataSettings.onCreated(function () {
+const showAlert = () => {
+  const templateInstance = Template.instance();
+  templateInstance.shouldShowAlert.set(true);
+
+  setTimeout(() => {
+    templateInstance.shouldShowAlert.set(false);
+  }, 3000);
+};
+
+const _clear = () => {
+  const templateInstance = Template.instance();
+
+  templateInstance.file.set(null);
+  templateInstance.isFileInvalid.set(false);
+
+  document.getElementById("inputFile").value = "";
+};
+
+Template.dataSettings.onCreated(function() {
   // Get reference to template instance
   const templateInstance = this;
 
@@ -8,24 +26,30 @@ Template.dataSettings.onCreated(function () {
   templateInstance.fetchingData = new ReactiveVar(false);
 
   templateInstance.isFileInvalid = new ReactiveVar(false);
+  templateInstance.shouldShowAlert = new ReactiveVar(false);
+  templateInstance.file = new ReactiveVar(null);
+  templateInstance.isRespError = new ReactiveVar(false);
+  templateInstance.respMessage = new ReactiveVar(null);
 });
 
 Template.dataSettings.events({
-  'click #export-data' (event, templateInstance) {
+  "click #export-data"(event, templateInstance) {
     // Set 'fetching data' variable to true
     templateInstance.fetchingData.set(true);
 
     // Export all data
-    Meteor.call('exportAllData', function (error, exportData) {
+    Meteor.call("exportAllData", function(error, exportData) {
       if (!error) {
         // Convert export data to string
-        const dataString = JSON.stringify(exportData)
+        const dataString = JSON.stringify(exportData);
 
         // Create binary object from data string
-        const exportBlob = new Blob([dataString], {type: 'application/json;charset=utf-8'});
+        const exportBlob = new Blob([dataString], {
+          type: "application/json;charset=utf-8"
+        });
 
         // Trigger save as prompt
-        FileSaver.saveAs(exportBlob, 'GeriLife-export.json');
+        FileSaver.saveAs(exportBlob, "GeriLife-export.json");
 
         // hide spinner
         templateInstance.fetchingData.set(false);
@@ -33,26 +57,35 @@ Template.dataSettings.events({
     });
   },
 
-  "change .file-upload-input": function(event, templateInstance){
-    
+  "change .file-upload-input": function(event, templateInstance) {
     var file = event.currentTarget.files[0];
-    if(file.type!=="application/json"){
+    templateInstance.file.set(file);
+    if (file.type !== "application/json") {
+      showAlert();
       templateInstance.isFileInvalid.set(true);
-      return
-    } 
-    var reader = new FileReader();
-    
-    reader.onload = function(fileLoadEvent) {
-      console.log(reader.result)
-       Meteor.call('file-upload', reader.result);
-    };
-    reader.readAsText(file);
- }
 
+      return;
+    }
+    templateInstance.isFileInvalid.set(false);
+  },
+
+  "click #importData": function(event, templateInstance) {
+    var reader = new FileReader();
+
+    reader.onload = function(fileLoadEvent) {
+      Meteor.call("JSONFileImport", reader.result, function(data) {
+        Session.set("JSONFileImportResult", data);
+      });
+    };
+    reader.readAsText(templateInstance.file.get());
+  },
+  "click #clear": function(event, templateInstance) {
+    _clear();
+  }
 });
 
 Template.dataSettings.helpers({
-  fetchingData () {
+  fetchingData() {
     // Get reference to template instance
     const templateInstance = Template.instance();
 
@@ -60,11 +93,46 @@ Template.dataSettings.helpers({
     return templateInstance.fetchingData.get();
   },
 
-  isFileInvalid(){
+  isFileInvalid() {
     const templateInstance = Template.instance();
     return templateInstance.isFileInvalid.get();
+  },
+
+  shouldShowAlert() {
+    const templateInstance = Template.instance();
+    return templateInstance.shouldShowAlert.get();
+  },
+
+  file() {
+    const templateInstance = Template.instance();
+    return templateInstance.file.get();
+  },
+
+  isDisabled() {
+    const templateInstance = Template.instance();
+    return !(
+      templateInstance.isFileInvalid.get() || !templateInstance.file.get()
+    );
+  },
+
+  notnotA(a) {
+    return !!a;
+  },
+
+  processRes() {
+    const templateInstance = Template.instance();
+
+    let data = Session.get("JSONFileImportResult");
+    console.log(data)
+    if (!!data.error) {
+      templateInstance.isRespError.set(true);
+      templateInstance.respMessage.set(data.error.message);
+    } else templateInstance.respMessage.set(data.message);
+
+    setTimeout(() => {
+      templateInstance.isRespError.set(false);
+      templateInstance.respMessage.set(null);
+      _clear();
+    });
   }
-})
-async function _readFileAndReturnJSON(file){
-  fs.readFile(file)
-}
+});
