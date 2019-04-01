@@ -58,7 +58,7 @@ Template.dataSettings.events({
   },
 
   "change .file-upload-input": function(event, templateInstance) {
-    var file = event.currentTarget.files[0];
+    let file = event.currentTarget.files[0];
     templateInstance.file.set(file);
     if (file.type !== "application/json") {
       showAlert();
@@ -70,7 +70,7 @@ Template.dataSettings.events({
   },
 
   "click #importData": function(event, templateInstance) {
-    var reader = new FileReader();
+    let reader = new FileReader();
 
     reader.onload = function(fileLoadEvent) {
       Meteor.call("JSONFileImport", reader.result, function(data) {
@@ -123,7 +123,6 @@ Template.dataSettings.helpers({
     const templateInstance = Template.instance();
 
     let data = Session.get("JSONFileImportResult");
-    console.log(data)
     if (!!data.error) {
       templateInstance.isRespError.set(true);
       templateInstance.respMessage.set(data.error.message);
