@@ -33,23 +33,29 @@ async function _exportDataToConcernedColection(collectionName, data) {
     case "users":
       return await _insert(Meteor.users.insert, data);
   }
-  async function _insert(func, data) {
+  function _insert(func, data) {
+    // let insertMethod = Meteor.wrapAsync(func);
+
     return new Promise((resolve, reject) => {
       async.each(
         data,
-        async (row, cb) => {
-          try {
-            await func(row);
-            cb();
-          } catch (e) {
-            cb(e);
-          }
-        },
-        err => {
+        Meteor.bindEnvironment((row, cb) => {
+          func(
+            row,
+            Meteor.bindEnvironment((err, res) => {
+              if (err) cb(err);
+              else cb();
+            })
+          );
+          /* data.forEach(row => {
+      insertMethod(row);
+    }); */
+        }),
+        Meteor.bindEnvironment(err => {
           if (err) return reject(err);
 
           return resolve("Success");
-        }
+        })
       );
     });
   }
@@ -90,7 +96,7 @@ Meteor.methods({
 
       if (!typeof jsonData === "object") throw "JSON not in required format";
 
-      Object.keys(jsonData).forEach(async collectionName => {
+      Object.keys(jsonData).forEach(Meteor.bindEnvironment(async collectionName => {
         try {
           let data = await _exportDataToConcernedColection(
             collectionName,
@@ -101,7 +107,7 @@ Meteor.methods({
           console.log("in inner catch: ", e);
           return e;
         }
-      });
+      }));
     } catch (e) {
       console.log("outer catch", e);
       return "Data not in required format";
