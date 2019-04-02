@@ -52,7 +52,7 @@ Template.dataSettings.events({
 
   "change .file-upload-input": function(event, templateInstance) {
     templateInstance.showModal.set(false);
-    let file = event.currentTarget.files[0];
+    const file = event.currentTarget.files[0];
     templateInstance.file.set(file);
     if (file.type !== "application/json") {
       templateInstance.isFileInvalid.set(true);
