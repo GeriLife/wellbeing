@@ -11,7 +11,8 @@ const showAlert = () => {
 
 const _clear = () => {
   const templateInstance = Template.instance();
-
+  templateInstance.isRespError.set(false);
+  templateInstance.respMessage.set(null);
   templateInstance.file.set(null);
   templateInstance.isFileInvalid.set(false);
 
@@ -30,6 +31,8 @@ Template.dataSettings.onCreated(function() {
   templateInstance.file = new ReactiveVar(null);
   templateInstance.isRespError = new ReactiveVar(false);
   templateInstance.respMessage = new ReactiveVar(null);
+  templateInstance.importRes = new ReactiveVar(null);
+  templateInstance.showModal = new ReactiveVar(false);
 });
 
 Template.dataSettings.events({
@@ -58,6 +61,7 @@ Template.dataSettings.events({
   },
 
   "change .file-upload-input": function(event, templateInstance) {
+    templateInstance.showModal.set(false);
     let file = event.currentTarget.files[0];
     templateInstance.file.set(file);
     if (file.type !== "application/json") {
@@ -74,28 +78,26 @@ Template.dataSettings.events({
 
     reader.onload = function(fileLoadEvent) {
       Meteor.call("JSONFileImport", reader.result, function(err, data) {
+        if (Array.isArray(data)) {
+          templateInstance.showModal.set(true);
+          templateInstance.importRes.set(data);
+        } else if (!!data.error) {
+          templateInstance.isRespError.set(true);
+          templateInstance.respMessage.set(data.error.message);
 
-        if(Array.isArray(data)) {
-        templateInstance.showModal.set(true)
-
-        }else{
-          if (!!data.error) {
-            templateInstance.isRespError.set(true);
-            templateInstance.respMessage.set(data.error.message);
-          } else templateInstance.respMessage.set(data.message);
-  
           setTimeout(() => {
-            templateInstance.isRespError.set(false);
-            templateInstance.respMessage.set(null);
             _clear();
-          },6000); 
+          }, 6000);
         }
-        
       });
     };
     reader.readAsText(templateInstance.file.get());
   },
   "click #clear": function(event, templateInstance) {
+    _clear();
+  },
+
+  "click #closeImportErrAlert": function(event, templateInstance) {
     _clear();
   }
 });
@@ -137,12 +139,21 @@ Template.dataSettings.helpers({
 
   isRespError() {
     const templateInstance = Template.instance();
-
     return templateInstance.isRespError.get();
   },
+
   respMessage() {
     const templateInstance = Template.instance();
-
     return templateInstance.respMessage.get();
+  },
+
+  showModal() {
+    const templateInstance = Template.instance();
+    return templateInstance.showModal.get();
+  },
+
+  importRes() {
+    const templateInstance = Template.instance();
+    return templateInstance.importRes.get();
   }
 });

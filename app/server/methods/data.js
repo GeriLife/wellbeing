@@ -19,6 +19,12 @@ function _exportDataToConcernedColection(collectionName, data) {
   });
 }
 
+function getMessage(e) {
+  if (!!e.errmsg) return e.errmsg;
+  if (!e.sanitizedError) return e.sanitizedError.message;
+  return e.toString();
+}
+
 Meteor.methods({
   exportAllData() {
     // Get current user ID
@@ -60,7 +66,8 @@ Meteor.methods({
     try {
       jsonData = JSON.parse(fileData);
 
-      if (!typeof jsonData === "object") throw "JSON not in required format";
+      if (!typeof jsonData === "object" || Array.isArray(jsonData))
+        throw "JSON not in required format";
 
       let res = Object.keys(jsonData).map(collectionName => {
         try {
@@ -70,16 +77,23 @@ Meteor.methods({
           );
 
           return {
+            collectionName,
             message: `Data for ${collectionName} imported successfully!`
           };
         } catch (e) {
-          return { error: { message: `${collectionName}: Error displaying data`, data: e } };
+          return {
+            collectionName,
+            error: {
+              message: `${collectionName}: Error displaying data`,
+              data: getMessage(e)
+            }
+          };
         }
       });
 
       return res;
     } catch (e) {
-      return { error: { message: e } };
+      return { error: { message: "Invalid File" } };
     }
   }
 });
