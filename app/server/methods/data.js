@@ -14,8 +14,8 @@ function _exportDataToConcernedColection(collectionName, data) {
     users: Meteor.users
   };
   return data.every(function(row) {
-    let res = collections[collectionName].insert(row);
-    return res;
+    return collections[collectionName].insert(row);
+    
   });
 }
 
