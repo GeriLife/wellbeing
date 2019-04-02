@@ -51,6 +51,8 @@
   "dataSettings-invalid-json": "Invalid JSON file",
   "dataSettings-rawData-import-header": "Import Data",
   "dataSettings-rawData-import-helpText": "Import Data by uploading a JSON file",
+  "dataSettings-clickToBrowse": "Click here to browse files",
+  "dataSettings-importDataBtn": "Import Data",
   "importSummary-title": "Import Summary",
   "importSummary-showRes": "Show Summary",
   "importSummary-collectionNameHeader": "Collection Name",
