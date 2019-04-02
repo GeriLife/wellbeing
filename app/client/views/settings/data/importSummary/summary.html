@@ -1,4 +1,53 @@
-<template name="imortSummary">
-    
-  </template>
-  
+<template name="importSummary">
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-toggle="modal"
+    data-target="#importSummaryRes"
+  >
+    {{_ "importSummary-showRes"}}
+  </button>
+  <div id="importSummaryRes" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{_ "importSummary-title"}}</h4>
+        </div>
+        <div class="modal-body">
+          <table class="table table-striped">
+            <tr>
+              <th>{{_ "importSummary-collectionNameHeader"}}</th>
+              <th>{{_ "importSummary-summaryHeader"}}</th>
+              <th>{{_ "importSummary-dbMessageHeader"}}</th>
+            </tr>
+            {{#each row in data}}
+            <tr>
+              <td>{{ row.collectionName }}</td>
+              {{#if row.error}}
+              <td>{{ row.error.message }}</td>
+              <td>{{ row.error.data }}</td>
+              {{else}}
+              <td>{{ row.message }}</td>
+              <td>{{ row.data }}</td>
+              {{/ if}}
+            </tr>
+            {{/each}}
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-default"
+            id="modalClose"
+            data-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+</template>
