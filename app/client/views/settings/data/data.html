@@ -58,7 +58,7 @@
           {{_ "dataSettings-invalid-json"}}
         </div>
         {{/if}}
-        {{#if respMessage}}
+
         {{#if isRespError}}
         <div
           class="alert alert-danger alert-dismissible pull-right col-xs-4"
@@ -67,6 +67,7 @@
           <button
             type="button"
             class="close"
+            id="closeImportErrAlert"
             data-dismiss="alert"
             aria-label="Close"
           >
@@ -74,22 +75,7 @@
           </button>
           {{ respMessage }}
         </div>
-        {{ else}}
-        <div
-          class="alert alert-success alert-dismissible pull-right col-xs-4"
-          role="alert"
-        >
-          <button
-            type="button"
-            class="close"
-            data-dismiss="alert"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-          {{ respMessage }}
-        </div>
-        {{/ if}}
+
         {{/ if}}
 
         <div class="container">
@@ -120,15 +106,18 @@
               Import Data
             </button>
             {{/ if}}
+            {{# if showModal}}
+            {{> importSummary data=importRes}}
+            {{/if}}
           </div>
           {{# if notnotA file}}
           <div class="row">
             <span>
               {{ file.name }}
             </span>
-            <!--  <button class="btn btn-sm " id="clear">
+             <button class="btn btn-sm " id="clear">
               <i class="fa fa-remove"> </i>
-            </button> -->
+            </button>
           </div>
           {{/ if}}
         </div>
