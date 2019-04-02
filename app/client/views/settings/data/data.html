@@ -89,12 +89,12 @@
             />
             <a
               ><label for="inputFile" class="no-margin"
-                >Click here to browse files</label
+                >{{_ "dataSettings-clickToBrowse"}}</label
               ></a
             >
             {{# if isDisabled  }}
             <button type="button" id="importData" class="btn btn-primary">
-              Import Data
+              {{_ "dataSettings-importDataBtn"}}
             </button>
             {{else}}
             <button
@@ -103,14 +103,14 @@
               id="importData"
               class="btn btn-primary"
             >
-              Import Data
+              {{_ "dataSettings-importDataBtn"}}
             </button>
             {{/ if}}
             {{# if showModal}}
             {{> importSummary data=importRes}}
             {{/if}}
           </div>
-          {{# if notnotA file}}
+          {{# if ifFileExists file}}
           <div class="row">
             <span>
               {{ file.name }}

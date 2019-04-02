@@ -1,14 +1,5 @@
 import FileSaver from "file-saver";
 
-const showAlert = () => {
-  const templateInstance = Template.instance();
-  templateInstance.shouldShowAlert.set(true);
-
-  setTimeout(() => {
-    templateInstance.shouldShowAlert.set(false);
-  }, 3000);
-};
-
 const _clear = () => {
   const templateInstance = Template.instance();
   templateInstance.isRespError.set(false);
@@ -27,7 +18,6 @@ Template.dataSettings.onCreated(function() {
   templateInstance.fetchingData = new ReactiveVar(false);
 
   templateInstance.isFileInvalid = new ReactiveVar(false);
-  templateInstance.shouldShowAlert = new ReactiveVar(false);
   templateInstance.file = new ReactiveVar(null);
   templateInstance.isRespError = new ReactiveVar(false);
   templateInstance.respMessage = new ReactiveVar(null);
@@ -65,7 +55,6 @@ Template.dataSettings.events({
     let file = event.currentTarget.files[0];
     templateInstance.file.set(file);
     if (file.type !== "application/json") {
-      showAlert();
       templateInstance.isFileInvalid.set(true);
 
       return;
@@ -118,7 +107,7 @@ Template.dataSettings.helpers({
 
   shouldShowAlert() {
     const templateInstance = Template.instance();
-    return templateInstance.shouldShowAlert.get();
+    return templateInstance.isFileInvalid.get();
   },
 
   file() {
@@ -133,8 +122,8 @@ Template.dataSettings.helpers({
     );
   },
 
-  notnotA(a) {
-    return !!a;
+  ifFileExists(file) {
+    return !!file;
   },
 
   isRespError() {
