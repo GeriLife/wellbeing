@@ -73,8 +73,24 @@ Template.dataSettings.events({
     let reader = new FileReader();
 
     reader.onload = function(fileLoadEvent) {
-      Meteor.call("JSONFileImport", reader.result, function(data) {
-        Session.set("JSONFileImportResult", data);
+      Meteor.call("JSONFileImport", reader.result, function(err, data) {
+
+        if(Array.isArray(data)) {
+        templateInstance.showModal.set(true)
+
+        }else{
+          if (!!data.error) {
+            templateInstance.isRespError.set(true);
+            templateInstance.respMessage.set(data.error.message);
+          } else templateInstance.respMessage.set(data.message);
+  
+          setTimeout(() => {
+            templateInstance.isRespError.set(false);
+            templateInstance.respMessage.set(null);
+            _clear();
+          },6000); 
+        }
+        
       });
     };
     reader.readAsText(templateInstance.file.get());
@@ -119,19 +135,14 @@ Template.dataSettings.helpers({
     return !!a;
   },
 
-  processRes() {
+  isRespError() {
     const templateInstance = Template.instance();
 
-    let data = Session.get("JSONFileImportResult");
-    if (!!data.error) {
-      templateInstance.isRespError.set(true);
-      templateInstance.respMessage.set(data.error.message);
-    } else templateInstance.respMessage.set(data.message);
+    return templateInstance.isRespError.get();
+  },
+  respMessage() {
+    const templateInstance = Template.instance();
 
-    setTimeout(() => {
-      templateInstance.isRespError.set(false);
-      templateInstance.respMessage.set(null);
-      _clear();
-    });
+    return templateInstance.respMessage.get();
   }
 });

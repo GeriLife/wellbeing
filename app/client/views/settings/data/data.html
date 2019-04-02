@@ -60,11 +60,33 @@
         {{/if}}
         {{#if respMessage}}
         {{#if isRespError}}
-        <div class="alert alert-danger pull-right col-xs-4" role="alert">
+        <div
+          class="alert alert-danger alert-dismissible pull-right col-xs-4"
+          role="alert"
+        >
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
           {{ respMessage }}
         </div>
         {{ else}}
-        <div class="alert alert-success pull-right col-xs-4" role="alert">
+        <div
+          class="alert alert-success alert-dismissible pull-right col-xs-4"
+          role="alert"
+        >
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
           {{ respMessage }}
         </div>
         {{/ if}}
@@ -86,6 +108,15 @@
             >
             {{# if isDisabled  }}
             <button type="button" id="importData" class="btn btn-primary">
+              Import Data
+            </button>
+            {{else}}
+            <button
+              disabled
+              type="button"
+              id="importData"
+              class="btn btn-primary"
+            >
               Import Data
             </button>
             {{/ if}}
