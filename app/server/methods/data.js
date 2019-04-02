@@ -45,7 +45,15 @@ Meteor.methods({
     }
   },
 
-  JSONFileImport(fileData, cb) {
+  JSONFileImport(fileData) {
+    // Get current user ID
+    const currentUserId = Meteor.userId();
+
+    // Check if current user is Admin
+    const currentUserIsAdmin = Roles.userIsInRole(currentUserId, "admin");
+    if (!currentUserIsAdmin)
+      return { error: { message: "Action not allowed" } };
+
     if (!fileData) return { error: { message: "No Data recieved!!" } };
 
     let jsonData;
@@ -54,18 +62,22 @@ Meteor.methods({
 
       if (!typeof jsonData === "object") throw "JSON not in required format";
 
-      Object.keys(jsonData).forEach(collectionName => {
+      let res = Object.keys(jsonData).map(collectionName => {
         try {
           _exportDataToConcernedColection(
             collectionName,
             jsonData[collectionName]
           );
 
-          return { message: "Data imported successfully!" };
+          return {
+            message: `Data for ${collectionName} imported successfully!`
+          };
         } catch (e) {
-          return { error: { message: "Error displaying data", data: e } };
+          return { error: { message: `${collectionName}: Error displaying data`, data: e } };
         }
       });
+
+      return res;
     } catch (e) {
       return { error: { message: e } };
     }
