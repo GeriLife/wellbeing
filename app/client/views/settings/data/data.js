@@ -1,7 +1,7 @@
 import FileSaver from "file-saver";
 
-const _clear = () => {
-  const templateInstance = Template.instance();
+const _clear = templateInstance => {
+  // const templateInstance = Template.instance();
   templateInstance.isRespError.set(false);
   templateInstance.respMessage.set(null);
   templateInstance.file.set(null);
@@ -56,10 +56,9 @@ Template.dataSettings.events({
     templateInstance.file.set(file);
     if (file.type !== "application/json") {
       templateInstance.isFileInvalid.set(true);
-
-      return;
+    } else {
+      templateInstance.isFileInvalid.set(false);
     }
-    templateInstance.isFileInvalid.set(false);
   },
 
   "click #importData": function(event, templateInstance) {
@@ -70,13 +69,18 @@ Template.dataSettings.events({
         if (Array.isArray(data)) {
           templateInstance.showModal.set(true);
           templateInstance.importRes.set(data);
-        } else if (!!data.error) {
+        } else if ("error" in data) {
           templateInstance.isRespError.set(true);
           templateInstance.respMessage.set(data.error.message);
 
-          setTimeout(() => {
-            _clear();
-          }, 6000);
+          /* This will clear the error message alert after 6seconds if not cleared by the user */
+          setTimeout(
+            () => {
+              _clear(templateInstance);
+            },
+            6000,
+            templateInstance
+          );
         }
       });
     };
