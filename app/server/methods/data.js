@@ -1,7 +1,7 @@
 function _exportDataToConcernedColection(collectionName, data) {
   if (!Array.isArray(data)) throw "Data not in required format";
 
-  let collections = {
+  const collections = {
     activities: Activities,
     activityTypes: ActivityTypes,
     feelings: Feelings,
@@ -20,7 +20,7 @@ function _exportDataToConcernedColection(collectionName, data) {
 }
 
 function getMessage(e) {
-  if (!!e.errmsg) return e.errmsg;
+  if ("errmsg" in e) return e.errmsg;
   if (!e.sanitizedError) return e.sanitizedError.message;
   return e.toString();
 }
