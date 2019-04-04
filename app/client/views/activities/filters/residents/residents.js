@@ -1,8 +1,8 @@
 Template.activitiesTableResidentNamesFilter.onCreated(function() {
   // Initialize ReactiveTable filter for residents
   this.filter = new ReactiveTable.Filter("residentFilter", ["residentIds"]);
-  this.subscribe('allCurrentResidencies');
-  this.subscribe('allResidents');
+  // this.subscribe('allCurrentResidencies');
+  // this.subscribe('allResidents');
 
 });
 
