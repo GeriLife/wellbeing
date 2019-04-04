@@ -22,11 +22,6 @@ var ResidentsSchema = new SimpleSchema({
   onHiatus: {
     type: Boolean,
     defaultValue: false
-  },
-  departed: {
-    type: Boolean,
-    optional: true,
-    defaultValue: false
   }
 });
 
