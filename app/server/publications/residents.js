@@ -1,45 +1,61 @@
-Meteor.publish('allResidents', function () {
+Meteor.publish("allResidents", function() {
   // Publish all residents
   return Residents.find();
 });
 
-Meteor.publish('allCurrentResidents', function () {
+Meteor.publish("allCurrentResidents", function() {
   // Find all current residencies
   const currentResidencies = Residencies.find({
-    moveOut: {$exists: false},
+    moveOut: { $exists: false }
   }).fetch();
 
   // Get resident IDs from residencies
-  const currentResidentIds = _.map(currentResidencies, (residency) => {
+  const currentResidentIds = _.map(currentResidencies, residency => {
     return residency.residentId;
   });
 
   // Publish all current residents
-  return Residents.find({_id: {$in: currentResidentIds}});
+  return Residents.find({ _id: { $in: currentResidentIds } });
 });
 
-Meteor.publish('singleResident', function (residentId) {
+Meteor.publish("singleResident", function(residentId) {
   // Publish all residents
   return Residents.find(residentId);
 });
 
-Meteor.publish('selectResidents', function (residentIdsArray) {
+Meteor.publish("selectResidents", function(residentIdsArray) {
   // Publish residents indicated by array of IDs
-  return Residents.find({_id: {$in: residentIdsArray}});
+  return Residents.find({ _id: { $in: residentIdsArray } });
 });
 
-Meteor.publish('homeCurrentResidents', function (homeId) {
+Meteor.publish("homeCurrentResidents", function(homeId) {
   // Find all residencies for given home
   const homeResidencies = Residencies.find({
     homeId,
-    moveOut: {$exists: false},
+    moveOut: { $exists: false }
   }).fetch();
 
   // Get resident IDs from residencies
-  const homeResidentIds = _.map(homeResidencies, (residency) => {
+  const homeResidentIds = _.map(homeResidencies, residency => {
     return residency.residentId;
   });
 
   // Publish all current residents of a given home
-  return Residents.find({_id: {$in: homeResidentIds}});
+  return Residents.find({ _id: { $in: homeResidentIds } });
+});
+
+Meteor.publish("currentUserVisibleResidents", function() {
+  const userId = Meteor.userId();
+
+  const visibleResidencyIds = Meteor.call(
+    "getUserVisibleActiveResidencyIds",
+    userId
+  );
+
+  const visibleResidentIds = Residencies.find({
+    _id: { $in: visibleResidencyIds }
+  }).map(residency => residency.residentId);
+
+  // get residents from residencies
+  return Residents.find({ _id: { $in: visibleResidentIds } });
 });
