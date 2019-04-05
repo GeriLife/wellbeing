@@ -4,3 +4,4 @@ server/smtp.js
 node_modules
 .idea
 *.pyc
+app/.vscode
