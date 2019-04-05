@@ -12,3 +12,14 @@ Meteor.publish("homesBelongingToGroup", function(groupId) {
   // Publish homes belonging to group
   return Homes.find({ groupId });
 });
+
+Meteor.publish("currentUserVisibleHomes", function() {
+  const userId = Meteor.userId();
+
+  // Group IDs can be obtained through Permissions
+  const userGroups = Meteor.call("getSingleUserGroupIds", userId);
+
+  return Homes.find({
+    groupId: { $in: userGroups }
+  });
+});
