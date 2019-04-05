@@ -1,46 +1,58 @@
-import moment from 'moment';
+import moment from "moment";
 
-Meteor.publish('allActivities', function () {
+Meteor.publish("allActivities", function() {
   return Activities.find();
 });
 
-ReactiveTable.publish('allActivities-paginated', function () {
-  if (this.userId) {
-      return Activities;
-    } else {
-      return [];
-    }
-});
+ReactiveTable.publish(
+  "allUserVisibleActivities-paginated",
+  Activities,
+  function() {
+    if (this.userId) {
+      const userVisibleActiveResidentIds = Meteor.call(
+        "getUserVisibleActiveResidentIds",
+        this.userId
+      );
 
-Meteor.publish('singleActivity', function (activityId) {
+      // return mongo selector to fetch activities with matching resident IDs
+      return { residentIds: { $in: userVisibleActiveResidentIds } };
+    }
+  }
+);
+
+Meteor.publish("singleActivity", function(activityId) {
   return Activities.find(activityId);
 });
 
-Meteor.publish('userActivities', function (userId) {
+Meteor.publish("userActivities", function(userId) {
   // Activities for a given user
-  return Activities.find({'createdById': userId});
+  return Activities.find({ createdById: userId });
 });
 
-Meteor.publish('residentActivities', function (residentId) {
+Meteor.publish("residentActivities", function(residentId) {
   // Activities for a given user
-  return Activities.find({'residentIds':  residentId });
+  return Activities.find({ residentIds: residentId });
 });
 
-Meteor.publish('residentLatestActivities', function () {
+Meteor.publish("residentLatestActivities", function() {
   // Get latest activity IDs
-  var latestActivityIds = Meteor.call('getLatestActivityIds');
+  var latestActivityIds = Meteor.call("getLatestActivityIds");
 
   // Get activities from Activities collection
-  var activities = Activities.find({_id: {$in: latestActivityIds}});
+  var activities = Activities.find({ _id: { $in: latestActivityIds } });
 
   // Get cursor to latest activities
   return activities;
 });
 
-Meteor.publish('residentActivityCountOnDate', function (residentId, date) {
+Meteor.publish("residentActivityCountOnDate", function(residentId, date) {
   // Get start and end of day, for MongoDB query
-  const startOfDay = moment(date).startOf('day').toDate();
-  const endOfDay = moment(date).endOf('day').toDate();
+  const startOfDay = moment(date)
+    .startOf("day")
+    .toDate();
+  const endOfDay = moment(date)
+    .endOf("day")
+    .toDate();
 
   // Query activities for resident during entire day
   const query = {
@@ -55,8 +67,12 @@ Meteor.publish('residentActivityCountOnDate', function (residentId, date) {
   const activitiesCursor = Activities.find(query);
 
   // Create ISO date string (YYYY-mm-dd) from date
-  const isoYMD = moment(date).format('YYYY-mm-dd');
+  const isoYMD = moment(date).format("YYYY-mm-dd");
 
   // Create specific count publication for resident ID and activity date
-  Counts.publish(this, `residentId-${ residentId }-activityCountOn-${ isoYMD }`, activitiesCursor);
-})
+  Counts.publish(
+    this,
+    `residentId-${residentId}-activityCountOn-${isoYMD}`,
+    activitiesCursor
+  );
+});
