@@ -250,5 +250,12 @@ Meteor.methods({
     });
 
     return homeSelectOptionsWithGroups;
+  },
+  getUserVisibleHomes(userId) {
+    const userPermissions = Permissions.find({ userId }).fetch();
+
+    const userGroups = userPermissions.map(permission => permission.groupId);
+
+    return Homes.find({ groupId: { $in: userGroups } }).fetch();
   }
 });
