@@ -1,7 +1,7 @@
-import newResidentAndResidencySchema from '/both/schemas/newResidentAndResidencySchema';
+import newResidentAndResidencySchema from "/both/schemas/newResidentAndResidencySchema";
 
 Meteor.methods({
-  addNewResidentAndResidency (document) {
+  addNewResidentAndResidency(document) {
     // set up validation context based on new resident and residency schama
     const validationContext = newResidentAndResidencySchema.newContext();
 
@@ -26,30 +26,45 @@ Meteor.methods({
         } else {
           // Could not create residency
           throw new Meteor.Error(
-            'could-not-create-residency',
-            'Could not create residency.'
-          )
+            "could-not-create-residency",
+            "Could not create residency."
+          );
         }
       } else {
         // Could not create resident
         throw new Meteor.Error(
-          'could-not-create-resident',
-          'Could not create resident.'
-        )
+          "could-not-create-resident",
+          "Could not create resident."
+        );
       }
     } else {
       // Document is not valid
       throw new Meteor.Error(
-        'resident-and-residency-invalid',
-        'Resident and residency document is not valid.'
-      )
+        "resident-and-residency-invalid",
+        "Resident and residency document is not valid."
+      );
     }
   },
-  getCurrentResidencies () {
+  getCurrentResidencies() {
     return Residencies.find({
       moveOut: {
-        $exists: false,
+        $exists: false
       }
     }).fetch();
+  },
+  getUserVisibleActiveResidencyIds(userId) {
+    // get current user group IDs
+    const userGroupIds = Meteor.call("getSingleUserGroupIds", userId);
+    // get current user visible homes
+    const homeIds = Homes.find({ groupId: { $in: userGroupIds } }).map(
+      home => home._id
+    );
+
+    // get homes active residency IDs
+    const residencyIds = Residencies.find({ homeId: { $in: homeIds } }).map(
+      residency => residency._id
+    );
+
+    return residencyIds;
   }
 });
