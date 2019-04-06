@@ -14,7 +14,7 @@ Template.activitiesTableResidentNamesFilter.onCreated(function() {
 Template.activitiesTableResidentNamesFilter.events({
   "change #resident-filter": function(event, templateInstance) {
     // get selected resident ID
-    var residentId = $(event.target).val();
+    const residentId = $(event.target).val();
 
     // Set filter to contain resident ID
     templateInstance.filter.set(residentId);
@@ -23,8 +23,6 @@ Template.activitiesTableResidentNamesFilter.events({
 
 Template.activitiesTableResidentNamesFilter.helpers({
   residentNamesGroupedtByHomes() {
-    const templateInstance = Template.instance()
-
-    return templateInstance.residentsSelectOptions.get();
+    return Template.instance().residentsSelectOptions.get();
   }
 });
