@@ -94,12 +94,12 @@ Meteor.methods({
     const homes = Homes.find({}, { sort: { name: 1 } }).fetch();
 
     // Create an array residents grouped by home
-    const residentsSelectOptions = _.map(homes, function(home) {
+    const residentsSelectOptions = _.map(homes, function (home) {
       // Get home ID
       const homeId = home._id;
 
       // do not show departed residents
-      const departed = {
+      const notDeparted = {
         moveOut: {
           $exists: false
         }
@@ -110,23 +110,21 @@ Meteor.methods({
 
       // Get a list of residents for current home
       const homeResidents = Residencies.find(
-        { homeId, ...departed },
+        { homeId, ...notDeparted },
         { sort }
-      ).fetch().map(function(resident){
+      ).fetch().map(function (resident) {
         const residentId = resident.residentId
         const residentDet = Residents.findOne(residentId)
-         
 
-          let fullName = residentDet.fullName()
-
-          return {...resident,fullName}
+        const fullName = residentDet.fullName()
+        return { ...resident, fullName }
       });
 
       // Create an object containing a home and its residents
       const homeGroup = {
         optgroup: home.name,
-        options: _.map(homeResidents, function(resident) {
-          
+        options: _.map(homeResidents, function (resident) {
+
           // Create an object containing the resident name and ID
           const residentObject = {
             value: resident.residentId,
