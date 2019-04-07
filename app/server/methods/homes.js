@@ -6,6 +6,10 @@ Meteor.methods({
 
     const home = Homes.findOne(homeId);
 
+    if (!home) {
+      return false;
+    }
+
     const userGroupIds = Meteor.call("getSingleUserGroupIds", currentUserId);
 
     const userIsInHomeGroup = userGroupIds.includes(home.groupId);
