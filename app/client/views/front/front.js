@@ -8,3 +8,10 @@ Template.front.events({
     Modal.show('newFeeling');
   }
 });
+
+
+Template.front.helpers({
+  props(){
+    return { val:"Hello to Vue from blaze!"}
+  }
+})
