@@ -14,7 +14,13 @@ Router.route(
 Router.route(
   "/home/:homeId",
   function() {
-    this.render("homeAuthContainer");
+    this.render("homeAuthContainer", {
+      data() {
+        return {
+          authorizedTemplate: "home"
+        };
+      }
+    });
   },
   {
     name: "home"
@@ -24,7 +30,13 @@ Router.route(
 Router.route(
   "/home/:homeId/report",
   function() {
-    this.render("homeReport");
+    this.render("homeAuthContainer", {
+      data() {
+        return {
+          authorizedTemplate: "homeReport"
+        };
+      }
+    });
   },
   {
     name: "homeReport"
