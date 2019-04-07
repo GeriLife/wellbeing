@@ -3,7 +3,7 @@
     {{> spinner}}
   {{else}}
     {{#if userIsAuthorized }}
-      {{> home }}
+      {{> Template.dynamic template=authorizedTemplate }}
     {{else}}
       <h1>Not Authorized</h1>
     {{/if}}
