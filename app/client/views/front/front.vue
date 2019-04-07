@@ -1,11 +1,12 @@
 <template name="front">
+
   <div class="container">
     <div class="row">
       <div class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
-              {{_ "front-quickAddPanel-title" }}
+              {{ "front-quickAddPanel-title" }}
             </h3>
           </div>
           <div class="panel-body">
@@ -14,12 +15,12 @@
                 <button id="add-activity" class="btn btn-success btn-lg" role="button">
                   <i class="fa fa-heartbeat"></i>
                   <br/>
-                  {{_ "front-quickAddPanel-activityButton" }}
+                  {{ "front-quickAddPanel-activityButton" }}
                 </button>
                 <button id="add-feeling" class="btn btn-success btn-lg" role="button">
                   <i class="fa fa-stethoscope"></i>
                   <br/>
-                  {{_ "front-quickAddPanel-feelingButton" }}
+                  {{ "front-quickAddPanel-feelingButton" }}
                 </button>
               </div>
             </div>
@@ -32,7 +33,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
-              {{_ "front-quickNavigationPanel-title" }}
+              {{ "front-quickNavigationPanel-title" }}
             </h3>
           </div>
           <div class="panel-body">
@@ -41,17 +42,17 @@
                 <a href="/residents" class="btn btn-primary btn-lg" role="button">
                   <i class="fa fa-users"></i>
                   <br/>
-                  {{_ "front-quickNavigationPanel-residentsButton" }}
+                  {{ "front-quickNavigationPanel-residentsButton" }}
                 </a>
                 <a href="/homes" class="btn btn-primary btn-lg" role="button">
                   <i class="fa fa-home"></i>
                   <br/>
-                  {{_ "front-quickNavigationPanel-homesButton" }}
+                  {{ "front-quickNavigationPanel-homesButton" }}
                 </a>
                 <a href="/activities" class="btn btn-primary btn-lg" role="button">
                   <i class="fa fa-heartbeat"></i>
                   <br/>
-                  {{_ "front-quickNavigationPanel-activitiesButton" }}
+                  {{ "front-quickNavigationPanel-activitiesButton" }}
                 </a>
               </div>
             </div>
@@ -60,6 +61,7 @@
       </div>
     </div>
   </div>
+
 </template>
 <script>
 export default {
