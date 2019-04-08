@@ -1,4 +1,4 @@
-Template.residents.onCreated(function () {
+Template.residents.onCreated(function() {
   const templateInstance = this;
 
   // Reactive variable to toggle resident subscription based on departed status
@@ -6,10 +6,10 @@ Template.residents.onCreated(function () {
 
   // Subscribe to all homes, for data table
   templateInstance.subscribe("allHomes");
-  templateInstance.subscribe("allResidents")
+  templateInstance.subscribe("allResidents");
 
   // Toggle resident subscription based on departed status
-  templateInstance.autorun(function () {
+  templateInstance.autorun(function() {
     // If include departed is checked
     if (templateInstance.includeDeparted.get() === true) {
       // Get all residencies
@@ -34,7 +34,7 @@ Template.residents.helpers({
 
       // Iterate through residents
       // set full name and home name from collection helpers
-      residencies.forEach(function (residency) {
+      residencies.forEach(function(residency) {
         let residentName, homeName;
 
         const resident = Residents.findOne(residency.residentId);
@@ -43,19 +43,19 @@ Template.residents.helpers({
         if (resident) {
           residentName = resident.fullName();
         } else {
-          residentName = 'unknown';
+          residentName = "unknown";
         }
 
         if (home) {
           homeName = home.name;
         } else {
-          homeName = 'unknown';
+          homeName = "unknown";
         }
 
         const residencyDetails = {
           ...residency,
           residentName,
-          homeName,
+          homeName
         };
 
         // Add resident object to residents list
@@ -82,31 +82,33 @@ Template.residents.helpers({
       showFilter: false,
       fields: [
         {
-          key: 'homeId',
+          key: "homeId",
           label: tableLabels.viewResident,
-          tmpl: Template.residentViewButton,
+          tmpl: Template.residentViewButton
         },
         {
-          key: 'residentName',
+          key: "residentName",
           label: tableLabels.fullName,
           sortOrder: 0,
-          sortDirection: 'ascending'
+          sortDirection: "ascending"
         },
         {
-          key: 'homeName',
+          key: "homeName",
           label: tableLabels.homeName,
           sortOrder: 1,
-          sortDirection: 'ascending'
+          sortDirection: "ascending"
         },
         {
-          key: 'homeId',
+          key: "homeId",
           label: tableLabels.residency,
           tmpl: Template.residentCurrentResidency,
-          hidden: function () {
+          hidden: function() {
             var currentUserId = Meteor.userId();
 
             // Check if current user has Admin role
-            var currentUserIsAdmin = Roles.userIsInRole(currentUserId, ["admin"]);
+            var currentUserIsAdmin = Roles.userIsInRole(currentUserId, [
+              "admin"
+            ]);
 
             // Only show edit column for users with Admin role
             if (currentUserIsAdmin) {
@@ -114,23 +116,23 @@ Template.residents.helpers({
             } else {
               return true;
             }
-          },
+          }
         }
       ],
-      filters: ['nameFilter', 'homeFilter']
+      filters: ["nameFilter", "homeFilter"]
     };
 
     return tableSettings;
   },
-  nameFilterFields () {
+  nameFilterFields() {
     // Return relevant field name(s) for name filter
-    return ['residentName'];
+    return ["residentName"];
   },
   homeFilterFields() {
     // Return relevant field name(s) for home filter
-    return ['homeName'];
+    return ["homeName"];
   },
-  filterLabels () {
+  filterLabels() {
     // Create placeholder object for filter labels
     const filterLabels = {};
 
@@ -143,11 +145,11 @@ Template.residents.helpers({
 });
 
 Template.residents.events({
-  'click #new-resident' () {
+  "click #new-resident"() {
     // Show the edit home modal
-    Modal.show('addResidencyModal');
+    Modal.show("addResidencyModal");
   },
-  'click #include-departed' (event) {
+  "click #include-departed"(event) {
     const instance = Template.instance();
 
     const includeDepartedValue = event.target.checked;
