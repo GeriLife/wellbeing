@@ -6,21 +6,21 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
-              {{ "front-quickAddPanel-title" }}
+              {{ "Activities" }}
             </h3>
           </div>
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-12 col-md-12">
-                <button id="add-activity" class="btn btn-success btn-lg" role="button">
+                <button @click="Modal.show('activityFormModal')" id="add-activity" class="btn btn-success btn-lg" role="button">
                   <i class="fa fa-heartbeat"></i>
                   <br/>
-                  {{ "front-quickAddPanel-activityButton" }}
+                  {{ "Activity" }}
                 </button>
-                <button id="add-feeling" class="btn btn-success btn-lg" role="button">
+                <button id="add-feeling" @click="Modal.show('newFeeling')" class="btn btn-success btn-lg" role="button">
                   <i class="fa fa-stethoscope"></i>
                   <br/>
-                  {{ "front-quickAddPanel-feelingButton" }}
+                  {{ "Feeling" }}
                 </button>
               </div>
             </div>
@@ -33,7 +33,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
-              {{ "front-quickNavigationPanel-title" }}
+              {{ "Quick navigation" }}
             </h3>
           </div>
           <div class="panel-body">
@@ -42,17 +42,17 @@
                 <a href="/residents" class="btn btn-primary btn-lg" role="button">
                   <i class="fa fa-users"></i>
                   <br/>
-                  {{ "front-quickNavigationPanel-residentsButton" }}
+                  {{ "Residents" }}
                 </a>
                 <a href="/homes" class="btn btn-primary btn-lg" role="button">
                   <i class="fa fa-home"></i>
                   <br/>
-                  {{ "front-quickNavigationPanel-homesButton" }}
+                  {{ "Homes" }}
                 </a>
                 <a href="/activities" class="btn btn-primary btn-lg" role="button">
                   <i class="fa fa-heartbeat"></i>
                   <br/>
-                  {{ "front-quickNavigationPanel-activitiesButton" }}
+                  {{ "Activities" }}
                 </a>
               </div>
             </div>
@@ -66,7 +66,8 @@
 <script>
 export default {
   props: {
-    val: String
+    val: String,
+    Modal: Object
   }
 };
 </script>
