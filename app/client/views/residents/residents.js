@@ -9,10 +9,13 @@ Template.residents.onCreated(function() {
 
   // Toggle resident subscription based on departed status
   templateInstance.autorun(function() {
-    let departed = undefined;
+    let departed;
 
     // If include departed is checked
     if (templateInstance.includeDeparted.get() === true) {
+      // use 'null' for network request
+      departed = null;
+
       // Get all residencies, both active and departed
       templateInstance.subscribe("currentUserVisibleResidencies", departed);
       templateInstance.subscribe("currentUserVisibleResidents", departed);
