@@ -9,9 +9,12 @@ ReactiveTable.publish(
   Activities,
   function() {
     if (this.userId) {
+      const departed = false;
+
       const userVisibleActiveResidentIds = Meteor.call(
-        "getUserVisibleActiveResidentIds",
-        this.userId
+        "getUserVisibleResidentIds",
+        this.userId,
+        departed
       );
 
       // return mongo selector to fetch activities with matching resident IDs
