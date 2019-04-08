@@ -12,22 +12,42 @@ Template.homeReport.onCreated(function () {
 
   // set reactive variable to hold chart data (attached to template instance)
   templateInstance.activityData = new ReactiveVar();
+  templateInstance.activityMetric = new ReactiveVar();
+  templateInstance.timePeriod = new ReactiveVar();
+  templateInstance.barMode = new ReactiveVar();
 
-  // call method to retrieve aggregated activity data
-  Meteor.call('getMonthlyAggregatedHomeResidentActivities', templateInstance.homeId, function (error, activities) {
-    // set activity data in the reactive variable
-    templateInstance.activityData.set(activities);
-  })
+ 
 });
 
 Template.homeReport.onRendered(function () {
   const templateInstance = this;
 
+   // Set initial activity metric from template
+   const activityMetric = $('input[name="activityMetric"]:checked').val();
+   templateInstance.activityMetric.set(activityMetric);
+ 
+   // Set initial time period from template
+   const timePeriod = $('input[name="timePeriod"]:checked').val();
+   templateInstance.timePeriod.set(timePeriod);
+
+   templateInstance.autorun(function(){
+    const timePeriod = templateInstance.timePeriod.get();
+    const homeId = templateInstance.homeId;
+
+     // call method to retrieve aggregated activity data
+  Meteor.call('getMonthlyAggregatedHomeResidentActivities', homeId, timePeriod, function (error, activities) {
+    // set activity data in the reactive variable
+    templateInstance.activityData.set(activities);
+  })
+   });
+   
   templateInstance.autorun(function () {
     //TODO: add reactive data source to toggle between
     //  - 'activity_minutes'
     //  - 'activity_count'
     const activityData = templateInstance.activityData.get();
+    const activityMetric = templateInstance.activityMetric.get();
+    const barmode = templateInstance.barMode.get();
 
     // Make sure we have some activity data
     if (activityData) {
@@ -44,19 +64,25 @@ Template.homeReport.onRendered(function () {
           // Y values are (currently) activity minutes
           // TODO: add page element to toggle between activity counts and minutes
           y: _.map(activityCategoryData.values, function(activityCategoryDay) {
-            return activityCategoryDay.value.activity_count;
+            return activityCategoryDay.value[activityMetric];
           }),
         }
 
         return trace;
       })
+      
 
       // Add plot layout configuration
       const layout = {
         title: TAPi18n.__('homeResidentsActivitiesChart-title'),
+        xaxis: {
+          title: TAPi18n.__('reportPageActivitiesChart-xaxis-title'),
+        },
         yaxis: {
-          title: TAPi18n.__('homeResidentsActivitiesChart-yaxis-title'),
-        }
+          title: TAPi18n.__(`homeResidentsActivitiesChart-yaxis-${activityMetric}`),
+        },
+        barmode,
+
       }
 
       // Get client locale
@@ -77,5 +103,24 @@ Template.homeReport.helpers({
 
     // Return current Home
     return Homes.findOne(homeId);
+  },
+});
+
+
+Template.homeReport.events({
+  'change #activityMetric' (event, templateInstance) {
+    const activityMetric = $('input[name="activityMetric"]:checked').val();
+
+    templateInstance.activityMetric.set(activityMetric);
+  },
+  'change #barMode'(event, templateInstance) {
+    const barMode = $('input[name="barMode"]:checked').val();
+
+    templateInstance.barMode.set(barMode);
+  },
+  'change #timePeriod'(event, templateInstance) {
+    const timePeriod = $('input[name="timePeriod"]:checked').val();
+
+    templateInstance.timePeriod.set(timePeriod);
   },
 });
