@@ -6,17 +6,22 @@ Template.residents.onCreated(function() {
 
   // Subscribe to all homes, for data table
   templateInstance.subscribe("allHomes");
-  templateInstance.subscribe("allResidents");
 
   // Toggle resident subscription based on departed status
   templateInstance.autorun(function() {
+    let departed = undefined;
+
     // If include departed is checked
     if (templateInstance.includeDeparted.get() === true) {
-      // Get all residencies
-      templateInstance.subscribe("allResidencies");
+      // Get all residencies, both active and departed
+      templateInstance.subscribe("currentUserVisibleResidencies", departed);
+      templateInstance.subscribe("currentUserVisibleResidents", departed);
     } else {
-      // Otherwise, get only current residencies
-      templateInstance.subscribe("allCurrentResidencies");
+      departed = false;
+
+      // Otherwise, get only active residencies
+      templateInstance.subscribe("currentUserVisibleResidencies", departed);
+      templateInstance.subscribe("currentUserVisibleResidents", departed);
     }
   });
 });
