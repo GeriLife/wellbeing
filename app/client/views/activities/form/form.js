@@ -1,6 +1,9 @@
 Template.activityForm.created = function() {
-  this.subscribe("currentUserVisibleResidents");
-  this.subscribe("currentUserVisibleActiveResidencies");
+  // show only active residents
+  const departed = false;
+
+  this.subscribe("currentUserVisibleResidents", departed);
+  this.subscribe("currentUserVisibleResidencies", departed);
   this.subscribe("currentUserVisibleHomes");
   this.subscribe("allActivityTypes");
   this.subscribe("allRolesExceptAdmin");

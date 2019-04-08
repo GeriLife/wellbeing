@@ -102,6 +102,17 @@ Meteor.methods({
       0
     );
   },
+  getUserVisibleResidentIds(userId, departed) {
+    const visibleResidencyIds = Meteor.call(
+      "getUserVisibleResidencyIds",
+      userId,
+      departed
+    );
+
+    return Residencies.find({
+      _id: { $in: visibleResidencyIds }
+    }).map(residency => residency.residentId);
+  },
   residentNamesGroupedtByHomes() {
     // Get list of homes, sorted alphabetically
     const homes = Homes.find({}, { sort: { name: 1 } }).fetch();
