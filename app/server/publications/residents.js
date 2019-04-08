@@ -44,12 +44,13 @@ Meteor.publish("homeCurrentResidents", function(homeId) {
   return Residents.find({ _id: { $in: homeResidentIds } });
 });
 
-Meteor.publish("currentUserVisibleResidents", function() {
+Meteor.publish("currentUserVisibleResidents", function(departed) {
   const userId = Meteor.userId();
 
   const visibleResidentIds = Meteor.call(
-    "getUserVisibleActiveResidentIds",
-    userId
+    "getUserVisibleResidentIds",
+    userId,
+    departed
   );
 
   // get residents from residencies

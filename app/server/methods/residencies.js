@@ -52,16 +52,28 @@ Meteor.methods({
       }
     }).fetch();
   },
-  getUserVisibleActiveResidencyIds(userId) {
+  getUserVisibleResidencyIds(userId, departed) {
     // get current user group IDs
     const userGroupIds = Meteor.call("getSingleUserGroupIds", userId);
+
     // get current user visible homes
     const homeIds = Homes.find({ groupId: { $in: userGroupIds } }).map(
       home => home._id
     );
 
     // get homes active residency IDs
-    const residencyIds = Residencies.find({ homeId: { $in: homeIds } }).map(
+    const residenciesSelector = {
+      homeId: { $in: homeIds }
+    };
+
+    // determine whether to show departed residents
+    if (departed !== null) {
+      residenciesSelector["moveOut"] = {
+        $exists: departed
+      };
+    }
+
+    const residencyIds = Residencies.find(residenciesSelector).map(
       residency => residency._id
     );
 
