@@ -111,14 +111,14 @@ Meteor.methods({
 
     return nestedActivities;
   },
-  getMonthlyAggregatedHomeResidentActivities: function (homeId) {
+  getMonthlyAggregatedHomeResidentActivities: function (homeId,timePeriod) {
     // Get all home activities
     const allHomeActivities = Meteor.call('getAllHomeResidentActivities', homeId);
 
     // annotate activities with name and facilitator role
     const annotatedActivities = Meteor.call('annotateActivities', allHomeActivities);
 
-    const nestedActivities = Meteor.call('aggregateActivities', annotatedActivities);
+    const nestedActivities = Meteor.call('aggregateActivities', annotatedActivities,timePeriod);
 
     return nestedActivities;
   },
