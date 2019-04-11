@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">{{ quickAddTitle }}</h3>
+            <h3 class="panel-title">{{ localize("front-quickAddPanel-title") }}</h3>
           </div>
           <div class="panel-body">
             <div class="row">
@@ -17,7 +17,7 @@
                 >
                   <i class="fa fa-heartbeat"></i>
                   <br>
-                  {{ activityButton }}
+                  {{ localize("front-quickAddPanel-activityButton") }}
                 </button>
                 <button
                   id="add-feeling"
@@ -27,7 +27,7 @@
                 >
                   <i class="fa fa-stethoscope"></i>
                   <br>
-                  {{ feelingButton }}
+                  {{ localize("front-quickAddPanel-feelingButton") }}
                 </button>
               </div>
             </div>
@@ -39,7 +39,7 @@
       <div class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">{{ linkTitle }}</h3>
+            <h3 class="panel-title">{{ localize("front-quickNavigationPanel-title") }}</h3>
           </div>
           <div class="panel-body">
             <div class="row">
@@ -47,17 +47,17 @@
                 <a href="/residents" class="btn btn-primary btn-lg" role="button">
                   <i class="fa fa-users"></i>
                   <br>
-                  {{ residentsButton }}
+                  {{ localize("front-quickNavigationPanel-residentsButton") }}
                 </a>
                 <a href="/homes" class="btn btn-primary btn-lg" role="button">
                   <i class="fa fa-home"></i>
                   <br>
-                  {{ homesButton }}
+                  {{ localize("front-quickNavigationPanel-homesButton") }}
                 </a>
                 <a href="/activities" class="btn btn-primary btn-lg" role="button">
                   <i class="fa fa-heartbeat"></i>
                   <br>
-                  {{ activitiesButton }}
+                  {{ localize("front-quickNavigationPanel-activitiesButton") }}
                 </a>
               </div>
             </div>
@@ -72,12 +72,7 @@ export default {
   props: {
     val: String,
     Modal: Object,
-    localizedText: Object
-  },
-  data() {
-    return {
-      ...this.localizedText
-    };
+    localize: Function
   }
 };
 </script>
