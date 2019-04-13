@@ -2,13 +2,12 @@ Template.activitiesTableResidentNamesFilter.onCreated(function() {
   // Initialize ReactiveTable filter for residents
   this.filter = new ReactiveTable.Filter("residentFilter", ["residentIds"]);
 
-  const templateInstance = this
+  const templateInstance = this;
   templateInstance.residentsSelectOptions = new ReactiveVar(null);
 
-  Meteor.call('residentNamesGroupedtByHomes',function(err,data){
-    templateInstance.residentsSelectOptions.set(data)
+  Meteor.call("residentNamesGroupedtByHomes", function(err, data) {
+    templateInstance.residentsSelectOptions.set(data);
   });
-
 });
 
 Template.activitiesTableResidentNamesFilter.events({
