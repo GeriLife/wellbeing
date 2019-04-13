@@ -45,9 +45,6 @@ Template.homeReport.onRendered(function() {
   });
 
   templateInstance.autorun(function() {
-    //TODO: add reactive data source to toggle between
-    //  - 'activity_minutes'
-    //  - 'activity_count'
     const activityData = templateInstance.activityData.get();
     const activityMetric = templateInstance.activityMetric.get();
     const barmode = templateInstance.barMode.get();
@@ -64,8 +61,7 @@ Template.homeReport.onRendered(function() {
           x: _.map(activityCategoryData.values, function(activityCategoryDay) {
             return new Date(activityCategoryDay.key);
           }),
-          // Y values are (currently) activity minutes
-          // TODO: add page element to toggle between activity counts and minutes
+          // Y values toggle between activity counts and minutes
           y: _.map(activityCategoryData.values, function(activityCategoryDay) {
             return activityCategoryDay.value[activityMetric];
           })
