@@ -5,7 +5,7 @@ Template.activitiesTableResidentNamesFilter.onCreated(function() {
   const templateInstance = this;
   templateInstance.residentsSelectOptions = new ReactiveVar(null);
 
-  Meteor.call("residentNamesGroupedtByHomes", function(err, data) {
+  Meteor.call("userVisibleResidentNamesGroupedtByHomes", function(err, data) {
     templateInstance.residentsSelectOptions.set(data);
   });
 });
@@ -21,7 +21,7 @@ Template.activitiesTableResidentNamesFilter.events({
 });
 
 Template.activitiesTableResidentNamesFilter.helpers({
-  residentNamesGroupedtByHomes() {
+  userVisibleResidentNamesGroupedtByHomes() {
     return Template.instance().residentsSelectOptions.get();
   }
 });
