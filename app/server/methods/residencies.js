@@ -52,7 +52,7 @@ Meteor.methods({
       }
     }).fetch();
   },
-  getUserVisibleResidencyIds(userId, departed) {
+  getUserVisibleResidencyIds(userId, includeDeparted) {
     const selector = {};
 
     const userIsAdmin = Roles.userIsInRole(userId, "admin");
@@ -73,9 +73,10 @@ Meteor.methods({
     }
 
     // determine whether to show departed residents
-    if (departed) {
+    if (!includeDeparted) {
+      // Get residents without move out date
       selector.moveOut = {
-        $exists: departed
+        $exists: false
       };
     }
 
