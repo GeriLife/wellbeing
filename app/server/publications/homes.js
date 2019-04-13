@@ -18,15 +18,8 @@ Meteor.publish("currentUserVisibleHomes", function() {
 
   const userId = Meteor.userId();
 
-  const userIsAdmin = Roles.userIsInRole(userId, "admin");
+  // Group IDs can be obtained through Permissions
+  const userVisibleHomeIds = Meteor.call("getUserVisibleHomeIds", userId);
 
-  // non-admin should see only homes belonging to assigned group(s)
-  if (!userIsAdmin) {
-    // Group IDs can be obtained through Permissions
-    const userGroups = Meteor.call("getSingleUserGroupIds", userId);
-
-    selector.groupId = { $in: userGroups };
-  }
-
-  return Homes.find(selector);
+  return Homes.find({ _id: { $in: userVisibleHomeIds } });
 });
