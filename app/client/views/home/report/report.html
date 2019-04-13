@@ -1,18 +1,23 @@
 <template name="homeReport">
   <h1>
-    <i class="fa fa-home"></i>&nbsp;
-    {{ home.name }}&nbsp;
+    <i class="fa fa-home"></i>&nbsp; {{ home.name }}&nbsp;
     <span class="small">({{_ "homeReport-header" }})</span>
-    <button class="btn btn-primary btn-xs" type="button" data-toggle="collapse" data-target="#chartSettings"
-                aria-expanded="false" aria-controls="collapseExample">
-            <i class="fa fa-cog" aria-hidden="true"></i>
-            {{_ "report-chartSettingsButton-text" }}
-        </button>
+    <button
+      class="btn btn-primary btn-xs"
+      type="button"
+      data-toggle="collapse"
+      data-target="#chartSettings"
+      aria-expanded="false"
+      aria-controls="collapseExample"
+    >
+      <i class="fa fa-cog" aria-hidden="true"></i>
+      {{_ "report-chartSettingsButton-text" }}
+    </button>
   </h1>
   <div class="collapse" id="chartSettings">
     <div class="well">
-        {{> sharedReportSettingsForm }}
+      {{> sharedReportSettingsForm }}
     </div>
-</div>
+  </div>
   <div id="homeResidentsActivitiesChart"></div>
 </template>
