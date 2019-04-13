@@ -7,7 +7,7 @@
       <option value="" disabled selected>
         {{_ "activitiesTableResidentNamesFilter-chooseResident" }}
       </option>
-      {{# each item in residentNamesGroupedtByHomes }}
+      {{# each item in userVisibleResidentNamesGroupedtByHomes }}
         <optgroup label="{{ item.optgroup }}">
           {{# each option in item.options }}
             <option value="{{ option.value }}">{{ option.label }}</option>
