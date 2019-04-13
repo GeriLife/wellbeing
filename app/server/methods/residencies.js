@@ -53,30 +53,32 @@ Meteor.methods({
     }).fetch();
   },
   getUserVisibleResidencyIds(userId, departed) {
-    // get current user group IDs
-    const userGroupIds = Meteor.call("getSingleUserGroupIds", userId);
+    const selector = {};
 
-    // get current user visible homes
-    const homeIds = Homes.find({ groupId: { $in: userGroupIds } }).map(
-      home => home._id
-    );
+    const userIsAdmin = Roles.userIsInRole(userId, "admin");
 
-    // get homes active residency IDs
-    const residenciesSelector = {
-      homeId: { $in: homeIds }
-    };
+    // Admin should see all residencies
+    // otherwise, check user group permissions
+    if (!userIsAdmin) {
+      // get current user group IDs
+      const userGroupIds = Meteor.call("getSingleUserGroupIds", userId);
+
+      // get current user visible homes
+      const homeIds = Homes.find({ groupId: { $in: userGroupIds } }).map(
+        home => home._id
+      );
+
+      // get homes active residency IDs
+      selector.homeId = { $in: homeIds };
+    }
 
     // determine whether to show departed residents
-    if (departed !== null) {
-      residenciesSelector["moveOut"] = {
+    if (departed) {
+      selector.moveOut = {
         $exists: departed
       };
     }
 
-    const residencyIds = Residencies.find(residenciesSelector).map(
-      residency => residency._id
-    );
-
-    return residencyIds;
+    return Residencies.find(selector).map(residency => residency._id);
   }
 });
