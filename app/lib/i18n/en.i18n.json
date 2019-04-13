@@ -173,6 +173,8 @@
   "homeGroup-noHomesAdded-text": "No homes added to Group.",
   "homeResidentsActivitiesChart-title": "Home residents activities",
   "homeResidentsActivitiesChart-yaxis-title": "Activity count",
+  "homeResidentsActivitiesChart-yaxis-activity_count": "Activity Count",
+  "homeResidentsActivitiesChart-yaxis-activity_minutes": "Activity Minutes",
   "homeResidentsActivitySumsByType-chart-xaxisTitle-count": "Activity count",
   "homeResidentsActivitySumsByType-chart-xaxisTitle-minutes": "Activity minutes",
   "homeResident-activityLabelText-onHiatus": "on hiatus",
