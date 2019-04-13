@@ -256,14 +256,19 @@ Meteor.methods({
     return homeSelectOptionsWithGroups;
   },
   getUserVisibleHomeIds(userId) {
-    const userPermissions = Permissions.find({ userId }).fetch();
+    const selector = {};
 
-    const userGroups = userPermissions.map(permission => permission.groupId);
+    const userIsAdmin = Roles.userIsInRole(userId, "admin");
 
-    const userVisibleHomes = Homes.find({
-      groupId: { $in: userGroups }
-    }).fetch();
+    // non-admin should see only homes belonging to assigned permission group(s)
+    if (!userIsAdmin) {
+      const userPermissions = Permissions.find({ userId }).fetch();
 
-    return userVisibleHomes.map(home => home._id);
+      const userGroups = userPermissions.map(permission => permission.groupId);
+
+      selector.groupId = { $in: userGroups };
+    }
+
+    return Homes.find(selector).map(home => home._id);
   }
 });
