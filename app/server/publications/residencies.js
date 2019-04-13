@@ -15,28 +15,25 @@ Meteor.publish("allCurrentResidencies", function() {
   });
 });
 
-Meteor.publish("currentUserVisibleResidencies", function(departed) {
+Meteor.publish("currentUserVisibleResidencies", function(includeDeparted) {
+  const selector = {};
+
   const userId = Meteor.userId();
 
-  const userVisibleHomeIds = Meteor.call("getUserVisibleHomeIds", userId);
+  const userIsAdmin = Roles.userIsInRole(userId, "admin");
 
-  // find all residencies by default
-  let isDeparted;
+  if (!userIsAdmin) {
+    const userVisibleHomeIds = Meteor.call("getUserVisibleHomeIds", userId);
 
-  // toggle whether or not to show departed
-  // residencies with move out date are departed
-  if (departed === null) {
-    isDeparted = {};
-  } else {
-    isDeparted = {
-      moveOut: {
-        $exists: departed
-      }
+    selector.homeId = { $in: userVisibleHomeIds };
+  }
+
+  if (!includeDeparted) {
+    // non-departed residents should not have move out date
+    selector.moveOut = {
+      $exists: false
     };
   }
 
-  return Residencies.find({
-    homeId: { $in: userVisibleHomeIds },
-    ...isDeparted
-  });
+  return Residencies.find(selector);
 });

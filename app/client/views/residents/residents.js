@@ -9,23 +9,16 @@ Template.residents.onCreated(function() {
 
   // Toggle resident subscription based on departed status
   templateInstance.autorun(function() {
-    let departed;
+    const includeDeparted = templateInstance.includeDeparted.get();
 
-    // If include departed is checked
-    if (templateInstance.includeDeparted.get() === true) {
-      // use 'null' for network request
-      departed = null;
+    // Get all residencies, respecting departed setting
+    templateInstance.subscribe(
+      "currentUserVisibleResidencies",
+      includeDeparted
+    );
 
-      // Get all residencies, both active and departed
-      templateInstance.subscribe("currentUserVisibleResidencies", departed);
-      templateInstance.subscribe("currentUserVisibleResidents", departed);
-    } else {
-      departed = false;
-
-      // Otherwise, get only active residencies
-      templateInstance.subscribe("currentUserVisibleResidencies", departed);
-      templateInstance.subscribe("currentUserVisibleResidents", departed);
-    }
+    // Get all residetns, respecting departed setting
+    templateInstance.subscribe("currentUserVisibleResidents", includeDeparted);
   });
 });
 
