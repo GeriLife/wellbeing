@@ -113,15 +113,16 @@ Meteor.methods({
       _id: { $in: visibleResidencyIds }
     }).map(residency => residency.residentId);
   },
-  residentNamesGroupedtByHomes() {
+  userVisibleResidentNamesGroupedtByHomes() {
+    const userId = Meteor.userId();
+
     // Get list of homes, sorted alphabetically
-    const homes = Homes.find({}, { sort: { name: 1 } }).fetch();
+    const homeIds = Meteor.call("getUserVisibleHomeIds", userId);
+
+    const homes = Homes.find({ _id: { $in: homeIds } }).fetch();
 
     // Create an array residents grouped by home
     const residentsSelectOptions = _.map(homes, function(home) {
-      // Get home ID
-      const homeId = home._id;
-
       // do not show departed residents
       const notDeparted = {
         moveOut: {
