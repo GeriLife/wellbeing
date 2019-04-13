@@ -162,15 +162,5 @@ Meteor.methods({
       (prevResult, document) => prevResult + document.duration,
       0
     );
-  },
-  getUserVisibleActiveResidentIds(userId) {
-    const visibleResidencyIds = Meteor.call(
-      "getUserVisibleActiveResidencyIds",
-      userId
-    );
-
-    return Residencies.find({
-      _id: { $in: visibleResidencyIds }
-    }).map(residency => residency.residentId);
   }
 });
