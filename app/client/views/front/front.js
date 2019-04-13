@@ -1,8 +1,7 @@
 Template.front.helpers({
   props() {
     return {
-      Modal,
-      localize:TAPi18n.__
+      Modal
     };
   }
 });
