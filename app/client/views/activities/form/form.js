@@ -1,13 +1,19 @@
-Template.activityForm.created = function() {
-  // show only active residents
-  const includeDeparted = false;
+Template.activityForm.onCreated(function() {
+  const templateInstance = this;
 
-  this.subscribe("currentUserVisibleResidents", includeDeparted);
-  this.subscribe("currentUserVisibleResidencies", includeDeparted);
-  this.subscribe("currentUserVisibleHomes");
-  this.subscribe("allActivityTypes");
-  this.subscribe("allRolesExceptAdmin");
-};
+  templateInstance.subscribe("allActivityTypes");
+  templateInstance.subscribe("allRolesExceptAdmin");
+
+  // placeholder for resident select options
+  templateInstance.residentOptions = new ReactiveVar();
+
+  Meteor.call("userVisibleResidentNamesGroupedtByHomes", function(
+    error,
+    residentSelectOptions
+  ) {
+    templateInstance.residentOptions.set(residentSelectOptions);
+  });
+});
 
 Template.activityForm.helpers({
   activityTypeIdOptions: function() {
@@ -54,52 +60,8 @@ Template.activityForm.helpers({
     return "insert";
   },
   residentsSelectOptions() {
-    // Get list of homes, sorted alphabetically
-    const homes = Homes.find({}, { sort: { name: 1 } }).fetch();
+    const templateInstance = Template.instance();
 
-    // Create an array residents grouped by home
-    const residentsSelectOptions = _.map(homes, function(home) {
-      // Get home ID
-      const homeId = home._id;
-
-      // do not show residents who are on hiatus
-      const onHiatus = false;
-
-      // Sort by first name in alphabetical order
-      const sort = { firstName: 1 };
-
-      // Get a list of residents for current home
-      const homeResidencies = Residencies.find(
-        {
-          homeId,
-          moveOut: { $exists: false }
-        },
-        { sort }
-      ).fetch();
-
-      const homeResidentIds = _.map(homeResidencies, function(residency) {
-        return residency.residentId;
-      });
-
-      // Create an object containing a home and its residents
-      const homeGroup = {
-        optgroup: home.name,
-        options: _.map(homeResidentIds, function(residentId) {
-          const resident = Residents.findOne(residentId);
-
-          // Create an object containing the resident name and ID
-          const residentObject = {
-            value: residentId,
-            label: resident.fullName()
-          };
-
-          return residentObject;
-        })
-      };
-
-      return homeGroup;
-    });
-
-    return residentsSelectOptions;
+    return templateInstance.residentOptions.get();
   }
 });
