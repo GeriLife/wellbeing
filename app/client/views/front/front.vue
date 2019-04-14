@@ -68,7 +68,10 @@
   </div>
 </template>
 <script>
+import localizationMixin from "../../mixins/localizationMixin";
+
 export default {
+  mixins: [localizationMixin],
   props: {
     Modal: Object
   }
