@@ -2,9 +2,10 @@ Template.newFeeling.onCreated(function() {
   // Get reference to template instance
   const templateInstance = this;
 
-  // Subscribe to user-visible residents and homes
-  this.subscribe("currentUserVisibleResidents");
-  this.subscribe("currentUserVisibleHomes");
+  // Subscribe to user-visible homes, residencies, and residents
+  templateInstance.subscribe("currentUserVisibleHomes");
+  templateInstance.subscribe("currentUserVisibleResidencies");
+  templateInstance.subscribe("currentUserVisibleResidents");
 
   // Create reactive variable for selected feeling
   templateInstance.selectedFeeling = new ReactiveVar();
@@ -12,38 +13,54 @@ Template.newFeeling.onCreated(function() {
 
 Template.newFeeling.helpers({
   residentOptions: function() {
-    // Get all Homes
-    var homes = Homes.find().fetch();
+    // Get list of homes, sorted alphabetically
+    const homes = Homes.find({}, { sort: { name: 1 } }).fetch();
 
-    // Create an array of Home IDs
-    var homeIDs = _.map(homes, function(home) {
-      return home._id;
-    });
+    // Create an array residents grouped by home
+    const residentsSelectOptions = _.map(homes, function(home) {
+      // Get home ID
+      const homeId = home._id;
 
-    // Create select options for residents input
-    // Grouping residents by home
-    var residentSelectOptions = _.map(homeIDs, function(homeID) {
-      // Find the name of this home
-      var homeName = Homes.findOne(homeID).name;
+      // do not show residents who are on hiatus
+      const onHiatus = false;
 
-      // Get all residents of this home
-      var homeResidents = Residents.find({ homeId: homeID }).fetch();
+      // Sort by first name in alphabetical order
+      const sort = { firstName: 1 };
 
-      // Create a residents array with name/ID pairs for label/value
-      var residentOptions = _.map(homeResidents, function(homeResident) {
-        // Combine resident first name and last initial
-        var residentName =
-          homeResident.firstName + " " + homeResident.lastInitial;
+      // Get a list of residents for current home
+      const homeResidencies = Residencies.find(
+        {
+          homeId,
+          moveOut: { $exists: false }
+        },
+        { sort }
+      ).fetch();
 
-        // Create option for this resident, with ID as the value
-        return { label: residentName, value: homeResident._id };
+      const homeResidentIds = _.map(homeResidencies, function(residency) {
+        return residency.residentId;
       });
+      console.log(homeResidentIds);
 
-      // Return residents and home as option group
-      return { optgroup: homeName, options: residentOptions };
+      // Create an object containing a home and its residents
+      const homeGroup = {
+        optgroup: home.name,
+        options: _.map(homeResidentIds, function(residentId) {
+          const resident = Residents.findOne(residentId);
+
+          // Create an object containing the resident name and ID
+          const residentObject = {
+            value: residentId,
+            label: resident.fullName()
+          };
+
+          return residentObject;
+        })
+      };
+
+      return homeGroup;
     });
 
-    return residentSelectOptions;
+    return residentsSelectOptions;
   },
   selectedFeeling: function() {
     // Get reference to template instance
