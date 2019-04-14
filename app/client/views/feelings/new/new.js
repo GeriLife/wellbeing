@@ -2,65 +2,25 @@ Template.newFeeling.onCreated(function() {
   // Get reference to template instance
   const templateInstance = this;
 
-  // Subscribe to user-visible homes, residencies, and residents
-  templateInstance.subscribe("currentUserVisibleHomes");
-  templateInstance.subscribe("currentUserVisibleResidencies");
-  templateInstance.subscribe("currentUserVisibleResidents");
+  // placeholder for resident select options
+  templateInstance.residentOptions = new ReactiveVar();
 
   // Create reactive variable for selected feeling
   templateInstance.selectedFeeling = new ReactiveVar();
+
+  Meteor.call("userVisibleResidentNamesGroupedtByHomes", function(
+    error,
+    residentSelectOptions
+  ) {
+    templateInstance.residentOptions.set(residentSelectOptions);
+  });
 });
 
 Template.newFeeling.helpers({
   residentOptions: function() {
-    // Get list of homes, sorted alphabetically
-    const homes = Homes.find({}, { sort: { name: 1 } }).fetch();
+    const templateInstance = Template.instance();
 
-    // Create an array residents grouped by home
-    const residentsSelectOptions = _.map(homes, function(home) {
-      // Get home ID
-      const homeId = home._id;
-
-      // do not show residents who are on hiatus
-      const onHiatus = false;
-
-      // Sort by first name in alphabetical order
-      const sort = { firstName: 1 };
-
-      // Get a list of residents for current home
-      const homeResidencies = Residencies.find(
-        {
-          homeId,
-          moveOut: { $exists: false }
-        },
-        { sort }
-      ).fetch();
-
-      const homeResidentIds = _.map(homeResidencies, function(residency) {
-        return residency.residentId;
-      });
-      console.log(homeResidentIds);
-
-      // Create an object containing a home and its residents
-      const homeGroup = {
-        optgroup: home.name,
-        options: _.map(homeResidentIds, function(residentId) {
-          const resident = Residents.findOne(residentId);
-
-          // Create an object containing the resident name and ID
-          const residentObject = {
-            value: residentId,
-            label: resident.fullName()
-          };
-
-          return residentObject;
-        })
-      };
-
-      return homeGroup;
-    });
-
-    return residentsSelectOptions;
+    return templateInstance.residentOptions.get();
   },
   selectedFeeling: function() {
     // Get reference to template instance
