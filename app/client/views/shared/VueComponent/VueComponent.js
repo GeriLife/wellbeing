@@ -1,5 +1,6 @@
 Template.BlazeVueComponent.helpers({
+  /* Add common/shared components and utilities here  */
   args() {
-    return { filters: { localize: TAPi18n.__ } };
+    return {};
   }
 });
