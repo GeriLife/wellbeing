@@ -1,4 +1,4 @@
-Template.newFeeling.created = function() {
+Template.newFeeling.onCreated(function() {
   // Get reference to template instance
   const templateInstance = this;
 
@@ -8,7 +8,7 @@ Template.newFeeling.created = function() {
 
   // Create reactive variable for selected feeling
   templateInstance.selectedFeeling = new ReactiveVar();
-};
+});
 
 Template.newFeeling.helpers({
   residentOptions: function() {
