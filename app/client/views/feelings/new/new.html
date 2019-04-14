@@ -10,7 +10,7 @@
         </div>
 
 
-        {{# if Template.subscriptionsReady }}
+        {{# if residentOptions }}
 
         <!-- feelings select -->
         <div class="feelings row">
@@ -42,7 +42,7 @@
 
         <!-- / feelings select -->
 
-        {{# autoForm id="newFeelingForm" type="insert" collection="Feelings"  }}
+        {{# autoForm id="newFeelingForm" type="insert" collection="Feelings" residentOptions=residentOptions }}
         <div class="modal-body">
           <!-- show selected feeling preview if feeling has been selected -->
           {{# if selectedFeeling }}
@@ -54,6 +54,7 @@
           <label for="residentId">
             {{_ "feelings.residentId.label" }}
           </label>
+          
           {{> afFieldInput
             name="residentId"
             options=residentOptions
