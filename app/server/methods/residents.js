@@ -159,9 +159,5 @@ Meteor.methods({
     });
 
     return residentsSelectOptions;
-    return residentActivities.reduce(
-      (prevResult, document) => prevResult + document.duration,
-      0
-    );
   }
 });
