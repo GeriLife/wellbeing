@@ -44,18 +44,57 @@ Template.residentFeelings.onCreated(function () {
     this.$('#residentFeelingsChart').empty();
 
     // Render chart with current feeling percentages
-    MG.data_graphic({
-      title: TAPi18n.__('residentFeelings-chart-title'),
-      data: chartData,
-      chart_type: 'bar',
-      x_accessor: 'value',
-      format: 'percentage',
-      xax_format: d3.format('.0%'),
-      y_accessor: 'localizedFeeling',
-      height:300,
-      full_width: true,
-      target: '#residentFeelingsChart',
-    });
+    const data = [
+      {
+        type: "bar",
+        orientation: "h",
+        marker: { color: "#b6b6fc" },
+        x: _.map(chartData, item => d3.format('.0%')(item.value)),
+        y: _.map(chartData, item => item.localizedFeeling)
+      }
+    ];
+
+    // Add plot layout configuration
+    const layout = {
+      autosize: true,
+      height: 300,
+      title: TAPi18n.__("residentFeelings-chart-title"),
+      xaxis: {
+        showgrid: false,
+        showline: true,
+        automargin: true,
+        showticklabels: true,
+        tickfont: {
+          size: 10
+        },
+        tickwidth: 0.5,
+        ticklen: 10
+      },
+      yaxis: {
+        showgrid: false,
+        showline: true,
+        automargin: true,
+        showticklabels: true,
+        tickfont: {
+          size: 10
+        },
+        tickwidth: 1,
+        ticklen: 8
+      },
+      margin: {
+        autoexpand: true,
+        r: 10,
+        t: 60,
+        b: 20,
+        l: 80
+      },
+      bargap: 0.3,
+      showlegend: false
+    };
+
+    // Get client locale
+    const locale = TAPi18n.getLanguage();
+    Plotly.newPlot("residentFeelingsChart", data, layout, { locale });
   };
 
   // Method to localize chart data labels
