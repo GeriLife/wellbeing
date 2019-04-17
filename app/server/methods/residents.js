@@ -105,36 +105,31 @@ Meteor.methods({
         }
       };
 
-      // Sort by first name in alphabetical order
-      const sort = { firstName: 1 };
-
       // Get a list of residents for current home
-      const homeResidents = Residencies.find(
-        { homeId, ...notDeparted },
-        { sort }
-      ).fetch().map(function (resident) {
-        const residentId = resident.residentId
-        const residentDet = Residents.findOne(residentId)
+      const homeResidents = Residencies.find({ homeId, ...notDeparted })
+        .fetch()
+        .map(function (resident) {
+          const residentId = resident.residentId;
+          const residentDet = Residents.findOne(residentId);
 
-        const fullName = residentDet.fullName()
-        return { ...resident, fullName }
-      });
-
+          const fullName = residentDet.fullName();
+          return { ...resident, fullName };
+        });
       // Create an object containing a home and its residents
       const homeGroup = {
         optgroup: home.name,
-        options: _.map(homeResidents, function (resident) {
+        options: _.chain(homeResidents).map(function (resident) {
 
           // Create an object containing the resident name and ID
           const residentObject = {
             value: resident.residentId,
-            label: resident.fullName
+            label: resident.fullName,
           };
 
           return residentObject;
-        })
+        }).sortBy("label")
+          .value()
       };
-
       return homeGroup;
     });
 
