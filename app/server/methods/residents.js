@@ -108,12 +108,12 @@ Meteor.methods({
       // Get a list of residents for current home
       const homeResidents = Residencies.find({ homeId, ...notDeparted })
         .fetch()
-        .map(function (resident) {
-          const residentId = resident.residentId;
-          const residentDet = Residents.findOne(residentId);
+        .map(function (residence) {
+          const residentId = residence.residentId;
+          const resident = Residents.findOne(residentId);
 
-          const fullName = residentDet.fullName();
-          return { ...resident, fullName };
+          const fullName = resident.fullName();
+          return { ...residence, fullName };
         });
       // Create an object containing a home and its residents
       const homeGroup = {
