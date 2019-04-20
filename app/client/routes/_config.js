@@ -18,6 +18,7 @@ var anonymousRoutes = [
   'login',
   'atChangePwd',
   'atEnrollAccount',
+  'Invitation',
   'atForgotPwd',
   'atResetPwd',
   'atSignIn',

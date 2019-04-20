@@ -1,0 +1,23 @@
+<template name="invitation">
+  <section class="content-header">
+    <h1>
+      Enroll User
+    </h1>
+  </section>
+
+  {{#if showSuccessAlert}}
+  <div class="alert alert-success " role="alert">
+    User enrolled successfully!
+  </div>
+  {{/ if}}
+
+  <section class="content">
+    {{# if errorMessage}}
+    <div class="box box-primary">
+      <div class="box-body">
+        {{ errorMessage }}
+      </div>
+    </div>
+    {{/if}}
+  </section>
+</template>
