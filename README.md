@@ -69,20 +69,17 @@ so that I know they are living an enjoyable life
 ```
 
 
-#Integration with vue
+# Integration with vue
 
 ## Upgrade meteor version
-rm -rf nodemodules and package lock
-npm i
+1. rm -rf nodemodules and package lock
+2. npm i
+3. meteor update
+4. meteor update --all-packages
+5. ~/.meteor/packages/meteor-tool/1.8.1/mt-os.linux.x86_64/dev_bundle/mongodb/bin/mongod  --dbpath .meteor/local/db --repair
 
-meteor update
-meteor update --all-packages
-
- ~/.meteor/packages/meteor-tool/1.8.1/mt-os.linux.x86_64/dev_bundle/mongodb/bin/mongod  --dbpath .meteor/local/db --repair
-
-if necessary meteor reset(
-WARNING!!! 
-meteor reset will delete the mock database
-)
-
- meteor
+6. if necessary meteor reset(
+    WARNING!!! 
+    meteor reset will delete the mock database
+    )
+7. meteor
