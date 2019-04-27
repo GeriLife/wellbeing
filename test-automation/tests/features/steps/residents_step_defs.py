@@ -17,9 +17,9 @@ def user_can_view_residents(self):
 @step(r"the user searches for a resident by \"(.*?)\"")
 def user_searches_for_resident(self, mode):
     if mode == "name":
-        assert search_for(mode, "Aava E") == True
+        assert search_for(mode, "Aaliyah S") == True
     elif mode == "home":
-        assert search_for(mode, "Lehmus") == True
+        assert search_for(mode, "West Alfonzo furt") == True
 
 
 @step(r'the user can change the residents per roll of the page')
@@ -40,7 +40,7 @@ def user_can_change_page(self):
 def user_adds_resident(self, nullify):
     first_name = "test_first_name"
     last_name = "test_last_name"
-    home = "Usko"
+    home = "West Alfonzo furt"
     if nullify:
         add_resident(first_name, last_name, home, True)
     else:
