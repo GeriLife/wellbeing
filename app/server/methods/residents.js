@@ -119,7 +119,10 @@ Meteor.methods({
     // Get list of homes, sorted alphabetically
     const homeIds = Meteor.call("getUserVisibleHomeIds", userId);
 
-    const homes = Homes.find({ _id: { $in: homeIds } }).fetch();
+    const homes = Homes.find(
+      { _id: { $in: homeIds } },
+      { sort: { name: 1 } }
+    ).fetch();
 
     // Create an array residents grouped by home
     const residentsSelectOptions = _.map(homes, function(home) {
@@ -131,9 +134,12 @@ Meteor.methods({
       };
 
       // Get a list of residents for current home
-      const homeResidents = Residencies.find({ homeId, ...notDeparted })
+      const homeResidents = Residencies.find({
+        homeId: home._id,
+        ...notDeparted
+      })
         .fetch()
-        .map(function (residence) {
+        .map(function(residence) {
           const residentId = residence.residentId;
           const resident = Residents.findOne(residentId);
 
@@ -143,16 +149,17 @@ Meteor.methods({
       // Create an object containing a home and its residents
       const homeGroup = {
         optgroup: home.name,
-        options: _.chain(homeResidents).map(function (resident) {
+        options: _.chain(homeResidents)
+          .map(function(resident) {
+            // Create an object containing the resident name and ID
+            const residentObject = {
+              value: resident.residentId,
+              label: resident.fullName
+            };
 
-          // Create an object containing the resident name and ID
-          const residentObject = {
-            value: resident.residentId,
-            label: resident.fullName,
-          };
-
-          return residentObject;
-        }).sortBy("label")
+            return residentObject;
+          })
+          .sortBy("label")
           .value()
       };
       return homeGroup;
