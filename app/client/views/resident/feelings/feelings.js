@@ -1,4 +1,4 @@
-Template.residentFeelings.onCreated(function () {
+Template.residentFeelings.onCreated(function() {
   // Get reference to template instance
   const templateInstance = this;
 
@@ -13,7 +13,7 @@ Template.residentFeelings.onCreated(function () {
   // Used to trigger call to 'get resident feelings percentages' method
   // TODO: figure out a 'cleaner' way to signal that feelings data have changed
   // https://forums.meteor.com/t/send-reactive-signal-from-server-to-client/39141
-  templateInstance.subscribe('residentFeelingsCount', residentId);
+  templateInstance.subscribe("residentFeelingsCount", residentId);
 
   // Set up reactive variable to hold resident feelings percentages
   templateInstance.residentFeelingsPercentages = new ReactiveVar();
@@ -25,12 +25,17 @@ Template.residentFeelings.onCreated(function () {
   templateInstance.autorun(() => {
     // Get resident feelings count
     // This is just a reactive trigger to fetch resident feelings percentages
-    const feelingsCount = Counts.get(`resident_${ residentId }_feelings_count`);
+    const feelingsCount = Counts.get(`resident_${residentId}_feelings_count`);
 
     // Get resident feelings percentages when feelings count changes
-    Meteor.call('getFeelingsPercentagesByResidentId', residentId, function (error, residentFeelingsPercentages) {
+    Meteor.call("getFeelingsPercentagesByResidentId", residentId, function(
+      error,
+      residentFeelingsPercentages
+    ) {
       // Update resident feelings counts with returned value from method call
-      templateInstance.residentFeelingsPercentages.set(residentFeelingsPercentages);
+      templateInstance.residentFeelingsPercentages.set(
+        residentFeelingsPercentages
+      );
     });
   });
 
@@ -39,9 +44,9 @@ Template.residentFeelings.onCreated(function () {
   */
 
   // Method to clear and render chart
-  templateInstance.clearAndRenderChart = function (chartData) {
+  templateInstance.clearAndRenderChart = function(chartData) {
     // Clear any previous chart
-    this.$('#residentFeelingsChart').empty();
+    this.$("#residentFeelingsChart").empty();
 
     // Render chart with current feeling percentages
     const data = [
@@ -49,7 +54,7 @@ Template.residentFeelings.onCreated(function () {
         type: "bar",
         orientation: "h",
         marker: { color: "#b6b6fc" },
-        x: _.map(chartData, item => d3.format('.0%')(item.value)),
+        x: _.map(chartData, item => d3.format(".0%")(item.value)),
         y: _.map(chartData, item => item.localizedFeeling)
       }
     ];
@@ -98,14 +103,16 @@ Template.residentFeelings.onCreated(function () {
   };
 
   // Method to localize chart data labels
-  templateInstance.localizeChartData = function (chartData) {
+  templateInstance.localizeChartData = function(chartData) {
     // Create localized data for chart
-    const localizedChartData = _.map(chartData, function (datum) {
+    const localizedChartData = _.map(chartData, function(datum) {
       // Get feeling
       const feeling = datum.key;
 
       // Get localization string for feeling
-      const feelingL10n = TAPi18n.__(`residentFeelings-chart-feelingName-${ feeling }`);
+      const feelingL10n = TAPi18n.__(
+        `residentFeelings-chart-feelingName-${feeling}`
+      );
 
       // Update feeling with localized name
       datum.localizedFeeling = feelingL10n;
@@ -113,11 +120,11 @@ Template.residentFeelings.onCreated(function () {
       return datum;
     });
 
-    return localizedChartData
+    return localizedChartData;
   };
 });
 
-Template.residentFeelings.onRendered(function () {
+Template.residentFeelings.onRendered(function() {
   // Get reference to template instance
   const templateInstance = this;
 
@@ -133,13 +140,17 @@ Template.residentFeelings.onRendered(function () {
     // and not an empty array
     if (residentFeelingsPercentages && residentFeelingsPercentages.length > 0) {
       // Sort feelings percentages
-      const sortedResidentFeelingsPercentages = residentFeelingsPercentages.sort(function (a, b) {
-        // Sort from high to low
-        return b.value - a.value;
-      });
+      const sortedResidentFeelingsPercentages = residentFeelingsPercentages.sort(
+        function(a, b) {
+          // Sort from high to low
+          return b.value - a.value;
+        }
+      );
 
       // Create localized data for chart
-      const localizedChartData = templateInstance.localizeChartData(sortedResidentFeelingsPercentages);
+      const localizedChartData = templateInstance.localizeChartData(
+        sortedResidentFeelingsPercentages
+      );
 
       // Render chart with localized data
       templateInstance.clearAndRenderChart(localizedChartData);
@@ -148,7 +159,7 @@ Template.residentFeelings.onRendered(function () {
 });
 
 Template.residentFeelings.helpers({
-  residentFeelingsCount () {
+  residentFeelingsCount() {
     // Get reference to template instance
     const templateInstance = Template.instance();
 
