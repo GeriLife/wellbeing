@@ -1,3 +1,5 @@
+import d3 from "d3";
+
 Template.activityCalendar.rendered = function() {
   // Get reference to template instance
   const instance = this;
