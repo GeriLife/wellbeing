@@ -48,7 +48,7 @@ def is_home_in_group(home_name, group_name):
 
 
 def add_group(group_name):
-    find_element(homes_add_new).click()
+    # find_element(homes_add_new).click()
     find_element(homes_add_new_group).click()
     find_element_by_name("name").send_keys(group_name)
     find_element(add_confirm).click()
@@ -57,7 +57,7 @@ def add_group(group_name):
 
 
 def add_home(home_name, group_name):
-    find_element(homes_add_new).click()
+    # find_element(homes_add_new).click()
     find_element(homes_add_new_home).click()
     find_element_by_name("name").send_keys(home_name)
     Select(find_element_by_name("groupId")).select_by_visible_text(group_name)
@@ -73,7 +73,8 @@ def open_edit_home(home_name):
         if home_name in home.text:
             # If necessary, scrolls down to properly identify the "home_name" then click on it
             el = scroll_into_view(home)
-            js_click(el)
+            edit_button = get_view_home_btn(el)
+            js_click(edit_button)
             break
     time.sleep(3)
 

@@ -83,3 +83,6 @@ def scroll_into_view(element):
 # Ex. homes in the Homes page
 def js_click(element):
     world.browser.execute_script("arguments[0].click();", element);
+
+def get_view_home_btn(el):
+    return el.find_elements_by_css_selector(home_btn_cell_css)[0]

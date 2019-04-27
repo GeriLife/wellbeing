@@ -3,6 +3,9 @@ import platform
 from contextlib import contextmanager
 
 import logging
+import logging
+
+logging.getLogger("urllib3").setLevel(logging.WARNING)
 from aloe import around, world
 from selenium.webdriver.remote.remote_connection import LOGGER
 from selenium import webdriver
