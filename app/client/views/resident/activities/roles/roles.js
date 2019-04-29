@@ -47,7 +47,6 @@ Template.residentFacilitatorRolesChart.onRendered(function() {
         }
       ];
 
-      // Add plot layout configuration
       const layout = {
         xaxis: {
           title: TAPi18n.__("residentFacilitatorRolesChart-xAxis-title")
@@ -57,13 +56,10 @@ Template.residentFacilitatorRolesChart.onRendered(function() {
         },
         width: 600,
         height: 350
-        // bargap: 0.8
       };
 
-      // Get client locale
       const locale = TAPi18n.getLanguage();
 
-      // Render plot
       Plotly.newPlot("facilitatorRolesChart", data, layout, { locale });
     }
   });
