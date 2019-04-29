@@ -44,7 +44,6 @@ dynamic-import@0.5.1
 tmeasday:publish-counts
 aldeed:collection2-core@2.0.0
 aldeed:autoform
-sergeyt:dimple
 nvd3:nvd3
 matb33:collection-hooks
 akryum:vue
