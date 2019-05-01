@@ -355,6 +355,7 @@
     "usersEnroll-form-submitButton-text": "L\u00e4het\u00e4 kutsu(t)",
     "usersEnroll-header-text": "Rekister\u00f6i k\u00e4ytt\u00e4j\u00e4t",
     "usersEnroll-introduction-text": "Luo yksi tai useampi k\u00e4ytt\u00e4j\u00e4tili, ja l\u00e4het\u00e4 aktivointilinkki s\u00e4hk\u00f6postiin.",
+    "userGroupsSelectWidget-placeholder": "Valitse yksi tai useampi ryhm\u00e4",
     "users": {
         "email": {
             "label": "S\u00e4hk\u00f6posti"
