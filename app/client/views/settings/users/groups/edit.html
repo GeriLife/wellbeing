@@ -11,6 +11,9 @@
 
         <div class="modal-body">
           {{#if groupSelectOptions }}
+          <!-- select widget is in own component 
+            to guarantee select options are ready 
+            before rendering multi-select -->
           {{> userGroupsSelectWidget groupSelectOptions=groupSelectOptions }}
           {{/if }}
         </div>
