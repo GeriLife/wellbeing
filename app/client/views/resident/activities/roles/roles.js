@@ -37,12 +37,11 @@ Template.residentFacilitatorRolesChart.onRendered(function() {
           x: _.map(facilitatorRoleCounts, r => r.values),
           text: _.map(
             facilitatorRoleCounts,
-            r => `key:${r.key} \n value:${r.values}`
+            r => `${r.key}`
           ),
           marker: {
             color: "#9ac0db"
           },
-          width: 0.5,
           orientation: "h"
         }
       ];
@@ -54,13 +53,11 @@ Template.residentFacilitatorRolesChart.onRendered(function() {
         yaxis: {
           title: TAPi18n.__("residentFacilitatorRolesChart-yAxis-title")
         },
-        width: 600,
-        height: 350
       };
 
       const locale = TAPi18n.getLanguage();
 
-      Plotly.newPlot("facilitatorRolesChart", data, layout, { locale });
+      Plotly.newPlot("facilitatorRolesChart", data, layout, { locale, responsive: true });
     }
   });
 });

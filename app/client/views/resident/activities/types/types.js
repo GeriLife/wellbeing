@@ -36,12 +36,11 @@ Template.residentActivityTypesChart.onRendered(function() {
           x: _.map(activityTypeCounts, r => r.values),
           text: _.map(
             activityTypeCounts,
-            r => `key:${r.key} \n value:${r.values}`
+            r => `${r.key}`
           ),
           marker: {
             color: "#9ac0db"
           },
-          width: 0.5,
           orientation: "h"
         }
       ];
@@ -53,13 +52,11 @@ Template.residentActivityTypesChart.onRendered(function() {
         yaxis: {
           title: TAPi18n.__("residentActivityTypesChart-yAxis-title")
         },
-        width: 600,
-        height: 350
       };
 
       const locale = TAPi18n.getLanguage();
 
-      Plotly.newPlot("activityTypesChart", data, layout, { locale });
+      Plotly.newPlot("activityTypesChart", data, layout, { locale, responsive: true });
     }
   });
 });
