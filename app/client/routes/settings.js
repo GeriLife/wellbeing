@@ -1,3 +1,17 @@
+import { adminRoleRequired } from "./hooks";
+
+Router.onBeforeAction(adminRoleRequired, {
+  only: [
+    "settings",
+    "activityTypesSettings",
+    "dataSettings",
+    "dateTimeSettings",
+    "rolesSettings",
+    "userEventLog",
+    "usersSettings"
+  ]
+});
+
 /*
   Settings routes
 */
