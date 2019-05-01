@@ -1,0 +1,12 @@
+<template name="userGroupsSelectWidget">
+  <div class="form-group">
+    <label for="">
+      {{_ "editUserGroups-groupsLabel" }}
+    </label>
+    <select multiple class="form-control" name="editUserGroups">
+      {{#each groupSelectOptions}}
+      <option value="{{ _id }}" {{selected}}>{{ name }}</option>
+      {{/each}}
+    </select>
+  </div>
+</template>
