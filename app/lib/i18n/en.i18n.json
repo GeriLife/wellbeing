@@ -355,6 +355,7 @@
   "usersEnroll-form-submitButton-text": "Send invite(s)",
   "usersEnroll-header-text": "Enroll users",
   "usersEnroll-introduction-text": "Create one or more user accounts and send an activation email.",
+  "userGroupsSelectWidget-placeholder": "Select one or more groups",
   "users": {
     "email": {
       "label": "Email"
