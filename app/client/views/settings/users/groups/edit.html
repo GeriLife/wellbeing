@@ -5,21 +5,17 @@
         <div class="modal-header">
           <h4 class="modal-title">
             <i class="fa fa-user"></i>&nbsp;
-             {{_ "editUserGroups-header" }}
-           </h4>
+            {{_ "editUserGroups-header" }}
+          </h4>
         </div>
 
         <div class="modal-body">
-          <div class="form-group">
-            <label for="">
-              {{_ "editUserGroups-groupsLabel" }}
-            </label>
-            <select multiple class="form-control" name="editUserGroups" id="">
-              {{#each groups}}
-                <option value="{{ _id }}" {{selected}}>{{ name }}</option>
-              {{/each}}
-            </select>
-          </div>
+          {{#if groupSelectOptions }}
+          <!-- select widget is in own component 
+            to guarantee select options are ready 
+            before rendering multi-select -->
+          {{> userGroupsSelectWidget groupSelectOptions=groupSelectOptions }}
+          {{/if }}
         </div>
 
         <div class="modal-footer">
@@ -30,7 +26,6 @@
             {{_ "editUserGroups-cancelButton" }}
           </button>
         </div>
-
       </div>
     </div>
   </div>
