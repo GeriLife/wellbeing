@@ -12,8 +12,6 @@ Template.usersEnroll.helpers({
   },
   usersEnrollSchema () {
     const allGroups = Groups.find().fetch();
-    console.log(allGroups)
-
    return  usersEnrollSchema(allGroups);
    
   }
