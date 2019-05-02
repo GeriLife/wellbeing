@@ -41,6 +41,11 @@ Meteor.methods({
         email: emailAddress
       });
 
+      if(enrollmentDocument.groups){
+        enrollmentDocument.groups.forEach(r => {
+          Permissions.insert({userId, groupId: r})
+         })
+      }
       // Send enrollment email to newly created user
       Accounts.sendEnrollmentEmail(userId);
     });
