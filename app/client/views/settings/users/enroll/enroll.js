@@ -1,5 +1,8 @@
 import usersEnrollSchema from './schema';
-
+Template.usersEnroll.onCreated(function() {
+  const templateInstance = this;
+  templateInstance.subscribe("allGroups");
+});
 Template.usersEnroll.helpers({
   buttonContent () {
     // Get localized text for send buttonContent
@@ -8,6 +11,10 @@ Template.usersEnroll.helpers({
     return buttonContent;
   },
   usersEnrollSchema () {
-    return usersEnrollSchema;
+    const allGroups = Groups.find().fetch();
+    console.log(allGroups)
+
+   return  usersEnrollSchema(allGroups);
+   
   }
 });
