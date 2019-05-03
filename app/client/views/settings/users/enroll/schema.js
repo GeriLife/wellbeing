@@ -1,5 +1,5 @@
 import SimpleSchema from "simpl-schema";
-SimpleSchema.extendOptions(['autoform']);
+SimpleSchema.extendOptions(["autoform"]);
 
 const usersEnrollSchema = function(groups) {
   return new SimpleSchema({
@@ -26,20 +26,20 @@ const usersEnrollSchema = function(groups) {
       optional: true,
 
       label: "Add group",
-      
+
       autoform: {
-        options: function() {
-          return groups.map(r => {
-            return {
-              label: r.name,
-              value: r._id
-            };
-          });
-        }
+        type: "select2",
+        multiple: true,
+        options: groups.map(r => {
+          return {
+            label: r.name,
+            value: r._id
+          };
+        })
       }
     },
-    'groups.$':{
-      type:String
+    "groups.$": {
+      type: String
     }
   });
 };
