@@ -1,6 +1,14 @@
 import SimpleSchema from "simpl-schema";
 SimpleSchema.extendOptions(["autoform"]);
 
+AutoForm.addInputType("dropdown", {
+  template: "quickForm_dropdown",
+  valueIsArray: true,
+  valueOut() {
+    return this.val();
+  }
+});
+
 const usersEnrollSchema = function(groups) {
   return new SimpleSchema({
     subject: {
@@ -24,18 +32,11 @@ const usersEnrollSchema = function(groups) {
     groups: {
       type: Array,
       optional: true,
-
       label: "Add group",
 
       autoform: {
-        type: "select2",
-        multiple: true,
-        options: groups.map(r => {
-          return {
-            label: r.name,
-            value: r._id
-          };
-        })
+        type: "dropdown",
+        options: groups
       }
     },
     "groups.$": {
