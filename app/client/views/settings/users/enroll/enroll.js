@@ -1,18 +1,17 @@
-import usersEnrollSchema from './schema';
+import usersEnrollSchema from "./schema";
 Template.usersEnroll.onCreated(function() {
   const templateInstance = this;
   templateInstance.subscribe("allGroups");
 });
 Template.usersEnroll.helpers({
-  buttonContent () {
+  buttonContent() {
     // Get localized text for send buttonContent
-    const buttonContent = TAPi18n.__('usersEnroll-form-submitButton-text');
+    const buttonContent = TAPi18n.__("usersEnroll-form-submitButton-text");
 
     return buttonContent;
   },
-  usersEnrollSchema () {
+  usersEnrollSchema() {
     const allGroups = Groups.find().fetch();
-   return  usersEnrollSchema(allGroups);
-   
+    return usersEnrollSchema(allGroups);
   }
 });
