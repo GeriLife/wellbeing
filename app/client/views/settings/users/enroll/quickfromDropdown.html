@@ -1,12 +1,3 @@
 <template name="quickForm_dropdown">
-  <div class="form-group">
-    <label for="">
-      {{_ "editUserGroups-groupsLabel" }}
-    </label>
-    <select multiple data-schema-key {{atts}} class="form-control" name="groups">
-      {{#each selectOptions}}
-      <option value="{{ _id }}" {{selected}}>{{ name }}</option>
-      {{/each}}
-    </select>
-  </div>
+  {{> userGroupsSelectWidget name=atts.name atts=atts groupSelectOptions=selectOptions }}
 </template>

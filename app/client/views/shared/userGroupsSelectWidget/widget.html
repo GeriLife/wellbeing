@@ -3,7 +3,7 @@
     <label for="">
       {{_ "editUserGroups-groupsLabel" }}
     </label>
-    <select multiple class="form-control" name="editUserGroups">
+    <select multiple data-schema-key {{atts}} class="form-control" name="{{name}}">
       {{#each groupSelectOptions}}
       <option value="{{ _id }}" {{selected}}>{{ name }}</option>
       {{/each}}
