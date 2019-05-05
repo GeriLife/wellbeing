@@ -41,10 +41,10 @@ Meteor.methods({
         email: emailAddress
       });
 
-      if(enrollmentDocument.groups){
-        enrollmentDocument.groups.forEach(r => {
-          Permissions.insert({userId, groupId: r})
-         })
+      if (enrollmentDocument.groups) {
+        enrollmentDocument.groups.forEach(groupId => {
+          Permissions.insert({ userId, groupId })
+        })
       }
       // Send enrollment email to newly created user
       Accounts.sendEnrollmentEmail(userId);
@@ -69,6 +69,7 @@ Meteor.methods({
       if (currentUserId !== user._id) {
         // If safe, delete provided user Object
         Meteor.users.remove(user);
+        Permissions.remove({ userId: user._id });
       }
     }
   },
