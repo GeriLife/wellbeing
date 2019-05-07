@@ -17,5 +17,5 @@ AccountsTemplates.configureRoute("resetPwd");
 AccountsTemplates.configureRoute("signIn");
 
 Meteor.startup(function() {
-  Accounts.emailTemplates.from = process.env.EMAIL_FROM;
+  Accounts.emailTemplates.from = process.env.FROM_EMAIL;
 });
