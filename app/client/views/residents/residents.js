@@ -6,6 +6,8 @@ Template.residents.onCreated(function() {
 
   // Subscribe to all homes, for data table
   templateInstance.subscribe("allHomes");
+  templateInstance.subscribe("allResidents");
+
 
   // Toggle resident subscription based on departed status
   templateInstance.autorun(function() {
