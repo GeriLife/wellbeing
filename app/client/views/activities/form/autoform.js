@@ -25,6 +25,9 @@ AutoForm.addHooks(["activityForm"], {
 
     // Alert user that activity was added
     FlashMessages.sendSuccess(successMessageWithIcon);
+  },
+  onError: function (formType, error) {
+    FlashMessages.sendError('<i class="fa fa-warning"></i> ' + error.message);
   }
 });
 
