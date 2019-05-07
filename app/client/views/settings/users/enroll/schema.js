@@ -32,7 +32,8 @@ const usersEnrollSchema = function(groups) {
     groups: {
       type: Array,
       optional: true,
-      label: "Add group",
+      // Remove field label
+      label: undefined,
 
       autoform: {
         type: "dropdown",
