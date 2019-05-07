@@ -1,4 +1,5 @@
 <template name="activityForm">
+  {{> flashMessages}}
   {{#if residentsSelectOptions }}
     {{# autoForm id="activityForm" type=formType collection="Activities" doc=activity }}
       <div class="modal-body">
