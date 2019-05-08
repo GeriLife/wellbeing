@@ -8,7 +8,13 @@ import { Finnish } from "flatpickr/dist/l10n/fi.js";
 AutoForm.addHooks(["activityForm"], {
   onSuccess: function(formType) {
     // Hide the modal dialogue
-    Modal.hide("activityForm");
+    /*
+    adding timeout here so that there is 
+    enough time for the user to read the success message
+     */
+    setTimeout(function () {
+      Modal.hide("activityForm");
+    }, 2500)
 
     // placeholder for success message text
     let successMessage;

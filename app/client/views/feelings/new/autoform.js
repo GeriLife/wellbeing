@@ -4,8 +4,13 @@ import "slim-select/dist/slimselect.min.css";
 AutoForm.addHooks(["newFeelingForm"], {
   onSuccess: function() {
     // Hide the modal dialogue
-    Modal.hide("newFeeling");
-
+    /*
+    adding timeout here so that there is 
+    enough time for the user to read the success message
+     */
+    setTimeout(function () {
+      Modal.hide("newFeeling");
+    }, 2500)
     // Get success message translation
     const successMessage = TAPi18n.__("newFeeling-success");
 
