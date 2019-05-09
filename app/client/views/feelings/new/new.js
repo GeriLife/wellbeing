@@ -7,11 +7,13 @@ Template.newFeeling.onCreated(function() {
 
   // Create reactive variable for selected feeling
   templateInstance.selectedFeeling = new ReactiveVar();
+  templateInstance.shouldSpin = new ReactiveVar(true);
 
   Meteor.call("userVisibleResidentNamesGroupedtByHomes", function(
     error,
     residentSelectOptions
   ) {
+    templateInstance.shouldSpin.set(false)
     templateInstance.residentOptions.set(residentSelectOptions);
   });
 });

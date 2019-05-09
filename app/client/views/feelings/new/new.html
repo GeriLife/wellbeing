@@ -78,8 +78,14 @@
         </div>
         {{/ autoForm }}
         {{ else }}
-        {{> spinner }}
+          <div class="modal-body">
+            {{_ "userVisibleResidentNames-GroupedtByHomes-notFound"}}
+          </div>
         {{/ if }}
+        {{#if shouldSpin}}
+          {{> spinner }}
+        {{/ if }}
+
       </div>
     </div>
   </div>

@@ -385,5 +385,6 @@
   "usersSettingsTable-tableHeaders-actions": "Actions",
   "usersSettingsTable-tableHeaders-email": "Email",
   "usersSettingsTable-tableHeaders-roles": "Roles",
-  "usersSettingsTable-tableHeaders-passwordActive": "Password active"
+  "usersSettingsTable-tableHeaders-passwordActive": "Password active",
+  "userVisibleResidentNames-GroupedtByHomes-notFound":"No residents found for this user!"
 }
