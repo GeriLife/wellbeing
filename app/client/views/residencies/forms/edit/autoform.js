@@ -1,8 +1,15 @@
 AutoForm.hooks({
-  'editResidencyForm': {
-    onSuccess () {
+  editResidencyForm: {
+    onSuccess() {
       // Hide the 'edit residency form' modal
-      Modal.hide('editResidencyModal');
+      Modal.hide("editResidencyModal");
+    },
+    onError(formType, error) {
+      
+        FlashMessages.sendError(error.message, {
+          autoHide: false
+        });
+      
     }
   }
-})
+});
