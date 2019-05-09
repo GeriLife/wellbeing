@@ -1,0 +1,23 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "shailee-m",
+      "name": "Shailee Mehta",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/10625985?v=4",
+      "profile": "https://github.com/shailee-m",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "wellbeing",
+  "projectOwner": "GeriLife",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
