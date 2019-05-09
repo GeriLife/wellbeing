@@ -1,5 +1,5 @@
 # GeriLife wellbeing
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 Welbeing activity log and visualization tool.
 
 # Features
@@ -94,7 +94,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-<table><tr><td align="center"><a href="https://github.com/shailee-m"><img src="https://avatars0.githubusercontent.com/u/10625985?v=4" width="100px;" alt="Shailee Mehta"/><br /><sub><b>Shailee Mehta</b></sub></a><br /><a href="https://github.com/GeriLife/wellbeing/commits?author=shailee-m" title="Code">💻</a></td></tr></table>
+<table><tr><td align="center"><a href="https://github.com/shailee-m"><img src="https://avatars0.githubusercontent.com/u/10625985?v=4" width="100px;" alt="Shailee Mehta"/><br /><sub><b>Shailee Mehta</b></sub></a><br /><a href="https://github.com/GeriLife/wellbeing/commits?author=shailee-m" title="Code">💻</a></td><td align="center"><a href="https://github.com/PayalChoksey17"><img src="https://avatars0.githubusercontent.com/u/41734649?v=4" width="100px;" alt="PayalChoksey17"/><br /><sub><b>PayalChoksey17</b></sub></a><br /><a href="https://github.com/GeriLife/wellbeing/issues?q=author%3APayalChoksey17" title="Bug reports">🐛</a></td></tr></table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
