@@ -3,6 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
+          {{> flashMessages}}
           <h4 class="modal-title">
             {{_ "editResidencyModal-header" }}
           </h4>
@@ -11,7 +12,7 @@
         <div class="modal-body">
           <!-- check if residency exists - editing -->
           {{# if residency }}
-            {{#autoForm id="editResidencyForm" type="update" collection="Residencies" doc=residency }}
+            {{#autoForm id="editResidencyForm" validation="submitThenKeyup" type="update" collection="Residencies" doc=residency }}
 
               <label for="residentId">
                 {{_ "residencies.residentId.label" }}
