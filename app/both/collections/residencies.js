@@ -22,11 +22,6 @@ var ResidenciesSchema = new SimpleSchema({
 
         return moveInDate;
       }
-    },
-    custom(){
-      const moveOut = this.field('moveOut').value
-      const moveIn = this.value
-      return validateDate(moveIn,moveOut)  
     }
   },
   moveOut: {
@@ -45,10 +40,13 @@ var ResidenciesSchema = new SimpleSchema({
         }
       }
     },
-    custom() {
-      const moveIn = this.field('moveIn').value
+    custom(){
       const moveOut = this.value
-      return validateDate(moveIn, moveOut)
+      const moveIn = this.field('moveIn').value
+      const result = validateDate(moveIn,moveOut)  
+      if(result!==true){
+        return "badDate"
+      }
     }
   },
 });
@@ -151,6 +149,6 @@ Residencies.after.remove(function (userId, residency) {
 function validateDate(moveIn, moveOut){
   const moveOutDate = new Date(moveOut).getTime();
   const moveInDate = new Date(moveIn).getTime();
-  if(!isNaN(new Date(moveOut).getTime()) && moveInDate > moveOutDate) return "Move in date must be before move out date"
+  if(!isNaN(moveOutDate) && moveOutDate>0 && moveInDate > moveOutDate) return false
   return true
 }
