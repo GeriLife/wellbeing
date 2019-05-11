@@ -5,11 +5,9 @@ AutoForm.hooks({
       Modal.hide("editResidencyModal");
     },
     onError(formType, error) {
-      
-        FlashMessages.sendError(error.message, {
-          autoHide: false
-        });
-      
+      FlashMessages.sendError(error.message, {
+        autoHide: false
+      });
     }
   }
 });
