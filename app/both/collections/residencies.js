@@ -44,7 +44,7 @@ var ResidenciesSchema = new SimpleSchema({
       const moveOut = this.value
       const moveIn = this.field('moveIn').value
       const result = validateDate(moveIn, moveOut)
-      if (result !== true) {
+      if (!result) {
         return "badDate"
       }
     }
@@ -146,9 +146,20 @@ Residencies.after.remove(function (userId, residency) {
   })
 });
 
-function validateDate(moveIn, moveOut){
+
+/* 
+Verifies whethers the move out date 
+if specified is always greater than move in Date
+*/
+function validateDate(moveIn, moveOut) {
   const moveOutDate = new Date(moveOut).getTime();
   const moveInDate = new Date(moveIn).getTime();
-  if(!isNaN(moveOutDate) && moveOutDate>0 && moveInDate > moveOutDate) return false
+  /* it checks if moveout date if exists and is before 
+  the movein date it will throw an error */
+  if (!isNaN(moveOutDate) && moveOutDate > 0 && moveInDate > moveOutDate) return false
+  /* 
+  In all other cases, i.e 
+  1) if the moveOut date is not specified or 
+  2) it is a date greater than move in date, it returns true */
   return true
 }
