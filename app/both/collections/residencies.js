@@ -40,11 +40,11 @@ var ResidenciesSchema = new SimpleSchema({
         }
       }
     },
-    custom(){
+    custom() {
       const moveOut = this.value
       const moveIn = this.field('moveIn').value
-      const result = validateDate(moveIn,moveOut)  
-      if(result!==true){
+      const result = validateDate(moveIn, moveOut)
+      if (result !== true) {
         return "badDate"
       }
     }
