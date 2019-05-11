@@ -6,7 +6,6 @@ Template.residents.onCreated(function() {
 
   // Subscribe to all homes, for data table
   templateInstance.subscribe("allHomes");
-  templateInstance.subscribe("allResidents");
 
 
   // Toggle resident subscription based on departed status
@@ -93,7 +92,8 @@ Template.residents.helpers({
           key: "residentName",
           label: tableLabels.fullName,
           sortOrder: 0,
-          sortDirection: "ascending"
+          sortDirection: "ascending",
+          tmpl: Template.residentName
         },
         {
           key: "homeName",
