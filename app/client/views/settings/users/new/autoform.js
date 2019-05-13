@@ -1,9 +1,9 @@
 AutoForm.addHooks("newUserForm", {
-  'onSubmit': function (user) {
+  onSubmit: function(user) {
     // Get reference to form context
     var form = this;
     // Add user
-    Meteor.call("addUser", user, function (error, userId) {
+    Meteor.call("addUser", user, function(error, userId) {
       if (error) {
         console.log(error);
         // Cancel form submission
@@ -19,8 +19,13 @@ AutoForm.addHooks("newUserForm", {
       form.done();
     });
   },
-  'onSuccess': function () {
+  onSuccess: function() {
     // Hide the modal dialogue
-    Modal.hide('newUser');
+    Modal.hide("newUser");
+  },
+  onError(formType, error) {
+    if (error.message) {
+      FlashMessages.sendError(error.message, { autoHide: false });
+    }
   }
 });
