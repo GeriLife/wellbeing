@@ -32,6 +32,7 @@ AutoForm.addHooks("editUserForm", {
   },
   onError(formType, error) {
     if (error.message) {
+      /* If a form input is invalid flash message is displayed*/
       FlashMessages.sendError(error.message, { autoHide: false });
     }
   }

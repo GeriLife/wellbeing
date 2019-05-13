@@ -25,6 +25,7 @@ AutoForm.addHooks("newUserForm", {
   },
   onError(formType, error) {
     if (error.message) {
+      /* If there is an invalid input in the form, error will be displayed*/
       FlashMessages.sendError(error.message, { autoHide: false });
     }
   }
