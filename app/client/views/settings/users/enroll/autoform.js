@@ -7,6 +7,9 @@ AutoForm.addHooks('usersEnrollForm', {
     // to prevent 'unknown' or undefined error messages from triggering flash message
     if (error.error) {
       FlashMessages.sendError(`${error.error}: ${error.reason}`, { autoHide: false });
+    }else if(error.message){
+      FlashMessages.sendError(error.message, { autoHide: false });
+      
     }
   }
 });

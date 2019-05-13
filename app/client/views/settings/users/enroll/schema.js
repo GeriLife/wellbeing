@@ -27,7 +27,7 @@ const usersEnrollSchema = function(groups) {
     },
     "emailAddresses.$": {
       type: String,
-      regEx: SimpleSchema.RegEx.Email
+      regEx: SimpleSchema.RegEx.EmailWithTLD
     },
     groups: {
       type: Array,
