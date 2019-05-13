@@ -29,5 +29,10 @@ AutoForm.addHooks("editUserForm", {
   'onSuccess': function () {
     // Hide the modal dialogue
     Modal.hide('editUser');
+  },
+  onError(formType, error) {
+    if (error.message) {
+      FlashMessages.sendError(error.message, { autoHide: false });
+    }
   }
 });

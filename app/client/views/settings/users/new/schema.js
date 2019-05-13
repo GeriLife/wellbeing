@@ -4,7 +4,7 @@ NewUserSchema = new SimpleSchema({
   "email": {
     type: String,
     optional: false,
-    regEx: SimpleSchema.RegEx.Email
+    regEx: SimpleSchema.RegEx.EmailWithTLD
   },
   "password": {
     type: String,
