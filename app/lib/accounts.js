@@ -29,7 +29,7 @@ Meteor.startup(function () {
     })
     if (!areAllEmailsValid)
       // Must throw meteor error to show custom validation message
-      throw new Meteor.Error(500, "Email address is not valid!");
+      throw new Meteor.Error(500, "Email: Invalid email");
     
     // return true in all other cases
     return true
