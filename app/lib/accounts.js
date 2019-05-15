@@ -1,6 +1,7 @@
+const userEmailSchema = require("./userEmailSchema");
 AccountsTemplates.configure({
   // Behavior
-  forbidClientAccountCreation: true,
+  forbidClientAccountCreation: false,
   enablePasswordChange: true,
   showForgotPasswordLink: true
 });
@@ -18,22 +19,15 @@ AccountsTemplates.configureRoute("signIn");
 
 Meteor.startup(function () {
   Accounts.validateNewUser(function (user) {
-    if (!user) return false
-    if (!user.emails || (!!user.emails && user.emails.length === 0)) return false
-    const emailValidationRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    /* Iterates through all emails and checks if all emails are valid */
-    const areAllEmailsValid = user.emails.every(emailObject => {
-      const emailAddress = emailObject.address;
-      if (!emailAddress) return false
-      return emailValidationRegex.test(emailAddress);
-    })
-    if (!areAllEmailsValid)
+    const userEmailRecord = { emails: { ...user.emails } };
+    try {
+      userEmailSchema.validate(userEmailRecord);
+      return true
+    } catch (e) {
       // Must throw meteor error to show custom validation message
+      // Sending static error message for consistency with messages from previous validators
       throw new Meteor.Error(500, "Email: Invalid email");
-    
-    // return true in all other cases
-    return true
-
+    }
   });
   Accounts.emailTemplates.from = process.env.FROM_EMAIL;
   
