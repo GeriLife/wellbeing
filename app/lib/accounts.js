@@ -1,7 +1,7 @@
 const userEmailSchema = require("./userEmailSchema");
 AccountsTemplates.configure({
   // Behavior
-  forbidClientAccountCreation: false,
+  forbidClientAccountCreation: true,
   enablePasswordChange: true,
   showForgotPasswordLink: true
 });
