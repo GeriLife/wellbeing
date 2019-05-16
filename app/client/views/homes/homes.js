@@ -14,8 +14,13 @@ Template.homes.events({
 });
 
 Template.homes.helpers({
-  groups: function() {
+  groups: function () {
     // Get all Groups
-    return Groups.find();
+    const unsortedGroups = Groups.find().fetch();
+
+    /* Sorting in mongo is case sensitive so sorting on data in meteor */
+    return  _.sortBy(unsortedGroups, function (group) {
+        return group.name.toLowerCase()
+    })
   }
 });
