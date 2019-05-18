@@ -11,7 +11,8 @@ const PermissionsSchema = new SimpleSchema({
     type: String
   },
   isManager: {
-    type: Boolean
+    type: Boolean,
+    defaultValue: false
   }
 });
 
