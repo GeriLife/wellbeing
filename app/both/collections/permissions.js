@@ -9,6 +9,9 @@ const PermissionsSchema = new SimpleSchema({
   },
   groupId: {
     type: String
+  },
+  isManager: {
+    type: Boolean
   }
 });
 

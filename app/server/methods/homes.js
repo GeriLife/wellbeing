@@ -270,5 +270,38 @@ Meteor.methods({
     }
 
     return Homes.find(selector).map(home => home._id);
+  },
+
+  assignManager({ groupId, userId }) {
+    // Get current user ID
+    const currentUserId = Meteor.userId();
+
+    // Check if current user is Admin
+    const currentUserIsAdmin = Roles.userIsInRole(currentUserId, "admin");
+    if (!currentUserIsAdmin) throw new Meteor.Error(500, 'User does not have right to perform this action')
+    if (!groupId || !userId)
+      throw new Meteor.Error(500, "Group or user not specified!");
+
+    Permissions.update({ groupId }, { $set: { isManager: false } })
+    return Permissions.update({ groupId, userId }, { $set: { isManager: true } }, { upsert: true })
+
+  },
+
+  getCurrentManager(groupId) {
+    const ManagerPermissionRecord = Permissions.findOne({ groupId, isManager: true })
+    if (!ManagerPermissionRecord) return null
+
+    else {
+      const userId = ManagerPermissionRecord.userId
+      const userInformation = Meteor.users.findOne({ _id: userId })
+      if (!userInformation) return null
+      else {
+        let address = '';
+        if (userInformation.emails.length > 0) {
+          address = userInformation.emails[0].address || ''
+        }
+        return address
+      }
+    }
   }
 });
