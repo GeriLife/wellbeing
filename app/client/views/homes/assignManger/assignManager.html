@@ -1,0 +1,34 @@
+<template name="assignManager">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {{# if Template.subscriptionsReady }}
+        <div class="modal-header">
+          {{> flashMessages}}
+          <h2 class="modal-title">
+            <i class="fa fa-home"></i>
+            {{_ "assignManager-header-text" }}
+          </h2>
+        </div>
+        <div class="modal-body">
+          {{#if currentAssignUser}}
+          <div>{{_ "assignManager-currentManager-text"}} {{ currentAssignUser }}</div>
+          {{else}}
+          <div>{{_ "assignManager-noCurrentManager"}} !</div>
+          {{/if}}
+          <br>
+          {{> quickForm 
+            id="assignManagerForm"
+            schema=assignManagerSchema
+            type="method"
+            buttonContent=buttonContent
+            meteormethod="assignManager" }}
+        </div>
+
+        {{ else }}
+        {{> spinner }}
+        {{/ if }}
+      </div>
+    </div>
+  </div>
+</template>

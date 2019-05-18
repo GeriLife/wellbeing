@@ -1,6 +1,17 @@
 Meteor.publish("allUsers", function () {
-  // Get all users
-  var users = Meteor.users.find();
+  var currentUserId = Meteor.userId();
+  
+  // Check if current user has Admin role
+  var currentUserIsAdmin = Roles.userIsInRole(currentUserId, [
+    "admin"
+  ]);
+
+  let users = [];
+
+  if(currentUserIsAdmin){
+    // Get all users
+     users = Meteor.users.find();
+  }
 
   return users;
 });
