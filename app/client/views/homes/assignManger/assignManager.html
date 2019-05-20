@@ -11,12 +11,6 @@
           </h2>
         </div>
         <div class="modal-body">
-          {{#if currentAssignUser}}
-          <div>{{_ "assignManager-currentManager-text"}} {{ currentAssignUser }}</div>
-          {{else}}
-          <div>{{_ "assignManager-noCurrentManager"}} !</div>
-          {{/if}}
-          <br>
           {{> quickForm 
             id="assignManagerForm"
             schema=assignManagerSchema

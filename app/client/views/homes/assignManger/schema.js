@@ -1,7 +1,7 @@
 import SimpleSchema from "simpl-schema";
 SimpleSchema.extendOptions(["autoform"]);
 
-const assignManagerSchema = function(users, groupId) {
+const assignManagerSchema = function(groupId) {
   return new SimpleSchema({
     groupId: {
       type: String,
@@ -16,7 +16,23 @@ const assignManagerSchema = function(users, groupId) {
       type: String,
       optional: false,
       autoform: {
-        options: users
+        options: function getAssignManagerSchemaUsers() {
+          const users = Meteor.users
+            .find()
+            .fetch()
+            .map(user => {
+              let address = "Unknown";
+              if (user.emails.length > 0) {
+                address = user.emails[0].address || "Unknown";
+              }
+              return {
+                label: address,
+                value: user._id
+              };
+            });
+
+          return users;
+        }
       }
     }
   });

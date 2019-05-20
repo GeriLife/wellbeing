@@ -278,25 +278,24 @@ Meteor.methods({
     if (!groupId || !userId)
       throw new Meteor.Error(500, "Group or user not specified!");
 
-    Permissions.update({ groupId }, { $set: { isManager: false } })
     return Permissions.update({ groupId, userId }, { $set: { isManager: true } }, { upsert: true })
 
   },
 
-  getCurrentManager(groupId) {
-    const ManagerPermissionRecord = Permissions.findOne({ groupId, isManager: true })
-    if (!ManagerPermissionRecord) return null
+  getCurrentManagers(groupId) {
+    const ManagerPermissionRecords = Permissions.find({ groupId, isManager: true })
+    if (!ManagerPermissionRecords) return ManagerPermissionRecords
 
     else {
-      const userId = ManagerPermissionRecord.userId
-      const userInformation = Meteor.users.findOne({ _id: userId })
-      if (!userInformation) return null
+      const userIds = ManagerPermissionRecords.map(permissionRecord=>permissionRecord.userId)
+      const userInformation = Meteor.users.find({ _id: {$in :userIds} })
+      if (!userInformation) return userInformation
       else {
-        let address = '';
-        if (userInformation.emails.length > 0) {
-          address = userInformation.emails[0].address || ''
-        }
-        return address
+        let userEmailAddresses = [];
+        userEmailAddresses = userInformation.map(userDetail=>{
+          return userDetail.emails[0].address          
+        })
+        return userEmailAddresses
       }
     }
   }
