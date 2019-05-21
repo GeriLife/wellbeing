@@ -17,5 +17,13 @@ Meteor.methods({
     const existingUserPermissions = Permissions.find({ userId }).fetch();
 
     return existingUserPermissions.map(permission => permission.groupId);
+  },
+  getGroupsManagedByCurrentUser() {
+    const userId = Meteor.userId();
+    const userIsAdmin = Roles.userIsInRole(userId, "admin");
+    if (!userIsAdmin) {
+      return Permissions.find({ $and: [{userId}, { isManager: true }] }).fetch();
+     
+    }
   }
 });
