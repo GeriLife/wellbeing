@@ -1,5 +1,7 @@
 <template name="residentCurrentResidency">
+  {{#if canEdit}}
   <button type="button" class="btn btn-primary btn-sm edit-residency">
     {{_ "residentCurrentResidency-editResidencyButton" }}
   </button>
+  {{/if}}
 </template>
