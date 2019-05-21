@@ -219,17 +219,26 @@ Meteor.methods({
     return { activityCounts, inactivityCounts, semiActivityCounts, date };
   },
   getHomeSelectOptionsWithGroups() {
-    // Get all Groups
-    var groups = Groups.find().fetch();
+    const userId = Meteor.userId();
+    const userIsAdmin = Roles.userIsInRole(userId, "admin");
+    let allowedGroups = []
+    if(!userIsAdmin){
+      const permissions = Meteor.call("getGroupsManagedByCurrentUser")
+      allowedGroups = (permissions || []).map(
+        permission => permission.groupId
+      );
+    } else {
+      // Get all Groups
+      const groups = Groups.find().fetch();
+      allowedGroups = _.map(groups, group=> group._id)
 
-    // Create an array of Group IDs
-    var groupIDs = _.map(groups, function(group) {
-      return group._id;
-    });
+    }
+
+  
 
     // Create select options for Homes input
     // Grouping homes by group
-    var homeSelectOptionsWithGroups = _.map(groupIDs, function(groupId) {
+    var homeSelectOptionsWithGroups = _.map(allowedGroups, function(groupId) {
       // Find the name of this group
       var groupName = Groups.findOne(groupId).name;
 
