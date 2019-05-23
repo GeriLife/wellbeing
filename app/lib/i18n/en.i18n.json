@@ -209,7 +209,7 @@
   "newHome-cancelButton-text": "Cancel",
   "newHome-header-text": "Create new home",
   "assignManager-header-text": "Assign a manager",
-  "assignManager-currentManager-text": "Current manager is: ",
+  "assignManager-currentManager-text": "Current managers are: ",
   "assignManager-noCurrentManager": "No manager assigned currently",
   "assignManager-form-submitButton-text":"Submit",
   "newHome-saveButton-text": "Save",
