@@ -55,7 +55,6 @@ Meteor.methods({
     Roles.addUsersToRoles(userId, "admin");
   },
   deleteUser (user) {
-    console.log(user);
     // Make sure user object provided with '_id' property
     check(user, Object);
     check(user._id, String);
