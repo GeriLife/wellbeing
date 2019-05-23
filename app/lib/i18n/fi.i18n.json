@@ -210,7 +210,7 @@
     "newHome-cancelButton-text": "Peruuta",
     "newHome-header-text": "Lis\u00e4\u00e4 uusi yksikk\u00f6",
     "assignManager-header-text": "Assign a manager",
-    "assignManager-currentManager-text": "Current manager is: ",
+    "assignManager-currentManager-text": "Current managers are: ",
     "assignManager-noCurrentManager": "No manager assigned currently",
     "newHome-saveButton-text": "Tallenna",
     "newResidentAndResidencySchema-homeId-label": "Yksikk\u00f6",
