@@ -307,5 +307,22 @@ Meteor.methods({
         return userEmailAddresses
       }
     }
+  },
+  isHomeManagedByUser({ userId, homeId }) {
+    const homeInformation = Homes.find({ _id: homeId }).fetch();
+    if (homeInformation && homeInformation.length > 0) {
+      const permission = Permissions.find({
+        $and: [
+          { userId },
+          { groupId: homeInformation[0].groupId },
+          { isManager: true }
+        ]
+      }).fetch()
+
+      if (permission && permission.length > 0) return true
+      return false
+
+    }
+    return false
   }
 });
