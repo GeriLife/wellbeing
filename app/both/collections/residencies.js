@@ -1,5 +1,6 @@
 import SimpleSchema from 'simpl-schema';
 import UserEventLog from '/both/collections/userEventLog';
+import { checkUserPermissions } from '../utils';
 
 Residencies = new Mongo.Collection('residencies');
 
@@ -81,65 +82,22 @@ var ResidenciesSchema = new SimpleSchema({
 Residencies.attachSchema(ResidenciesSchema);
 
 Residencies.allow({
-  'insert': function () {
-    // Get user ID
-    let userId = Meteor.userId();
-
-    // Placeholder for administrator check
-    let userIsAdministrator;
-
-    // Placeholder for insert privilege check
-    let userCanInsert;
-
-    if (userId) {
-      // Check if user is administrator
-      userIsAdministrator = Roles.userIsInRole(userId, ['admin']);
-    }
-
-    // Only allow adminstator users insert
-    userCanInsert = (userId && userIsAdministrator);
-
-    return userCanInsert;
+  'insert': function (userId, doc) {
+    return checkUserPermissions('residency', 'insert', userId, doc);
   },
-  'update': function () {
-    // Get user ID
-    let userId = Meteor.userId();
-
-    // Placeholder for administrator check
-    let userIsAdministrator;
-
-    // Placeholder for update privilege check
-    let userCanUpdate;
-
-    if (userId) {
-      // Check if user is administrator
-      userIsAdministrator = Roles.userIsInRole(userId, ['admin']);
+  'update': function (userId, doc) {
+    const residencyId = doc.Id;
+    const residency = Residencies.find({ _id: residencyId })
+    let hasDeparted = false
+    if (residency && new Date(residency.moveOut).getTime() > 0) {
+      hasDeparted = true
     }
-
-    // Only allow adminstator users insert
-    userCanUpdate = (userId && userIsAdministrator);
-
-    return userCanUpdate;
+    return checkUserPermissions('residency', 'update', userId, doc, hasDeparted);
   },
-  'remove': function () {
-    // Get user ID
-    let userId = Meteor.userId();
-
-    // Placeholder for administrator check
-    let userIsAdministrator;
-
-    // Placeholder for insert privilege check
-    let userCanRemove;
-
-    if (userId) {
-      // Check if user is administrator
-      userIsAdministrator = Roles.userIsInRole(userId, ['admin']);
-    }
-
-    // Only allow adminstator users insert
-    userCanRemove = (userId && userIsAdministrator);
-
-    return userCanRemove;
+  'remove': function (userId, doc) {
+    const residencyId = doc.Id;
+    const residency = Residencies.find({ _id: residencyId })
+    return checkUserPermissions('residency', 'remove', userId, residency);
   }
 });
 

@@ -9,7 +9,6 @@ AutoForm.addHooks("editUserForm", {
     // Add user
     Meteor.call("editUserFormSubmit", user, function (error, userId) {
       if (error) {
-        console.log(error);
         // Cancel form submission
         form.result(false);
       }
