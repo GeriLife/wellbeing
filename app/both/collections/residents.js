@@ -1,16 +1,30 @@
 import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
+SimpleSchema.extendOptions(["autoform"]);
 import UserEventLog from '/both/collections/userEventLog';
+import { checkUserPermissions } from '../utils';
 
 Residents = new Mongo.Collection('residents');
 
 var ResidentsSchema = new SimpleSchema({
   firstName: {
-    type: String
+    type: String,
+    autoform: {
+      readonly() {
+        const userId = Meteor.userId()
+        return !Roles.userIsInRole(userId, ["admin"]);
+      }
+    }
   },
   lastInitial: {
     type: String,
     max: 1,
+    autoform: {
+      readonly() {
+        const userId = Meteor.userId()
+        return !Roles.userIsInRole(userId, ["admin"]);
+      }
+    }
   },
   interestsDescription: {
     type: String,
@@ -67,65 +81,23 @@ Residents.helpers({
 });
 
 Residents.allow({
-  'insert': function () {
-    // Get user ID
-    let userId = Meteor.userId();
-
-    // Placeholder for administrator check
-    let userIsAdministrator;
-
-    // Placeholder for insert privilege check
-    let userCanInsert;
-
-    if (userId) {
-      // Check if user is administrator
-      userIsAdministrator = Roles.userIsInRole(userId, ['admin']);
-    }
-
-    // Only allow adminstator users insert
-    userCanInsert = (userId && userIsAdministrator);
-
-    return userCanInsert;
+  insert: function(userId, doc) {
+    return checkUserPermissions("resident", "insert", userId, doc);
   },
-  'update': function () {
-    // Get user ID
-    let userId = Meteor.userId();
-
-    // Placeholder for administrator check
-    let userIsAdministrator;
-
-    // Placeholder for update privilege check
-    let userCanUpdate;
-
-    if (userId) {
-      // Check if user is administrator
-      userIsAdministrator = Roles.userIsInRole(userId, ['admin']);
-    }
-
-    // Only allow adminstator users insert
-    userCanUpdate = (userId && userIsAdministrator);
-
-    return userCanUpdate;
+  update: function(userId, doc) {
+    const residentId = doc.Id;
+    const resident = Residents.find({ _id: residentId });
+    return checkUserPermissions(
+      "resident",
+      "update",
+      userId,
+      doc,
+      undefined,
+      resident
+    );
   },
-  'remove': function () {
-    /// Get user ID
-    let userId = Meteor.userId();
-
-    // Placeholder for administrator check
-    let userIsAdministrator;
-
-    // Placeholder for insert privilege check
-    let userCanRemove;
-
-    if (userId) {
-      // Check if user is administrator
-      userIsAdministrator = Roles.userIsInRole(userId, ['admin']);
-    }
-
-    // Only allow adminstator users insert
-    userCanRemove = (userId && userIsAdministrator);
-
-    return userCanRemove;
+  remove: function(userId, doc) {
+    return checkUserPermissions("resident", "remove", userId, doc);
   }
 });
 
