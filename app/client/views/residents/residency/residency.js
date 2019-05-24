@@ -9,7 +9,7 @@ Template.residentCurrentResidency.events({
 });
 
 Template.residentCurrentResidency.helpers({
-  canEdit() {
+  userCanEdit() {
     const templateInstance = Template.instance();
     return templateInstance.data.canEdit
   }

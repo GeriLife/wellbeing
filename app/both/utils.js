@@ -1,13 +1,13 @@
-const checkUserPermissions = function(
-  type,
+const checkUserPermissions = function({
+  schemaType,
   action,
   userId,
   doc,
   hasDeparted,
   oldResidentRecord
-) {
-  let userIsAdministrator,
-    isHomeManagedByUser = false;
+}) {
+  let userIsAdministrator;
+  let isHomeManagedByUser = false;
 
   if (userId) {
     // Check if user is administrator
@@ -22,7 +22,10 @@ const checkUserPermissions = function(
     }
   }
 
-  /* Check if current action is permitted */
+  /* Check if current action is permitted. 
+     By default if the manager can edit,
+     Except if the following conditions are not matched
+    */
   let canEdit = isHomeManagedByUser;
 
   // Managers cannot delete
@@ -33,7 +36,7 @@ const checkUserPermissions = function(
   // Manager cannot update an inactive residency
   if (
     isHomeManagedByUser &&
-    type === "residency" &&
+    schemaType === "residency" &&
     action === "update" &&
     hasDeparted
   ) {
@@ -46,10 +49,10 @@ const checkUserPermissions = function(
   const hasResidentRecordChanged =
     (doc.firstName && oldResidentRecord.firstName !== doc.firstName) ||
     (doc.lastInitial && oldResidentRecord.lastInitial !== doc.lastInitial);
-  
+
   if (
     isHomeManagedByUser &&
-    type === "resident" &&
+    schemaType === "resident" &&
     action === "update" &&
     hasResidentRecordChanged
   ) {
