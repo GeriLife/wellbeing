@@ -174,8 +174,8 @@
   "homes-header": "Homes",
   "homes-header-addNewButton-group": "Add Group",
   "homes-homeGroup-addNewButton-home": "Add Home",
-  "homes-homeGroup-assignManagerButton-home":"Assign Manager"
-,  "homeGroup-noHomesAdded-text": "No homes added to Group.",
+  "homes-homeGroup-assignManagerButton-home": "Assign Manager",
+  "homeGroup-noHomesAdded-text": "No homes added to Group.",
   "homeResidentsActivitiesChart-title": "Home residents activities",
   "homeResidentsActivitiesChart-yaxis-title": "Activity count",
   "homeResidentsActivitiesChart-yaxis-activity_count": "Activity Count",
@@ -211,7 +211,7 @@
   "assignManager-header-text": "Assign a manager",
   "assignManager-currentManager-text": "Current managers are: ",
   "assignManager-noCurrentManager": "No manager assigned currently",
-  "assignManager-form-submitButton-text":"Submit",
+  "assignManager-form-submitButton-text": "Submit",
   "newHome-saveButton-text": "Save",
   "newResidentAndResidencySchema-homeId-label": "Home",
   "newUser-cancelButton": "Cancel",
@@ -391,5 +391,5 @@
   "usersSettingsTable-tableHeaders-email": "Email",
   "usersSettingsTable-tableHeaders-roles": "Roles",
   "usersSettingsTable-tableHeaders-passwordActive": "Password active",
-  "userVisibleResidentNames-GroupedtByHomes-notFound":"No residents found for this user!"
+  "userVisibleResidentNames-GroupedtByHomes-notFound": "No residents found for this user!"
 }
