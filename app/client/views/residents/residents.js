@@ -5,20 +5,26 @@ Template.residents.onCreated(function() {
   templateInstance.includeDeparted = new ReactiveVar();
   templateInstance.groupsManagedByCurrentUser = new ReactiveVar([]);
   templateInstance.managesAGroup = new ReactiveVar(false);
+
+  /* Check if current user is admin */
   const currentUserId = Meteor.userId();
   const currentUserIsAdmin = Roles.userIsInRole(currentUserId, [
     "admin"
   ]);
-  templateInstance.currentUserIsAdmin = new ReactiveVar(currentUserIsAdmin)
-  Meteor.call("getGroupsManagedByCurrentUser",function(err,groups){
+  templateInstance.currentUserIsAdmin = new ReactiveVar(currentUserIsAdmin);
+
+  Meteor.call("getGroupsManagedByCurrentUser", function (err, groups) {
+
+    /* Check if the current user manages at least 1 group */
     if (currentUserIsAdmin || (groups && groups.length > 0))
-        templateInstance.managesAGroup.set(true)
-        
-    if(!err && groups){
-      const groupsManagedByCurrentUser = groups.map(group=>{
+      templateInstance.managesAGroup.set(true)
+
+    /* List of groups managed by the user */
+    if (!err && groups) {
+      const groupsManagedByCurrentUser = groups.map(group => {
         return group.groupId;
       })
-      
+
       templateInstance.groupsManagedByCurrentUser.set(
         groupsManagedByCurrentUser
       );
@@ -61,15 +67,19 @@ Template.residents.helpers({
       residencies.forEach(function(residency) {
         let residentName, homeName;
         let canEdit = false;
+        const currentUserIsAdmin = templateInstance.currentUserIsAdmin.get();
+        const hasUserDeparted = "moveOut" in residency;
+        
         const resident = Residents.findOne(residency.residentId);
         const home = Homes.findOne(residency.homeId);
-        const currentUserIsAdmin = templateInstance.currentUserIsAdmin.get() 
-        const hasDeparted = !!residency.moveOut && new Date(residency.moveOut).getTime() > 0
-        
+        const isHomeInUserManagedGroups =
+          groupsManagedByCurrentUser.indexOf(home.groupId) > -1;
+
         if (
           currentUserIsAdmin ||
-          (groupsManagedByCurrentUser.indexOf(home.groupId) > -1) && !hasDeparted) {
-          canEdit = true
+          (isHomeInUserManagedGroups && !hasUserDeparted)
+        ) {
+          canEdit = true;
         }
         if (resident) {
           residentName = resident.fullName();
