@@ -11,7 +11,13 @@ var ResidentsSchema = new SimpleSchema({
     type: String,
     autoform: {
       readonly() {
-        const userId = Meteor.userId()
+        /* 
+          User Rights:
+          Only admin can change the name of a resident. 
+          A manager can change the onHiatus field but not the name.
+          A  normal user can change none
+        */
+        const userId = Meteor.userId();
         return !Roles.userIsInRole(userId, ["admin"]);
       }
     }
@@ -21,14 +27,14 @@ var ResidentsSchema = new SimpleSchema({
     max: 1,
     autoform: {
       readonly() {
-        const userId = Meteor.userId()
+        const userId = Meteor.userId();
         return !Roles.userIsInRole(userId, ["admin"]);
       }
     }
   },
   interestsDescription: {
     type: String,
-    optional: true,
+    optional: true
   },
   onHiatus: {
     type: Boolean,
@@ -82,22 +88,29 @@ Residents.helpers({
 
 Residents.allow({
   insert: function(userId, doc) {
-    return checkUserPermissions("resident", "insert", userId, doc);
+    const schemaType = "resident";
+    const action = "insert";
+
+    return checkUserPermissions({ schemaType, action, userId, doc });
   },
   update: function(userId, doc) {
     const residentId = doc.Id;
-    const resident = Residents.find({ _id: residentId });
-    return checkUserPermissions(
-      "resident",
-      "update",
+    const oldResidentRecord = Residents.findOne({ _id: residentId });
+    const schemaType = "resident";
+    const action = "insert";
+
+    return checkUserPermissions({
+      schemaType,
+      action,
       userId,
       doc,
-      undefined,
-      resident
-    );
+      oldResidentRecord
+    });
   },
-  remove: function(userId, doc) {
-    return checkUserPermissions("resident", "remove", userId, doc);
+  remove: function (userId, doc) {
+    const schemaType = "resident";
+    const action = "insert";
+    return checkUserPermissions({ schemaType, action, userId, doc });
   }
 });
 

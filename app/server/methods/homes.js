@@ -219,18 +219,24 @@ Meteor.methods({
     return { activityCounts, inactivityCounts, semiActivityCounts, date };
   },
   getHomeSelectOptionsWithGroups() {
+
+    let allowedGroups = [];
+
+    /* If user is admin */
     const userId = Meteor.userId();
     const userIsAdmin = Roles.userIsInRole(userId, "admin");
-    let allowedGroups = []
-    if(!userIsAdmin){
-      const permissions = Meteor.call("getGroupsManagedByCurrentUser")
+    if (!userIsAdmin) {
+
+      const permissions = Meteor.call("getGroupsManagedByCurrentUser");
+      
       allowedGroups = (permissions || []).map(
         permission => permission.groupId
       );
+
     } else {
       // Get all Groups
       const groups = Groups.find().fetch();
-      allowedGroups = _.map(groups, group=> group._id)
+      allowedGroups = _.map(groups, group => group._id)
 
     }
 
@@ -309,18 +315,22 @@ Meteor.methods({
     }
   },
   isHomeManagedByUser({ userId, homeId }) {
-    const homeInformation = Homes.find({ _id: homeId }).fetch();
-    if (homeInformation && homeInformation.length > 0) {
-      const permission = Permissions.find({
+
+    const home = Homes.findOne({ _id: homeId });
+
+    if (home) {
+
+      const permission = Permissions.findOne({
         $and: [
           { userId },
-          { groupId: homeInformation[0].groupId },
+          { groupId: home.groupId },
           { isManager: true }
         ]
-      }).fetch()
+      });
 
-      if (permission && permission.length > 0) return true
-      return false
+      /* If a permission with manager rights exists return true. */
+      return !!permission
+
 
     }
     return false
