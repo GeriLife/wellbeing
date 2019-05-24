@@ -82,22 +82,39 @@ var ResidenciesSchema = new SimpleSchema({
 Residencies.attachSchema(ResidenciesSchema);
 
 Residencies.allow({
-  'insert': function (userId, doc) {
-    return checkUserPermissions('residency', 'insert', userId, doc);
+  insert: function (userId, doc) {
+    const schemaType = "resident";
+    const action = "insert";
+    return checkUserPermissions({ schemaType, action, userId, doc });
   },
-  'update': function (userId, doc) {
+  update: function (userId, doc) {
+    const schemaType = "resident";
+    const action = "insert";
     const residencyId = doc.Id;
-    const residency = Residencies.find({ _id: residencyId })
-    let hasDeparted = false
-    if (residency && new Date(residency.moveOut).getTime() > 0) {
-      hasDeparted = true
-    }
-    return checkUserPermissions('residency', 'update', userId, doc, hasDeparted);
+
+    const residency = Residencies.findOne({
+      $and: [{
+        _id: residencyId
+      }, {
+        moveOut: {
+          $exists: true
+        }
+      }]
+    });
+    const hasDeparted = !!residency ? true : false;
+
+    return checkUserPermissions({
+      schemaType,
+      action,
+      userId,
+      doc,
+      hasDeparted
+    });
   },
-  'remove': function (userId, doc) {
-    const residencyId = doc.Id;
-    const residency = Residencies.find({ _id: residencyId })
-    return checkUserPermissions('residency', 'remove', userId, residency);
+  remove: function (userId) {
+    const schemaType = "resident";
+    const action = "insert";
+    return checkUserPermissions({ schemaType, action, userId });
   }
 });
 
