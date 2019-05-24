@@ -2,28 +2,34 @@ import assignManagerSchema from "./schema";
 
 Template.assignManager.onCreated(function() {
   const templateInstance = this;
+  const groupId = templateInstance.data.groupId;
   templateInstance.subscribe("allUsers");
   templateInstance.currentManagers = new ReactiveVar(null);
-  Meteor.call("getCurrentManagers", templateInstance.data.groupId, function(
-    err,
-    userEmails
-  ) {
-    if (!err && userEmails && userEmails.length > 0) {
+
+  Meteor.call("getCurrentManagers", groupId, function(err, userEmails) {
+    const hasUserEmails = userEmails && userEmails.length > 0;
+
+    if (!err && hasUserEmails) {
       templateInstance.currentManagers.set(userEmails);
     }
   });
 });
 
 Template.assignManager.helpers({
+
   assignManagerSchema() {
-    return assignManagerSchema(Template.instance().data.groupId);
+    const groupId = Template.instance().data.groupId;
+    return assignManagerSchema(groupId);
   },
+
   buttonContent() {
     return TAPi18n.__("assignManager-form-submitButton-text");
   },
+
   currentManagers() {
     const currentManagers = Template.instance().currentManagers.get();
+    
     if (!currentManagers) return currentManagers;
-    return currentManagers.join(", ")
+    return currentManagers.join(", ");
   }
 });
