@@ -8,22 +8,45 @@
           <h2 class="modal-title">
             <i class="fa fa-home"></i>
             {{_ "assignManager-header-text" }}
+            <button
+              type="button"
+              id="closeAssignManagerModal"
+              class="btn btn-default pull-right"
+            >
+              <i class="fa fa-remove" aria-hidden="true"></i>
+            </button>
           </h2>
         </div>
         <div class="modal-body">
+          <label>{{_ "assignManager-addNew-label"}}</label>
+
+          {{> quickForm 
+              id="assignManagerForm"
+              schema=assignManagerSchema
+              type="method"
+              buttonContent=buttonContent
+              meteormethod="assignManager" }}
+
           {{#if currentManagers}}
+          <br />
           <div>
-            {{_ "assignManager-currentManager-text"}} {{ currentManagers }}
+            {{>
+              reactiveTableFilter
+              id="addressFilter"
+              label=addressFilterLabel
+              fields=addressFilterFields }}
           </div>
+
+          <div>
+            {{> reactiveTable
+              collection=currentManagers
+              settings=tableSettings }}
+          </div>
+
           {{else}}
           <div>{{_ "assignManager-noCurrentManager"}}.</div>
+
           {{/if}}
-          {{> quickForm 
-            id="assignManagerForm"
-            schema=assignManagerSchema
-            type="method"
-            buttonContent=buttonContent
-            meteormethod="assignManager" }}
         </div>
 
         {{ else }}
