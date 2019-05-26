@@ -302,15 +302,18 @@ Meteor.methods({
     if (!ManagerPermissionRecords) return ManagerPermissionRecords
 
     else {
-      const userIds = ManagerPermissionRecords.map(permissionRecord=>permissionRecord.userId)
-      const userInformation = Meteor.users.find({ _id: {$in :userIds} })
+      const userIds = ManagerPermissionRecords.map(permissionRecord => permissionRecord.userId)
+      const userInformation = Meteor.users.find({ _id: { $in: userIds } })
       if (!userInformation) return userInformation
       else {
-        let userEmailAddresses = [];
-        userEmailAddresses = userInformation.map(userDetail=>{
-          return userDetail.emails[0].address          
+        let userWithEmailAddress = [];
+        userWithEmailAddress = userInformation.map(userDetail => {
+          return {
+            userId: userDetail._id,
+            address: userDetail.emails[0].address
+          }
         })
-        return userEmailAddresses
+        return userWithEmailAddress
       }
     }
   },
