@@ -12,9 +12,6 @@ var ResidentsSchema = new SimpleSchema({
     type: String,
     max: 1,
   },
-  homeId: {
-    type: String,
-  },
   interestsDescription: {
     type: String,
     optional: true,
@@ -66,11 +63,6 @@ Residents.helpers({
     // make sure activities are in the past (i.e. not planned)
     //  sort in reverse order by activity date
     return Activities.find({'residentIds': residentId, activityDate: {$gte: twoWeeksAgo, $lte: now}}, {sort : {activityDate:  -1} });
-  },
-  homeName: function () {
-    var homeId = this.homeId;
-    var home = Homes.findOne(homeId);
-    return home.name;
   }
 });
 
