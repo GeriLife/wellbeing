@@ -14,7 +14,7 @@ Meteor.methods({
 
       // Create new resident
       // TODO: migrate homeId out of resident schema
-      const residentId = Residents.insert({ firstName, lastInitial, homeId });
+      const residentId = Residents.insert({ firstName, lastInitial });
 
       if (residentId) {
         // Insert residency document
