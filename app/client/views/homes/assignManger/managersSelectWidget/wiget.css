@@ -1,0 +1,4 @@
+[name=users] .ss-multi-selected .ss-values{
+    max-height: 43px;
+    overflow-y: auto;
+}

@@ -1,6 +1,13 @@
 import SimpleSchema from "simpl-schema";
 SimpleSchema.extendOptions(["autoform"]);
 
+AutoForm.addInputType("managerSelectFormTemplate", {
+  template: "managerSelectFormTemplate",
+  valueIsArray: true,
+  valueOut() {
+    return this.val();
+  }
+});
 const assignManagerSchema = function(groupId) {
   return new SimpleSchema({
     groupId: {
@@ -12,10 +19,11 @@ const assignManagerSchema = function(groupId) {
         label: false
       }
     },
-    userId: {
-      type: String,
+    users: {
+      type: Array,
       optional: false,
       autoform: {
+        type: "managerSelectFormTemplate",
         options: function getAssignManagerSchemaUsers() {
           const users = Meteor.users
             .find()
@@ -34,6 +42,9 @@ const assignManagerSchema = function(groupId) {
           return users;
         }
       }
+    },
+    "users.$": {
+      type: String
     }
   });
 };
