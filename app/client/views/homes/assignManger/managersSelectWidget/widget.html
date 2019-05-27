@@ -1,0 +1,12 @@
+<template name="managersSelectWidget">
+  <div name="managersSelectForm" class="form-group">
+    <label for="">
+      {{_ "assignManager-addNew-label"}}
+    </label>
+    <select multiple data-schema-key {{atts}} class="form-control" name="users">
+      {{#each groupSelectOptions}}
+      <option value="{{ value }}" {{selected}}>{{ label }}</option>
+      {{/each}}
+    </select>
+  </div>
+</template>

@@ -283,18 +283,47 @@ Meteor.methods({
     return Homes.find(selector).map(home => home._id);
   },
 
-  assignManager({ groupId, userId }) {
+  assignManager({ groupId, users }) {
     // Get current user ID
     const currentUserId = Meteor.userId();
 
     // Check if current user is Admin
     const currentUserIsAdmin = Roles.userIsInRole(currentUserId, "admin");
-    if (!currentUserIsAdmin) throw new Meteor.Error(500, 'User does not have right to perform this action')
-    if (!groupId || !userId)
-      throw new Meteor.Error(500, "Group or user not specified!");
+    if (!currentUserIsAdmin) throw new Meteor.Error(500, 'User does not have right to perform this action');
 
-    return Permissions.update({ groupId, userId }, { $set: { isManager: true } }, { upsert: true })
+    // If groupId is not specified
+    if (!groupId) throw new Meteor.Error(500, "Group not specified");
+    if (users && users.length > 0) {
 
+      /* Even if permission for one user is not updated it will return false */
+      const allPermissionsUpdated = users.every(userId => {
+        try {
+          /* rowsUpdated=0 means no rows updated */
+          const rowsUpdated = Permissions.update({
+            groupId,
+            userId
+          }, {
+            $set: {
+              isManager: true
+            }
+            }, {
+              upsert: true
+            });
+          return rowsUpdated >= 0;
+        } catch (error) {
+          throw new Meteor.Error(500, error.toString());
+
+        }
+      })
+      if (!allPermissionsUpdated)
+        throw new Meteor.Error(500, "Could not update all permissions");
+      return allPermissionsUpdated;
+    } else {
+
+      /* If user array is empty */
+      throw new Meteor.Error(500, "Users not selected.");
+
+    }
   },
 
   getCurrentManagers(groupId) {
@@ -302,8 +331,8 @@ Meteor.methods({
     if (!ManagerPermissionRecords) return ManagerPermissionRecords
 
     else {
-      const userIds = ManagerPermissionRecords.map(permissionRecord => permissionRecord.userId)
-      const userInformation = Meteor.users.find({ _id: { $in: userIds } })
+      const userIds = ManagerPermissionRecords.map(permissionRecord => permissionRecord.userId);
+      const userInformation = Meteor.users.find({ _id: { $in: userIds } });
       if (!userInformation) return userInformation
       else {
         let userWithEmailAddress = [];
@@ -313,7 +342,7 @@ Meteor.methods({
             address: userDetail.emails[0].address
           }
         })
-        return userWithEmailAddress
+        return userWithEmailAddress;
       }
     }
   },
