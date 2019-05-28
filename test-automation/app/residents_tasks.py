@@ -59,12 +59,10 @@ def go_to_page(page):
     return initial_rows == final_rows
 
 
-def add_resident(first_name, last_name, home, departed):
+def add_resident(first_name, last_name, departed):
     find_element(residents_add).click()
     find_element_by_name("firstName").send_keys(first_name)
-    find_element_by_name("lastInitial").send_keys(last_name)
-    home_select = Select(find_element_by_name("homeId"))
-    home_select.select_by_visible_text(home)
+    find_element_by_name("lastInitial").send_keys(last_name)    
     if departed:
         find_element_by_name("departed").click()
     #TODO find out how to delete users and then press the button
