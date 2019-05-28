@@ -112,13 +112,13 @@ function createMockHomes() {
 
 function createMockResidents() {
   console.log('Creating mock residents');
-  var amount = 6;
-  var homes = Homes.find().fetch();
-  var firstName = function() {return faker.name.firstName();};
-  var lastInitial =  function() {return faker.name.lastName().charAt(0);};
-  for (var i = 0; i < homes.length; i++) {
-    var args = {'firstName': firstName, 'lastInitial': lastInitial, 'homeId': homes[i]._id};
-    insert(Residents, args, amount,true);
+  const amount = 6;
+  const homes = Homes.find().count();
+  const firstName = function () { return faker.name.firstName(); };
+  const lastInitial = function () { return faker.name.lastName().charAt(0); };
+  for (let i = 0; i < homes; i++) {
+    const args = { 'firstName': firstName, 'lastInitial': lastInitial };
+    insert(Residents, args, amount, true);
   }
 
 }
@@ -183,6 +183,12 @@ function getRandomHomeButExcludeCurrent(currentHomeId) {
   return _.sample(homeIds)
 }
 
+function getRandomHomeId(){
+  var homeIds = Homes.find().map(function (e) { return e._id; });
+
+  return _.sample(homeIds)
+}
+
   /*
     This function assumes residents are already added.
     then adds residency for every resident
@@ -203,7 +209,7 @@ function createMockResidency(startingPoint = defaultStartingPoint, percentMovedO
   const indexWhereMovedOut = residents.length - Math.round(residents.length * percentMovedOut)
   residents.forEach(function(resident, index) {
     let moveInDate = getRandomMoveInDate(startingPoint);
-
+    resident.homeId = getRandomHomeId()
     console.log(moveInDate);
 
     var args = { "residentId": resident._id, 'homeId': resident.homeId, 'moveIn': moveInDate }
