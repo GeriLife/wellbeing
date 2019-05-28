@@ -10,7 +10,6 @@ Meteor.publishComposite('residentProfileComposite', function (residentId) {
       // Some fields should only be published to authenticated users
       if (Meteor.user) {
         fields.lastInitial = 1;
-        fields.homeId = 1;
         fields.onHiatus = 1;
         fields.departed = 1;
       }

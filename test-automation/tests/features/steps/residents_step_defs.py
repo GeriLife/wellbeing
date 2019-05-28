@@ -40,8 +40,7 @@ def user_can_change_page(self):
 def user_adds_resident(self, nullify):
     first_name = "test_first_name"
     last_name = "test_last_name"
-    home = "Usko"
     if nullify:
-        add_resident(first_name, last_name, home, True)
+        add_resident(first_name, last_name, True)
     else:
-        add_resident(first_name, last_name, home, False)
+        add_resident(first_name, last_name, False)
