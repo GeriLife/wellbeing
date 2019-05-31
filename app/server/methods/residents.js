@@ -166,5 +166,20 @@ Meteor.methods({
     });
 
     return residentsSelectOptions;
+  },
+  getResidentsWithoutActiveResidencies() {
+    const activeResidencies = Meteor.call("getCurrentResidencies");
+    const activeResidents = activeResidencies.map(residency => residency.residentId);
+
+    return Residents.find({
+      _id: {
+        $nin: activeResidents
+      }
+    }, {
+        sort: {
+          firstName: 1,
+          lastInitial: 1
+        }
+      }).fetch();
   }
 });
