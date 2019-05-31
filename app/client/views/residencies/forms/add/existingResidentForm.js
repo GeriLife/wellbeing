@@ -3,36 +3,53 @@ Template.addResidencyForExistingResidentForm.onCreated(function () {
 
   // reactive placeholder for home select options with groups
   templateInstance.homeSelectOptionsWithGroups = new ReactiveVar();
+  templateInstance.residentsWithoutActiveResidencies = new ReactiveVar();
 
   // get home select options with groups from server
-  Meteor.call('getHomeSelectOptionsWithGroups', (error, homeSelectOptionsWithGroups) => {
-    // update reactive variable with home select options
-    templateInstance.homeSelectOptionsWithGroups.set(homeSelectOptionsWithGroups)
-  });
+  Meteor.call(
+    "getHomeSelectOptionsWithGroups",
+    (error, homeSelectOptionsWithGroups) => {
+      // update reactive variable with home select options
+      templateInstance.homeSelectOptionsWithGroups.set(
+        homeSelectOptionsWithGroups
+      );
+    }
+  );
+  Meteor.call(
+    "getResidentsWithoutActiveResidencies",
+    (error, residentsWithoutActiveResidencies) => {
+      templateInstance.residentsWithoutActiveResidencies.set(
+        residentsWithoutActiveResidencies
+      );
+    }
+  );
+
 });
 
 Template.addResidencyForExistingResidentForm.helpers({
-  homeSelectOptionsWithGroups () {
+  homeSelectOptionsWithGroups() {
     // Get reference to template instance
     const templateInstance = Template.instance();
 
     // Get home select options with groups
-    return templateInstance.homeSelectOptionsWithGroups.get()
+    return templateInstance.homeSelectOptionsWithGroups.get();
   },
-  residentIdOptions () {
+  residentIdOptions() {
     // Get all residents
-    const residents = Residents.find({}, {sort: {firstName: 1, lastInitial: 1}}).fetch();
+    const residents = Template.instance().residentsWithoutActiveResidencies.get();
 
     // create options list for select
-    residentOptions = _.map(residents, function (resident) {
+    const residentOptions = _.map(residents, function (resident) {
       // Create option for this resident, with ID as the value
-      return {label: resident.fullName(), value: resident._id};
+      const { firstName, lastInitial } = resident;
+      const fullName = [firstName, lastInitial].join(" ");
+      return { label: fullName, value: resident._id };
     });
 
     return residentOptions;
   },
-  today () {
+  today() {
     // Default date today, as a string
     return Date();
-  },
+  }
 });
