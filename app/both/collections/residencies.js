@@ -6,6 +6,18 @@ Residencies = new Mongo.Collection('residencies');
 var ResidenciesSchema = new SimpleSchema({
   residentId: {
     type: String,
+    custom() {
+
+      const residentId = this.value;
+      const moveOut = this.field('moveOut').value;
+      const residencyId = this.docId;
+
+      if (hasOtherActiveResidencies(residentId, residencyId, moveOut)) {
+        /* Error message key to indicate the entry is not allowed */
+        return 'notAllowed';
+      }
+
+    }
   },
   homeId: {
     type: String,
@@ -162,4 +174,29 @@ function validateDate(moveIn, moveOut) {
   1) if the moveOut date is not specified or 
   2) it is a date greater than move in date, it returns true */
   return true
+}
+
+
+/*Check if the current resident has other residencies */
+
+function hasOtherActiveResidencies(residentId, residencyId, moveOut) {
+
+  /* Move out date is set to 01-01-1970
+  so need to check timestamp for validation  */
+  const moveOutTimeStamp = new Date(moveOut).getTime();
+
+  if (!moveOutTimeStamp > 0) {
+    const condition = { residentId, moveOut: { $exists: false } };
+    if (residencyId) {
+      condition._id = { $ne: residencyId }
+    }
+
+    const activeResidencies = Residencies.find(condition).count();
+    return activeResidencies > 0
+  }
+
+  /* If moveout date is added to current record
+  it means that the residency to be inserted/updated is not active 
+  so no need for checking*/
+  return false
 }
