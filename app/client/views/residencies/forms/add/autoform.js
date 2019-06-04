@@ -1,22 +1,10 @@
 AutoForm.hooks({
   addNewResidentAndResidency: {
-    onSuccess(formType, success) {
-      // check if submission was successful
-      if (success) {
-        // Hide modal dialogue
-        Modal.hide("addResidencyModal");
-      }
-    },
+    onSuccess,
     onError
   },
   addResidencyForExistingResident: {
-    onSuccess(formType, success) {
-      // check if submission was successful
-      if (success) {
-        // Hide modal dialogue
-        Modal.hide("addResidencyModal");
-      }
-    },
+    onSuccess,
     onError
   }
 });
@@ -29,5 +17,13 @@ function onError(formType, error) {
   } else if (error.message) {
     /* If a form input is invalid flash message is displayed*/
     FlashMessages.sendError(error.message, { autoHide: false });
+  }
+}
+
+function onSuccess(formType, success) {
+  // check if submission was successful
+  if (success) {
+    // Hide modal dialogue
+    Modal.hide("addResidencyModal");
   }
 }
