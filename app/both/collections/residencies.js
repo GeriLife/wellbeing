@@ -8,9 +8,6 @@ var ResidenciesSchema = new SimpleSchema({
     type: String,
     custom() {
       const residencyId = this.docId;
-      let residentId = "";
-      let moveOut = 0;
-      let moveIn = 0;
       let currentRecord = {};
       if (residencyId) {
         currentRecord = this.obj && this.obj.$set ? this.obj.$set : {};
@@ -18,35 +15,11 @@ var ResidenciesSchema = new SimpleSchema({
         currentRecord = this.obj ? this.obj : {};
       }
 
-      residentId = currentRecord.residencyId || this.value;
-      moveOut = currentRecord.moveOut;
-      moveIn = currentRecord.moveIn;
+      let residentId = currentRecord.residencyId || this.value;
+      let { moveOut, moveIn } = currentRecord;
 
-      // In edit server method is called
-      if (Meteor.isServer) {
-        if (
-          Meteor.call("hasOtherActiveResidencies", {
-            residentId,
-            residencyId,
-            moveOut,
-            moveIn
-          })
-        ) {
-          /* Error message key to indicate the entry is not allowed */
-          return "notAllowed";
-        }
-      } else {
-        // When adding new residency method executed from client
-        Meteor.call(
-          "hasOtherActiveResidencies",
-          { residentId, residencyId, moveOut, moveIn },
-          function(err, hasOtherActiveResidencies) {
-            if (!err && hasOtherActiveResidencies)
-              /* Error message key to indicate the entry is not allowed */
-              return "notAllowed";
-          }
-        );
-      }
+      /* Error message key to indicate the entry is not allowed */
+      if (hasOtherActiveResidencies(residentId, residencyId, moveOut, moveIn)) return "notAllowed";
     }
   },
   homeId: {
@@ -204,4 +177,26 @@ function validateDate(moveIn, moveOut) {
   1) if the moveOut date is not specified or 
   2) it is a date greater than move in date, it returns true */
   return true
+}
+
+function hasOtherActiveResidencies(residentId, residencyId, moveOut, moveIn) {
+  // In edit server method is called
+  if (Meteor.isServer) {
+    return Meteor.call("hasOtherActiveResidencies", {
+      residentId,
+      residencyId,
+      moveOut,
+      moveIn
+    });
+  } else {
+    // When adding new residency method executed from client
+    Meteor.call(
+      "hasOtherActiveResidencies",
+      { residentId, residencyId, moveOut, moveIn },
+      function (err, hasOtherActiveResidencies) {
+        /* Error message key to indicate the entry is not allowed */
+        if (!err) return hasOtherActiveResidencies;
+      }
+    );
+  }
 }
