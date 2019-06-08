@@ -81,5 +81,119 @@ Meteor.methods({
     }
 
     return Residencies.find(selector).map(residency => residency._id);
+  },
+
+  /*Check if the current resident has other residencies */
+  hasOtherActiveResidencies({residentId, residencyId, moveOut, moveIn}) {
+    console.log({residentId, residencyId, moveOut, moveIn},"jbdhfbdbhjdf")
+    /* Move out date is set to 01-01-1970
+    so need to check timestamp for validation  */
+    const moveOutTimeStamp = new Date(moveOut).getTime();
+  
+    // Check for current resident
+    let condition = { residentId };
+  
+    // Skip current residency -- edit mode
+    if (residencyId) {
+      condition._id = { $ne: residencyId };
+    }
+  
+    const otherActiveResidencyDuringCurrent = {
+      $or: []
+    };
+    if (moveOutTimeStamp > 0) {
+      //If a residency starts or end during cuurrent
+      /* 
+      Existing Residnecy => |------
+      Current Record => o------
+      Cases:
+      |-------------|   |--------------|
+                     |--|
+            o----------------------o  
+      */
+      otherActiveResidencyDuringCurrent["$or"].push({
+        $or: [
+          {
+            $and: [
+              { moveOut: { $gte: moveIn } },
+              { moveOut: { $lte: moveOut } }
+            ]
+          },
+          {
+            $and: [{ moveIn: { $gte: moveIn } }, { moveIn: { $lte: moveOut } }]
+          }
+        ]
+      });
+  
+      // If a current record is during another residency or it overlaps an active Residency
+      /* 
+      Existing Residnecy => |------
+      Current Record => o------
+      Cases:
+      |-------------------------------|
+                |-------------------------
+      |----------------------------
+            o---------------o  
+      */
+      otherActiveResidencyDuringCurrent["$or"].push({
+        $and: [
+          { moveIn: { $lt: moveOut } },
+          {
+            $or: [
+              { moveOut: { $gte: moveOut } },
+              { moveOut: { $exists: false } }
+            ]
+          }
+        ]
+      })
+    } else {
+      // If a residency ends after this moveIn
+      /* 
+      Existing Residnecy => |------
+      Current Record => o------
+      Cases:
+      |------------------|
+          o-----------------------  
+      */
+      otherActiveResidencyDuringCurrent["$or"].push({
+        moveOut: { $gt: moveIn }
+      });
+  
+      // If a residency starts after current moveIn
+      /* 
+      Existing Residnecy => |------
+      Current Record => o------
+      Cases:
+                |------------------|
+            |------------------------    
+          o-----------------------  
+      */
+      otherActiveResidencyDuringCurrent["$or"].push({
+        moveIn: { $gte: moveIn }
+      });
+  
+      // If there already exists an active residency
+      /* 
+      Existing Residnecy => |------
+      Current Record => o------
+      Cases:
+      |----------------------
+          o-----------------------  
+      */
+      otherActiveResidencyDuringCurrent["$or"].push({
+        $and: [
+          {
+            moveIn: { $lte: moveIn }
+          },
+          {
+            moveOut: { $exists: false }
+          }
+        ]
+      });
+    }
+    condition = { ...condition, ...otherActiveResidencyDuringCurrent }
+    const activeResidencies = Residencies.find(condition).count();
+  
+    return activeResidencies > 0;
   }
 });
