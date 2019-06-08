@@ -84,116 +84,144 @@ Meteor.methods({
   },
 
   /*Check if the current resident has other residencies */
-  hasOtherActiveResidencies({residentId, residencyId, moveOut, moveIn}) {
-    console.log({residentId, residencyId, moveOut, moveIn},"jbdhfbdbhjdf")
+  hasOtherActiveResidencies({ residentId, residencyId, moveOut, moveIn }) {
     /* Move out date is set to 01-01-1970
     so need to check timestamp for validation  */
     const moveOutTimeStamp = new Date(moveOut).getTime();
-  
+
     // Check for current resident
     let condition = { residentId };
-  
+
     // Skip current residency -- edit mode
     if (residencyId) {
       condition._id = { $ne: residencyId };
     }
-  
-    const otherActiveResidencyDuringCurrent = {
-      $or: []
-    };
+
+    let otherActiveResidencyDuringCurrent = {};
     if (moveOutTimeStamp > 0) {
-      //If a residency starts or end during cuurrent
-      /* 
-      Existing Residnecy => |------
-      Current Record => o------
-      Cases:
-      |-------------|   |--------------|
-                     |--|
-            o----------------------o  
-      */
-      otherActiveResidencyDuringCurrent["$or"].push({
-        $or: [
-          {
-            $and: [
-              { moveOut: { $gte: moveIn } },
-              { moveOut: { $lte: moveOut } }
-            ]
-          },
-          {
-            $and: [{ moveIn: { $gte: moveIn } }, { moveIn: { $lte: moveOut } }]
-          }
-        ]
+      otherActiveResidencyDuringCurrent = buildConditionWhenMoveOutExists({
+        residentId,
+        residencyId,
+        moveOut,
+        moveIn
       });
-  
-      // If a current record is during another residency or it overlaps an active Residency
-      /* 
-      Existing Residnecy => |------
-      Current Record => o------
-      Cases:
-      |-------------------------------|
-                |-------------------------
-      |----------------------------
-            o---------------o  
-      */
-      otherActiveResidencyDuringCurrent["$or"].push({
-        $and: [
-          { moveIn: { $lt: moveOut } },
-          {
-            $or: [
-              { moveOut: { $gte: moveOut } },
-              { moveOut: { $exists: false } }
-            ]
-          }
-        ]
-      })
     } else {
-      // If a residency ends after this moveIn
-      /* 
-      Existing Residnecy => |------
-      Current Record => o------
-      Cases:
-      |------------------|
-          o-----------------------  
-      */
-      otherActiveResidencyDuringCurrent["$or"].push({
-        moveOut: { $gt: moveIn }
-      });
-  
-      // If a residency starts after current moveIn
-      /* 
-      Existing Residnecy => |------
-      Current Record => o------
-      Cases:
-                |------------------|
-            |------------------------    
-          o-----------------------  
-      */
-      otherActiveResidencyDuringCurrent["$or"].push({
-        moveIn: { $gte: moveIn }
-      });
-  
-      // If there already exists an active residency
-      /* 
-      Existing Residnecy => |------
-      Current Record => o------
-      Cases:
-      |----------------------
-          o-----------------------  
-      */
-      otherActiveResidencyDuringCurrent["$or"].push({
-        $and: [
-          {
-            moveIn: { $lte: moveIn }
-          },
-          {
-            moveOut: { $exists: false }
-          }
-        ]
+      otherActiveResidencyDuringCurrent = buildConditionWhenMoveOutNotExists({
+        residentId,
+        residencyId,
+        moveOut,
+        moveIn
       });
     }
-    condition = { ...condition, ...otherActiveResidencyDuringCurrent }
+    condition = { ...condition, ...otherActiveResidencyDuringCurrent };
     const activeResidencies = Residencies.find(condition).count();
-  
+    console.log(condition,activeResidencies,Residencies.find(condition).fetch())
     return activeResidencies > 0;
   }
 });
+
+function buildConditionWhenMoveOutExists({
+  residentId,
+  residencyId,
+  moveOut,
+  moveIn
+}) {
+  const otherActiveResidencyDuringCurrent = {
+    $or: []
+  };
+
+  //If a residency starts or end during cuurrent
+  /* 
+  Existing Residnecy => |------
+  Current Record => o------
+  Cases:
+  |-------------|   |--------------|
+                 |--|
+        o----------------------o  
+  */
+  otherActiveResidencyDuringCurrent["$or"].push({
+    $or: [
+      {
+        $and: [{ moveOut: { $gte: moveIn } }, { moveOut: { $lte: moveOut } }]
+      },
+      {
+        $and: [{ moveIn: { $gte: moveIn } }, { moveIn: { $lte: moveOut } }]
+      }
+    ]
+  });
+
+  // If a current record is during another residency or it overlaps an active Residency
+  /* 
+  Existing Residnecy => |------
+  Current Record => o------
+  Cases:
+  |-------------------------------|
+            |-------------------------
+  |----------------------------
+        o---------------o  
+  */
+  otherActiveResidencyDuringCurrent["$or"].push({
+    $and: [
+      { moveIn: { $lt: moveOut } },
+      {
+        $or: [{ moveOut: { $gte: moveOut } }, { moveOut: { $exists: false } }]
+      }
+    ]
+  });
+  return otherActiveResidencyDuringCurrent;
+}
+
+function buildConditionWhenMoveOutNotExists({
+  residentId,
+  residencyId,
+  moveOut,
+  moveIn
+}) {
+  const otherActiveResidencyDuringCurrent = {
+    $or: []
+  };
+  // If a residency ends after this moveIn
+  /* 
+  Existing Residnecy => |------
+  Current Record => o------
+  Cases:
+  |------------------|
+      o-----------------------  
+  */
+  otherActiveResidencyDuringCurrent["$or"].push({
+    moveOut: { $gt: moveIn }
+  });
+
+  // If a residency starts after current moveIn
+  /* 
+  Existing Residnecy => |------
+  Current Record => o------
+  Cases:
+            |------------------|
+        |------------------------    
+      o-----------------------  
+  */
+  otherActiveResidencyDuringCurrent["$or"].push({
+    moveIn: { $gte: moveIn }
+  });
+
+  // If there already exists an active residency
+  /* 
+  Existing Residnecy => |------
+  Current Record => o------
+  Cases:
+  |----------------------
+      o-----------------------  
+  */
+  otherActiveResidencyDuringCurrent["$or"].push({
+    $and: [
+      {
+        moveIn: { $lte: moveIn }
+      },
+      {
+        moveOut: { $exists: false }
+      }
+    ]
+  });
+  return otherActiveResidencyDuringCurrent;
+}
