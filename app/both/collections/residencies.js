@@ -8,56 +8,59 @@ var ResidenciesSchema = new SimpleSchema({
     type: String,
     custom() {
       const residencyId = this.docId;
-      let residentId = '';
+      let residentId = "";
       let moveOut = 0;
       let moveIn = 0;
-
-      if (this.obj && this.obj.$set && residencyId) {
-
-        // If existing residency is edited
-        residentId = this.obj.$set.residencyId || this.value;
-        moveOut = this.obj.$set.moveOut;
-        moveIn = this.obj.$set.moveIn;
-
-      } else if (this.obj) {
-
-        // If new residency is added
-        residentId = this.obj.residencyId || this.value;
-        moveOut = this.obj.moveOut;
-        moveIn = this.obj.moveIn;
+      let currentRecord = {};
+      if (residencyId) {
+        currentRecord = this.obj && this.obj.$set ? this.obj.$set : {};
+      } else {
+        currentRecord = this.obj ? this.obj : {};
       }
+
+      residentId = currentRecord.residencyId || this.value;
+      moveOut = currentRecord.moveOut;
+      moveIn = currentRecord.moveIn;
 
       // In edit server method is called
       if (Meteor.isServer) {
-        if (Meteor.call('hasOtherActiveResidencies', { residentId, residencyId, moveOut, moveIn })) {
+        if (
+          Meteor.call("hasOtherActiveResidencies", {
+            residentId,
+            residencyId,
+            moveOut,
+            moveIn
+          })
+        ) {
           /* Error message key to indicate the entry is not allowed */
-          return 'notAllowed';
+          return "notAllowed";
         }
       } else {
-
         // When adding new residency method executed from client
-        Meteor.call('hasOtherActiveResidencies', { residentId, residencyId, moveOut, moveIn }, function (err, hasOtherActiveResidencies) {
-          if (!err && hasOtherActiveResidencies)  /* Error message key to indicate the entry is not allowed */
-            return 'notAllowed';
-
-        })
-
+        Meteor.call(
+          "hasOtherActiveResidencies",
+          { residentId, residencyId, moveOut, moveIn },
+          function(err, hasOtherActiveResidencies) {
+            if (!err && hasOtherActiveResidencies)
+              /* Error message key to indicate the entry is not allowed */
+              return "notAllowed";
+          }
+        );
       }
-
     }
   },
   homeId: {
-    type: String,
+    type: String
   },
   moveIn: {
     type: Date,
-    autoValue: function () {
+    autoValue: function() {
       if (this.isSet) {
         // Get move in date from form
         const moveInDate = new Date(this.value);
 
         // set move in to midnight UTC
-        moveInDate.setUTCHours(0,0,0,0);
+        moveInDate.setUTCHours(0, 0, 0, 0);
 
         return moveInDate;
       }
@@ -66,28 +69,28 @@ var ResidenciesSchema = new SimpleSchema({
   moveOut: {
     type: Date,
     optional: true,
-    autoValue: function () {
+    autoValue: function() {
       if (this.isSet) {
         // Get move out date from form
         const moveOutDate = new Date(this.value);
 
         if (moveOutDate) {
           // set move out to midnight UTC
-          moveOutDate.setUTCHours(0,0,0,0);
+          moveOutDate.setUTCHours(0, 0, 0, 0);
 
           return moveOutDate;
         }
       }
     },
     custom() {
-      const moveOut = this.value
-      const moveIn = this.field('moveIn').value
-      const result = validateDate(moveIn, moveOut)
+      const moveOut = this.value;
+      const moveIn = this.field("moveIn").value;
+      const result = validateDate(moveIn, moveOut);
       if (!result) {
-        return "badDate"
+        return "badDate";
       }
     }
-  },
+  }
 });
 
 Residencies.attachSchema(ResidenciesSchema);
