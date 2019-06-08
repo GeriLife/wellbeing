@@ -8,12 +8,13 @@ var ResidenciesSchema = new SimpleSchema({
     type: String,
     custom() {
       const residencyId = this.docId;
-      let currentRecord = {};
-      if (residencyId) {
-        currentRecord = this.obj && this.obj.$set ? this.obj.$set : {};
-      } else {
-        currentRecord = this.obj ? this.obj : {};
-      }
+      let currentRecord = this.obj
+        ? (
+          !!residencyId
+            ? this.obj.$set
+            : this.obj
+        )
+        : {};
 
       let residentId = currentRecord.residencyId || this.value;
       let { moveOut, moveIn } = currentRecord;
