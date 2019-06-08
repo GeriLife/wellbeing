@@ -7,14 +7,41 @@ var ResidenciesSchema = new SimpleSchema({
   residentId: {
     type: String,
     custom() {
-
-      const residentId = this.value;
-      const moveOut = this.field('moveOut').value;
       const residencyId = this.docId;
+      let residentId = '';
+      let moveOut = 0;
+      let moveIn = 0;
 
-      if (hasOtherActiveResidencies(residentId, residencyId, moveOut)) {
-        /* Error message key to indicate the entry is not allowed */
-        return 'notAllowed';
+      if (this.obj && this.obj.$set && residencyId) {
+
+        // If existing residency is edited
+        residentId = this.obj.$set.residencyId || this.value;
+        moveOut = this.obj.$set.moveOut;
+        moveIn = this.obj.$set.moveIn;
+
+      } else if (this.obj) {
+
+        // If new residency is added
+        residentId = this.obj.residencyId || this.value;
+        moveOut = this.obj.moveOut;
+        moveIn = this.obj.moveIn;
+      }
+
+      // In edit server method is called
+      if (Meteor.isServer) {
+        if (Meteor.call('hasOtherActiveResidencies', { residentId, residencyId, moveOut, moveIn })) {
+          /* Error message key to indicate the entry is not allowed */
+          return 'notAllowed';
+        }
+      } else {
+
+        // When adding new residency method executed from client
+        Meteor.call('hasOtherActiveResidencies', { residentId, residencyId, moveOut, moveIn }, function (err, hasOtherActiveResidencies) {
+          if (!err && hasOtherActiveResidencies)  /* Error message key to indicate the entry is not allowed */
+            return 'notAllowed';
+
+        })
+
       }
 
     }
@@ -174,29 +201,4 @@ function validateDate(moveIn, moveOut) {
   1) if the moveOut date is not specified or 
   2) it is a date greater than move in date, it returns true */
   return true
-}
-
-
-/*Check if the current resident has other residencies */
-
-function hasOtherActiveResidencies(residentId, residencyId, moveOut) {
-
-  /* Move out date is set to 01-01-1970
-  so need to check timestamp for validation  */
-  const moveOutTimeStamp = new Date(moveOut).getTime();
-
-  if (!moveOutTimeStamp > 0) {
-    const condition = { residentId, moveOut: { $exists: false } };
-    if (residencyId) {
-      condition._id = { $ne: residencyId }
-    }
-
-    const activeResidencies = Residencies.find(condition).count();
-    return activeResidencies > 0
-  }
-
-  /* If moveout date is added to current record
-  it means that the residency to be inserted/updated is not active 
-  so no need for checking*/
-  return false
 }
