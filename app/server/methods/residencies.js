@@ -1,19 +1,23 @@
 import newResidentAndResidencySchema from "/both/schemas/newResidentAndResidencySchema";
+import { checkUserPermissions } from '/both/utils';
+
 
 Meteor.methods({
   addNewResidentAndResidency(document) {
 
     const userId = Meteor.userId();
-    const userIsAdmin = Roles.userIsInRole(userId, "admin");
-    if (!userIsAdmin) {
-      const isHomeManagedByUser = Meteor.call('isHomeManagedByUser', { userId, homeId: document.homeId })
-      if (!isHomeManagedByUser) {
-        throw new Meteor.Error(
-          "operation-not-allowed",
-          "Current User does not have enough rights to perform this action!"
-          );
-        }
-      }
+    const userPermission = checkUserPermissions({
+      schemaType: 'resident',
+      action: 'insert',
+      userId,
+      doc: document
+    })
+    if (!userPermission) {
+      throw new Meteor.Error(
+        "operation-not-allowed",
+        "Current User does not have enough rights to perform this action!"
+      );
+    }
       // set up validation context based on new resident and residency schama
       const validationContext = newResidentAndResidencySchema.newContext();
       

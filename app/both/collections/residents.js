@@ -11,11 +11,15 @@ var ResidentsSchema = new SimpleSchema({
     type: String,
     autoform: {
       readonly() {
-        return isUserAdmin();
+        return !isUserAdmin() ? isEdit(this) : false
       }
     },
     custom() {
-      return isUserAdmin() ? "notAllowed" : undefined;
+      return !isUserAdmin()
+        ? isEdit(this)
+          ? "notAllowed"
+          : undefined
+        : undefined;
     }
   },
   lastInitial: {
@@ -23,11 +27,15 @@ var ResidentsSchema = new SimpleSchema({
     max: 1,
     autoform: {
       readonly() {
-        return isUserAdmin();
+        return !isUserAdmin() ? isEdit(this) : false
       }
     },
     custom() {
-      isUserAdmin() ? "notAllowed" : undefined;
+      return !isUserAdmin()
+        ? isEdit(this)
+          ? "notAllowed"
+          : undefined
+        : undefined;
     }
   },
   homeId: {
@@ -156,6 +164,10 @@ function isUserAdmin(){
       A  normal user can change none
     */
     const userId = Meteor.userId();
-    return !Roles.userIsInRole(userId, ["admin"])
+    return Roles.userIsInRole(userId, ["admin"])
   
+}
+
+function isEdit(that){
+  return !!this.docId;
 }
