@@ -5,30 +5,28 @@ const checkUserPermissions = function({
   doc,
   hasDeparted
 }) {
-
   let userIsAdministrator;
   let isHomeManagedByUser = false;
+  if (!userId) return false;
 
-  if (userId) {
-    // Check if user is administrator
-    userIsAdministrator = Roles.userIsInRole(userId, ["admin"]);
+  // Check if user is administrator
+  userIsAdministrator = Roles.userIsInRole(userId, ["admin"]);
+  if (userIsAdministrator) return true;
 
-    if (!doc.homeId) return false;
-    // If user is not admin, check if he is manager
-    if (!userIsAdministrator) {
-      isHomeManagedByUser = Meteor.call("isHomeManagedByUser", {
-        userId,
-        homeId: doc.homeId
-      });
-    }
-  }
+  if (!doc.homeId) return false;
+
+  // If user is not admin, check if he is manager
+  isHomeManagedByUser = Meteor.call("isHomeManagedByUser", {
+    userId,
+    homeId: doc.homeId
+  });
 
   /* Check if current action is permitted. 
      By default if the manager can edit,
      Except if the following conditions are not matched
     */
   let canEdit = isHomeManagedByUser;
-
+  
   // Managers cannot delete
   if (isHomeManagedByUser && action === "remove") {
     canEdit = false;
@@ -43,7 +41,7 @@ const checkUserPermissions = function({
   ) {
     canEdit = false;
   }
-  return userId && (userIsAdministrator || canEdit);
+  return canEdit;
 };
 
 module.exports = {
