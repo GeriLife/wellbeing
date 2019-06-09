@@ -90,11 +90,12 @@ Residencies.allow({
   update: function (userId, doc) {
     const schemaType = "residency";
     const action = "update";
-    const residencyId = doc.Id;
+    const residencyId = doc._id;
     const residency = Residencies.findOne({
       $and: [
         {
-          _id: residencyId
+          _id: residencyId,
+          
         },
         {
           moveOut: {
