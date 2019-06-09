@@ -7,6 +7,14 @@ Template.resident.onCreated(function () {
   // Get Resident ID from router
   templateInstance.residentId = Router.current().params.residentId;
 
+  templateInstance.canCurrentUserEdit = new ReactiveVar(false);
+
+  Meteor.call("isResidentManagedByCurrentUser", templateInstance.residentId, function (err, isResidentManagedByCurrentUser) {
+    if (!err) {
+      templateInstance.canCurrentUserEdit.set(isResidentManagedByCurrentUser);
+    }
+  });
+
   // Subscribe to current resident
   templateInstance.subscribe('residentProfileComposite', templateInstance.residentId);
 
@@ -55,4 +63,7 @@ Template.resident.helpers({
 
     return activities;
   },
+  'canCurrentUserEdit'() {
+    return Template.instance().canCurrentUserEdit.get()
+  }
 });
