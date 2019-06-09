@@ -83,12 +83,12 @@ Residencies.attachSchema(ResidenciesSchema);
 
 Residencies.allow({
   insert: function (userId, doc) {
-    const schemaType = "resident";
+    const schemaType = "residency";
     const action = "insert";
     return checkUserPermissions({ schemaType, action, userId, doc });
   },
   update: function (userId, doc) {
-    const schemaType = "resident";
+    const schemaType = "residency";
     const action = "update";
     const residencyId = doc.Id;
     const residency = Residencies.findOne({
@@ -114,7 +114,7 @@ Residencies.allow({
     });
   },
   remove: function (userId) {
-    const schemaType = "resident";
+    const schemaType = "residency";
     const action = "remove";
     return checkUserPermissions({ schemaType, action, userId });
   }
