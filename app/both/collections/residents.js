@@ -20,6 +20,16 @@ var ResidentsSchema = new SimpleSchema({
         const userId = Meteor.userId();
         return !Roles.userIsInRole(userId, ["admin"]);
       }
+    },
+    custom() {
+      /* 
+        User Rights:
+        Only admin can change the name of a resident. 
+        A manager can change the onHiatus field but not the name.
+        A  normal user can change none
+      */
+      const userId = Meteor.userId();
+      return !Roles.userIsInRole(userId, ["admin"]) ? "notAllowed" : undefined;
     }
   },
   lastInitial: {
@@ -30,6 +40,16 @@ var ResidentsSchema = new SimpleSchema({
         const userId = Meteor.userId();
         return !Roles.userIsInRole(userId, ["admin"]);
       }
+    },
+    custom() {
+      /* 
+        User Rights:
+        Only admin can change the name of a resident. 
+        A manager can change the onHiatus field but not the name.
+        A  normal user can change none
+      */
+      const userId = Meteor.userId();
+      return !Roles.userIsInRole(userId, ["admin"]) ? "notAllowed" : undefined;
     }
   },
   homeId: {
@@ -90,29 +110,32 @@ Residents.helpers({
 });
 
 Residents.allow({
-  insert: function(userId, doc) {
+  insert: function (userId, doc) {
     const schemaType = "resident";
     const action = "insert";
-
+    
     return checkUserPermissions({ schemaType, action, userId, doc });
   },
-  update: function(userId, doc) {
-    const residentId = doc.Id;
-    const oldResidentRecord = Residents.findOne({ _id: residentId });
+  update: function (userId, doc) {
     const schemaType = "resident";
-    const action = "insert";
-
+    const action = "update";
+    const residentId = doc._id;
+    const activeResidency = Residencies.findOne({ $and: [{ residentId }, { moveOut: { $exists: false } }] });
+    doc.homeId = activeResidency.homeId
+    
     return checkUserPermissions({
       schemaType,
       action,
       userId,
-      doc,
-      oldResidentRecord
+      doc
     });
   },
   remove: function (userId, doc) {
     const schemaType = "resident";
-    const action = "insert";
+    const action = "remove";
+    const residentId = doc._id;
+    const activeResidency = Residencies.findOne({ $and: [{ residentId }, { moveOut: { $exists: false } }] });
+    doc.homeId = activeResidency.homeId
     return checkUserPermissions({ schemaType, action, userId, doc });
   }
 });

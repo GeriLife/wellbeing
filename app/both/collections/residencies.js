@@ -89,17 +89,19 @@ Residencies.allow({
   },
   update: function (userId, doc) {
     const schemaType = "resident";
-    const action = "insert";
+    const action = "update";
     const residencyId = doc.Id;
-
     const residency = Residencies.findOne({
-      $and: [{
-        _id: residencyId
-      }, {
-        moveOut: {
-          $exists: true
+      $and: [
+        {
+          _id: residencyId
+        },
+        {
+          moveOut: {
+            $exists: true
+          }
         }
-      }]
+      ]
     });
     const hasDeparted = !!residency ? true : false;
 
@@ -113,7 +115,7 @@ Residencies.allow({
   },
   remove: function (userId) {
     const schemaType = "resident";
-    const action = "insert";
+    const action = "remove";
     return checkUserPermissions({ schemaType, action, userId });
   }
 });
