@@ -24,23 +24,7 @@ const assignManagerSchema = function(groupId) {
       optional: false,
       autoform: {
         type: "managerSelectFormTemplate",
-        options: function getAssignManagerSchemaUsers() {
-          const users = Meteor.users
-            .find()
-            .fetch()
-            .map(user => {
-              let address = "Unknown";
-              if (user.emails.length > 0) {
-                address = user.emails[0].address || "Unknown";
-              }
-              return {
-                label: address,
-                value: user._id
-              };
-            });
-
-          return users;
-        }
+        options: getAssignManagerSchemaUsers
       }
     },
     "users.$": {
@@ -50,3 +34,21 @@ const assignManagerSchema = function(groupId) {
 };
 
 export default assignManagerSchema;
+
+function getAssignManagerSchemaUsers() {
+  const users = Meteor.users
+    .find()
+    .fetch()
+    .map(user => {
+      let address = "Unknown";
+      if (user.emails.length > 0) {
+        address = user.emails[0].address || "Unknown";
+      }
+      return {
+        label: address,
+        value: user._id
+      };
+    });
+
+  return users;
+}

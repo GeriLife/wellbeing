@@ -11,25 +11,11 @@ var ResidentsSchema = new SimpleSchema({
     type: String,
     autoform: {
       readonly() {
-        /* 
-          User Rights:
-          Only admin can change the name of a resident. 
-          A manager can change the onHiatus field but not the name.
-          A  normal user can change none
-        */
-        const userId = Meteor.userId();
-        return !Roles.userIsInRole(userId, ["admin"]);
+        return isUserAdmin();
       }
     },
     custom() {
-      /* 
-        User Rights:
-        Only admin can change the name of a resident. 
-        A manager can change the onHiatus field but not the name.
-        A  normal user can change none
-      */
-      const userId = Meteor.userId();
-      return !Roles.userIsInRole(userId, ["admin"]) ? "notAllowed" : undefined;
+      return isUserAdmin() ? "notAllowed" : undefined;
     }
   },
   lastInitial: {
@@ -37,19 +23,11 @@ var ResidentsSchema = new SimpleSchema({
     max: 1,
     autoform: {
       readonly() {
-        const userId = Meteor.userId();
-        return !Roles.userIsInRole(userId, ["admin"]);
+        return isUserAdmin();
       }
     },
     custom() {
-      /* 
-        User Rights:
-        Only admin can change the name of a resident. 
-        A manager can change the onHiatus field but not the name.
-        A  normal user can change none
-      */
-      const userId = Meteor.userId();
-      return !Roles.userIsInRole(userId, ["admin"]) ? "notAllowed" : undefined;
+      isUserAdmin() ? "notAllowed" : undefined;
     }
   },
   interestsDescription: {
@@ -166,3 +144,15 @@ Residents.after.remove(function (userId, resident) {
     entityId: resident._id,
   })
 });
+
+function isUserAdmin(){
+    /* 
+      User Rights:
+      Only admin can change the name of a resident. 
+      A manager can change the onHiatus field but not the name.
+      A  normal user can change none
+    */
+    const userId = Meteor.userId();
+    return !Roles.userIsInRole(userId, ["admin"])
+  
+}
