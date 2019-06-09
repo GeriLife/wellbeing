@@ -3,9 +3,9 @@ const checkUserPermissions = function({
   action,
   userId,
   doc,
-  hasDeparted,
-  oldResidentRecord
+  hasDeparted
 }) {
+
   let userIsAdministrator;
   let isHomeManagedByUser = false;
 
@@ -13,6 +13,7 @@ const checkUserPermissions = function({
     // Check if user is administrator
     userIsAdministrator = Roles.userIsInRole(userId, ["admin"]);
 
+    if (!doc.homeId) return false;
     // If user is not admin, check if he is manager
     if (!userIsAdministrator) {
       isHomeManagedByUser = Meteor.call("isHomeManagedByUser", {
@@ -39,22 +40,6 @@ const checkUserPermissions = function({
     schemaType === "residency" &&
     action === "update" &&
     hasDeparted
-  ) {
-    canEdit = false;
-  }
-
-  // Manager Can only update on Hiatus field
-
-  // Checks if any other field except `onHiatus` was changed
-  const hasResidentRecordChanged =
-    (doc.firstName && oldResidentRecord.firstName !== doc.firstName) ||
-    (doc.lastInitial && oldResidentRecord.lastInitial !== doc.lastInitial);
-
-  if (
-    isHomeManagedByUser &&
-    schemaType === "resident" &&
-    action === "update" &&
-    hasResidentRecordChanged
   ) {
     canEdit = false;
   }
