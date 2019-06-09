@@ -115,17 +115,11 @@ Meteor.methods({
     }
     condition = { ...condition, ...otherActiveResidencyDuringCurrent };
     const activeResidencies = Residencies.find(condition).count();
-    console.log(condition,activeResidencies,Residencies.find(condition).fetch())
     return activeResidencies > 0;
   }
 });
 
-function buildConditionWhenMoveOutExists({
-  residentId,
-  residencyId,
-  moveOut,
-  moveIn
-}) {
+function buildConditionWhenMoveOutExists({ moveOut, moveIn }) {
   const otherActiveResidencyDuringCurrent = {
     $or: []
   };
@@ -171,12 +165,7 @@ function buildConditionWhenMoveOutExists({
   return otherActiveResidencyDuringCurrent;
 }
 
-function buildConditionWhenMoveOutNotExists({
-  residentId,
-  residencyId,
-  moveOut,
-  moveIn
-}) {
+function buildConditionWhenMoveOutNotExists(moveIn) {
   const otherActiveResidencyDuringCurrent = {
     $or: []
   };
