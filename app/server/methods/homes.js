@@ -294,7 +294,6 @@ Meteor.methods({
     // If groupId is not specified
     if (!groupId) throw new Meteor.Error(500, "Group not specified");
     if (users && users.length > 0) {
-
       /* Even if permission for one user is not updated it will return false */
       const allPermissionsUpdated = users.every(userId => {
         try {
@@ -303,12 +302,8 @@ Meteor.methods({
             groupId,
             userId
           }, {
-            $set: {
-              isManager: true
-            }
-            }, {
-              upsert: true
-            });
+              $set: { isManager: true }
+            }, { upsert: true });
           return rowsUpdated >= 0;
         } catch (error) {
           throw new Meteor.Error(500, error.toString());
