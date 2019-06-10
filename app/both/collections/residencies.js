@@ -8,6 +8,17 @@ var ResidenciesSchema = new SimpleSchema({
     type: String,
     custom() {
       const residencyId = this.docId;
+      /* 
+        The data collected from the form is in this.obj so,
+        If this.obj exists:
+          -If residency exists i.e. in edit mode: 
+            The form data is in $set (a mongo modifier)
+          -else in create mode:
+            the data is in this.obj
+        else the object must be empty
+        
+        Ref: https://github.com/aldeed/meteor-simple-schema/blob/master/DOCS.md#the-object-to-validate
+      */
       let currentRecord = this.obj
         ? (
           !!residencyId
