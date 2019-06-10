@@ -8,7 +8,11 @@ Template.activities.onCreated(function() {
 
   // Subscribe to user-visible residents and homes
   this.subscribe("currentUserVisibleResidents");
+  this.subscribe("currentUserVisibleResidents");
   this.subscribe("currentUserVisibleHomes");
+  this.subscribe("allUserVisibleActivities-paginated");
+
+  
 });
 
 Template.activities.events({
@@ -28,9 +32,14 @@ Template.activities.events({
 
 Template.activities.helpers({
   tableSettings() {
+    const currentPage = Template.instance().currentPage;
     var tableSettings = {
       showFilter: false,
+      showNavigation:'never',
       filters: ["residentFilter", "typeFilter"],
+      data: {
+        rows: Activities.find().count()
+      },
       fields: [
         {
           key: "residents",
@@ -79,5 +88,13 @@ Template.activities.helpers({
     };
 
     return tableSettings;
+  },
+  
+
+  allUserVisibleActivities() {
+    const currentPage = 0;
+    const dat = Activities.find({}, { skip: currentPage, limit: 10 }).fetch();
+    console.log(this);
+    return dat;
   }
 });
