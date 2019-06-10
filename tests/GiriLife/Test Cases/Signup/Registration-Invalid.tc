@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>Entering Invalid data and checking if user can create an account with invalid details</description>
+   <name>Registration-Invalid</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>fc03b4d2-43f8-43b1-aecd-8111f7f81bb2</testCaseGuid>
+</TestCaseEntity>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>Login with Admin credentials and logout from the account</description>
+   <name>Login - Admin Account</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>ea8d5f4d-c532-4510-b700-6dea618b328d</testCaseGuid>
+</TestCaseEntity>

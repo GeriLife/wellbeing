@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>Clicking on Settings Menu</description>
+   <name>Settings</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>4b17e4b6-2ff2-452e-8c1a-519e30317ee7</testCaseGuid>
+</TestCaseEntity>
