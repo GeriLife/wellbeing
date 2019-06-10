@@ -4,9 +4,8 @@ Meteor.publish("allActivities", function() {
   return Activities.find();
 });
 
-ReactiveTable.publish(
+Meteor.publish(
   "allUserVisibleActivities-paginated",
-  Activities,
   function() {
     if (this.userId) {
       const departed = false;
@@ -18,7 +17,7 @@ ReactiveTable.publish(
       );
 
       // return mongo selector to fetch activities with matching resident IDs
-      return { residentIds: { $in: userVisibleActiveResidentIds } };
+      return Activities.find({ residentIds: { $in: userVisibleActiveResidentIds } });
     }
   }
 );

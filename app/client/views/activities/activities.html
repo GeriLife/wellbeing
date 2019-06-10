@@ -28,7 +28,10 @@
       </div>
     </div>
   </div>
-  {{> reactiveTable collection='allUserVisibleActivities-paginated' settings=tableSettings }}
+  <div>
+    {{> reactiveTable collection=allUserVisibleActivities settings=tableSettings }}
+    {{>pagination currentPage=currentPage onChange=onChange}}
+  </div>
   {{ else }}
   {{> spinner }}
   {{/ if }}
