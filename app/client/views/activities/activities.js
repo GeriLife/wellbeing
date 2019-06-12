@@ -8,7 +8,6 @@ Template.activities.onCreated(function() {
 
   // Subscribe to user-visible residents and homes
   this.subscribe('currentUserVisibleResidents');
-  this.subscribe('currentUserVisibleResidents');
   this.subscribe('currentUserVisibleHomes');
   this.subscribe('allUserVisibleActivities-paginated');
 
