@@ -1,6 +1,9 @@
 <template name="activities">
   <div class="page-heading">
-    <button id="add-activity" class="btn btn-primary pull-right">
+    <button
+      id="add-activity"
+      class="btn btn-primary pull-right"
+    >
       {{_ "activities-addActivityButton" }}
     </button>
     <h1 class="page-header">
@@ -13,7 +16,10 @@
     <div class="panel-heading">
       <h2 class="panel-title">
         {{_ "activities-filterActivities-heading" }}
-        <button id="clear-filters" class="btn btn-xs btn-primary pull-right">
+        <button
+          id="clear-filters"
+          class="btn btn-xs btn-primary pull-right"
+        >
           <i class="fa fa-times" aria-hidden="true"></i>
           {{_ "activities-filterActivities-clearFiltersText" }}
         </button>
@@ -30,7 +36,7 @@
   </div>
   <div>
     {{> reactiveTable collection=allUserVisibleActivities settings=tableSettings }}
-    {{>pagination currentPage=currentPage onChange=onChange}}
+    {{>pagination totalRows=totalRows onChange=onChange}}
   </div>
   {{ else }}
   {{> spinner }}

@@ -1,8 +1,12 @@
 .width {
-  width: 80px!important;
+  width: 80px !important;
 }
 
 .top-bottom-margin {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.bg-gray {
+  background: gray;
 }
