@@ -100,8 +100,11 @@ Template.activities.helpers({
   onChange() {
     const activitiesTemplate = Template.instance();
     return (rowsPerPage, currentPage) => {
+
+      // if inputs not proper
       if (currentPage <= 0 || rowsPerPage <= 0) return;
 
+      // Fetch rows for current page
       const currentPageOfActivities = Activities.find(
         {},
         {
