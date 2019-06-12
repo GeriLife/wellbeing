@@ -160,14 +160,12 @@ function setVisiblePageNos(
     listedPages = [currentPage];
 
     // next of current exists?
-    if (hasNextPage(totalRows, currentPage, rowsPerPage)) {
+    hasNextPage(totalRows, currentPage, rowsPerPage) &&
       listedPages.push(currentPage + 1);
-    }
 
     // second next of current exists?
-    if (hasNextPage(totalRows, currentPage + 1, rowsPerPage)) {
+    hasNextPage(totalRows, currentPage + 1, rowsPerPage) &&
       listedPages.push(currentPage + 2);
-    }
   } else if (currentPage < listedPages[0]) {
     /* When clicking previous multiple times,the currentPage
        value may get lower than the smallest visible pageNo
@@ -175,18 +173,12 @@ function setVisiblePageNos(
 
     // first pageNo is 2 less than the current
     listedPages = [];
-    if (currentPage - 2 >= 1) {
-      listedPages.push(currentPage - 2);
-    }
+    currentPage - 2 >= 1 && listedPages.push(currentPage - 2);
 
     // first pageNo is 1 less than the current
-    if (currentPage - 1 >= 1) {
-      listedPages.push(currentPage - 1);
-    }
+    currentPage - 1 >= 1 && listedPages.push(currentPage - 1);
 
-    if (currentPage >= 1) {
-      listedPages.push(currentPage);
-    }
+    currentPage >= 1 && listedPages.push(currentPage);
   }
   return listedPages;
 }
