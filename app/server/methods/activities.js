@@ -271,5 +271,28 @@ Meteor.methods({
     const activityCount = Activities.find({ activityTypeId }).count();
 
     return activityCount;
-  }
+  },
+  'allUserVisibleActivities-paginated'({currentPage, rowsPerPage}) {
+    if (this.userId) {
+      const departed = false;
+
+      const userVisibleActiveResidentIds = Meteor.call(
+        'getUserVisibleResidentIds',
+        this.userId,
+        departed
+      );
+
+      const condtionForUserVisibleIds = {
+        residentIds: { $in: userVisibleActiveResidentIds },
+      };
+      // return mongo selector to fetch activities with matching resident IDs
+      return {
+        rows: Activities.find(condtionForUserVisibleIds, {
+          skip: (currentPage - 1) * rowsPerPage,
+          limit: rowsPerPage,
+        }).fetch(),
+        count: Activities.find(condtionForUserVisibleIds).count(),
+      };
+    }
+  },
 });
