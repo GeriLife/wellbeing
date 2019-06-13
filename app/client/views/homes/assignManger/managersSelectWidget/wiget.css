@@ -1,4 +1,4 @@
-[name=users] .ss-multi-selected .ss-values{
-    max-height: 43px;
-    overflow-y: auto;
+.ss-multi-selected .ss-values {
+  max-height: 43px !important;
+  overflow-y: auto !important;
 }
