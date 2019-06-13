@@ -9,10 +9,10 @@ Template.activities.onCreated(function() {
   // Subscribe to user-visible residents and homes
   this.subscribe('currentUserVisibleResidents');
   this.subscribe('currentUserVisibleHomes');
-  this.subscribe('allUserVisibleActivities-paginated');
 
   instance.currentPageOfActivities = new ReactiveVar([]);
   instance.rowsPerPage = new ReactiveVar(10);
+  instance.totalRows = new ReactiveVar(0);
 });
 
 Template.activities.events({
@@ -99,27 +99,27 @@ Template.activities.helpers({
   onChange() {
     const activitiesTemplate = Template.instance();
     return (rowsPerPage, currentPage) => {
-
       // if inputs not proper
       if (currentPage <= 0 || rowsPerPage <= 0) return;
 
       // Fetch rows for current page
-      const currentPageOfActivities = Activities.find(
-        {},
-        {
-          skip: (currentPage - 1) * rowsPerPage,
-          limit: rowsPerPage,
-        }
-      ).fetch();
+      Meteor.call(
+        'allUserVisibleActivities-paginated',
+        { currentPage, rowsPerPage },
+        function(err, currentPageDetails) {
+          if (!err) {
+            const { rows, count } = currentPageDetails;
+            // Set to current array list
+            activitiesTemplate.currentPageOfActivities.set(rows);
+            activitiesTemplate.totalRows.set(count);
 
-      activitiesTemplate.rowsPerPage.set(rowsPerPage);
-      // Set to current array list
-      activitiesTemplate.currentPageOfActivities.set(
-        currentPageOfActivities
+            activitiesTemplate.rowsPerPage.set(rowsPerPage);
+          }
+        }
       );
     };
   },
   totalRows() {
-    return Activities.find().count();
+    return Template.instance().totalRows.get();
   },
 });
