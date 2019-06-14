@@ -175,6 +175,7 @@
   "homes-header-addNewButton-group": "Add Group",
   "homes-homeGroup-addNewButton-home": "Add Home",
   "homes-homeGroup-assignManagerButton-home": "Assign Manager",
+  "noDataToDisplay": "No data to display",
   "homeGroup-noHomesAdded-text": "No homes added to Group.",
   "homeResidentsActivitiesChart-title": "Home residents activities",
   "homeResidentsActivitiesChart-yaxis-title": "Activity count",
