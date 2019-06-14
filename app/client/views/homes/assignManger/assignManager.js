@@ -6,13 +6,7 @@ Template.assignManager.onCreated(function() {
   templateInstance.subscribe("allUsers");
   templateInstance.currentManagers = new ReactiveVar(null);
 
-  Meteor.call("getCurrentManagers", groupId, function(err, users) {
-    const hasUsers = users && users.length > 0;
-
-    if (!err && hasUsers) {
-      templateInstance.currentManagers.set(users);
-    }
-  });
+  UpdateCurrentManagersList(templateInstance, groupId);
 });
 
 Template.assignManager.helpers({
@@ -92,13 +86,7 @@ Template.assignManager.events({
         });
 
         /* Refresh the mangers list */
-        Meteor.call("getCurrentManagers", groupId, function(err, users) {
-          const hasUsers = users && users.length > 0;
-
-          if (!err && hasUsers) {
-            templateInstance.currentManagers.set(users);
-          }
-        });
+        UpdateCurrentManagersList(templateInstance, groupId);
       }
     });
   },
@@ -106,3 +94,13 @@ Template.assignManager.events({
     Modal.hide("assignManager");
   }
 });
+
+function UpdateCurrentManagersList(templateInstance, groupId) {
+  Meteor.call("getCurrentManagers", groupId, function(err, users) {
+    const hasUsers = users && users.length > 0;
+
+    if (!err && hasUsers) {
+      templateInstance.currentManagers.set(users);
+    }
+  });
+}
