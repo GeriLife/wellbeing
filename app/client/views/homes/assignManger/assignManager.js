@@ -18,7 +18,9 @@ Template.assignManager.onCreated(function() {
 Template.assignManager.helpers({
   assignManagerSchema() {
     const groupId = Template.instance().data.groupId;
-    return assignManagerSchema(groupId);
+    const currentManager = Template.instance().currentManagers.get();
+    const currentManagerIds = currentManager.map(manager => manager.userId);
+    return assignManagerSchema(groupId,currentManagerIds);
   },
 
   buttonContent() {
