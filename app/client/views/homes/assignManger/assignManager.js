@@ -48,7 +48,8 @@ Template.assignManager.helpers({
           tmpl: Template.managerRevokeRightsButton
         }
       ],
-      filters: ["addressFilter"]
+      filters: ["addressFilter"],
+      noDataTmpl: Template.noDataToDisplay
     };
 
     return tableSettings;
