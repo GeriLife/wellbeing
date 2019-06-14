@@ -84,9 +84,12 @@ Template.assignManager.events({
         /* Set error message */
         const message =
           err && err.message ? err.message : "Could not revoke access";
-        FlashMessages.sendError(message);
+        FlashMessages.sendError(message, { autoHide: true, hideDelay: 3000 });
       } else {
-        FlashMessages.sendSuccess(successMessage);
+        FlashMessages.sendSuccess(successMessage, {
+          autoHide: true,
+          hideDelay: 3000
+        });
 
         /* Refresh the mangers list */
         Meteor.call("getCurrentManagers", groupId, function(err, users) {

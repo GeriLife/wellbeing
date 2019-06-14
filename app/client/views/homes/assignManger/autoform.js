@@ -1,11 +1,15 @@
-AutoForm.addHooks(['assignManagerForm'], {
-  'onSuccess': function () {
+AutoForm.addHooks(["assignManagerForm"], {
+  onSuccess: function() {
     // Hide the modal dialogue
-    Modal.hide('assignManager');
+    Modal.hide("assignManager");
   },
-  'onError': function(formType, error) {
+  onError: function(formType, error) {
+    FlashMessages.clear();
     if (error.message) {
-        FlashMessages.sendError(error.message, { autoHide: false });
+      FlashMessages.sendError(error.message, {
+        autoHide: true,
+        hideDelay: 3000
+      });
     }
   }
 });
