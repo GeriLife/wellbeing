@@ -19,8 +19,13 @@ Template.assignManager.helpers({
   assignManagerSchema() {
     const groupId = Template.instance().data.groupId;
     const currentManager = Template.instance().currentManagers.get();
-    const currentManagerIds = currentManager.map(manager => manager.userId);
-    return assignManagerSchema(groupId,currentManagerIds);
+    let currentManagerIds = [];
+
+    /* If any existing users are assigned do not show them in the selection list */
+    if (!!currentManager) {
+      currentManagerIds = currentManager.map(manager => manager.userId);
+    }
+    return assignManagerSchema(groupId, currentManagerIds);
   },
 
   buttonContent() {
@@ -66,6 +71,7 @@ Template.assignManager.helpers({
 
 Template.assignManager.events({
   "click #revokeRights"(event, templateInstance) {
+    FlashMessages.clear();
     const groupId = templateInstance.data.groupId;
     const userId = this.userId;
     const successMessage = TAPi18n.__("manager-revoke-success");
@@ -82,13 +88,14 @@ Template.assignManager.events({
       } else {
         FlashMessages.sendSuccess(successMessage);
 
-        /* 
-        Closing the modal after 2 seconds so that,
-        the user can see error messages
-        */
-        setTimeout(function() {
-          Modal.hide("assignManager");
-        }, 2000);
+        /* Refresh the mangers list */
+        Meteor.call("getCurrentManagers", groupId, function(err, users) {
+          const hasUsers = users && users.length > 0;
+
+          if (!err && hasUsers) {
+            templateInstance.currentManagers.set(users);
+          }
+        });
       }
     });
   },
