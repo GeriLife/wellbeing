@@ -11,7 +11,7 @@ var ResidentsSchema = new SimpleSchema({
     type: String,
     autoform: {
       readonly() {
-        return !isUserAdmin() ? isEdit(this) : false
+        return !isUserAdmin() ? !isEdit(this) : false
       }
     },
     custom() {
@@ -27,7 +27,7 @@ var ResidentsSchema = new SimpleSchema({
     max: 1,
     autoform: {
       readonly() {
-        return !isUserAdmin() ? isEdit(this) : false
+        return !isUserAdmin() ? !isEdit(this) : false
       }
     },
     custom() {
