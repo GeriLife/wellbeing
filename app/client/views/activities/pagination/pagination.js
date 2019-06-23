@@ -45,10 +45,6 @@ Template.pagination.events({
     let listedPages = Template.instance().listedPages.get();
 
     /* As rows per page change we need to readjust the current page to display same rows*/
-    /* const oldRowsPerPage = Template.instance().rowsPerPage.get();
-    const oldTotalPages = Math.ceil(totalRows / oldRowsPerPage);
-    currentPage = (currentPage * totalPages) / oldTotalPages; */
-
     const totalRows = Template.instance().data.totalRows;
     const totalPages = Math.ceil(totalRows / rowsPerPage);
 
@@ -135,9 +131,9 @@ Template.pagination.events({
 });
 
 function hasNextPage(totalRows, currentPage, rowsPerPage) {
-  /* To get total number of pages is rounded of to ceiling value.
-       For example, totalRows is 98, and rowsPerPage 25 so we need
-       4(~3.92) pages to display all records
+  /* The total number of pages is rounded off to its ceiling value.
+     For example, totalRows is 98, and rowsPerPage 25 so we need
+     4(~3.92) pages to display all records.
     */
   const totalPages = Math.ceil(totalRows / rowsPerPage);
 

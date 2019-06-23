@@ -266,13 +266,13 @@ Meteor.methods({
 
     return latestActivityIdsFlat;
   },
-  getActivityCountByActivityTypeId (activityTypeId) {
+  getActivityCountByActivityTypeId(activityTypeId) {
     // Get count of activities by activity type ID
     const activityCount = Activities.find({ activityTypeId }).count();
 
     return activityCount;
   },
-  'allUserVisibleActivities-paginated'({currentPage, rowsPerPage}) {
+  'allUserVisibleActivities-paginated'({ currentPage, rowsPerPage }) {
     if (this.userId) {
       const departed = false;
 
