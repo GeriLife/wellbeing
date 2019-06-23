@@ -11,7 +11,10 @@
 
     <ul class="pagination  pull-right">
       <li class="page-item">
-        <a class="page-link prev" disabled={{!hasPrevPage}} href="#"
+        <a
+          class="page-link prev"
+          disabled="{{ !hasPrevPage }}"
+          href="#"
           >Previous</a
         >
       </li>
@@ -28,7 +31,10 @@
       {{/each}}
 
       <li class="page-item">
-        <a class="page-link next" disabled={{!hasNextPage}} href="#"
+        <a
+          class="page-link next"
+          disabled="{{ !hasNextPage }}"
+          href="#"
           >Next</a
         >
       </li>
