@@ -11,6 +11,10 @@ var GroupsSchema = new SimpleSchema({
 
 Groups.attachSchema(GroupsSchema);
 
+Meteor.startup(()=>{
+  Groups._ensureIndex({ name: 1 }, { unique: true });
+})
+
 Groups.helpers({
   'homes': function () {
     // Get group ID

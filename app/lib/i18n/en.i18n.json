@@ -173,6 +173,7 @@
   },
   "homes-header": "Homes",
   "homes-header-addNewButton-group": "Add Group",
+  "homes-addNewGroup-duplicateName-errorMessage": "Error creating data. Make sure the group name is not duplicated.",
   "homes-homeGroup-addNewButton-home": "Add Home",
   "homeGroup-noHomesAdded-text": "No homes added to Group.",
   "homeResidentsActivitiesChart-title": "Home residents activities",
@@ -386,5 +387,5 @@
   "usersSettingsTable-tableHeaders-email": "Email",
   "usersSettingsTable-tableHeaders-roles": "Roles",
   "usersSettingsTable-tableHeaders-passwordActive": "Password active",
-  "userVisibleResidentNames-GroupedtByHomes-notFound":"No residents found for this user!"
+  "userVisibleResidentNames-GroupedtByHomes-notFound": "No residents found for this user!"
 }
