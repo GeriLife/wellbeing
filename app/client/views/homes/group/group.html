@@ -3,7 +3,9 @@
     <div class="panel-heading">
       <h2 id="{{ name }}-title" class="panel-title">
         <i class="fa fa-cubes"></i>
-        {{ name }}
+        <span title="{{ name }}" class="clip-text">
+            {{ name }}
+        </span>
 
         {{# if isInRole 'admin' }}
           <button type="button" class="edit-group btn btn-default btn-xs">
