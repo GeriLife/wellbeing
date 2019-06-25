@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>Scripts with invalid credentials which should not allow user to login</description>
+   <name>Login - Invalid</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>b11b3ac8-5fd9-4480-aede-dd6deded6d1f</testCaseGuid>
+</TestCaseEntity>

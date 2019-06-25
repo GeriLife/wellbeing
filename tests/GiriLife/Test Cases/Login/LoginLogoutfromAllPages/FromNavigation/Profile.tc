@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>Clicking on Profile Menu</description>
+   <name>Profile</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>03a72ac0-d85f-43da-ab8f-c8b141e9b718</testCaseGuid>
+</TestCaseEntity>
