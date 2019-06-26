@@ -5,8 +5,8 @@
         <div class="modal-header">
           <h4 class="modal-title">
             <i class="fa fa-user"></i>&nbsp;
-             {{_ "editUser-header" }}
-           </h4>
+            {{_ "editUser-header" }}
+          </h4>
         </div>
         {{# autoForm id="editUserForm" schema="EditUserSchema" doc=formUser }}
 
@@ -22,6 +22,11 @@
             </label>
             {{> afFieldInput name="isAdmin" }}
           {{/ if}}
+          <label for="deactivateOn">
+            {{_ "users.deactivateOn.label" }}
+          </label>
+          {{> afFieldInput name="deactivateOn" }}
+
         </div>
 
         <div class="modal-footer">

@@ -1,34 +1,42 @@
-const userEmailSchema = require("./userEmailSchema");
+const userEmailSchema = require('./userEmailSchema');
 AccountsTemplates.configure({
   // Behavior
   forbidClientAccountCreation: true,
   enablePasswordChange: true,
-  showForgotPasswordLink: true
+  showForgotPasswordLink: true,
 });
 
 Accounts.config({
-  passwordEnrollTokenExpirationInDays: 60
+  passwordEnrollTokenExpirationInDays: 60,
 });
 
 // Configure AccountsTemplates routes
-AccountsTemplates.configureRoute("changePwd");
-AccountsTemplates.configureRoute("enrollAccount");
-AccountsTemplates.configureRoute("forgotPwd");
-AccountsTemplates.configureRoute("resetPwd");
-AccountsTemplates.configureRoute("signIn");
+AccountsTemplates.configureRoute('changePwd');
+AccountsTemplates.configureRoute('enrollAccount');
+AccountsTemplates.configureRoute('forgotPwd');
+AccountsTemplates.configureRoute('resetPwd');
+AccountsTemplates.configureRoute('signIn');
 
-Meteor.startup(function () {
-  Accounts.validateNewUser(function (user) {
+Meteor.startup(function() {
+  Accounts.onCreateUser(function(options, user) {
+    _.extend(user, {
+      deactivateOn: new Date(0),
+      isActive: true,
+    });
+
+    return user;
+  });
+
+  Accounts.validateNewUser(function(user) {
     const userEmailRecord = { emails: { ...user.emails } };
     try {
       userEmailSchema.validate(userEmailRecord);
-      return true
+      return true;
     } catch (e) {
       // Must throw meteor error to show custom validation message
       // Sending static error message for consistency with messages from previous validators
-      throw new Meteor.Error(500, "Email: Invalid email");
+      throw new Meteor.Error(500, 'Email: Invalid email');
     }
   });
   Accounts.emailTemplates.from = process.env.FROM_EMAIL;
-  
 });

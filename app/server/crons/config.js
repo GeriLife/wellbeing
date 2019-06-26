@@ -1,0 +1,3 @@
+SyncedCron.config({
+  utc: false,
+});

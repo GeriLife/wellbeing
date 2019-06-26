@@ -75,11 +75,17 @@ Meteor.methods({
   editUserFormSubmit (user) {
     // Get user email
     var userEmail = user.email;
+    var deactivateOn = new Date(user.deactivateOn);
 
     var userId = user._id;
 
     // Edit user, setting first email
-    Meteor.users.update(userId, {$set: {"emails.0.address": userEmail}});
+    Meteor.users.update(userId, {
+      $set: {
+        'emails.0.address': userEmail,
+        deactivateOn,
+      },
+    });
 
     return userId;
   },
