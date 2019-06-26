@@ -48,7 +48,7 @@ Meteor.startup(function() {
       throw new Meteor.Error(403, 'User account is inactive.');
     }
 
-    
+
     /* else return permission set by the login method */
     return attempt.allowed;
   });

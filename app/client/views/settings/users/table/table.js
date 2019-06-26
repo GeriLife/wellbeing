@@ -30,6 +30,10 @@ Template.usersSettingsTable.helpers({
         },
         isActiveKey,
         {
+          key: 'isActive',
+          label: TAPi18n.__('usersSettingsTable-tableHeaders-isActive'),
+        },
+        {
           label: TAPi18n.__('usersSettingsTable-tableHeaders-passwordActive'),
           tmpl: Template.usersSettingsTablePasswordActive,
         },
