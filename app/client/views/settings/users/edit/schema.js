@@ -1,13 +1,18 @@
 import SimpleSchema from 'simpl-schema';
 
 EditUserSchema = new SimpleSchema({
-  "email": {
+  email: {
     type: String,
     optional: false,
-    regEx: SimpleSchema.RegEx.EmailWithTLD
+    regEx: SimpleSchema.RegEx.EmailWithTLD,
   },
-  "isAdmin": {
+  isAdmin: {
     type: Boolean,
-    defaultValue: false
-  }
+    defaultValue: false,
+  },
+  deactivateOn: {
+    type: Date,
+    defaultValue: 0,
+    min: new Date(),
+  },
 });
