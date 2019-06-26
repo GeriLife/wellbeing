@@ -16,6 +16,10 @@ Template.usersSettingsTable.helpers({
           label: TAPi18n.__('usersSettingsTable-tableHeaders-email'),
         },
         {
+          key: 'isActive',
+          label: TAPi18n.__('usersSettingsTable-tableHeaders-isActive'),
+        },
+        {
           label: TAPi18n.__('usersSettingsTable-tableHeaders-passwordActive'),
           tmpl: Template.usersSettingsTablePasswordActive,
         },

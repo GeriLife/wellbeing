@@ -172,6 +172,7 @@
     }
   },
   "homes-header": "Homes",
+  "users.deactivateOn.label": "Deactivate on",
   "homes-header-addNewButton-group": "Add Group",
   "homes-homeGroup-addNewButton-home": "Add Home",
   "homes-homeGroup-assignManagerButton-home": "Assign Manager",
@@ -396,6 +397,7 @@
   "usersSettingsTableActions-deleteButtonText": "Delete",
   "usersSettingsTableActions-editButtonText": "Edit",
   "usersSettingsTable-tableHeaders-actions": "Actions",
+  "usersSettingsTable-tableHeaders-isActive": "Is Active",
   "usersSettingsTable-tableHeaders-email": "Email",
   "usersSettingsTable-tableHeaders-roles": "Roles",
   "usersSettingsTable-tableHeaders-passwordActive": "Password active",
