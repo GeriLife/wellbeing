@@ -38,5 +38,20 @@ Meteor.startup(function() {
       throw new Meteor.Error(500, 'Email: Invalid email');
     }
   });
+
+  /* Preventing login attempts by inactive users */
+  Accounts.validateLoginAttempt(function(attempt) {
+    var { isActive } = attempt.user;
+
+    /* If the user is inactive throw an error */
+    if (!isActive) {
+      attempt.allowed = false;
+      throw new Meteor.Error(403, 'User account is inactive!');
+    }
+
+    /* else return permission set by the login method */
+    return attempt.allowed;
+  });
+
   Accounts.emailTemplates.from = process.env.FROM_EMAIL;
 });
