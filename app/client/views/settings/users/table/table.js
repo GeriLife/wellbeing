@@ -7,8 +7,8 @@ Template.usersSettingsTable.onCreated(function () {
 });
 
 Template.usersSettingsTable.helpers({
-  tableSettings () {
-    const tableSettings = {
+  tableSettings() {
+    return {
       collection: Meteor.users,
       fields: [
         {
@@ -33,7 +33,5 @@ Template.usersSettingsTable.helpers({
         },
       ]
     };
-
-    return tableSettings;
   },
 });
