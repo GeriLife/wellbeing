@@ -42,6 +42,7 @@ Meteor.startup(function() {
   Accounts.validateLoginAttempt(function(attempt) {
     var { isActive } = attempt.user;
 
+    
     /* If the user is inactive throw an error */
     if (isActive === false) {
       attempt.allowed = false;
