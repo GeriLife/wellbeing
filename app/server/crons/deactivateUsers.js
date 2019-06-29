@@ -1,10 +1,8 @@
-SyncedCron.add({
-  name: 'Deactivate user',
-  schedule: function(parser) {
-    // parser is a later.parse object
-    return parser.text('every 1 day at 12:00 am');
-  },
-  job: function() {
+import { CronJob } from 'cron';
+
+new CronJob(
+  '0 0 12 * * *',
+  Meteor.bindEnvironment(function(err, data) {
     /* Get all users for whom the deactivation date is set */
     const users = Meteor.users
       .find({
@@ -22,5 +20,7 @@ SyncedCron.add({
         $set: { isActive: false },
       });
     });
-  },
-});
+  }),
+  null,
+  true
+);
