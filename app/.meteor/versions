@@ -70,7 +70,6 @@ iron:router@1.1.2
 iron:url@1.1.0
 jquery@1.11.11
 launch-screen@1.1.1
-littledata:synced-cron@1.5.1
 livedata@1.0.18
 localstorage@1.2.0
 logging@1.1.20
