@@ -97,10 +97,10 @@ Template.assignManager.events({
 
 function UpdateCurrentManagersList(templateInstance, groupId) {
   Meteor.call("getCurrentManagers", groupId, function(err, users) {
-    const hasUsers = users && users.length > 0;
+    
 
-    if (!err && hasUsers) {
-      templateInstance.currentManagers.set(users);
+    if (!err) {
+      templateInstance.currentManagers.set(users || []);
     }
   });
 }
