@@ -18,9 +18,17 @@ Template.usersSettingsTable.helpers({
         {
           key: 'isActive',
           label: TAPi18n.__('usersSettingsTable-tableHeaders-isActive'),
+          fn: function(value) {
+            /* Set values as no if is active flag is false
+               Active in all other cases.
+            */
+            return value === false ? 'No' : 'Yes';
+          },
         },
         {
-          label: TAPi18n.__('usersSettingsTable-tableHeaders-passwordActive'),
+          label: TAPi18n.__(
+            'usersSettingsTable-tableHeaders-passwordActive'
+          ),
           tmpl: Template.usersSettingsTablePasswordActive,
         },
         {
@@ -31,7 +39,7 @@ Template.usersSettingsTable.helpers({
           label: TAPi18n.__('usersSettingsTable-tableHeaders-actions'),
           tmpl: Template.usersSettingsTableActions,
         },
-      ]
+      ],
     };
   },
 });
