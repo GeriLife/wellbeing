@@ -1,10 +1,23 @@
-Template.usersSettingsTable.onCreated(function () {
+Template.usersSettingsTable.onCreated(function() {
   // Get reference to Template instance
   var instance = this;
 
   // Subscribe to all users
-  instance.subscribe("allUsers");
+  instance.subscribe('allUsers');
 });
+
+function setActiveFlagValue(value) {
+  /* Set values as no if is active flag is false
+     Active in all other cases.
+  */
+  return value === false ? 'No' : 'Yes';
+}
+
+const isActiveKey = {
+  key: 'isActive',
+  label: TAPi18n.__('usersSettingsTable-tableHeaders-isActive'),
+  fn: setActiveFlagValue,
+};
 
 Template.usersSettingsTable.helpers({
   tableSettings() {
@@ -15,20 +28,9 @@ Template.usersSettingsTable.helpers({
           key: 'emails.0.address',
           label: TAPi18n.__('usersSettingsTable-tableHeaders-email'),
         },
+        isActiveKey,
         {
-          key: 'isActive',
-          label: TAPi18n.__('usersSettingsTable-tableHeaders-isActive'),
-          fn: function(value) {
-            /* Set values as no if is active flag is false
-               Active in all other cases.
-            */
-            return value === false ? 'No' : 'Yes';
-          },
-        },
-        {
-          label: TAPi18n.__(
-            'usersSettingsTable-tableHeaders-passwordActive'
-          ),
+          label: TAPi18n.__('usersSettingsTable-tableHeaders-passwordActive'),
           tmpl: Template.usersSettingsTablePasswordActive,
         },
         {
