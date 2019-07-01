@@ -12,7 +12,7 @@ EditUserSchema = new SimpleSchema({
   },
   deactivateOn: {
     type: Date,
-    defaultValue: 0,
+    optional: true,
     min: new Date(),
   },
 });

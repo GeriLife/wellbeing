@@ -75,7 +75,9 @@ Meteor.methods({
   editUserFormSubmit (user) {
     // Get user email
     var userEmail = user.email;
-    var deactivateOn = new Date(user.deactivateOn);
+    var deactivateOn = user.deactivateOn
+      ? new Date(user.deactivateOn)
+      : user.deactivateOn;
 
     var userId = user._id;
 

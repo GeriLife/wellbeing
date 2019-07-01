@@ -20,7 +20,6 @@ AccountsTemplates.configureRoute('signIn');
 Meteor.startup(function() {
   Accounts.onCreateUser(function(options, user) {
     _.extend(user, {
-      deactivateOn: new Date(0),
       isActive: true,
     });
 
@@ -44,7 +43,7 @@ Meteor.startup(function() {
     var { isActive } = attempt.user;
 
     /* If the user is inactive throw an error */
-    if (!isActive) {
+    if (isActive === false) {
       attempt.allowed = false;
       throw new Meteor.Error(403, 'User account is inactive!');
     }
