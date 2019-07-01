@@ -8,7 +8,7 @@ Migrations.add({
     _.each(users, function(user) {
       // Add new field deactivate date
       Meteor.users.update(user, {
-        $set: { deactivateOn: new Date(0), isActive: true },
+        $set: { isActive: true },
       });
     });
   },
