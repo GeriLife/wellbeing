@@ -45,7 +45,7 @@ Meteor.startup(function() {
     /* If the user is inactive throw an error */
     if (isActive === false) {
       attempt.allowed = false;
-      throw new Meteor.Error(403, 'User account is inactive!');
+      throw new Meteor.Error(403, 'User account is inactive.');
     }
 
     /* else return permission set by the login method */
