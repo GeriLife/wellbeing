@@ -7,3 +7,10 @@ Template.residentCurrentResidency.events({
     Modal.show('editResidencyModal', { residency });
   }
 });
+
+Template.residentCurrentResidency.helpers({
+  userCanEdit() {
+    const templateInstance = Template.instance();
+    return templateInstance.data.canEdit
+  }
+})

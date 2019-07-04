@@ -1,6 +1,6 @@
 <template name="residents">
   <div class="page-header">
-    {{# if isInRole 'admin' }}
+    {{# if managesAGroup }}
     <button id="new-resident" class="btn btn-primary pull-right">
       {{_ "residents-header-addResidencyButton" }}
     </button>

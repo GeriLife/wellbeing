@@ -1,13 +1,28 @@
 import newResidentAndResidencySchema from "/both/schemas/newResidentAndResidencySchema";
+import { checkUserPermissions } from '/both/utils';
+
 
 Meteor.methods({
   addNewResidentAndResidency(document) {
-    // set up validation context based on new resident and residency schama
-    const validationContext = newResidentAndResidencySchema.newContext();
 
-    // Check if submitted document is valid
-    const documentIsValid = validationContext.validate(document);
-
+    const userId = Meteor.userId();
+    const userPermission = checkUserPermissions({
+      schemaType: 'resident',
+      action: 'insert',
+      userId,
+      doc: document
+    })
+    if (!userPermission) {
+      throw new Meteor.Error(
+        "operation-not-allowed",
+        "Current User does not have enough rights to perform this action!"
+      );
+    }
+      // set up validation context based on new resident and residency schama
+      const validationContext = newResidentAndResidencySchema.newContext();
+      
+      // Check if submitted document is valid
+      const documentIsValid = validationContext.validate(document);
     if (documentIsValid) {
       // Get fields from object
       const { firstName, lastInitial, homeId, moveIn } = document;
@@ -116,6 +131,18 @@ Meteor.methods({
     condition = { ...condition, ...otherActiveResidencyDuringCurrent };
     const activeResidencies = Residencies.find(condition).count();
     return activeResidencies > 0;
+  },
+  isResidentManagedByCurrentUser(residentId) {
+    const userId = Meteor.userId();
+    const isUserAdmin = Roles.userIsInRole(userId, ["admin"]);
+
+    if (isUserAdmin) return true;
+
+    const residentInformation = Residencies.find({ $and: [{ residentId }, { moveOut: { $exists: false } }] }).fetch();
+    const homeId = residentInformation && residentInformation[0] && residentInformation[0].homeId
+    if (!homeId) return false
+
+    return Meteor.call("isHomeManagedByUser", { userId, homeId });
   }
 });
 

@@ -26,7 +26,7 @@
         &nbsp;
       {{/ if }}
 
-      {{# if isInRole 'admin' }}
+      {{# if canCurrentUserEdit }}
       <button id="edit-resident" class="btn btn-default">
         {{_ "resident-editButton" }}
       </button>

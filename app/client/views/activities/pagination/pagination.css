@@ -1,0 +1,12 @@
+.width {
+  width: 5em !important;
+}
+
+.top-bottom-margin {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.bg-gray {
+  background: gray;
+}

@@ -1,7 +1,7 @@
 import FileSaver from "file-saver";
 
 const _clear = templateInstance => {
-  // const templateInstance = Template.instance();
+
   templateInstance.isRespError.set(false);
   templateInstance.respMessage.set(null);
   templateInstance.file.set(null);
@@ -87,11 +87,11 @@ Template.dataSettings.events({
     reader.readAsText(templateInstance.file.get());
   },
   "click #clear": function(event, templateInstance) {
-    _clear();
+    _clear(templateInstance);
   },
 
   "click #closeImportErrAlert": function(event, templateInstance) {
-    _clear();
+    _clear(templateInstance);
   }
 });
 

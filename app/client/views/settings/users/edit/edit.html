@@ -16,10 +16,12 @@
           </label>
           {{> afFieldInput name="email" }}
 
-          <label for="isAdmin">
-            {{_ "users.isAdmin.label" }}
-          </label>
-          {{> afFieldInput name="isAdmin" }}
+          {{#if showIsAdminCheckBox}}
+            <label for="isAdmin">
+              {{_ "users.isAdmin.label" }}
+            </label>
+            {{> afFieldInput name="isAdmin" }}
+          {{/ if}}
         </div>
 
         <div class="modal-footer">

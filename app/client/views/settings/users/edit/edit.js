@@ -24,7 +24,20 @@ Template.editUser.helpers({
 
     // TODO: Clean up or return formUser code
     return formUser;
-  }
+  },
+
+  showIsAdminCheckBox() {
+    // Is current user admin
+    const currentUserId = Meteor.userId();
+    const isAdmin = Roles.userIsInRole(currentUserId, 'admin');
+
+    // Get current user email.
+    const currentUserEmail = Meteor.user().emails[0].address;
+    const user = this.data;
+
+    // disable if current user is admin and editing his own info
+    return !(currentUserEmail === user.emails[0].address && isAdmin);
+  },
 });
 Template.editUser.events({
   "submit #editUserForm": function (event) {
