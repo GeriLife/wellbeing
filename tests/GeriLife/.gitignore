@@ -1,0 +1,12 @@
+*.log
+*.access
+\.svn
+\.classpath
+\.project
+bin/lib
+Libs/
+Reports/
+debug.log
+*.class
+*.swp
+*.js

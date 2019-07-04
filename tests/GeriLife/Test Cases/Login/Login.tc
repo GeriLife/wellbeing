@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>Login with new credentials created and logout from the account</description>
+   <name>Login</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>cd8555db-6fc7-4636-895f-708d456470e0</testCaseGuid>
+</TestCaseEntity>
