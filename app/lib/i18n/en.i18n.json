@@ -172,7 +172,7 @@
     }
   },
   "homes-header": "Homes",
-  "users.deactivateOn.label": "Deactivate on",
+  "users-deactivateOn-label": "Deactivate on",
   "homes-header-addNewButton-group": "Add Group",
   "homes-homeGroup-addNewButton-home": "Add Home",
   "homes-homeGroup-assignManagerButton-home": "Assign Manager",
