@@ -17,23 +17,26 @@
           {{> afFieldInput name="email" }}
 
           {{#if showIsAdminCheckBox}}
-            <label for="isAdmin">
-              {{_ "users.isAdmin.label" }}
-            </label>
-            {{> afFieldInput name="isAdmin" }}
-          {{/ if}}
+          <label for="isAdmin">
+            {{_ "users.isAdmin.label" }}
+          </label>
+          {{> afFieldInput name="isAdmin" }}
           <label for="deactivateOn">
             {{_ "users.deactivateOn.label" }}
           </label>
           {{> afFieldInput name="deactivateOn" }}
-
+          {{/ if}}
         </div>
 
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">
             {{_ "editUser-saveButton" }}
           </button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-dismiss="modal"
+          >
             {{_ "editUser-cancelButton" }}
           </button>
         </div>
