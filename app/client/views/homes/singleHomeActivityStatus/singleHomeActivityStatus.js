@@ -75,6 +75,7 @@ Template.singleHomeActivityStatus.onRendered(function () {
           name: dataset.type,
           // Activity count
           x: [dataset.homePercentage],
+          text: dataset.homePercentage,
           marker: { color: colors[index]},
           width: [0.8],
           hoverinfo: 'x+'
@@ -85,6 +86,7 @@ Template.singleHomeActivityStatus.onRendered(function () {
       const layout = {
         autosize: true,
         paper_bgcolor: 'transparent',
+        hovermode: 'closest',
         plot_bgcolor: 'transparent',
         height: 50,
         xaxis: {
