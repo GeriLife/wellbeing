@@ -75,7 +75,6 @@ Template.singleHomeActivityStatus.onRendered(function () {
           name: dataset.type,
           // Activity count
           x: [dataset.homePercentage],
-          text: dataset.homePercentage,
           marker: { color: colors[index]},
           width: [0.8],
           hoverinfo: 'x+'
