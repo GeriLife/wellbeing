@@ -9,6 +9,7 @@ new CronJob(
         $and: [
           { deactivateOn: { $lte: new Date() } },
           { deactivateOn: { $exists: true } },
+          { isActive: { $eq: true } },
         ],
       },
       {

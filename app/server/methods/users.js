@@ -87,9 +87,12 @@ Meteor.methods({
       },
     };
 
+    /* When the deactive date is set to a date*/
     if (deactivateOn) {
       objectToSet.$set.deactivateOn = deactivateOn;
     } else {
+      
+      /* When the deactive date is emptied */
       objectToSet.$unset = { deactivateOn: true };
     }
 
