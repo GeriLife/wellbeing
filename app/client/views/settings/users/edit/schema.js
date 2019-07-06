@@ -25,7 +25,6 @@ EditUserSchema = new SimpleSchema({
         0
       );
 
-      console.log(utcDate,new Date(utcDate));
       return new Date(utcDate);
     },
     max: new Date('2050'),
