@@ -72,7 +72,7 @@ Meteor.methods({
       }
     }
   },
-  editUserFormSubmit (user) {
+  editUserFormSubmit(user) {
     // Get user email
     var userEmail = user.email;
     var deactivateOn = user.deactivateOn
@@ -81,12 +81,21 @@ Meteor.methods({
 
     var userId = user._id;
 
-    // Edit user, setting first email
-    Meteor.users.update(userId, {
+    const objectToSet = {
       $set: {
         'emails.0.address': userEmail,
-        deactivateOn,
       },
+    };
+
+    if (deactivateOn) {
+      objectToSet.$set.deactivateOn = deactivateOn;
+    } else {
+      objectToSet.$unset = { deactivateOn: true };
+    }
+
+    // Edit user, setting first email
+    Meteor.users.update(userId, {
+      ...objectToSet,
     });
 
     return userId;

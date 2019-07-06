@@ -14,5 +14,6 @@ EditUserSchema = new SimpleSchema({
     type: Date,
     optional: true,
     min: new Date(),
+    max: new Date("2050"),
   },
 });
