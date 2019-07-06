@@ -13,7 +13,21 @@ EditUserSchema = new SimpleSchema({
   deactivateOn: {
     type: Date,
     optional: true,
-    min: new Date(),
-    max: new Date("2050"),
+    min: function() {
+      const date = new Date();
+      const utcDate = Date.UTC(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        0,
+        0,
+        0,
+        0
+      );
+
+      console.log(utcDate,new Date(utcDate));
+      return new Date(utcDate);
+    },
+    max: new Date('2050'),
   },
 });
