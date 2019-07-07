@@ -14,6 +14,7 @@ AutoForm.addHooks(["activityForm"], {
      */
     setTimeout(function () {
       Modal.hide("activityForm");
+      FlashMessages.clear();
     }, 2500)
 
     // placeholder for success message text
@@ -30,10 +31,10 @@ AutoForm.addHooks(["activityForm"], {
       '<i class="fa fa-check"></i> ' + successMessage;
 
     // Alert user that activity was added
-    FlashMessages.sendSuccess(successMessageWithIcon);
+    FlashMessages.sendSuccess(successMessageWithIcon, { autoHide: true, hideDelay: 3000 });
   },
   onError: function (formType, error) {
-    FlashMessages.sendError('<i class="fa fa-warning"></i> ' + error.message);
+    FlashMessages.sendError('<i class="fa fa-warning"></i> ' + error.message, { autoHide: true, hideDelay: 3000 });
   }
 });
 

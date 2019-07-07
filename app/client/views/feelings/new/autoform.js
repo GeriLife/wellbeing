@@ -10,12 +10,15 @@ AutoForm.addHooks(["newFeelingForm"], {
      */
     setTimeout(function () {
       Modal.hide("newFeeling");
+      FlashMessages.clear();
     }, 2500)
     // Get success message translation
     const successMessage = TAPi18n.__("newFeeling-success");
 
     // Alert user that feeling was recorded
-    FlashMessages.sendSuccess('<i class="fa fa-check"></i> ' + successMessage);
+    FlashMessages.sendSuccess('<i class="fa fa-check"></i> ' + successMessage, { autoHide: true, hideDelay: 3000 });
+  }, onError: function (formType, error) {
+    FlashMessages.sendError('<i class="fa fa-warning"></i> ' + error.message, { autoHide: true, hideDelay: 3000 });
   }
 });
 

@@ -65,3 +65,9 @@ Template.activityForm.helpers({
     return templateInstance.residentOptions.get();
   }
 });
+
+Template.activityForm.events({
+  "click .btn-danger"() {
+    FlashMessages.clear();
+  }
+})
