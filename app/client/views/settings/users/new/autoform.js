@@ -22,11 +22,12 @@ AutoForm.addHooks("newUserForm", {
   onSuccess: function() {
     // Hide the modal dialogue
     Modal.hide("newUser");
+    FlashMessages.clear();
   },
   onError(formType, error) {
     if (error.message) {
       /* If there is an invalid input in the form, error will be displayed*/
-      FlashMessages.sendError(error.message, { autoHide: false });
+      FlashMessages.sendError(error.message, { autoHide: true, hideDelay: 3000 });
     }
   }
 });

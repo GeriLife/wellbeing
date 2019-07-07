@@ -60,6 +60,7 @@ Template.editUserGroups.events({
       // check success and close modal
       if (response) {
         Modal.hide("editUserGroups");
+        FlashMessages.clear();
       }
     });
   }

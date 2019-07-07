@@ -71,5 +71,8 @@ Template.newFeeling.events({
   "click #anger": function(event, templateInstance) {
     // Set selected feeling reactive variable
     templateInstance.selectedFeeling.set("anger");
+  },
+  "click .btn-danger": function () {
+    FlashMessages.clear();
   }
 });

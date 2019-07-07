@@ -2,6 +2,7 @@ AutoForm.addHooks(["assignManagerForm"], {
   onSuccess: function() {
     // Hide the modal dialogue
     Modal.hide("assignManager");
+    FlashMessages.clear();
   },
   onError: function(formType, error) {
     FlashMessages.clear();
