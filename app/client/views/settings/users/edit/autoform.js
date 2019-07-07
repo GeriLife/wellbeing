@@ -28,11 +28,12 @@ AutoForm.addHooks("editUserForm", {
   'onSuccess': function () {
     // Hide the modal dialogue
     Modal.hide('editUser');
+    FlashMessages.clear();
   },
   onError(formType, error) {
     if (error.message) {
       /* If a form input is invalid flash message is displayed*/
-      FlashMessages.sendError(error.message, { autoHide: false });
+      FlashMessages.sendError(error.message, { autoHide: true, hideDelay: 3000 });
     }
   }
 });

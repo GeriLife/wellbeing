@@ -12,12 +12,14 @@ AutoForm.hooks({
 function onError(formType, error) {
   if (error.error) {
     FlashMessages.sendError(`${error.error}: ${error.reason}`, {
-      autoHide: false
+      autoHide: true,
+      hideDelay: 3000
     });
   } else if (error.message) {
     /* If a form input is invalid flash message is displayed*/
-    FlashMessages.sendError(error.message, { autoHide: false });
+    FlashMessages.sendError(error.message, { autoHide: true, hideDelay:3000 });
   }
+
 }
 
 function onSuccess(formType, success) {
@@ -25,5 +27,6 @@ function onSuccess(formType, success) {
   if (success) {
     // Hide modal dialogue
     Modal.hide("addResidencyModal");
+    FlashMessages.clear();
   }
 }
