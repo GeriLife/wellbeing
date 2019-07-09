@@ -72,14 +72,34 @@ Meteor.methods({
       }
     }
   },
-  editUserFormSubmit (user) {
+  editUserFormSubmit(user) {
     // Get user email
     var userEmail = user.email;
+    var deactivateOn = user.deactivateOn
+      ? new Date(user.deactivateOn)
+      : user.deactivateOn;
 
     var userId = user._id;
 
+    const objectToSet = {
+      $set: {
+        'emails.0.address': userEmail,
+      },
+    };
+
+    /* When the deactive date is set to a date*/
+    if (deactivateOn) {
+      objectToSet.$set.deactivateOn = deactivateOn;
+    } else {
+      
+      /* When the deactive date is emptied */
+      objectToSet.$unset = { deactivateOn: true };
+    }
+
     // Edit user, setting first email
-    Meteor.users.update(userId, {$set: {"emails.0.address": userEmail}});
+    Meteor.users.update(userId, {
+      ...objectToSet,
+    });
 
     return userId;
   },

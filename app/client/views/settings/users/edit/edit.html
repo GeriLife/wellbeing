@@ -5,8 +5,8 @@
         <div class="modal-header">
           <h4 class="modal-title">
             <i class="fa fa-user"></i>&nbsp;
-             {{_ "editUser-header" }}
-           </h4>
+            {{_ "editUser-header" }}
+          </h4>
         </div>
         {{# autoForm id="editUserForm" schema="EditUserSchema" doc=formUser }}
 
@@ -17,10 +17,14 @@
           {{> afFieldInput name="email" }}
 
           {{#if showIsAdminCheckBox}}
-            <label for="isAdmin">
-              {{_ "users.isAdmin.label" }}
-            </label>
-            {{> afFieldInput name="isAdmin" }}
+          <label for="isAdmin">
+            {{_ "users.isAdmin.label" }}
+          </label>
+          {{> afFieldInput name="isAdmin" }}
+          <label for="deactivateOn">
+            {{_ "users-deactivateOn-label" }}
+          </label>
+          {{> afFieldInput name="deactivateOn" }}
           {{/ if}}
         </div>
 
@@ -28,7 +32,11 @@
           <button type="submit" class="btn btn-success">
             {{_ "editUser-saveButton" }}
           </button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-dismiss="modal"
+          >
             {{_ "editUser-cancelButton" }}
           </button>
         </div>

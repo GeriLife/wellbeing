@@ -1,3 +1,3 @@
 Meteor.startup(function() {
-  Migrations.migrateTo("latest");
+  Migrations.migrateTo('latest');
 });
