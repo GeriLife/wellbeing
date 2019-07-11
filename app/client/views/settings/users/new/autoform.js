@@ -4,8 +4,9 @@ AutoForm.addHooks("newUserForm", {
     var form = this;
     // Add user
     Meteor.call("addUser", user, function(error, userId) {
-      if (error) {
-        // Cancel form submission
+      if (error.message) {
+        /* If a form input is invalid flash message is displayed*/
+        FlashMessages.sendError(error.message, { autoHide: false });
         form.result(false);
       }
       // If is admin
