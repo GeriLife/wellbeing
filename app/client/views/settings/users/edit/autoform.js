@@ -10,7 +10,7 @@ AutoForm.addHooks("editUserForm", {
     Meteor.call("editUserFormSubmit", user, function (error, userId) {
       if (error.message) {
         /* If a form input is invalid flash message is displayed*/
-        FlashMessages.sendError(error.message, { autoHide: false });
+        FlashMessages.sendError(error.message, { autoHide: true });
         form.result(false);
       }
       
