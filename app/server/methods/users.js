@@ -96,10 +96,16 @@ Meteor.methods({
       objectToSet.$unset = { deactivateOn: true };
     }
 
-    // Edit user, setting first email
-    Meteor.users.update(userId, {
-      ...objectToSet,
-    });
+    try {
+      // Edit user, setting first email
+      Meteor.users.update(userId, {
+        ...objectToSet,
+      });
+    } catch (e) {
+      throw new Meteor.Error(500, e.toString());
+    }
+
+    
 
     return userId;
   },
