@@ -13,6 +13,7 @@ Template.activities.onCreated(function() {
   instance.currentPageOfActivities = new ReactiveVar([]);
   instance.rowsPerPage = new ReactiveVar(10);
   instance.totalRows = new ReactiveVar(0);
+  instance.reset = new ReactiveVar(true);
 });
 
 Template.activities.events({
@@ -27,6 +28,7 @@ Template.activities.events({
 
     // Trigger change event to refresh table
     $('select').trigger('change');
+    activitiesTemplate.reset.set(false);
   },
 });
 
@@ -98,15 +100,22 @@ Template.activities.helpers({
   /* Set method a that is to be called from pagination template to fetch data */
   onChange() {
     const activitiesTemplate = Template.instance();
-    return (rowsPerPage, currentPage) => {
+    return (rowsPerPage, currentPage, reset) => {
+      activitiesTemplate.reset.set(true);
+      
+      rowsPerPage = !rowsPerPage ? 10 : rowsPerPage
+      currentPage = !currentPage ? 1 : currentPage;
       // if inputs not proper
       if (currentPage <= 0 || rowsPerPage <= 0) return;
 
+      const residentId = $('#resident-filter').val();
+      const activityTypeId = $('#activity-type-filter').val();
       // Fetch rows for current page
       Meteor.call(
         'allUserVisibleActivities-paginated',
-        { currentPage, rowsPerPage },
+        { currentPage, rowsPerPage, activityTypeId, residentId },
         function(err, currentPageDetails) {
+          activitiesTemplate.reset.set(false);
           if (!err) {
             const { rows, count } = currentPageDetails;
             // Set to current array list
@@ -122,4 +131,8 @@ Template.activities.helpers({
   totalRows() {
     return Template.instance().totalRows.get();
   },
+
+  reset(){
+    return Template.instance().reset.get();     
+  }
 });
