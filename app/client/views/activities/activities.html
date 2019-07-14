@@ -27,16 +27,16 @@
     </div>
     <div class="panel-body">
       <div class="col-sm-3 col-xs-12">
-        {{> activitiesTableResidentNamesFilter }}
+        {{> activitiesTableResidentNamesFilter onChange=onChange}}
       </div>
       <div class="col-sm-3 col-xs-12">
-        {{> activitiesTableActivityTypeFilter }}
+        {{> activitiesTableActivityTypeFilter onChange=onChange}}
       </div>
     </div>
   </div>
   <div>
     {{> reactiveTable collection=allUserVisibleActivities settings=tableSettings }}
-    {{>pagination totalRows=totalRows onChange=onChange}}
+    {{>pagination reset=reset totalRows=totalRows onChange=onChange}}
   </div>
   {{ else }}
   {{> spinner }}

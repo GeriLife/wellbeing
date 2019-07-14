@@ -7,7 +7,7 @@ Template.activitiesTableActivityTypeFilter.events({
    "change #activity-type-filter": function (event, templateInstance) {
      // get selected activity type ID
      var activityTypeId = $(event.target).val();
-
+     templateInstance.data.onChange(null, null, true);
       // Set filter to contain resident ID
       templateInstance.filter.set(activityTypeId);
    }
