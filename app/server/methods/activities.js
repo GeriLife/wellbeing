@@ -272,7 +272,12 @@ Meteor.methods({
 
     return activityCount;
   },
-  'allUserVisibleActivities-paginated'({ currentPage, rowsPerPage }) {
+  'allUserVisibleActivities-paginated'({
+    currentPage,
+    rowsPerPage,
+    activityTypeId,
+    residentId,
+  }) {
     if (this.userId) {
       const departed = false;
 
@@ -282,9 +287,26 @@ Meteor.methods({
         departed
       );
 
+      const residentIdFilter = {};
+
+      if (!!residentId) {
+        // if a specific resident id is filtered
+
+        residentIdFilter.residentIds = {
+          $elemMatch: { $eq: residentId },
+        };
+      } else {
+        residentIdFilter.residentIds = {
+          $elemMatch: { $in: userVisibleActiveResidentIds },
+        };
+      }
       const condtionForUserVisibleIds = {
-        residentIds: { $in: userVisibleActiveResidentIds },
+        ...residentIdFilter,
       };
+
+      if (!!activityTypeId) {
+        condtionForUserVisibleIds.activityTypeId = activityTypeId;
+      }
       // return mongo selector to fetch activities with matching resident IDs
       return {
         rows: Activities.find(condtionForUserVisibleIds, {

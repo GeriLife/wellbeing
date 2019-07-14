@@ -3,7 +3,10 @@ Template.pagination.onCreated(function() {
   this.rowsPerPage = new ReactiveVar(10);
   this.listedPages = new ReactiveVar([1, 2, 3]);
   /* Call event to update parent */
-  this.data.onChange(10, 1);
+  if (this.data.reset){
+    this.data.onChange(10, 1);
+  }
+  
 });
 
 Template.pagination.helpers({
