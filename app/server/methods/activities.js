@@ -287,25 +287,38 @@ Meteor.methods({
         departed
       );
 
-      const residentIdFilter = {};
+      const residentIdFilter = {
+        $and:[]
+      };
 
+      /*
+      Using elemMatch to find at least one match from residentIds
+      array (of the collection) from the given array or filtered residentId
+      */
       if (!!residentId) {
-        // if a specific resident id is filtered
 
-        residentIdFilter.residentIds = {
-          $elemMatch: { $eq: residentId },
-        };
+        // if a specific resident id is filtered
+        residentIdFilter.$and.push({
+          residentIds: {
+            $elemMatch: { $eq: residentId },
+          }
+        });
+
       } else {
-        residentIdFilter.residentIds = {
-          $elemMatch: { $in: userVisibleActiveResidentIds },
-        };
+        residentIdFilter.$and.push({
+          residentIds: {
+            $elemMatch: { $in: userVisibleActiveResidentIds },
+          }
+        });
       }
+
       const condtionForUserVisibleIds = {
         ...residentIdFilter,
       };
 
+      /* Filtered activity type */
       if (!!activityTypeId) {
-        condtionForUserVisibleIds.activityTypeId = activityTypeId;
+        condtionForUserVisibleIds.$and.push({ activityTypeId });
       }
       // return mongo selector to fetch activities with matching resident IDs
       return {
