@@ -272,62 +272,61 @@ Meteor.methods({
 
     return activityCount;
   },
-  'allUserVisibleActivities-paginated'({
-    currentPage,
-    rowsPerPage,
-    activityTypeId,
-    residentId,
-  }) {
-    if (this.userId) {
-      const departed = false;
+  'allUserVisibleActivities-paginated'({ currentPage, rowsPerPage, activityTypeId, residentId }) {
+    if (!this.userId) return;
+    const departed = false;
+    let userVisibleActiveResidentIds;
 
-      const userVisibleActiveResidentIds = Meteor.call(
+    if (!residentId) {
+      userVisibleActiveResidentIds = Meteor.call(
         'getUserVisibleResidentIds',
         this.userId,
         departed
       );
+    }
 
-      const residentIdFilter = {
-        $and:[]
-      };
+    // return mongo selector to fetch activities with matching resident IDs
+    const condtionForActivities = prepareFilters(activityTypeId, residentId, userVisibleActiveResidentIds);
+    return {
+      rows: Activities.find(condtionForActivities, {
+        skip: (currentPage - 1) * rowsPerPage,
+        limit: rowsPerPage,
+      }).fetch(),
+      count: Activities.find(condtionForActivities).count(),
+    };
 
-      /*
+  },
+});
+
+
+function prepareFilters(activityTypeId, residentId, userVisibleActiveResidentIds){
+  const condition = {
+    $and:[]
+  };
+  /*
       Using elemMatch to find at least one match from residentIds
       array (of the collection) from the given array or filtered residentId
       */
-      if (!!residentId) {
+     if (!!residentId) {
 
-        // if a specific resident id is filtered
-        residentIdFilter.$and.push({
-          residentIds: {
-            $elemMatch: { $eq: residentId },
-          }
-        });
+      // if a specific resident id is filtered
+      condition.$and.push({
+        residentIds: {
+          $elemMatch: { $eq: residentId },
+        }
+      });
 
-      } else {
-        residentIdFilter.$and.push({
-          residentIds: {
-            $elemMatch: { $in: userVisibleActiveResidentIds },
-          }
-        });
-      }
-
-      const condtionForUserVisibleIds = {
-        ...residentIdFilter,
-      };
-
-      /* Filtered activity type */
-      if (!!activityTypeId) {
-        condtionForUserVisibleIds.$and.push({ activityTypeId });
-      }
-      // return mongo selector to fetch activities with matching resident IDs
-      return {
-        rows: Activities.find(condtionForUserVisibleIds, {
-          skip: (currentPage - 1) * rowsPerPage,
-          limit: rowsPerPage,
-        }).fetch(),
-        count: Activities.find(condtionForUserVisibleIds).count(),
-      };
+    } else {
+      condition.$and.push({
+        residentIds: {
+          $elemMatch: { $in: userVisibleActiveResidentIds },
+        }
+      });
     }
-  },
-});
+
+    /* Filtered activity type */
+    if (!!activityTypeId) {
+      condition.$and.push({ activityTypeId });
+    }
+    return condition
+}
