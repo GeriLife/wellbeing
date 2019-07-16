@@ -3,10 +3,9 @@ Template.pagination.onCreated(function() {
   this.rowsPerPage = new ReactiveVar(10);
   this.listedPages = new ReactiveVar([1, 2, 3]);
   /* Call event to update parent */
-  if (this.data.reset){
+  if (this.data.reset) {
     this.data.onChange(10, 1);
   }
-  
 });
 
 Template.pagination.helpers({
@@ -38,6 +37,12 @@ Template.pagination.helpers({
     return Template.instance().currentPage.get() == pageNo
       ? 'bg-gray'
       : '';
+  },
+  isVisiblePageDisabled(pageNo) {
+    const rowsPerPage = Template.instance().rowsPerPage.get();
+    const totalRows = Template.instance().data.totalRows;
+
+    return !hasNextPage(totalRows, pageNo - 1, rowsPerPage);
   },
 });
 
@@ -73,6 +78,10 @@ Template.pagination.events({
     const rowsPerPage = Template.instance().rowsPerPage.get();
     let listedPages = Template.instance().listedPages.get();
     const totalRows = Template.instance().data.totalRows;
+
+    /* If end of pages is reached */
+    if (!hasNextPage(totalRows, currentPage-1, rowsPerPage)) return;
+
 
     Template.instance().currentPage.set(currentPage);
     listedPages = setVisiblePageNos(
