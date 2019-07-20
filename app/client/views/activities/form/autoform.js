@@ -32,6 +32,7 @@ AutoForm.addHooks(["activityForm"], {
 
     // Alert user that activity was added
     FlashMessages.sendSuccess(successMessageWithIcon, { autoHide: true, hideDelay: 3000 });
+    Session.set('activity-edited',true)
   },
   onError: function (formType, error) {
     FlashMessages.sendError('<i class="fa fa-warning"></i> ' + error.message, { autoHide: true, hideDelay: 3000 });

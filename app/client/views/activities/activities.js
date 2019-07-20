@@ -17,11 +17,13 @@ Template.activities.onCreated(function() {
 
   this.autorun(function() {
     const activityDeleted = Session.get('activity-deleted');
+    const activityEdited = Session.get('activity-edited');
     const currentPage = instance.currentPage.get();
     const rowsPerPage = instance.rowsPerPage.get();
-    if (activityDeleted === true) {
+    if (activityDeleted === true || activityEdited===true) {
       onChange(instance, rowsPerPage, currentPage);
       Session.set('activity-deleted', false);
+      Session.set('activity-edited', false);
     }
   });
 });
