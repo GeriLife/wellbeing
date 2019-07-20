@@ -12,23 +12,34 @@ Template.activities.onCreated(function() {
 
   instance.currentPageOfActivities = new ReactiveVar([]);
   instance.rowsPerPage = new ReactiveVar(10);
+  instance.currentPage = new ReactiveVar(1);
   instance.totalRows = new ReactiveVar(0);
-  instance.reset = new ReactiveVar(true);
+
+  this.autorun(function() {
+    const activityDeleted = Session.get('activity-deleted');
+    const currentPage = instance.currentPage.get();
+    const rowsPerPage = instance.rowsPerPage.get();
+    if (activityDeleted === true) {
+      onChange(instance, rowsPerPage, currentPage);
+      Session.set('activity-deleted', false);
+    }
+  });
 });
 
 Template.activities.events({
   'click #add-activity'() {
     // Show the add activity modal
+    Session.set('reset-pagination', true);
     Modal.show('activityFormModal');
   },
-  'click #clear-filters'() {
+  'click #clear-filters'(event, templateInstance) {
     // Clear value for all selectpickers
     $('#resident-filter').val(undefined);
     $('#activity-type-filter').val(undefined);
 
     // Trigger change event to refresh table
     $('select').trigger('change');
-    activitiesTemplate.reset.set(false);
+    Session.set('reset-pagination', true);
   },
 });
 
@@ -80,11 +91,7 @@ Template.activities.helpers({
             );
 
             // Only show edit column for users with Admin role
-            if (currentUserIsAdmin) {
-              return false;
-            } else {
-              return true;
-            }
+            return !currentUserIsAdmin;
           },
         },
       ],
@@ -100,39 +107,35 @@ Template.activities.helpers({
   /* Set method a that is to be called from pagination template to fetch data */
   onChange() {
     const activitiesTemplate = Template.instance();
-    return (rowsPerPage, currentPage, reset) => {
-      activitiesTemplate.reset.set(true);
-      
-      rowsPerPage = !rowsPerPage ? 10 : rowsPerPage
-      currentPage = !currentPage ? 1 : currentPage;
-      // if inputs not proper
-      if (currentPage <= 0 || rowsPerPage <= 0) return;
-
-      const residentId = $('#resident-filter').val();
-      const activityTypeId = $('#activity-type-filter').val();
-      // Fetch rows for current page
-      Meteor.call(
-        'allUserVisibleActivities-paginated',
-        { currentPage, rowsPerPage, activityTypeId, residentId },
-        function(err, currentPageDetails) {
-          activitiesTemplate.reset.set(false);
-          if (!err) {
-            const { rows, count } = currentPageDetails;
-            // Set to current array list
-            activitiesTemplate.currentPageOfActivities.set(rows);
-            activitiesTemplate.totalRows.set(count);
-
-            activitiesTemplate.rowsPerPage.set(rowsPerPage);
-          }
-        }
-      );
-    };
+    return (rowsPerPage, currentPage) =>
+      onChange(activitiesTemplate, rowsPerPage, currentPage);
   },
   totalRows() {
     return Template.instance().totalRows.get();
   },
-
-  reset(){
-    return Template.instance().reset.get();     
-  }
 });
+
+function onChange(activitiesTemplate, rowsPerPage, currentPage) {
+  rowsPerPage = !rowsPerPage ? 10 : rowsPerPage;
+  currentPage = !currentPage ? 1 : currentPage;
+  // if inputs not proper
+  if (currentPage <= 0 || rowsPerPage <= 0) return;
+
+  const residentId = $('#resident-filter').val();
+  const activityTypeId = $('#activity-type-filter').val();
+  // Fetch rows for current page
+  Meteor.call(
+    'allUserVisibleActivities-paginated',
+    { currentPage, rowsPerPage, activityTypeId, residentId },
+    function(err, currentPageDetails) {
+      if (!err) {
+        const { rows, count } = currentPageDetails;
+        // Set to current array list
+        activitiesTemplate.currentPageOfActivities.set(rows);
+        activitiesTemplate.totalRows.set(count);
+        activitiesTemplate.rowsPerPage.set(rowsPerPage);
+        activitiesTemplate.currentPage.set(currentPage);
+      }
+    }
+  );
+}

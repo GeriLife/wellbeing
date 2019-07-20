@@ -7,6 +7,7 @@ Template.deleteActivityConfirmation.events({
     Activities.remove(activityId, function () {
       // Dismiss the modal dialogue
       Modal.hide("deleteActivityConfirmation");
+      Session.set('activity-deleted', true);
     });
   }
 });

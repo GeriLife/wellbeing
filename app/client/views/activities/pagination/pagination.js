@@ -3,9 +3,16 @@ Template.pagination.onCreated(function() {
   this.rowsPerPage = new ReactiveVar(10);
   this.listedPages = new ReactiveVar([1, 2, 3]);
   /* Call event to update parent */
-  if (this.data.reset) {
-    this.data.onChange(10, 1);
-  }
+  this.data.onChange(10, 1);
+  const instance = this;
+  this.autorun(function() {
+    const reset = Session.get('reset-pagination');
+
+    if (reset === true) {
+      onReset(instance);
+      Session.set('reset-pagination', false);
+    }
+  });
 });
 
 Template.pagination.helpers({
@@ -80,8 +87,7 @@ Template.pagination.events({
     const totalRows = Template.instance().data.totalRows;
 
     /* If end of pages is reached */
-    if (!hasNextPage(totalRows, currentPage-1, rowsPerPage)) return;
-
+    if (!hasNextPage(totalRows, currentPage - 1, rowsPerPage)) return;
 
     Template.instance().currentPage.set(currentPage);
     listedPages = setVisiblePageNos(
@@ -189,4 +195,16 @@ function setVisiblePageNos(
     currentPage >= 1 && listedPages.push(currentPage);
   }
   return listedPages;
+}
+
+function onReset(templateInstance) {
+  templateInstance.currentPage.set(1);
+  templateInstance.rowsPerPage.set(10);
+  templateInstance.data.onChange(10, 1);
+
+  let listedPages = templateInstance.listedPages.get();
+  const totalRows = templateInstance.data.totalRows;
+
+  listedPages = setVisiblePageNos(listedPages, 1, 10, totalRows);
+  templateInstance.listedPages.set(listedPages);
 }
