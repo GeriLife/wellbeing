@@ -14,7 +14,7 @@ Template.activitiesTableResidentNamesFilter.events({
   "change #resident-filter": function(event, templateInstance) {
     // get selected resident ID
     const residentId = $(event.target).val();
-    templateInstance.data.onChange(null, null, true);
+    Session.set('reset-pagination', true);    
 
     // Set filter to contain resident ID
     templateInstance.filter.set(residentId);
