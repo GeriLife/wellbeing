@@ -45,3 +45,9 @@ Template.residentForm.helpers({
     }
   }
 });
+
+Template.residentForm.events({
+  'click .btn-danger'() {
+    FlashMessages.clear();
+  }
+})

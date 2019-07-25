@@ -4,6 +4,7 @@
       <div class="modal-content">
         {{# if Template.subscriptionsReady }}
         <div class="modal-header">
+          {{> flashMessages}}
           <h4 class="modal-title">
             {{# if residentId }}
               {{_ "residentForm-header-edit" }}
