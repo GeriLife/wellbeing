@@ -7,49 +7,14 @@ Template.singleHomeActivityStatus.onCreated(function () {
     // Add variable to hold activity counts
     templateInstance.activityLevelCounts = new ReactiveVar();
 
-    templateInstance.autorun(function () {
-      // Get count of home current residents (not departed or on hiatus)
-      templateInstance.homeCurrentResidentsCount = ReactiveMethod.call("getHomeCurrentAndActiveResidentCount", templateInstance.homeId);
-
-      // Retrieve home resident activity level counts from server
-      const activityLevelCounts = ReactiveMethod.call("getHomeActivityLevelCounts", templateInstance.homeId);
-
-      // Make sure activity level counts exist
-      if (activityLevelCounts && templateInstance.homeCurrentResidentsCount !== undefined) {
-        /*
-        Re-structure activity level counts data to an object containing:
-        type: the type of activity level (inactive, semiActive, active)
-        count: the number of residents with a given activity level
-        homePercentage: percentage of home residents with the activity level
-        */
-        const activityLevelTypes = _.keys(activityLevelCounts);
-
-        const activityLevelData = _.map(activityLevelTypes, function (type) {
-          // Default value is 0
-          let homePercentage = 0;
-
-          // Avoid dividing by 0
-          if (templateInstance.homeCurrentResidentsCount !== 0) {
-            // Calculate the percentage of home residents in activity level class
-            homePercentage = Math.round(activityLevelCounts[type] / templateInstance.homeCurrentResidentsCount * 100);
-          }
-
-          // Construct an object with the type and count keys
-          const activityLevelCountObject = {
-            // Activity level class (inactive, semi-active, active)
-            type: type,
-            // Number of residents in activity class
-            count: activityLevelCounts[type],
-            // Percentage of home residents fallint into activity level class
-            homePercentage: homePercentage
-          };
-
-          return activityLevelCountObject;
-        });
-
-        // Update the reactive variable, to trigger the graph to render
-        templateInstance.activityLevelCounts.set(activityLevelData);
-      }
+    templateInstance.autorun(function() {
+      const activityLevelData = ReactiveMethod.call(
+        'getActivityPercentageForAGivenHome',
+        templateInstance.homeId
+      );
+  
+      // Update the reactive variable, to trigger the graph to render
+      templateInstance.activityLevelCounts.set(activityLevelData);
     });
   });
 

@@ -361,5 +361,62 @@ Meteor.methods({
 
     }
     return false
-  }
+  },
+  getActivityPercentageForAGivenHome(homeId) {
+    // Get count of home current residents (not departed or on hiatus)
+    const homeCurrentResidentsCount = Meteor.call(
+      'getHomeCurrentAndActiveResidentCount',
+      homeId
+    );
+
+    // Retrieve home resident activity level counts from server
+    const activityLevelCounts = Meteor.call(
+      'getHomeActivityLevelCounts',
+      homeId
+    );
+
+    // Make sure activity level counts exist
+    if (
+      activityLevelCounts &&
+      homeCurrentResidentsCount !== undefined
+    ) {
+      /*
+      Re-structure activity level counts data to an object containing:
+      type: the type of activity level (inactive, semiActive, active)
+      count: the number of residents with a given activity level
+      homePercentage: percentage of home residents with the activity level
+      */
+      const activityLevelTypes = _.keys(activityLevelCounts);
+
+      const activityLevelData = _.map(activityLevelTypes, function(
+        type
+      ) {
+        // Default value is 0
+        let homePercentage = 0;
+
+        // Avoid dividing by 0
+        if (homeCurrentResidentsCount !== 0) {
+          // Calculate the percentage of home residents in activity level class
+          homePercentage = Math.round(
+            (activityLevelCounts[type] / homeCurrentResidentsCount) *
+              100
+          );
+        }
+
+        // Construct an object with the type and count keys
+        const activityLevelCountObject = {
+          // Activity level class (inactive, semi-active, active)
+          type: type,
+          // Number of residents in activity class
+          count: activityLevelCounts[type],
+          // Percentage of home residents fallint into activity level class
+          homePercentage: homePercentage,
+        };
+
+        return activityLevelCountObject;
+      });
+      return activityLevelData;
+    }
+    return [];
+  },
 });
