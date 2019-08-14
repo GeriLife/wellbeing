@@ -52,3 +52,5 @@ akryum:vue-blaze-template
 underscore
 vuejs:blaze-integration
 akryum:vue-sass
+meteortesting:mocha
+hwillson:stub-collections
