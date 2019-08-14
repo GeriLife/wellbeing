@@ -165,3 +165,6 @@ Activities.after.remove(function (userId, activity) {
     entityId: activity._id,
   })
 });
+
+
+module.exports=Activities
