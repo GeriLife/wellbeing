@@ -393,6 +393,7 @@
     }
   },
   "usersSettings-addUserButton": "Add User",
+  "usersSettings-addUser-defaultFailureMessage": "Error creating user",
   "usersSettings-header": "Users",
   "usersSettingsTableActions-deleteButtonText": "Delete",
   "usersSettingsTableActions-editButtonText": "Edit",
