@@ -397,6 +397,7 @@
   "usersSettings-header": "Users",
   "usersSettingsTableActions-deleteButtonText": "Delete",
   "usersSettingsTableActions-editButtonText": "Edit",
+  "usersSettings-editUser-defaultFailureText": "Error updating data",
   "usersSettingsTable-tableHeaders-actions": "Actions",
   "usersSettingsTable-tableHeaders-isActive": "Is Active",
   "usersSettingsTable-tableHeaders-email": "Email",
