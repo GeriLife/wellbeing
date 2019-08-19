@@ -19,10 +19,11 @@ AccountsTemplates.configureRoute('signIn');
 
 Meteor.startup(function() {
   Accounts.onCreateUser(function(options, user) {
+    let { deactivateOn } = options;
     _.extend(user, {
       isActive: true,
+      deactivateOn
     });
-
     return user;
   });
 
