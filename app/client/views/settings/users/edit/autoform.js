@@ -8,12 +8,16 @@ AutoForm.addHooks("editUserForm", {
 
     // Add user
     Meteor.call("editUserFormSubmit", user, function (error, userId) {
-      if (error.message) {
+      if (error) {
         /* If a form input is invalid flash message is displayed*/
-        FlashMessages.sendError(error.message, { autoHide: true });
+        FlashMessages.sendError(
+          error.message ||
+            Tapi18n.__('usersSettings-editUser-defaultFailureText'),
+          { autoHide: true }
+        );
         form.result(false);
       }
-      
+
       // If is admin
       if (user.isAdmin) {
         // Add user to admin role
