@@ -1,3 +1,4 @@
+import SimpleSchema from 'simpl-schema';
 export const deactivateOnSchema = {
   type: Date,
   optional: true,
@@ -16,4 +17,16 @@ export const deactivateOnSchema = {
     return new Date(utcDate);
   },
   max: new Date('2050'),
+};
+
+export const emailSchema = {
+  type: String,
+  optional: false,
+  regEx: SimpleSchema.RegEx.EmailWithTLD,
+};
+
+export const isAdminSchema = {
+  type: Boolean,
+  defaultValue: false,
+  label: 'System administrator',
 };

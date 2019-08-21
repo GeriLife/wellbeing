@@ -1,10 +1,28 @@
-Template.editUser.helpers({
+import { NewUserSchema } from './newUserSchema';
+import { EditUserSchema } from './editUserSchema';
+
+Template.manageUser.onCreated(function() {
+  const templateInstance = this;
+  const user = this.data;
+  const isEdit = user && !!user._id;
+  templateInstance.isEdit = new ReactiveVar(isEdit);
+
+  // adding to as autoform expects schema in the browser window variable
+  if (isEdit) {
+    window.userSchema = EditUserSchema;
+  } else {
+    window.userSchema = NewUserSchema;
+  }
+});
+Template.manageUser.helpers({
   formUser: function() {
+    const isEdit = Template.instance().isEdit.get();
+    if (!isEdit) return {};
     // Get reference to user from template context
-    var user = this.data;
+    const user = this;
 
     // Create user object for edit form
-    var formUser = {};
+    const formUser = {};
 
     if (user.roles) {
       // Get reference to user roles
@@ -33,20 +51,28 @@ Template.editUser.helpers({
   },
 
   showIsAdminCheckBox() {
+    /* In create mode always show checkbox */
+    const isEdit = Template.instance().isEdit.get();
+    if (!isEdit) return true;
+
     // Is current user admin
     const currentUserId = Meteor.userId();
     const isAdmin = Roles.userIsInRole(currentUserId, 'admin');
 
     // Get current user email.
     const currentUserEmail = Meteor.user().emails[0].address;
-    const user = this.data;
+    const user = this;
 
     // disable if current user is admin and editing his own info
     return !(currentUserEmail === user.emails[0].address && isAdmin);
   },
+
+  isEdit() {
+    return Template.instance().isEdit.get();
+  },
 });
-Template.editUser.events({
-  'submit #editUserForm': function(event) {
+Template.manageUser.events({
+  'submit #userForm': function(event) {
     // Prevent form from submitting with URL parameters
     event.preventDefault();
   },
