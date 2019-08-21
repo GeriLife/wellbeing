@@ -2,52 +2,17 @@ AutoForm.addHooks('userForm', {
   onSubmit: function(user) {
     // Get reference to form context
     const form = this;
-    if (!!this.docId) {
+    const isEdit = !!this.docId;
 
+    if (isEdit) {
       // Re-attach the user ID
       user._id = this.docId;
-
-      // Add user
-      Meteor.call('editUserFormSubmit', user, function(
-        error,
-        userId
-      ) {
-        if (error) {
-          /* If a form input is invalid flash message is displayed*/
-          FlashMessages.sendError(
-            error.message ||
-              Tapi18n.__('usersSettings-editUser-defaultFailureText'),
-            { autoHide: true }
-          );
-          form.result(false);
-        }
-
-        addUserAsAdmin(user, userId);
-        // Finish submitting the form
-        form.done();
-      });
-    } else {
-      // Add user
-      Meteor.call('addUser', user, function(error, userId) {
-        if (error) {
-          /* If a form input is invalid flash message is displayed*/
-          FlashMessages.sendError(
-            error.message ||
-              Tapi18n.__(
-                'usersSettings-addUser-defaultFailureMessage'
-              ),
-            { autoHide: true }
-          );
-
-          form.result(false);
-        }
-
-        addUserAsAdmin(user, userId);
-
-        // Finish submitting the form
-        form.done();
-      });
     }
+    const methodName = isEdit ? 'editUserFormSubmit' : 'addUser';
+    // Add user
+    Meteor.call(methodName, user, function(error, userId) {
+      handleCallback(true, error, user, userId, form);
+    });
   },
   onSuccess: function() {
     // Hide the modal dialogue
@@ -74,4 +39,22 @@ function addUserAsAdmin(user, userId) {
     // Remove user from admin role
     Meteor.call('removeUserFromAdminRole', userId);
   }
+}
+
+function handleCallback(isEdit, error, user, userId, form) {
+  if (error) {
+    const defaultErrorMessage = isEdit
+      ? TAPi18n.__('usersSettings-editUser-defaultFailureText')
+      : TAPi18n.__('usersSettings-addUser-defaultFailureMessage');
+
+    /* If a form input is invalid flash message is displayed*/
+    FlashMessages.sendError(error.message || defaultErrorMessage, {
+      autoHide: true,
+    });
+    form.result(false);
+  }
+
+  addUserAsAdmin(user, userId);
+  // Finish submitting the form
+  form.done();
 }
