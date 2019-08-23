@@ -41,6 +41,7 @@
   "activityTypesSettings-header": "Activity Types",
   "addResidencyForm-cancel": "Cancel",
   "addResidencyForm-save": "Save",
+  "addResidencyForm-undo": "Undo Changes",
   "addResidencyForm-newOrExisting-existing": "Existing resident",
   "addResidencyForm-newOrExisting-new": "New resident",
   "addResidencyModal-header": "Add residency",
