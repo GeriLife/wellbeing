@@ -7,53 +7,74 @@
           <h4 class="modal-title">
             {{_ "editResidencyModal-header" }}
           </h4>
-        </div> <!-- / .modal-header -->
+        </div>
+        <!-- / .modal-header -->
         {{# if Template.subscriptionsReady }}
         <div class="modal-body">
           <!-- check if residency exists - editing -->
           {{# if residency }}
-            {{#autoForm id="editResidencyForm" type="update" collection="Residencies" doc=residency }}
+          {{#unless addNewResidencyClicked}}
+          <p data-toggle="popover" data-trigger="hover" data-content="Click anywhere in the document to close this popover">
+            Each residency is limited to a single home.
+            <a  class="add-new-residency-link">Click here</a> to end
+            this residency and to add a new one for this user
+          </p>
+          {{#autoForm id="editResidencyForm" type="update" collection="Residencies" doc=residency }}
 
-              <label for="residentId">
-                {{_ "residencies.residentId.label" }}
-              </label>
-              {{> afFieldInput name="residentId" options=residentIdOptions }}
+          <label for="residentId">
+            {{_ "residencies.residentId.label" }}
+          </label>
+          {{> afFieldInput name="residentId" disabled="true" options=residentIdOptions }}
 
-              <label for="homeId">
-                {{_ "residencies.homeId.label" }}
-              </label>
-              {{> afFieldInput name="homeId" options=homeSelectOptionsWithGroups }}
+          <label for="homeId">
+            {{_ "residencies.homeId.label" }}
+          </label>
+          {{> afFieldInput name="homeId" disabled="true" options=homeSelectOptionsWithGroups }}
 
-              <label for="moveIn">
-                {{_ "residencies.moveIn.label" }}
-              </label>
-              {{> afFieldInput name="moveIn" class="dateField" buttonClasses="fa fa-calendar" }}
+          <label for="moveIn">
+            {{_ "residencies.moveIn.label" }}
+          </label>
+          {{> afFieldInput name="moveIn" class="dateField" buttonClasses="fa fa-calendar" }}
 
-              <label for="moveOut">
-                {{_ "residencies.moveOut.label" }}
-              </label>
-              {{> afFieldInput name="moveOut" class="dateField" buttonClasses="fa fa-calendar" }}
+          <label for="moveOut">
+            {{_ "residencies.moveOut.label" }}
+          </label>
+          {{> afFieldInput name="moveOut" class="dateField" buttonClasses="fa fa-calendar" }}
 
-              <br/>
+          <br />
 
-              <button type="submit" class="btn btn-success">
-                {{_ "editResidencyForm-save" }}
-              </button>
-              <button type="button" class="btn btn-danger" data-dismiss="modal">
-                {{_ "editResidencyForm-cancel" }}
-              </button>
+          <button type="submit" class="btn btn-success">
+            {{_ "editResidencyForm-save" }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-dismiss="modal"
+          >
+            {{_ "editResidencyForm-cancel" }}
+          </button>
 
-            {{/ autoForm }}
+          {{/ autoForm }}
+
+          {{else}}
+
+          {{> addResidencyForExistingResidentForm data=newResidency dismiss=dismiss }}
+          {{/unless}}
           {{ else }}
-            <!-- add new residency using resident and home IDs -->
-            <!-- TODO: remove this option after migrating all data -->
-            {{> addResidencyForm residentId=residentId homeId=homeId }}
+          <!-- add new residency using resident and home IDs -->
+          <!-- TODO: remove this option after migrating all data -->
+          {{> addResidencyForm residentId=residentId homeId=homeId }}
           {{/ if }}
-        </div> <!-- / .modal-body -->
+        </div>
+        <!-- / .modal-body -->
         {{ else }}
-          {{> spinner }}
-        {{/ if }} <!-- /if Template.subscriptionsReady -->
-      </div> <!-- / .modal-content -->
-    </div> <!-- / .modal-dialogue -->
-  </div> <!-- / .modal fade -->
+        {{> spinner }}
+        {{/ if }}
+        <!-- /if Template.subscriptionsReady -->
+      </div>
+      <!-- / .modal-content -->
+    </div>
+    <!-- / .modal-dialogue -->
+  </div>
+  <!-- / .modal fade -->
 </template>

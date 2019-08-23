@@ -36,7 +36,10 @@ var ResidenciesSchema = new SimpleSchema({
     }
   },
   homeId: {
-    type: String
+    type: String,
+    custom() {
+      return !!this.docId ? 'notAllowed' : undefined;
+    },
   },
   moveIn: {
     type: Date,

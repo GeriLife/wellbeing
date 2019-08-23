@@ -1,32 +1,46 @@
 <template name="addResidencyForExistingResidentForm">
-  {{#autoForm id="addResidencyForExistingResident" type="insert" collection="Residencies" }}
-    <label for="residentId">
-      {{_ "residencies.residentId.label" }}
-    </label>
-    {{> afFieldInput name="residentId" value=residentId options=residentIdOptions }}
+  {{#if residency.residentId}}
+  <p>Previous residency ended on {{ residency.newMoveIn }}</p>
+  <button class="btn btn-primary undo">
+    {{_ "addResidencyForm-undo" }}
+  </button>
+  {{/if}}
 
-    <label for="homeId">
-      {{_ "residencies.homeId.label" }}
-    </label>
-    {{> afFieldInput name="homeId" value=homeId options=homeSelectOptionsWithGroups }}
+  <!-- Form -->
+  {{#autoForm id="addResidencyForExistingResident" type="insert" collection="Residencies" doc=residency}}
+  <label for="residentId">
+    {{_ "residencies.residentId.label" }}
+  </label>
+  {{# if residency.residentId}}
+  {{> afFieldInput name="residentId" value=residency.residentId disabled="true" options=residentIdOptions }}
+  {{else}}
+  {{> afFieldInput name="residentId" value=residentId options=residentIdOptions }}
+  {{/if}}
+  <label for="homeId">
+    {{_ "residencies.homeId.label" }}
+  </label>
+  {{> afFieldInput name="homeId" value=homeId options=homeSelectOptionsWithGroups }}
 
-    <label for="moveIn">
-      {{_ "residencies.moveIn.label" }}
-    </label>
-    {{> afFieldInput name="moveIn" class="dateField" buttonClasses="fa fa-calendar" value=today }}
+  <label for="moveIn">
+    {{_ "residencies.moveIn.label" }}
+  </label>
+  {{> afFieldInput name="moveIn" class="dateField" buttonClasses="fa fa-calendar" value=today }}
 
-    <label for="moveOut">
-      {{_ "residencies.moveOut.label" }}
-    </label>
-    {{> afFieldInput name="moveOut" class="dateField" buttonClasses="fa fa-calendar" }}
+  <label for="moveOut">
+    {{_ "residencies.moveOut.label" }}
+  </label>
+  {{> afFieldInput name="moveOut" class="dateField" buttonClasses="fa fa-calendar" }}
 
-    <br/>
+  <br />
 
-    <button type="submit" class="btn btn-success">
-      {{_ "addResidencyForm-save" }}
-    </button>
-    <button type="button" class="btn btn-danger" data-dismiss="modal">
-      {{_ "addResidencyForm-cancel" }}
-    </button>
+  <button type="submit" class="btn btn-success">
+    {{_ "addResidencyForm-save" }}
+  </button>
+
+  {{#unless residency.residentId}}
+  <button type="button" class="btn btn-danger" data-dismiss="modal">
+    {{_ "addResidencyForm-cancel" }}
+  </button>
+  {{/unless}}
   {{/ autoForm }}
 </template>
