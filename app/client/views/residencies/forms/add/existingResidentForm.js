@@ -1,4 +1,4 @@
-Template.addResidencyForExistingResidentForm.onCreated(function () {
+Template.addResidencyForExistingResidentForm.onCreated(function() {
   const templateInstance = this;
 
   // reactive placeholder for home select options with groups
@@ -7,7 +7,7 @@ Template.addResidencyForExistingResidentForm.onCreated(function () {
 
   // get home select options with groups from server
   Meteor.call(
-    "getHomeSelectOptionsWithGroups",
+    'getHomeSelectOptionsWithGroups',
     (error, homeSelectOptionsWithGroups) => {
       // update reactive variable with home select options
       templateInstance.homeSelectOptionsWithGroups.set(
@@ -16,14 +16,13 @@ Template.addResidencyForExistingResidentForm.onCreated(function () {
     }
   );
   Meteor.call(
-    "getResidentsWithoutActiveResidencies",
+    'getResidentsWithoutActiveResidencies',
     (error, residentsWithoutActiveResidencies) => {
       templateInstance.residentsWithoutActiveResidencies.set(
         residentsWithoutActiveResidencies
       );
     }
   );
-
 });
 
 Template.addResidencyForExistingResidentForm.helpers({
@@ -39,10 +38,10 @@ Template.addResidencyForExistingResidentForm.helpers({
     const residents = Template.instance().residentsWithoutActiveResidencies.get();
 
     // create options list for select
-    const residentOptions = _.map(residents, function (resident) {
+    const residentOptions = _.map(residents, function(resident) {
       // Create option for this resident, with ID as the value
       const { firstName, lastInitial } = resident;
-      const fullName = [firstName, lastInitial].join(" ");
+      const fullName = [firstName, lastInitial].join(' ');
       return { label: fullName, value: resident._id };
     });
 
@@ -51,5 +50,17 @@ Template.addResidencyForExistingResidentForm.helpers({
   today() {
     // Default date today, as a string
     return Date();
-  }
+  },
+
+  residency() {
+    const residencyObj = Template.instance().data;
+    return residencyObj ? residencyObj.data : {};
+  },
+});
+
+Template.addResidencyForExistingResidentForm.events({
+  'click .undo'(event, templateInstance) {
+    if (templateInstance.data.dismiss)
+      templateInstance.data.dismiss();
+  },
 });
