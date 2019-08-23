@@ -15,3 +15,6 @@ import internal.GlobalVariable as GlobalVariable
 
 // Clicking on Profile on the top navigation bar
 WebUI.click(findTestObject('Object Repository/LoginPage/Page_GeriLife/a_                Profile'))
+
+//Capturing screenshot
+WebUI.takeScreenshot('~/Katalon/Login/Profile')

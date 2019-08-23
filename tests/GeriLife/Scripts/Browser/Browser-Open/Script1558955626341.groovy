@@ -15,8 +15,10 @@ import internal.GlobalVariable as GlobalVariable
 
 //Opening the Browser
 WebUI.openBrowser('')
+
 // Opening the URL
 WebUI.navigateToUrl('http://localhost:3000/')
+
 //Maximizing the Window
 WebUI.maximizeWindow()
 

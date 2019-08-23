@@ -15,14 +15,5 @@
          <runEnabled>true</runEnabled>
          <testSuiteEntity>Test Suites/GeriLife Test Suites/SignUp/Signup Page</testSuiteEntity>
       </TestSuiteRunConfiguration>
-      <TestSuiteRunConfiguration>
-         <configuration>
-            <groupName>Web Desktop</groupName>
-            <profileName>LocalHost</profileName>
-            <runConfigurationId>Firefox</runConfigurationId>
-         </configuration>
-         <runEnabled>true</runEnabled>
-         <testSuiteEntity>Test Suites/GeriLife Test Suites/SignUp/Signup Page</testSuiteEntity>
-      </TestSuiteRunConfiguration>
    </testSuiteRunConfigurations>
 </TestSuiteCollectionEntity>

@@ -22,3 +22,5 @@ WebUI.setEncryptedText(findTestObject('Object Repository/LoginPage/Page_GeriLife
 //Clicking on Sign In button
 WebUI.click(findTestObject('Object Repository/LoginPage/Page_GeriLife/button_Sign In'))
 
+//Capturing screenshot
+WebUI.takeScreenshot('~/Katalon/Login/AdminAccount')

@@ -8,18 +8,9 @@
    <testSuiteRunConfigurations>
       <TestSuiteRunConfiguration>
          <configuration>
-            <groupName>Web Desktop</groupName>
+            <groupName>Custom</groupName>
             <profileName>LocalHost</profileName>
-            <runConfigurationId>Chrome</runConfigurationId>
-         </configuration>
-         <runEnabled>true</runEnabled>
-         <testSuiteEntity>Test Suites/GeriLife Test Suites/LoginPage/Login Page</testSuiteEntity>
-      </TestSuiteRunConfiguration>
-      <TestSuiteRunConfiguration>
-         <configuration>
-            <groupName>Web Desktop</groupName>
-            <profileName>LocalHost</profileName>
-            <runConfigurationId>Firefox</runConfigurationId>
+            <runConfigurationId>windows10chrome75</runConfigurationId>
          </configuration>
          <runEnabled>true</runEnabled>
          <testSuiteEntity>Test Suites/GeriLife Test Suites/LoginPage/Login Page</testSuiteEntity>

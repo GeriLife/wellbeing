@@ -15,14 +15,5 @@
          <runEnabled>true</runEnabled>
          <testSuiteEntity>Test Suites/GeriLife Test Suites/LoginLogoutFromAllPages/LoginLogoutFromAllPages</testSuiteEntity>
       </TestSuiteRunConfiguration>
-      <TestSuiteRunConfiguration>
-         <configuration>
-            <groupName>Web Desktop</groupName>
-            <profileName>LocalHost</profileName>
-            <runConfigurationId>Firefox</runConfigurationId>
-         </configuration>
-         <runEnabled>true</runEnabled>
-         <testSuiteEntity>Test Suites/GeriLife Test Suites/LoginLogoutFromAllPages/LoginLogoutFromAllPages</testSuiteEntity>
-      </TestSuiteRunConfiguration>
    </testSuiteRunConfigurations>
 </TestSuiteCollectionEntity>

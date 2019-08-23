@@ -24,3 +24,6 @@ WebUI.click(findTestObject('Object Repository/LoginPage/Page_GeriLife/button_Sig
 
 WebUI.delay(5)
 
+//Capturing screenshot
+WebUI.takeScreenshot('~/Katalon/Login/NonAdminAccount')
+

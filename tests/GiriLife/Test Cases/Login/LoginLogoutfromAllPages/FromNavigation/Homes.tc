@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TestCaseEntity>
-   <description>Clicking on Homes Menu</description>
-   <name>Homes</name>
-   <tag></tag>
-   <comment></comment>
-   <testCaseGuid>feca0162-f3b9-43b9-b1eb-00ab214da1e9</testCaseGuid>
-</TestCaseEntity>

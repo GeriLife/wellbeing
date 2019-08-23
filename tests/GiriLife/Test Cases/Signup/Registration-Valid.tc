@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TestCaseEntity>
-   <description>Testing the Valid scenario for Registration Page</description>
-   <name>Registration-Valid</name>
-   <tag></tag>
-   <comment></comment>
-   <testCaseGuid>735431c0-4b5d-449a-98a3-3a19cde8893c</testCaseGuid>
-</TestCaseEntity>

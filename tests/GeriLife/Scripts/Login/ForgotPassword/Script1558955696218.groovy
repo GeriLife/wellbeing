@@ -21,12 +21,15 @@ import internal.GlobalVariable as GlobalVariable
 WebUI.openBrowser('')
 
 //Navigating the URL
-WebUI.navigateToUrl('http://localhost:3000/')
+WebUI.navigateToUrl('http://192.168.0.100:3000')
 
 //Cliking on Forgot Your Password Link
 WebUI.click(findTestObject('LoginPage/Page_GeriLife/a_Forgot your password'))
 
 WebUI.delay(3)
+
+//Capturing screenshot
+WebUI.takeScreenshot('~/Katalon/Login/ForgotPassword')
 
 //Verifying the Reset your password 
 WebUI.verifyElementText(findTestObject('LoginPage/Page_GeriLife/h3_Reset your password'), 'Reset your password')
@@ -36,10 +39,10 @@ WebUI.verifyElementText(findTestObject('LoginPage/Page_GeriLife/label_Email'), '
 
 //Clicking on Email Rest Link
 WebUI.click(findTestObject('LoginPage/Page_GeriLife/button_Email Reset Link'), FailureHandling.STOP_ON_FAILURE)
-
+WebUI.takeScreenshot('~/Katalon/Login/EmailResetLink')
 WebUI.delay(3)
 
-//Verifyingt the validation message Email: Required Field
+//Verifying the validation message Email: Required Field
 WebUI.verifyElementText(findTestObject('LoginPage/Page_GeriLife/div_Email Required Field'), 'Email: Required Field')
 
 //Entering invalid email address
@@ -62,6 +65,7 @@ WebUI.delay(3)
 //Verifying the validation message as "User not Found"
 WebUI.verifyElementText(findTestObject('LoginPage/Page_GeriLife/div_User not found'), 'User not found')
 
+WebUI.takeScreenshot('~/Katalon/Login/UsernotFound')
 //Entering invalid email address
 WebUI.setText(findTestObject('LoginPage/Page_GeriLife/input_Email_at-field-email'), 'payal@gmail.com')
 
@@ -76,10 +80,5 @@ WebUI.setText(findTestObject('LoginPage/Page_GeriLife/input_Email_at-field-email
 //Clicking on Email Rest Link
 WebUI.click(findTestObject('LoginPage/Page_GeriLife/button_Email Reset Link'))
 
-WebUI.delay(7)
-
-// Verifying the email sent validation message
-WebUI.verifyElementText(findTestObject('LoginPage/Page_GeriLife/div_Email sent'), 'Email sent')
-
-WebUI.delay(7)
+WebUI.closeBrowser(FailureHandling.CONTINUE_ON_FAILURE)
 

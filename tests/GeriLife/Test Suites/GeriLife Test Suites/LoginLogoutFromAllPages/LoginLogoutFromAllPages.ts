@@ -205,7 +205,7 @@
    <testCaseLink>
       <guid>e0eb7af8-ec76-486f-9145-d499af99b6d5</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>false</isRun>
+      <isRun>true</isRun>
       <testCaseId>Test Cases/Login/LoginLogoutfromAllPages/FromNavigation/Settings</testCaseId>
    </testCaseLink>
    <testCaseLink>

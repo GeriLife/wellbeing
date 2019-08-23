@@ -31,9 +31,13 @@ import internal.GlobalVariable as GlobalVariable
  * This script is used for entering the valid credentials
  */
 //Entering admin email address
+
+//Entering the email address
 WebUI.setText(findTestObject('Object Repository/LoginPage/Page_GeriLife/input_Email_at-field-email'), 'payalchoksey@gmail.com')
+
 //Entering Password
 WebUI.setEncryptedText(findTestObject('Object Repository/LoginPage/Page_GeriLife/input_Password_at-field-password'), 'kbs23wq117C4z+7JL/PnBA==')
+
 //Clicking on Sign In button
 WebUI.click(findTestObject('Object Repository/LoginPage/Page_GeriLife/button_Sign In'))
 

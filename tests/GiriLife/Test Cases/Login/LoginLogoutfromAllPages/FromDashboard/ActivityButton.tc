@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TestCaseEntity>
-   <description>Clicking on Activity Button</description>
-   <name>ActivityButton</name>
-   <tag></tag>
-   <comment></comment>
-   <testCaseGuid>cfc3aa9e-208c-4269-916b-11d9ed2b835a</testCaseGuid>
-</TestCaseEntity>

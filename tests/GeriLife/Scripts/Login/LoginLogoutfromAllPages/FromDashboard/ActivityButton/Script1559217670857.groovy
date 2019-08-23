@@ -20,3 +20,6 @@ WebUI.click(findTestObject('Object Repository/LoginPage/Page_GeriLife/button_Can
 
 WebUI.delay(3)
 
+//Capturing screenshot
+WebUI.takeScreenshot('~/Katalon/Login/ActivityButton')
+

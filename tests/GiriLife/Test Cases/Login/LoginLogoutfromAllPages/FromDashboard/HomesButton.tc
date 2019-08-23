@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TestCaseEntity>
-   <description>Clicking on on Homes Button</description>
-   <name>HomesButton</name>
-   <tag></tag>
-   <comment></comment>
-   <testCaseGuid>fe18a346-ca31-43eb-a67c-8b92614d04bb</testCaseGuid>
-</TestCaseEntity>

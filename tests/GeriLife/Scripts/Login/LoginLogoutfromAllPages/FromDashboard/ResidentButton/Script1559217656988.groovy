@@ -14,4 +14,8 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 //Clicking on Resident Button
 WebUI.click(findTestObject('Object Repository/LoginPage/Page_GeriLife/a_Residents'))
+
 WebUI.click(findTestObject('Object Repository/LoginPage/Page_GeriLife/a_GeriLife'))
+
+//Capturing screenshot
+WebUI.takeScreenshot('~/Katalon/Login/ResidentButton')

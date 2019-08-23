@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TestCaseEntity>
-   <description>Testing with different Language and creating a new account</description>
-   <name>Registration-Language</name>
-   <tag></tag>
-   <comment></comment>
-   <testCaseGuid>53fd872b-4c4f-40a1-8923-24a05b30df37</testCaseGuid>
-</TestCaseEntity>

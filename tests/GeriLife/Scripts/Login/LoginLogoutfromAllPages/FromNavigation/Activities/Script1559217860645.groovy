@@ -14,3 +14,6 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 // Clicking on Activities on the top navigation bar
 WebUI.click(findTestObject('Object Repository/LoginPage/Page_GeriLife/a_              Activities'))
+
+//Capturing screenshot
+WebUI.takeScreenshot('~/Katalon/Login/Activities')

@@ -12,12 +12,17 @@ import com.kms.katalon.core.testobject.TestObject as TestObject
 import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
-
+// Verifying Sign In link
 WebUI.verifyElementText(findTestObject('Object Repository/LoginPage/Page_GeriLife/h3_Sign In'), 'Sign In')
 
+//Verifying Email text
 WebUI.verifyElementText(findTestObject('Object Repository/LoginPage/Page_GeriLife/label_Email'), 'Email')
 
+//Verifying Password text
 WebUI.verifyElementText(findTestObject('Object Repository/LoginPage/Page_GeriLife/label_Password'), 'Password')
 
+//Verifying forgot password text
 WebUI.verifyElementText(findTestObject('LoginPage/Page_GeriLife/a_Forgot your password'), 'Forgot your password?')
 
+//Capturing Screenshot
+WebUI.takeScreenshot('~/Katalon/Login/TextVerified')

@@ -16,5 +16,8 @@ import internal.GlobalVariable as GlobalVariable
 // Clicking on Settings on the top navigation bar
 WebUI.click(findTestObject('Object Repository/LoginPage/Page_GeriLife/a_                  Settings'))
 
-WebUI.click(findTestObject('LoginPage/Page_GeriLife/a_GeriLife'))
+WebUI.click(findTestObject('Settings/Page_GeriLife/b_GeriLife'))
+
+//Capturing screenshot
+WebUI.takeScreenshot('~/Katalon/Login/Settings')
 

@@ -15,4 +15,8 @@ import internal.GlobalVariable as GlobalVariable
 
 //Clicking on Homes Button
 WebUI.click(findTestObject('Object Repository/LoginPage/Page_GeriLife/a_Homes'))
+
 WebUI.click(findTestObject('Object Repository/LoginPage/Page_GeriLife/a_GeriLife'))
+
+//Capturing screenshot
+WebUI.takeScreenshot('~/Katalon/Login/HomesButton')

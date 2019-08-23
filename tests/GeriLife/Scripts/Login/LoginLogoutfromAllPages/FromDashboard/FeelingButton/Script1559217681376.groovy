@@ -22,3 +22,6 @@ WebUI.click(findTestObject('LoginPage/Page_GeriLife/button_Cancel'))
 
 WebUI.delay(3)
 
+//Capturing screenshot
+WebUI.takeScreenshot('~/Katalon/Login/FeelingButton')
+

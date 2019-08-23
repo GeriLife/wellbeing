@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TestCaseEntity>
-   <description>Clicking on Resident Button</description>
-   <name>ResidentButton</name>
-   <tag></tag>
-   <comment></comment>
-   <testCaseGuid>b735cd38-b451-4950-abdc-738244384373</testCaseGuid>
-</TestCaseEntity>
