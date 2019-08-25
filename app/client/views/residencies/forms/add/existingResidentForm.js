@@ -34,16 +34,25 @@ Template.addResidencyForExistingResidentForm.helpers({
     return templateInstance.homeSelectOptionsWithGroups.get();
   },
   residentIdOptions() {
+    const residencyObj = Template.instance().data;
+    const hasPrefilledResidentData = residencyObj
+      ? !!residencyObj.data
+      : false;
     // Get all residents
     const residents = Template.instance().residentsWithoutActiveResidencies.get();
 
     // create options list for select
-    const residentOptions = _.map(residents, function(resident) {
-      // Create option for this resident, with ID as the value
-      const { firstName, lastInitial } = resident;
-      const fullName = [firstName, lastInitial].join(' ');
-      return { label: fullName, value: resident._id };
-    });
+    let residentOptions;
+    residentOptions = _.map(residents, makeResidentDropDownOptions);
+
+    /* If the resident is already provided do not add other resident options */
+    if (hasPrefilledResidentData) {
+      residentOptions = [
+        _.find(residentOptions, function(resident) {
+          return resident.value === residencyObj.data.residentId;
+        }),
+      ];
+    }
 
     return residentOptions;
   },
@@ -64,3 +73,10 @@ Template.addResidencyForExistingResidentForm.events({
       templateInstance.data.dismiss();
   },
 });
+
+function makeResidentDropDownOptions(resident) {
+  // Create option for this resident, with ID as the value
+  const { firstName, lastInitial } = resident;
+  const fullName = [firstName, lastInitial].join(' ');
+  return { label: fullName, value: resident._id };
+}
