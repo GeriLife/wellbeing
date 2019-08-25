@@ -11,7 +11,14 @@ AutoForm.addHooks('userForm', {
     const methodName = isEdit ? 'editUserFormSubmit' : 'addUser';
     // Add user
     Meteor.call(methodName, user, function(error, userId) {
-      handleCallback(true, error, user, userId, form);
+      const params = {
+        isEdit: true,
+        error,
+        user,
+        userId,
+        form,
+      };
+      handleCallback(params);
     });
   },
   onSuccess: function() {
@@ -41,7 +48,7 @@ function addUserAsAdmin(user, userId) {
   }
 }
 
-function handleCallback(isEdit, error, user, userId, form) {
+function handleCallback({ isEdit, error, user, userId, form }) {
   if (error) {
     const defaultErrorMessage = isEdit
       ? TAPi18n.__('usersSettings-editUser-defaultFailureText')
