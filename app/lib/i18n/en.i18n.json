@@ -257,7 +257,11 @@
     },
     "moveOut": {
       "label": "Move out date (departure)"
-    }
+    },
+    "previousEndTime": "Previous residency ended on ",
+    "note1": "Each residency is limited to a single home.",
+    "clickHere": "Click here",
+    "note2": " to end this residency and to add a new one for this user"
   },
   "residecyForm-save": "Save",
   "residents": {
