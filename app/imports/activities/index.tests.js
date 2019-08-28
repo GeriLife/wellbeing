@@ -1,4 +1,4 @@
-import { expect, assert } from 'chai';
+import { expect } from 'chai';
 import StubCollections from 'meteor/hwillson:stub-collections';
 import moment from 'moment';
 
@@ -11,33 +11,9 @@ import {
   insertWithInvalidActivityDate,
   updateActivityObject,
 } from './mockData.tests';
-import { nonAdminUser, adminUser } from '../mockData.tests';
+import { nonAdminUser } from '../mockData.tests';
 
-/* Add an admin user as the first user is alway admin */
-Meteor.startup(function() {
-  Meteor.call('createTestUser', adminUser, function(err, success) {
-    console.log(err, success, 'admin (*&^*&^%$');
-  });
-});
-
-function setupNonAdminDbUsser(cb) {
-  Meteor.call('createTestUser', nonAdminUser, function(
-    err,
-    userInfo
-  ) {
-    Meteor.loginWithPassword(
-      nonAdminUser.email,
-      nonAdminUser.password,
-      function(loginErr) {
-        cb();
-      }
-    );
-  });
-}
-
-async function destroyDbUser(email, cb) {
-  Meteor.call('removeUser', email, cb);
-}
+import { setupNonAdminDbUsser, destroyDbUser } from '../utils.tests';
 
 function _before(done) {
   /* Steps to do before executing tests */
@@ -45,13 +21,12 @@ function _before(done) {
   StubCollections.stub([Activities]);
 
   /* Login with a user */
-  setupNonAdminDbUsser(done);
+  setupNonAdminDbUsser(nonAdminUser, done);
 }
 
 function _after(done) {
   StubCollections.restore();
   destroyDbUser(nonAdminUser.email, done);
-  destroyDbUser(adminUser.email, done);
 }
 
 describe('Activity simple insert action', function() {
@@ -102,29 +77,57 @@ describe('Check that dates must we within seven days from current date', functio
 });
 
 describe('Allow only admin to update date', function() {
-  let insertError;
+  let updatedRowsNum;
   before(function(done) {
     _before(function() {
       Meteor.call('addActivity', mockInsertData, function(
         err,
         insertedDataId
       ) {
-        Meteor.call(
-          'updateActivity',
-          { id: insertedDataId, dataModifier: updateActivityObject },
-          function(err, success) {
-            console.log('tltltl', err, success);
-            insertError = err;
-            done();
-          }
-        );
+        try {
+          updatedRowsNum = Activities.update(
+            { _id: insertedDataId },
+            { ...updateActivityObject }
+          );
+        } catch (e) {
+        } finally {
+          done();
+        }
       });
     });
   });
 
   /* Tests */
   it('With non admin user it should throw error', function(done) {
-    expect(insertError).to.equal('Kuchh bhi');
+    expect(updatedRowsNum).to.equal(0);
+
+    done();
+  });
+
+  after(_after);
+});
+
+describe('Allow only admin to delete an activity', function() {
+  let deletedResp;
+  before(function(done) {
+    _before(function() {
+      Meteor.call('addActivity', mockInsertData, function(
+        err,
+        insertedDataId
+      ) {
+        try {
+          deletedResp = Activities.remove(insertedDataId);
+        } catch (e) {
+        } finally {
+          done();
+        }
+      });
+    });
+  });
+
+  /* Tests */
+  it('With non admin user it should throw error', function(done) {
+    expect(deletedResp).to.equal(0);
 
     done();
   });
