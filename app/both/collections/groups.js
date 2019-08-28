@@ -80,3 +80,5 @@ Groups.after.remove(function (userId, group) {
     entityId: group._id,
   })
 });
+
+module.exports = Groups;

@@ -20,6 +20,6 @@ export const updateActivityObject = {
     activityTypeId: '1223',
     activityDate: new Date(),
     facilitatorRoleId: '1233456',
-    duration: 5,
+    duration: 50,
   },
 };

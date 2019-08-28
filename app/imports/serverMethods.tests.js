@@ -1,6 +1,8 @@
 Meteor.methods({
   createTestUser(user) {
-    return Accounts.createUser(user);
+    const existingUser = Accounts.findUserByEmail(user.email);
+    if (!existingUser) return Accounts.createUser(user);
+    return existingUser;
   },
   removeUser(email) {
     return Meteor.users.remove({
