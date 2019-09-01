@@ -18,4 +18,16 @@ Meteor.methods({
   getActivity() {
     return Activities.findOne();
   },
+  removeGroup(id) {
+    return Groups.remove(id);
+  },
+  addGroup(data) {
+    return Groups.insert(data);
+  },
+  updateGroup(_id, data) {
+    return Groups.update({ _id }, data);
+  },
+  removeGroup(id) {
+    return Groups.remove(id);
+  },
 });
