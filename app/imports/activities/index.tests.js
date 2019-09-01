@@ -13,7 +13,7 @@ import {
 } from './mockData.tests';
 import { nonAdminUser } from '../mockData.tests';
 
-import { setupNonAdminDbUsser, destroyDbUser } from '../utils.tests';
+import { setupDbUsser, destroyDbUser } from '../utils.tests';
 
 function _before(done) {
   /* Steps to do before executing tests */
@@ -21,7 +21,7 @@ function _before(done) {
   StubCollections.stub([Activities]);
 
   /* Login with a user */
-  setupNonAdminDbUsser(nonAdminUser, done);
+  setupDbUsser(nonAdminUser, done);
 }
 
 function _after(done) {
