@@ -65,3 +65,5 @@ Homes.after.remove(function (userId, home) {
     entityId: home._id,
   })
 });
+
+module.exports = Homes
