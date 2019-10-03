@@ -19,3 +19,14 @@ export const setupDbUsser = function(user, cb) {
     }
   });
 };
+
+export const createManager = function(groupId, user, cb) {
+  createTestUser(user, function(err, userId) {
+    if (err) {
+      cb(err);
+    } else {
+      user._id = userId;
+      Meteor.call('assignManager', { groupId, users: [user] }, cb);
+    }
+  });
+};

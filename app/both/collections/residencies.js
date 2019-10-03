@@ -197,3 +197,4 @@ function hasOtherActiveResidencies(residentId, residencyId, moveOut, moveIn) {
     );
   }
 }
+module.exports = Residencies

@@ -2,7 +2,7 @@ import newResidentAndResidencySchema from "/both/schemas/newResidentAndResidency
 import { checkUserPermissions } from '/both/utils';
 
 
-Meteor.methods({
+export const methods = Meteor.methods({
   addNewResidentAndResidency(document) {
 
     const userId = Meteor.userId();
