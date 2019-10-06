@@ -55,7 +55,6 @@ Meteor.methods({
     Roles.addUsersToRoles(userId, "admin");
   },
   deleteUser (user) {
-    console.log(user);
     // Make sure user object provided with '_id' property
     check(user, Object);
     check(user._id, String);
@@ -73,14 +72,40 @@ Meteor.methods({
       }
     }
   },
-  editUserFormSubmit (user) {
+  editUserFormSubmit(user) {
     // Get user email
     var userEmail = user.email;
+    var deactivateOn = user.deactivateOn
+      ? new Date(user.deactivateOn)
+      : user.deactivateOn;
 
     var userId = user._id;
 
-    // Edit user, setting first email
-    Meteor.users.update(userId, {$set: {"emails.0.address": userEmail}});
+    const objectToSet = {
+      $set: {
+        'emails.0.address': userEmail,
+      },
+    };
+
+    /* When the deactive date is set to a date*/
+    if (deactivateOn) {
+      objectToSet.$set.deactivateOn = deactivateOn;
+    } else {
+      
+      /* When the deactive date is emptied */
+      objectToSet.$unset = { deactivateOn: true };
+    }
+
+    try {
+      // Edit user, setting first email
+      Meteor.users.update(userId, {
+        ...objectToSet,
+      });
+    } catch (e) {
+      throw new Meteor.Error(500, e.toString());
+    }
+
+    
 
     return userId;
   },

@@ -21,6 +21,13 @@ Template.homeGroup.events({
     // Show the edit home modal, passing in group ID
     Modal.show("newHome", { groupId });
   },
+  "click .assign-manager"() {
+    // Get reference to group ID
+    const groupId = this._id;
+
+    // Show the edit home modal, passing in group ID
+    Modal.show("assignManager", { groupId });
+  },
   "click .viewHome"() {
     // Save Home ID that was clicked
     const homeId = this._id;

@@ -17,5 +17,26 @@ Meteor.methods({
     const existingUserPermissions = Permissions.find({ userId }).fetch();
 
     return existingUserPermissions.map(permission => permission.groupId);
+  },
+  getGroupsManagedByCurrentUser() {
+    const userId = Meteor.userId();
+    const userIsAdmin = Roles.userIsInRole(userId, "admin");
+    if (!userIsAdmin) {
+      return Permissions.find({
+        $and: [{ userId }, { isManager: true }]
+      }).fetch();
+    }
+  },
+  revokeManagerPermission({ groupId, userId }) {
+    /* This action allowed if current user is admin*/
+    const currentUserId = Meteor.userId();
+    const userIsAdmin = Roles.userIsInRole(currentUserId, "admin");
+    if (userIsAdmin) {
+      /* Revoke manager right of the given user from the given group */
+      return Permissions.update(
+        { groupId, userId },
+        { $set: { isManager: false } }
+      );
+    }
   }
 });

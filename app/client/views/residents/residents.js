@@ -3,6 +3,33 @@ Template.residents.onCreated(function() {
 
   // Reactive variable to toggle resident subscription based on departed status
   templateInstance.includeDeparted = new ReactiveVar();
+  templateInstance.groupsManagedByCurrentUser = new ReactiveVar([]);
+  templateInstance.managesAGroup = new ReactiveVar(false);
+
+  /* Check if current user is admin */
+  const currentUserId = Meteor.userId();
+  const currentUserIsAdmin = Roles.userIsInRole(currentUserId, [
+    "admin"
+  ]);
+  templateInstance.currentUserIsAdmin = new ReactiveVar(currentUserIsAdmin);
+
+  Meteor.call("getGroupsManagedByCurrentUser", function (err, groups) {
+
+    /* Check if the current user manages at least 1 group */
+    if (currentUserIsAdmin || (groups && groups.length > 0))
+      templateInstance.managesAGroup.set(true)
+
+    /* List of groups managed by the user */
+    if (!err && groups) {
+      const groupsManagedByCurrentUser = groups.map(group => {
+        return group.groupId;
+      })
+
+      templateInstance.groupsManagedByCurrentUser.set(
+        groupsManagedByCurrentUser
+      );
+    }
+  })
 
   // Subscribe to all homes, for data table
   templateInstance.subscribe("allHomes");
@@ -29,6 +56,7 @@ Template.residents.helpers({
 
     // Make sure subscriptions are ready
     if (templateInstance.subscriptionsReady()) {
+      const groupsManagedByCurrentUser = templateInstance.groupsManagedByCurrentUser.get()
       // Create a placeholder array for residency details objects
       const residencyDetailsArray = [];
 
@@ -38,10 +66,21 @@ Template.residents.helpers({
       // set full name and home name from collection helpers
       residencies.forEach(function(residency) {
         let residentName, homeName;
-
+        let canEdit = false;
+        const currentUserIsAdmin = templateInstance.currentUserIsAdmin.get();
+        const hasUserDeparted = "moveOut" in residency;
+        
         const resident = Residents.findOne(residency.residentId);
         const home = Homes.findOne(residency.homeId);
+        const isHomeInUserManagedGroups =
+          groupsManagedByCurrentUser.indexOf(home.groupId) > -1;
 
+        if (
+          currentUserIsAdmin ||
+          (isHomeInUserManagedGroups && !hasUserDeparted)
+        ) {
+          canEdit = true;
+        }
         if (resident) {
           residentName = resident.fullName();
         } else {
@@ -53,11 +92,11 @@ Template.residents.helpers({
         } else {
           homeName = "unknown";
         }
-
         const residencyDetails = {
           ...residency,
           residentName,
-          homeName
+          homeName,
+          canEdit
         };
 
         // Add resident object to residents list
@@ -73,6 +112,7 @@ Template.residents.helpers({
   tableSettings() {
     // Create placeholder object for filter labels
     const tableLabels = {};
+    const templateInstance = Template.instance()
 
     // Get translation strings for filter values
     tableLabels.viewResident = TAPi18n.__("residents-tableLabels-viewResident");
@@ -106,19 +146,7 @@ Template.residents.helpers({
           label: tableLabels.residency,
           tmpl: Template.residentCurrentResidency,
           hidden: function() {
-            var currentUserId = Meteor.userId();
-
-            // Check if current user has Admin role
-            var currentUserIsAdmin = Roles.userIsInRole(currentUserId, [
-              "admin"
-            ]);
-
-            // Only show edit column for users with Admin role
-            if (currentUserIsAdmin) {
-              return false;
-            } else {
-              return true;
-            }
+            return !templateInstance.managesAGroup.get();
           }
         }
       ],
@@ -144,6 +172,9 @@ Template.residents.helpers({
     filterLabels.homeName = TAPi18n.__("residents-filterLabels-homeName");
 
     return filterLabels;
+  },
+  managesAGroup() {
+    return Template.instance().managesAGroup.get();
   }
 });
 

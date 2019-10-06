@@ -1,0 +1,44 @@
+<template name="pagination">
+  <nav aria-label="Page mx-2">
+    <select
+      class="form-control rows-per-page pull-left width top-bottom-margin"
+    >
+      <option value="10">10</option>
+      <option value="25">25</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
+
+    <ul class="pagination  pull-right">
+      <li class="page-item">
+        <a
+          class="page-link prev"
+          disabled="{{ !hasPrevPage }}"
+          href="#"
+          >Previous</a
+        >
+      </li>
+
+      {{#each pageNo in listedPages}}
+
+      <li class="page-item">
+        <a
+          class="page-link page-number-link {{isCurrentPage pageNo}}"
+          href="#"
+          disabled="{{ isVisiblePageDisabled(pageNo) }}"
+          >{{ pageNo }}</a
+        >
+      </li>
+      {{/each}}
+
+      <li class="page-item">
+        <a
+          class="page-link next"
+          disabled="{{ !hasNextPage }}"
+          href="#"
+          >Next</a
+        >
+      </li>
+    </ul>
+  </nav>
+</template>

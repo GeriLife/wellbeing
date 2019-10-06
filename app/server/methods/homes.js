@@ -219,17 +219,32 @@ Meteor.methods({
     return { activityCounts, inactivityCounts, semiActivityCounts, date };
   },
   getHomeSelectOptionsWithGroups() {
-    // Get all Groups
-    var groups = Groups.find().fetch();
 
-    // Create an array of Group IDs
-    var groupIDs = _.map(groups, function(group) {
-      return group._id;
-    });
+    let allowedGroups = [];
+
+    /* If user is admin */
+    const userId = Meteor.userId();
+    const userIsAdmin = Roles.userIsInRole(userId, "admin");
+    if (!userIsAdmin) {
+
+      const permissions = Meteor.call("getGroupsManagedByCurrentUser");
+      
+      allowedGroups = (permissions || []).map(
+        permission => permission.groupId
+      );
+
+    } else {
+      // Get all Groups
+      const groups = Groups.find().fetch();
+      allowedGroups = _.map(groups, group => group._id)
+
+    }
+
+  
 
     // Create select options for Homes input
     // Grouping homes by group
-    var homeSelectOptionsWithGroups = _.map(groupIDs, function(groupId) {
+    var homeSelectOptionsWithGroups = _.map(allowedGroups, function(groupId) {
       // Find the name of this group
       var groupName = Groups.findOne(groupId).name;
 
@@ -266,5 +281,85 @@ Meteor.methods({
     }
 
     return Homes.find(selector).map(home => home._id);
+  },
+
+  assignManager({ groupId, users }) {
+    // Get current user ID
+    const currentUserId = Meteor.userId();
+
+    // Check if current user is Admin
+    const currentUserIsAdmin = Roles.userIsInRole(currentUserId, "admin");
+    if (!currentUserIsAdmin) throw new Meteor.Error(500, 'User does not have right to perform this action');
+
+    // If groupId is not specified
+    if (!groupId) throw new Meteor.Error(500, "Group not specified");
+    if (users && users.length > 0) {
+      /* Even if permission for one user is not updated it will return false */
+      const allPermissionsUpdated = users.every(userId => {
+        try {
+          /* rowsUpdated=0 means no rows updated */
+          const rowsUpdated = Permissions.update({
+            groupId,
+            userId
+          }, {
+              $set: { isManager: true }
+            }, { upsert: true });
+          return rowsUpdated >= 0;
+        } catch (error) {
+          throw new Meteor.Error(500, error.toString());
+
+        }
+      })
+      if (!allPermissionsUpdated)
+        throw new Meteor.Error(500, "Could not update all permissions");
+      return allPermissionsUpdated;
+    } else {
+
+      /* If user array is empty */
+      throw new Meteor.Error(500, "Users not selected.");
+
+    }
+  },
+
+  getCurrentManagers(groupId) {
+    const ManagerPermissionRecords = Permissions.find({ groupId, isManager: true })
+    if (!ManagerPermissionRecords) return ManagerPermissionRecords
+
+    else {
+      const userIds = ManagerPermissionRecords.map(permissionRecord => permissionRecord.userId);
+      const userInformation = Meteor.users.find({ _id: { $in: userIds } });
+      if (!userInformation) return userInformation
+      else {
+        let userWithEmailAddress = [];
+        userWithEmailAddress = userInformation.map(userDetail => {
+          return {
+            userId: userDetail._id,
+            address: userDetail.emails[0].address
+          }
+        })
+        return userWithEmailAddress;
+      }
+    }
+  },
+  isHomeManagedByUser({ userId, homeId }) {
+
+    const home = Homes.findOne({ _id: homeId });
+
+    if (home) {
+
+      const permission = Permissions.findOne({
+        $and: [
+          { userId },
+          { groupId: home.groupId },
+          { isManager: true }
+        ]
+      });
+
+      /* If a permission with manager rights exists return true. */
+      return !!permission
+
+
+    }
+    return false
   }
 });

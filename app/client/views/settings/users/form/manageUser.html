@@ -1,0 +1,68 @@
+<template name="manageUser">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          {{> flashMessages}}
+          <h4 class="modal-title">
+            <i class="fa fa-user"></i>&nbsp;
+            {{#if isEdit}}
+            {{_ "editUser-header" }}
+            {{else}}
+            {{_ "newUser-header" }}
+            {{/ if}}
+          </h4>
+        </div>
+        {{# autoForm id="userForm" schema="userSchema" doc=formUser }}
+
+        <div class="modal-body">
+          <label for="email">
+            {{_ "users.email.label" }}
+          </label>
+          {{> afFieldInput name="email" }}
+
+          <!-- Only show  this field in create mode-->
+          {{# unless isEdit}}
+          <label for="password">
+            {{_ "users.password.label" }}
+          </label>
+          {{> afFieldInput name="password" }}
+          {{/unless}}
+
+          <!-- When editing admins cannot change these for themselves -->
+          {{#if showIsAdminCheckBox}}
+          
+          {{> afFieldInput name="isAdmin" }}
+
+          <label for="deactivateOn">
+            {{_ "users-deactivateOn-label" }}
+          </label>
+          {{> afFieldInput name="deactivateOn" }}
+          {{/if}}
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">
+            {{# if isEdit}}
+            {{_ "editUser-saveButton" }}
+            {{else}}
+            {{_ "newUser-saveButton" }}
+            {{/if}}
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-dismiss="modal"
+          >
+            {{# if isEdit}}
+            {{_ "editUser-cancelButton" }}
+            {{else}}
+            {{_ "newUser-cancelButton" }}
+            {{/if}}
+          </button>
+        </div>
+        {{/ autoForm }}
+      </div>
+    </div>
+  </div>
+</template>

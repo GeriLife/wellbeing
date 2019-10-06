@@ -85,6 +85,7 @@ Template.singleHomeActivityStatus.onRendered(function () {
       const layout = {
         autosize: true,
         paper_bgcolor: 'transparent',
+        hovermode: 'closest',
         plot_bgcolor: 'transparent',
         height: 50,
         xaxis: {

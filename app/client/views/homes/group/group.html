@@ -3,23 +3,29 @@
     <div class="panel-heading">
       <h2 id="{{ name }}-title" class="panel-title">
         <i class="fa fa-cubes"></i>
-        {{ name }}
+        <span title="{{ name }}" class="clip-text">
+            {{ name }}
+        </span>
 
         {{# if isInRole 'admin' }}
           <button type="button" class="edit-group btn btn-default btn-xs">
             {{_ "homeGroup-editButton-text" }}
           </button>
 
+          <button type="button" class="assign-manager btn btn-secondary btn-xs pull-right">
+            <i class="fa fa-home"></i>
+            {{_ "homes-homeGroup-assignManagerButton-home" }}
+          </button>
           <button type="button" class="new-home btn btn-primary btn-xs pull-right">
             <i class="fa fa-home"></i>
             {{_ "homes-homeGroup-addNewButton-home" }}
           </button>
 
-          <button type="button" class="new-home btn btn-secondary btn-xs pull-right">
+          <!-- <button type="button" class="new-home btn btn-secondary btn-xs pull-right">
             <i class="fa fa-user"></i>
-            <!-- {{_ "homes-homeGroup-addNewButton-home" }} -->
+             {{_ "homes-homeGroup-addNewButton-home" }} 
             Add Staff
-          </button>
+          </button> -->
         {{/ if }}
       </h2>
     </div>

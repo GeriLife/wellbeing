@@ -13,6 +13,7 @@ AutoForm.addHooks(['groupForm'], {
 
     FlashMessages.sendError('<i class="fa fa-warning"></i> ' + message, {
       autoHide: true,
+      hideDelay: 3000
     });
   },
 });
