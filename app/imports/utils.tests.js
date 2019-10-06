@@ -25,8 +25,7 @@ export const createManager = function(groupId, user, cb) {
     if (err) {
       cb(err);
     } else {
-      user._id = userId;
-      Meteor.call('assignManager', { groupId, users: [user] }, cb);
+      Meteor.call('assignManager', { groupId, users: [userId] }, cb);
     }
   });
 };
