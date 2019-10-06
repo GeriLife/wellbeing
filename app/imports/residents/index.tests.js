@@ -5,6 +5,7 @@ import StubCollections from 'meteor/hwillson:stub-collections';
 const Residents = require('../../both/collections/residents');
 const Residencies = require('../../both/collections/residencies');
 const Groups = require('../../both/collections/groups');
+const Permissions = require('../../both/collections/permissions');
 
 /* Import mock data variables */
 import { baseGroupObject, validResident } from './mockData.tests';
@@ -24,8 +25,18 @@ function loginAndInsert(email, password, resident, cb) {
   });
 }
 function createManagerAndLogin(cb) {
-  const groupId = Groups.insert(baseGroupObject);
-  createManager(groupId, nonAdminUser, cb);
+  login(adminUser.email, adminUser.password, function(errLogin) {
+    const groupId = Groups.insert(baseGroupObject);
+    createManager(groupId, nonAdminUser, function(err, user) {
+      Meteor.logout(function(logouterr) {
+        if (!logouterr && !err) {
+          login(nonAdminUser.email, nonAdminUser.password, cb);
+        } else {
+          cb(err || logouterr);
+        }
+      });
+    });
+  });
 }
 
 /* Crud operations */
@@ -46,6 +57,56 @@ function remove(cb) {
   });
 }
 
+describe('A manager can add and update but not remove', function() {
+  let insertId, update, removeErr;
+  before(function(done) {
+    StubCollections.stub([
+      Residencies,
+      Groups,
+      Residents,
+      Permissions,
+    ]);
+
+    createManagerAndLogin(function(err) {
+      if (!err) {
+        try {
+          insertId = Residents.insert(validResident);
+          update = Residents.update(
+            { _id: insertId },
+            { $set: { firstName: 'qwerty' } }
+          );
+          Residents.remove(insertId, function(removeErrinResp, resp) {
+            removeErr = resp;
+
+            done();
+          });
+        } catch (e) {
+          done();
+        }
+      }
+    });
+  });
+
+  after(function(done) {
+    destroyDbUser(nonAdminUser.email, function() {
+      StubCollections.restore();
+      done();
+    });
+  });
+  it('insertid should be a valid mongo id', function(done) {
+    expect(/^[A-Za-z0-9]{17}$/.test(insertId)).to.be.true;
+    done();
+  });
+  it('update to equal to 1', function(done) {
+    expect(update).to.equal(1);
+    done();
+  });
+  it('Remove should fail', function(done) {
+    expect(removeErr).to.equal(0);
+    done();
+  });
+});
+
 describe('When admin inserts a resident', function() {
   let insertId;
   before(function(cb) {
@@ -55,10 +116,8 @@ describe('When admin inserts a resident', function() {
       adminUser.password,
       validResident,
       function(err, id) {
-        // Residents.insert(validResident, function(err, id) {
         insertId = id;
         cb();
-        // });
       }
     );
   });
@@ -237,5 +296,3 @@ describe('When non-admin remove a resident', function() {
     done();
   });
 });
-
-// // describe('A set of crud operations for managers must be permitted');

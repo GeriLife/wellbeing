@@ -139,7 +139,6 @@ Residents.allow({
     if (activeResidency) {
       doNotTrack.homeId = activeResidency.homeId;
     }
-    
     return checkUserPermissions({ schemaType, action, userId, doc });
   },
 });

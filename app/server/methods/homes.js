@@ -1,6 +1,6 @@
 import moment from "moment";
 
-Meteor.methods({
+export const homeMethods = Meteor.methods({
   currentUserCanAccessHome(homeId) {
     const currentUserId = Meteor.userId();
 
