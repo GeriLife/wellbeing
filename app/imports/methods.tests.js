@@ -1,4 +1,5 @@
 import { methods } from '../server/methods/residencies';
+import { homeMethods } from '../server/methods/homes';
 
 function addAfterWait(ResidencyObj) {
   return new Promise(function(resolve, reject) {
@@ -83,4 +84,5 @@ Meteor.methods({
     }
   },
   ...methods,
+  ...homeMethods,
 });

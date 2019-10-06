@@ -21,12 +21,12 @@ const checkUserPermissions = function({
     homeId: doc.homeId
   });
 
-  /* Check if current action is permitted. 
+  /* Check if current action is permitted.
      By default if the manager can edit,
      Except if the following conditions are not matched
     */
   let canEdit = isHomeManagedByUser;
-  
+
   // Managers cannot delete
   if (isHomeManagedByUser && action === "remove") {
     canEdit = false;
