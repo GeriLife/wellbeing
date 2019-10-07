@@ -32,6 +32,9 @@ Template.editResidencyModal.onCreated(function() {
 });
 
 Template.editResidencyModal.helpers({
+  note() {
+    return TAPi18n.__("residencies.note")
+  },
   today() {
     // Default date today, as a string
     return Date();

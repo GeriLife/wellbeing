@@ -1,11 +1,8 @@
 <template name="addResidencyForExistingResidentForm">
   {{#if residency.residentId}}
   <p>{{_ "residencies.previousEndTime"}} {{ residency.newMoveIn }}</p>
-  <button class="btn btn-primary undo">
-    {{_ "addResidencyForm-undo" }}
-  </button>
   {{/if}}
-
+  
   <!-- Form -->
   {{#autoForm id="addResidencyForExistingResident" type="insert" collection="Residencies" doc=residency}}
   <label for="residentId">
@@ -42,5 +39,11 @@
     {{_ "addResidencyForm-cancel" }}
   </button>
   {{/unless}}
+
+  {{#if residency.residentId}}
+  <button class="btn btn-primary pull-right undo">
+    {{_ "addResidencyForm-undo" }}
+  </button>
+  {{/if}}
   {{/ autoForm }}
 </template>
