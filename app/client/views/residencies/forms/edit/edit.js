@@ -33,7 +33,7 @@ Template.editResidencyModal.onCreated(function() {
 
 Template.editResidencyModal.helpers({
   note() {
-    return TAPi18n.__("residencies.note")
+    return TAPi18n.__('residencies.note');
   },
   today() {
     // Default date today, as a string
@@ -55,9 +55,10 @@ Template.editResidencyModal.helpers({
         moveIn,
         _id,
       } = templateInstance.data.residency;
-      /* If movin is after today move out and hence the movein for next
-      residency is set to  the moveIn date. Otherwise the new moveIn/moveOut
-      is today's date
+      /* 
+      Check if movein date of current residency is after current date. If so 
+      set the move out date to that very very day (= current moveIn date). In all other cases,
+      set the move out date to today's date.
       */
       const newMoveIn =
         moveIn.getTime() > new Date().getTime() ? moveIn : new Date();
