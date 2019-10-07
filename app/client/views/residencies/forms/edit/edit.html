@@ -14,16 +14,7 @@
           <!-- check if residency exists - editing -->
           {{# if residency }}
           {{#unless addNewResidencyClicked}}
-          {{#unless residency.moveOut}}
-          <p>
-            {{_ "residencies.note1"}}
-            <a
-              class="add-new-residency-link"
-              >{{_ "residencies.clickHere"}}</a
-            >
-            {{_ "residencies.note2"}}
-          </p>
-          {{/unless}}
+
           {{#autoForm id="editResidencyForm" type="update" collection="Residencies" doc=residency }}
 
           <label for="residentId">
@@ -59,6 +50,19 @@
             {{_ "editResidencyForm-cancel" }}
           </button>
 
+          {{#unless residency.moveOut}}
+
+          <button
+            type="button"
+            class="add-new-residency-link pull-right btn btn-primary"
+            data-toggle="tooltip"
+            data-trigger="hover"
+            title="{{ note }}"
+          >
+            {{_ "residencies.endResidency"}}
+          </button>
+          {{/unless}}
+
           {{/ autoForm }}
 
           {{else}}
@@ -67,7 +71,6 @@
           {{/unless}}
           {{ else }}
           <!-- add new residency using resident and home IDs -->
-          <!-- TODO: remove this option after migrating all data -->
           {{> addResidencyForm residentId=residentId homeId=homeId }}
           {{/ if }}
         </div>

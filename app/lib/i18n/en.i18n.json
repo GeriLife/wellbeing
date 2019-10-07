@@ -259,9 +259,8 @@
       "label": "Move out date (departure)"
     },
     "previousEndTime": "Previous residency ended on ",
-    "note1": "Each residency is limited to a single home.",
-    "clickHere": "Click here",
-    "note2": " to end this residency and to add a new one for this user"
+    "note": "Each residency is limited to a single home. So updating the home or resident here is not allowed. For such cases, it is recommended to end this residency and start a new one. Click here to end this residency today.",
+    "endResidency": "End Residency"
   },
   "residecyForm-save": "Save",
   "residents": {
