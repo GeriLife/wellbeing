@@ -148,53 +148,23 @@ describe('Residency move out must be after move in', function() {
     }, true);
   });
 });
-
-// describe('A new residency for a resident cannot be added during the period of another residency', function() {
-//   let insertError, insertId1, insertId2;
-//   before(function(done) {
-//     _before(function() {
-//       const data = insertHomeAndResident(home, resident);
-//       if (data.homeAndReserr) {
-//         insertError = homeAndReserr;
-//         done()
-//       } else {
-//         conflictingResidencyWithMoveOut.homeId = data.homeInsId;
-//         conflictingResidencyWithoutMoveOut.homeId = data.homeInsId;
-//         conflictingResidencyWithMoveOut.residentId = data.residentInsId;
-//         conflictingResidencyWithoutMoveOut.residentId = data.residentInsId;
-        
-//       Meteor.call(
-//         'insertConsecutiveResidencies',
-//         {
-//           residency1: conflictingResidencyWithMoveOut,
-//           residency2: conflictingResidencyWithoutMoveOut,
-//         },
-//         (errors, responses) => {
-//           console.log('responses::', responses);
-//           insertError = responses;
-//           if (responses) {
-//             insertId1 = responses.insertId1;
-//             insertId2 = responses.insertId2;
-//           }
-//           done();
-//         }
-//       );
-//       }
-//     }, true);
-//   });
-
-//   /* Tests */
-//   it('Should return error', function(done) {
-//     expect(insertError).to.exist;
-//     done()
-//   });
-
-//   after(function(done) {
-//     _after(function() {
-//       if (insertId1)
-//         Residencies.remove(insertId1, function() {
-//           if (insertId2) Residencies.remove(insertId2, done);
-//         });
-//     }, true);
-//   });
-// });
+/* const insertHomeAndResident = function(homeObj, residentObj, cb) {
+  Homes.insert(homeObj, (homeInsertErr, homeInsId) => {
+    if (homeInsertErr) {
+      cb(homeInsertErr);
+    } else {
+      Residents.insert(
+        residentObj,
+        (residentInsertErr, residentInsId) => {
+          if (residentInsertErr) {
+            return cb(residentInsertErr);
+          }
+          cb({
+            homeInsId,
+            residentInsId,
+          });
+        }
+      );
+    }
+  });
+}; */

@@ -70,3 +70,5 @@ UserEventLog.allow({
     }
   }
 });
+
+module.exports = UserEventLog

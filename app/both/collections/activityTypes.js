@@ -73,3 +73,4 @@ ActivityTypes.after.remove(function (userId, activityType) {
     entityId: activityType._id,
   })
 });
+module.exports = ActivityTypes
