@@ -175,9 +175,8 @@ describe('admin insert test', function() {
     }));
 
   after(done => {
-    destroyDbUser(nonAdminUser);
     StubCollections.restore();
-    done();
+    Meteor.logout(done);
   });
 });
 
@@ -237,8 +236,11 @@ describe('Non-admin crud', function() {
     }));
 
   after(done => {
-    Meteor.logout();
-    StubCollections.restore();
-    done();
+    Meteor.logout(function() {
+      destroyDbUser(nonAdminUser.email, function() {
+        StubCollections.restore();
+        done();
+      });
+    });
   });
 });
