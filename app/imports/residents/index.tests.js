@@ -69,20 +69,16 @@ describe('A manager can add and update but not remove', function() {
 
     createManagerAndLogin(function(err) {
       if (!err) {
-        try {
-          insertId = Residents.insert(validResident);
-          update = Residents.update(
-            { _id: insertId },
-            { $set: { firstName: 'qwerty' } }
-          );
-          Residents.remove(insertId, function(removeErrinResp, resp) {
-            removeErr = resp;
+        insertId = Residents.insert(validResident);
+        update = Residents.update(
+          { _id: insertId },
+          { $set: { firstName: 'qwerty' } }
+        );
+        Residents.remove(insertId, function(removeErrinResp, resp) {
+          removeErr = resp;
 
-            done();
-          });
-        } catch (e) {
           done();
-        }
+        });
       }
     });
   });

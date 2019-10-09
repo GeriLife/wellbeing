@@ -102,3 +102,4 @@ Permissions.allow({
     }
   }
 });
+module.exports = Permissions

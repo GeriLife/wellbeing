@@ -1,4 +1,3 @@
-import SimpleSchema from 'simpl-schema';
 import UserEventLog from '/both/collections/userEventLog';
 
 Settings = new Mongo.Collection("settings");
@@ -61,3 +60,5 @@ Settings.after.remove(function (userId, setting) {
     entityId: setting._id,
   })
 });
+
+module.exports = Settings
