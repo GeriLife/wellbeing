@@ -5,9 +5,6 @@ export const PermissionsObject = {
 export const ActivityTypesObject = {
   name: 'activity type 1',
 };
-export const RolesObject = {
-  role: 'role 1',
-};
 export const SettingsObject = {
   name: 'timezone' + new Date().getTime(),
   value: 'selectedTimezone',
@@ -26,9 +23,6 @@ export const PermissionsBaseObject = {
 };
 export const ActivityTypesBaseObject = {
   name: 'base-activity type 1',
-};
-export const RolesBaseObject = {
-  role: 'base-role 1',
 };
 export const SettingsBaseObject = {
   name: 'timezone',

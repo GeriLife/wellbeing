@@ -2,7 +2,7 @@ import newResidentAndResidencySchema from "/both/schemas/newResidentAndResidency
 import { checkUserPermissions } from '/both/utils';
 
 
-export const methods = Meteor.methods({
+export const residenciesMethods = Meteor.methods({
   addNewResidentAndResidency(document) {
 
     const userId = Meteor.userId();
@@ -209,30 +209,21 @@ function buildConditionWhenMoveOutNotExists(moveIn) {
   Current Record => o------
   Cases:
             |------------------|
-        |------------------------    
-      o-----------------------  
+        |------------------------
+      o-----------------------
   */
   otherActiveResidencyDuringCurrent["$or"].push({
     moveIn: { $gte: moveIn }
   });
 
   // If there already exists an active residency
-  /* 
+  /*
   Existing Residnecy => |------
   Current Record => o------
   Cases:
   |----------------------
-      o-----------------------  
+      o-----------------------
   */
-  otherActiveResidencyDuringCurrent["$or"].push({
-    $and: [
-      {
-        moveIn: { $lte: moveIn }
-      },
-      {
-        moveOut: { $exists: false }
-      }
-    ]
-  });
+  otherActiveResidencyDuringCurrent["$or"].push({ moveOut: { $exists: false }});
   return otherActiveResidencyDuringCurrent;
 }

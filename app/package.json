@@ -29,7 +29,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "TEST_WATCH=1 meteor test --driver-package meteortesting:mocha --port 3100"
   },
   "repository": {
     "type": "git",
