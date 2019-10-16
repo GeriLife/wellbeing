@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from 'moment';
 
 export const homeMethods = Meteor.methods({
   currentUserCanAccessHome(homeId) {
@@ -10,11 +10,14 @@ export const homeMethods = Meteor.methods({
       return false;
     }
 
-    const userGroupIds = Meteor.call("getSingleUserGroupIds", currentUserId);
+    const userGroupIds = Meteor.call(
+      'getSingleUserGroupIds',
+      currentUserId
+    );
 
     const userIsInHomeGroup = userGroupIds.includes(home.groupId);
 
-    const userIsAdmin = Roles.userIsInRole(currentUserId, ["admin"]);
+    const userIsAdmin = Roles.userIsInRole(currentUserId, ['admin']);
 
     if (userIsInHomeGroup || userIsAdmin) {
       return true;
@@ -24,22 +27,18 @@ export const homeMethods = Meteor.methods({
   },
   getHomeResidentIds: function(homeId) {
     // Get all residents of specific home
-    const residencies = Homes.find({homeId}).fetch();    
-    const residentIds = residencies.map(residency=>residency.residentId);
-
-    // return the resident IDs array
-    return residentIds;
+    const residencies = Homes.find({ homeId }).fetch();
+    return residencies.map(residency => residency.residentId);
   },
   getHomeCurrentResidencies(homeId) {
     /*
-    Get all residencies for a home where the resident has not moved out.
+    Get all residencies for a home where the resident has not moved out. Get all residents of specific home who are not departed
      */
-    // Get all residents of specific home who are not departed
     return Residencies.find({
       homeId,
       moveOut: {
-        $exists: false
-      }
+        $exists: false,
+      },
     }).fetch();
   },
   getHomeCurrentResidentIds(homeId) {
@@ -47,17 +46,13 @@ export const homeMethods = Meteor.methods({
     Get all resident IDs for a given home based on residency status.
      */
     const homeCurrentResidencies = Meteor.call(
-      "getHomeCurrentResidencies",
+      'getHomeCurrentResidencies',
       homeId
     );
 
-    const homeCurrentResidentIds = _.map(homeCurrentResidencies, function(
-      residency
-    ) {
+    return _.map(homeCurrentResidencies, function(residency) {
       return residency.residentId;
     });
-
-    return homeCurrentResidentIds;
   },
   getHomeCurrentAndActiveResidentIds: function(homeId) {
     /*
@@ -65,14 +60,17 @@ export const homeMethods = Meteor.methods({
      */
     const onHiatus = false;
 
-    const currentResidentIds = Meteor.call("getHomeCurrentResidentIds", homeId);
+    const currentResidentIds = Meteor.call(
+      'getHomeCurrentResidentIds',
+      homeId
+    );
 
     const residents = Residents.find(
       {
         _id: {
-          $in: currentResidentIds
+          $in: currentResidentIds,
         },
-        onHiatus
+        onHiatus,
       },
       { sort: { firstName: 1 } }
     ).fetch();
@@ -88,7 +86,7 @@ export const homeMethods = Meteor.methods({
   getHomeCurrentAndActiveResidentCount: function(homeId) {
     // Get all current residents for specific home (not departed or on hiatus)
     const homeCurrentResidentIds = Meteor.call(
-      "getHomeCurrentAndActiveResidentIds",
+      'getHomeCurrentAndActiveResidentIds',
       homeId
     );
 
@@ -99,7 +97,10 @@ export const homeMethods = Meteor.methods({
   },
   getHomeActivities: function(homeId) {
     // Get all resident of this home
-    var homeResidentIds = Meteor.call("getHomeCurrentResidentIds", homeId);
+    var homeResidentIds = Meteor.call(
+      'getHomeCurrentResidentIds',
+      homeId
+    );
 
     // Get an array of all activity Ids for residents of this home
     var homeResidentActivitiesQuery = Activities.find(
@@ -117,7 +118,7 @@ export const homeMethods = Meteor.methods({
         residents: activity.residentNames(),
         type: activity.activityType(),
         duration: activity.duration,
-        activityDate: activity.activityDate
+        activityDate: activity.activityDate,
       };
     });
 
@@ -125,19 +126,22 @@ export const homeMethods = Meteor.methods({
   },
   getHomeActivityLevelCounts: function(homeId) {
     // // Get home residents by calling getHomeResidentIds
-    var residentIds = Meteor.call("getHomeCurrentAndActiveResidentIds", homeId);
+    var residentIds = Meteor.call(
+      'getHomeCurrentAndActiveResidentIds',
+      homeId
+    );
 
     var residentActivityLevelCounts = {
       inactive: 0,
       semiActive: 0,
-      active: 0
+      active: 0,
     };
 
     if (residentIds) {
       // Get count of recent active days for each resident
       _.each(residentIds, function(residentId) {
         const residentRecentActiveDaysCount = Meteor.call(
-          "getResidentRecentActiveDaysCount",
+          'getResidentRecentActiveDaysCount',
           residentId
         );
 
@@ -162,7 +166,7 @@ export const homeMethods = Meteor.methods({
   getHomeActivityCountTrend(homeId) {
     // Get home residents
     const residentIds = Meteor.call(
-      "getHomeCurrentAndActiveResidentIds",
+      'getHomeCurrentAndActiveResidentIds',
       homeId
     );
 
@@ -173,29 +177,29 @@ export const homeMethods = Meteor.methods({
     const date = [];
 
     // Date one week ago (six days, since today counts as one day)
-    const startDate = moment().subtract(6, "days");
+    const startDate = moment().subtract(6, 'days');
 
     // Get a date object for the end of day today
-    const endDate = moment().endOf("day");
+    const endDate = moment().endOf('day');
 
     for (
       let currentDay = moment(startDate);
       currentDay.isBefore(endDate);
-      currentDay.add(1, "day")
+      currentDay.add(1, 'day')
     ) {
       // Set up placeholder activity counts object
       const dailyActivityCounts = {
         date: currentDay.toDate(),
         inactive: 0,
         semiActive: 0,
-        active: 0
+        active: 0,
       };
 
       // Get activity level for each resident
       // Compare it against the baseline
       _.each(residentIds, function(residentId) {
         const result = Meteor.call(
-          "getResidentRecentActiveDaysCount",
+          'getResidentRecentActiveDaysCount',
           residentId,
           currentDay.toDate()
         );
@@ -216,35 +220,38 @@ export const homeMethods = Meteor.methods({
       date.push(dailyActivityCounts.date);
     }
 
-    return { activityCounts, inactivityCounts, semiActivityCounts, date };
+    return {
+      activityCounts,
+      inactivityCounts,
+      semiActivityCounts,
+      date,
+    };
   },
   getHomeSelectOptionsWithGroups() {
-
     let allowedGroups = [];
 
     /* If user is admin */
     const userId = Meteor.userId();
-    const userIsAdmin = Roles.userIsInRole(userId, "admin");
+    const userIsAdmin = Roles.userIsInRole(userId, 'admin');
     if (!userIsAdmin) {
+      const permissions = Meteor.call(
+        'getGroupsManagedByCurrentUser'
+      );
 
-      const permissions = Meteor.call("getGroupsManagedByCurrentUser");
-      
       allowedGroups = (permissions || []).map(
         permission => permission.groupId
       );
-
     } else {
       // Get all Groups
       const groups = Groups.find().fetch();
-      allowedGroups = _.map(groups, group => group._id)
-
+      allowedGroups = _.map(groups, group => group._id);
     }
-
-  
 
     // Create select options for Homes input
     // Grouping homes by group
-    var homeSelectOptionsWithGroups = _.map(allowedGroups, function(groupId) {
+    var homeSelectOptionsWithGroups = _.map(allowedGroups, function(
+      groupId
+    ) {
       // Find the name of this group
       var groupName = Groups.findOne(groupId).name;
 
@@ -269,13 +276,15 @@ export const homeMethods = Meteor.methods({
   getUserVisibleHomeIds(userId) {
     const selector = {};
 
-    const userIsAdmin = Roles.userIsInRole(userId, "admin");
+    const userIsAdmin = Roles.userIsInRole(userId, 'admin');
 
     // non-admin should see only homes belonging to assigned permission group(s)
     if (!userIsAdmin) {
       const userPermissions = Permissions.find({ userId }).fetch();
 
-      const userGroups = userPermissions.map(permission => permission.groupId);
+      const userGroups = userPermissions.map(
+        permission => permission.groupId
+      );
 
       selector.groupId = { $in: userGroups };
     }
@@ -288,79 +297,92 @@ export const homeMethods = Meteor.methods({
     const currentUserId = Meteor.userId();
 
     // Check if current user is Admin
-    const currentUserIsAdmin = Roles.userIsInRole(currentUserId, "admin");
-    if (!currentUserIsAdmin) throw new Meteor.Error(500, 'User does not have right to perform this action');
+    const currentUserIsAdmin = Roles.userIsInRole(
+      currentUserId,
+      'admin'
+    );
+    if (!currentUserIsAdmin)
+      throw new Meteor.Error(
+        500,
+        'User does not have right to perform this action'
+      );
 
     // If groupId is not specified
-    if (!groupId) throw new Meteor.Error(500, "Group not specified");
+    if (!groupId) throw new Meteor.Error(500, 'Group not specified');
     if (users && users.length > 0) {
       /* Even if permission for one user is not updated it will return false */
       const allPermissionsUpdated = users.every(userId => {
         try {
           /* rowsUpdated=0 means no rows updated */
-          const rowsUpdated = Permissions.update({
-            groupId,
-            userId
-          }, {
-              $set: { isManager: true }
-            }, { upsert: true });
+          const rowsUpdated = Permissions.update(
+            {
+              groupId,
+              userId,
+            },
+            {
+              $set: { isManager: true },
+            },
+            { upsert: true }
+          );
           return rowsUpdated >= 0;
         } catch (error) {
           throw new Meteor.Error(500, error.toString());
-
         }
-      })
+      });
       if (!allPermissionsUpdated)
-        throw new Meteor.Error(500, "Could not update all permissions");
+        throw new Meteor.Error(
+          500,
+          'Could not update all permissions'
+        );
       return allPermissionsUpdated;
     } else {
-
       /* If user array is empty */
-      throw new Meteor.Error(500, "Users not selected.");
-
+      throw new Meteor.Error(500, 'Users not selected.');
     }
   },
 
   getCurrentManagers(groupId) {
-    const ManagerPermissionRecords = Permissions.find({ groupId, isManager: true })
-    if (!ManagerPermissionRecords) return ManagerPermissionRecords
-
+    const ManagerPermissionRecords = Permissions.find({
+      groupId,
+      isManager: true,
+    });
+    if (!ManagerPermissionRecords) return ManagerPermissionRecords;
     else {
-      const userIds = ManagerPermissionRecords.map(permissionRecord => permissionRecord.userId);
-      const userInformation = Meteor.users.find({ _id: { $in: userIds } });
-      if (!userInformation) return userInformation
+      const userIds = ManagerPermissionRecords.map(
+        permissionRecord => permissionRecord.userId
+      );
+      const userInformation = Meteor.users.find({
+        _id: { $in: userIds },
+      });
+      if (!userInformation) return userInformation;
       else {
         let userWithEmailAddress = [];
         userWithEmailAddress = userInformation.map(userDetail => {
           return {
             userId: userDetail._id,
-            address: userDetail.emails[0].address
-          }
-        })
+            address: userDetail.emails[0].address,
+          };
+        });
         return userWithEmailAddress;
       }
     }
   },
   isHomeManagedByUser({ userId, homeId }) {
-
     const home = Homes.findOne({ _id: homeId });
 
     if (home) {
-
       const permission = Permissions.findOne({
         $and: [
           { userId },
           { groupId: home.groupId },
-          { isManager: true }
-        ]
+          { isManager: true },
+        ],
       });
 
       /* If a permission with manager rights exists return true. */
-      return !!permission
-
-
+      return !!permission;
     }
-    return false
+    return false;
   },
   getActivityPercentageForAGivenHome(homeId) {
     // Get count of home current residents (not departed or on hiatus)
@@ -388,9 +410,7 @@ export const homeMethods = Meteor.methods({
       */
       const activityLevelTypes = _.keys(activityLevelCounts);
 
-      const activityLevelData = _.map(activityLevelTypes, function(
-        type
-      ) {
+      return activityLevelTypes.map(function(type) {
         // Default value is 0
         let homePercentage = 0;
 
@@ -402,9 +422,8 @@ export const homeMethods = Meteor.methods({
               100
           );
         }
-
         // Construct an object with the type and count keys
-        const activityLevelCountObject = {
+        return {
           // Activity level class (inactive, semi-active, active)
           type: type,
           // Number of residents in activity class
@@ -412,10 +431,7 @@ export const homeMethods = Meteor.methods({
           // Percentage of home residents fallint into activity level class
           homePercentage: homePercentage,
         };
-
-        return activityLevelCountObject;
       });
-      return activityLevelData;
     }
     return [];
   },
