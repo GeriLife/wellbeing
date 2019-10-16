@@ -12,12 +12,10 @@ const UserEventLog = require('../../both/collections/userEventLog');
 import {
   PermissionsObject,
   ActivityTypesObject,
-  RolesObject,
   SettingsObject,
   UserEventLogObject,
   PermissionsBaseObject,
   ActivityTypesBaseObject,
-  RolesBaseObject,
   SettingsBaseObject,
   UserEventLogBaseObject,
 } from './mockData.tests';
@@ -158,11 +156,7 @@ describe('admin insert test', function() {
       insertObject: ActivityTypesObject,
       updateObj: { $set: { name: 'updated name' } },
     }));
-  /* describe(`Admin crud for Roles`, () =>
-    adminCrud(Meteor.roles, {
-      insertObject: RolesObject,
-      updateObj: { $set: { role: 'updated name' } },
-    })); */
+ 
   describe(`Admin crud for Settings`, () =>
     adminCrud(Settings, {
       insertObject: SettingsObject,
@@ -183,7 +177,6 @@ describe('admin insert test', function() {
 describe('Non-admin crud', function() {
   let Permissionsid;
   let ActivityTypesid;
-  let Rolesid;
   let Settingsid;
   let UserEventLogid;
   before(done => {
@@ -197,7 +190,6 @@ describe('Non-admin crud', function() {
     login(adminUser.email, adminUser.password, function() {
       Permissionsid = Permissions.insert(PermissionsBaseObject);
       ActivityTypesid = ActivityTypes.insert(ActivityTypesBaseObject);
-      // Rolesid = Meteor.roles.insert(RolesBaseObject);
       Settingsid = Settings.insert(SettingsBaseObject);
       UserEventLogid = UserEventLog.insert(UserEventLogBaseObject);
       setupDbUsser(nonAdminUser, done);
@@ -216,12 +208,6 @@ describe('Non-admin crud', function() {
       updateId: ActivityTypesid,
       updateObj: { $set: { name: 'updated name' } },
     }));
-  /* describe(`Non-admin crud for Roles`, () =>
-    nonAdminCrud(Meteor.roles, {
-      insertObject: RolesObject,
-      updateId:Rolesid,
-      updateObj: { $set: { role: 'updated name' } },
-    })); */
   describe(`Non-admin crud for Settings`, () =>
     nonAdminCrud(Settings, {
       insertObject: SettingsObject,

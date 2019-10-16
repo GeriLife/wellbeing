@@ -111,7 +111,6 @@ describe('Residency move out must be after move in', function() {
           .then(responses => {
             insertError = responses[0];
             updateError = responses[1].error;
-            // Residencies.remove(responses[1].insertId);
             done();
           })
           .catch(error => {
@@ -148,23 +147,70 @@ describe('Residency move out must be after move in', function() {
     }, true);
   });
 });
-/* const insertHomeAndResident = function(homeObj, residentObj, cb) {
-  Homes.insert(homeObj, (homeInsertErr, homeInsId) => {
-    if (homeInsertErr) {
-      cb(homeInsertErr);
-    } else {
-      Residents.insert(
-        residentObj,
-        (residentInsertErr, residentInsId) => {
-          if (residentInsertErr) {
-            return cb(residentInsertErr);
-          }
-          cb({
-            homeInsId,
-            residentInsId,
-          });
-        }
+
+describe('Tests for concurrent tests', function() {
+  let finalCallFlag = 0;
+  let insertObject = {
+    residentId: 'ResidentA',
+    homeId: 'homeA',
+    ...conflictingResidencyWithMoveOut,
+  };
+  before(function(done) {
+    _before(function() {
+      Residencies.insert(insertObject, function() {
+        done();
+      });
+    }, true);
+  });
+  after(done => {
+    if (finalCallFlag === 1) {
+      Meteor.call(
+        'removeResidency',
+        { residentId: 'ResidentA' },
+        done
       );
+    } else {
+      done();
     }
   });
-}; */
+
+  describe('Adding a residency with a resident who already has an active residency', function() {
+    let err;
+    before(done => {
+      Residencies.insert(
+        { ...insertObject, moveOut: '2019-03-14' },
+        function(errInst) {
+          err = errInst.message;
+          done();
+        }
+      );
+    });
+
+    it('Inserting a residency within the same timeperiod must not be allowed', function(done) {
+      expect(err).to.equal('ResidentA is not an allowed value');
+      done();
+    });
+  });
+
+  describe('Adding a residency with a resident who already has an active residency', function() {
+    finalCallFlag = 1;
+    const insertObjectWithoutMoveout = {
+      residentId: 'ResidentA',
+      homeId: 'homeA',
+      ...conflictingResidencyWithoutMoveOut,
+    };
+    let error;
+    before(done => {
+      Residencies.insert(insertObjectWithoutMoveout, function(err) {
+        error = err.message;
+        done();
+      });
+    });
+
+    it('Inserting an active residency before the same existing movein must not be allowed', function(done) {
+      expect(error).to.exist;
+      expect(error).to.equal('ResidentA is not an allowed value');
+      done();
+    });
+  });
+});
