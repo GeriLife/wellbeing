@@ -1,5 +1,5 @@
-import { methods } from '../server/methods/residencies';
 import { homeMethods } from '../server/methods/homes';
+import { residenciesMethods } from '../server/methods/residencies';
 
 function addAfterWait(ResidencyObj) {
   return new Promise(function(resolve, reject) {
@@ -54,6 +54,9 @@ Meteor.methods({
       return { error: e.sanitizedError.message, insertId };
     }
   },
+  removeResidency(query) {
+    return Residencies.remove(query);
+  },
 
   async insertConsecutiveResidencies({ residency1, residency2 }) {
     try {
@@ -83,6 +86,6 @@ Meteor.methods({
       return { error: e.toString(), insertId };
     }
   },
-  ...methods,
   ...homeMethods,
+  ...residenciesMethods,
 });

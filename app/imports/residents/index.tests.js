@@ -27,7 +27,7 @@ function loginAndInsert(email, password, resident, cb) {
 function createManagerAndLogin(cb) {
   login(adminUser.email, adminUser.password, function(errLogin) {
     const groupId = Groups.insert(baseGroupObject);
-    createManager(groupId, nonAdminUser, function(err, user) {
+    createManager(groupId, nonAdminUser, function(err) {
       Meteor.logout(function(logouterr) {
         if (!logouterr && !err) {
           login(nonAdminUser.email, nonAdminUser.password, cb);
@@ -60,6 +60,7 @@ function remove(cb) {
 describe('A manager can add and update but not remove', function() {
   let insertId, update, removeErr;
   before(function(done) {
+
     StubCollections.stub([
       Residencies,
       Groups,
@@ -79,6 +80,8 @@ describe('A manager can add and update but not remove', function() {
 
           done();
         });
+      } else {
+        done();
       }
     });
   });
@@ -175,7 +178,6 @@ describe('When admin remove a resident', function() {
     login(adminUser.email, adminUser.password, function() {
       remove(function(err, res) {
         deleteNoOfRows = res.data;
-
         cb();
       });
     });

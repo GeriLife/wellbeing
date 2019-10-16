@@ -79,10 +79,7 @@ describe('Group name under 30 chars', function() {
   let error;
   before(function(done) {
     _before(function() {
-      Meteor.call('addGroup', invalidGroupName, function(
-        err,
-        insertResp
-      ) {
+      Meteor.call('addGroup', invalidGroupName, function(err) {
         error = err.reason;
         done();
       });

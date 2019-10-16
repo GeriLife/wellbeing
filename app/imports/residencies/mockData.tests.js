@@ -9,7 +9,7 @@ export const home = {
 };
 
 export const conflictingResidencyWithoutMoveOut = {
-  moveIn: '2019-03-01',
+  moveIn: '2019-03-13',
 };
 
 export const conflictingResidencyWithMoveOut = {
