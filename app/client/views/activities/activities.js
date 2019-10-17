@@ -16,11 +16,24 @@ Template.activities.onCreated(function() {
   instance.totalRows = new ReactiveVar(0);
 
   this.autorun(function() {
+    /*
+    We initialise the component with default fields for pagination in the table. Also,
+    some listeners for the sessions are created here. This is for actions column 
+    in the table.
+    * As pagination and table actions are maintained outside of the table, there was a
+    need to refresh the table content after a crud operation. To do the same two events activity-deleted and activity-edited are added. 
+    (Refer: https://github.com/aslagle/reactive-table#accessing-and-controlling-table-state)
+
+    * Once any of the two events are fired, the onchange method is called, which updates
+    the data rendered in table to be in sync with the database. After a CRUD operation this method
+    is responsible for updating total number of rows, rows and row information present in current
+    page. 
+    */
     const activityDeleted = Session.get('activity-deleted');
     const activityEdited = Session.get('activity-edited');
     const currentPage = instance.currentPage.get();
     const rowsPerPage = instance.rowsPerPage.get();
-    if (activityDeleted === true || activityEdited===true) {
+    if (activityDeleted === true || activityEdited === true) {
       onChange(instance, rowsPerPage, currentPage);
       Session.set('activity-deleted', false);
       Session.set('activity-edited', false);
@@ -118,13 +131,17 @@ Template.activities.helpers({
 });
 
 function onChange(activitiesTemplate, rowsPerPage, currentPage) {
+  /* To preserve the current page and page size information */
   rowsPerPage = !rowsPerPage ? 10 : rowsPerPage;
   currentPage = !currentPage ? 1 : currentPage;
+
   // if inputs not proper
   if (currentPage <= 0 || rowsPerPage <= 0) return;
 
+  /* Retrieves filters if any */
   const residentId = $('#resident-filter').val();
   const activityTypeId = $('#activity-type-filter').val();
+
   // Fetch rows for current page
   Meteor.call(
     'allUserVisibleActivities-paginated',
