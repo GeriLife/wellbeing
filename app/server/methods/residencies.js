@@ -1,8 +1,7 @@
 import newResidentAndResidencySchema from "/both/schemas/newResidentAndResidencySchema";
 import { checkUserPermissions } from '/both/utils';
 
-
-export const residenciesMethods = Meteor.methods({
+Meteor.methods({
   addNewResidentAndResidency(document) {
 
     const userId = Meteor.userId();
@@ -20,7 +19,7 @@ export const residenciesMethods = Meteor.methods({
     }
       // set up validation context based on new resident and residency schama
       const validationContext = newResidentAndResidencySchema.newContext();
-      
+
       // Check if submitted document is valid
       const documentIsValid = validationContext.validate(document);
     if (documentIsValid) {
@@ -147,13 +146,13 @@ function buildConditionWhenMoveOutExists({ moveOut, moveIn }) {
   };
 
   //If a residency starts or end during cuurrent
-  /* 
+  /*
   Existing Residnecy => |------
   Current Record => o------
   Cases:
   |-------------|   |--------------|
                  |--|
-        o----------------------o  
+        o----------------------o
   */
   otherActiveResidencyDuringCurrent["$or"].push({
     $or: [
@@ -167,14 +166,14 @@ function buildConditionWhenMoveOutExists({ moveOut, moveIn }) {
   });
 
   // If a current record is during another residency or it overlaps an active Residency
-  /* 
+  /*
   Existing Residnecy => |------
   Current Record => o------
   Cases:
   |-------------------------------|
             |-------------------------
   |----------------------------
-        o---------------o  
+        o---------------o
   */
   otherActiveResidencyDuringCurrent["$or"].push({
     $and: [
@@ -192,19 +191,19 @@ function buildConditionWhenMoveOutNotExists(moveIn) {
     $or: []
   };
   // If a residency ends after this moveIn
-  /* 
+  /*
   Existing Residnecy => |------
   Current Record => o------
   Cases:
   |------------------|
-      o-----------------------  
+      o-----------------------
   */
   otherActiveResidencyDuringCurrent["$or"].push({
     moveOut: { $gt: moveIn }
   });
 
   // If a residency starts after current moveIn
-  /* 
+  /*
   Existing Residnecy => |------
   Current Record => o------
   Cases:

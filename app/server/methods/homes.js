@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-export const homeMethods = Meteor.methods({
+export const methods = {
   currentUserCanAccessHome(homeId) {
     const currentUserId = Meteor.userId();
 
@@ -76,12 +76,9 @@ export const homeMethods = Meteor.methods({
     ).fetch();
 
     // Create an array containing only resident IDs
-    const residentIds = _.map(residents, function(resident) {
+    return _.map(residents, function(resident) {
       return resident._id;
     });
-
-    // return the resident IDs array
-    return residentIds;
   },
   getHomeCurrentAndActiveResidentCount: function(homeId) {
     // Get all current residents for specific home (not departed or on hiatus)
@@ -91,9 +88,8 @@ export const homeMethods = Meteor.methods({
     );
 
     // Count the length of current resident IDs list
-    const homeCurrentResidentsCount = homeCurrentResidentIds.length;
+    return homeCurrentResidentIds.length;
 
-    return homeCurrentResidentsCount;
   },
   getHomeActivities: function(homeId) {
     // Get all resident of this home
@@ -249,7 +245,7 @@ export const homeMethods = Meteor.methods({
 
     // Create select options for Homes input
     // Grouping homes by group
-    var homeSelectOptionsWithGroups = _.map(allowedGroups, function(
+    return _.map(allowedGroups, function(
       groupId
     ) {
       // Find the name of this group
@@ -270,8 +266,6 @@ export const homeMethods = Meteor.methods({
       // Return residents and home as option group
       return { optgroup: groupName, options: homesOptions };
     });
-
-    return homeSelectOptionsWithGroups;
   },
   getUserVisibleHomeIds(userId) {
     const selector = {};
@@ -435,4 +429,6 @@ export const homeMethods = Meteor.methods({
     }
     return [];
   },
-});
+};
+
+Meteor.methods(methods);
