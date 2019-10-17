@@ -85,7 +85,5 @@ Meteor.methods({
     } catch (e) {
       return { error: e.toString(), insertId };
     }
-  },
-  ...homeMethods,
-  ...residenciesMethods,
+  }
 });
