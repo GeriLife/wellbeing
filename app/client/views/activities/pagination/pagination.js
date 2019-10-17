@@ -6,6 +6,12 @@ Template.pagination.onCreated(function() {
   this.data.onChange(10, 1);
   const instance = this;
   this.autorun(function() {
+    /* 
+    Adds a listener for resetting pagination. It will be used when a filter is added on
+    or removed from the table.
+    
+    When onReset method is called, it will set currentPage and pagesize to default, and recalcuted number of rows as per the current filter conditions.
+    */
     const reset = Session.get('reset-pagination');
 
     if (reset === true) {
