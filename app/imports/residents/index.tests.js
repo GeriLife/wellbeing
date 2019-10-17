@@ -57,10 +57,39 @@ function remove(cb) {
   });
 }
 
+function afterForNonAdmin(insertId, done) {
+  if (insertId) {
+    Residents.remove(insertId);
+  }
+  destroyDbUser(nonAdminUser.email, function() {
+    StubCollections.restore();
+    done();
+  });
+}
+
+function afterForAdminUser(insertId, done) {
+  if (insertId) {
+    Residents.remove(insertId);
+  }
+  Meteor.logout();
+  StubCollections.restore();
+  done();
+}
+
+function allowedActionToassert(action, done) {
+  expect(action).to.exist;
+  expect(action).to.equal(1);
+  done();
+}
+
+function disallowedActionToassert(action, done) {
+  expect(action).to.exist;
+  expect(action).to.equal(0);
+  done();
+}
 describe('A manager can add and update but not remove', function() {
   let insertId, update, removeErr;
   before(function(done) {
-
     StubCollections.stub([
       Residencies,
       Groups,
@@ -121,18 +150,13 @@ describe('When admin inserts a resident', function() {
     );
   });
 
-  it('Should be allowed', function(done) {
+  it('Row must be inserted', function(done) {
     expect(insertId).to.exist;
     expect(/^[A-Za-z0-9]{17}$/.test(insertId)).to.be.true;
     done();
   });
   after(function(done) {
-    if (insertId) {
-      Residents.remove(insertId);
-    }
-    Meteor.logout();
-    StubCollections.restore();
-    done();
+    afterForAdminUser(insertId, done);
   });
 });
 
@@ -156,18 +180,11 @@ describe('When admin updates a resident', function() {
     });
   });
 
-  it('Should be allowed', function(done) {
-    expect(updateNoOfRows).to.exist;
-    expect(updateNoOfRows).to.equal(1);
-    done();
+  it('Update should be allowed', function(done) {
+    allowedActionToassert(updateNoOfRows, done);
   });
   after(function(done) {
-    if (insertId) {
-      Residents.remove(insertId);
-    }
-    Meteor.logout();
-    StubCollections.restore();
-    done();
+    afterForAdminUser(insertId, done);
   });
 });
 
@@ -189,14 +206,10 @@ describe('When admin remove a resident', function() {
     done();
   });
 
-  it('Should be allowed', function(done) {
-    expect(deleteNoOfRows).to.exist;
-    expect(deleteNoOfRows).to.equal(1);
-    done();
+  it('Removal should be allowed', function(done) {
+    allowedActionToassert(deleteNoOfRows, done);
   });
 });
-
-// describe('Crud operations by non-admin users should fail');
 
 describe('When non-admin inserts a resident', function() {
   let insertId;
@@ -210,18 +223,12 @@ describe('When non-admin inserts a resident', function() {
     });
   });
 
-  it('Should not be allowed', function(done) {
+  it('Insert ID must not be generated', function(done) {
     expect(insertId).to.equal(undefined);
     done();
   });
   after(function(done) {
-    if (insertId) {
-      Residents.remove(insertId);
-    }
-    destroyDbUser(nonAdminUser.email, function() {
-      StubCollections.restore();
-      done();
-    });
+    afterForNonAdmin(insertId, done);
   });
 });
 
@@ -245,19 +252,11 @@ describe('When non-admin updates a resident', function() {
     });
   });
 
-  it('Should not be allowed', function(done) {
-    expect(updateNoOfRows).to.exist;
-    expect(updateNoOfRows).to.equal(0);
-    done();
+  it('Should not allow update', function(done) {
+    disallowedActionToassert(updateNoOfRows, done);
   });
   after(function(done) {
-    if (insertId) {
-      Residents.remove(insertId);
-    }
-    destroyDbUser(nonAdminUser.email, function() {
-      StubCollections.restore();
-      done();
-    });
+    afterForNonAdmin(insertId, done);
   });
 });
 
@@ -289,8 +288,6 @@ describe('When non-admin remove a resident', function() {
   });
 
   it('Should not be allowed', function(done) {
-    expect(deleteNoOfRows).to.exist;
-    expect(deleteNoOfRows).to.equal(0);
-    done();
+    disallowedActionToassert(deleteNoOfRows, done);
   });
 });
