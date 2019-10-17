@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-export const methods = {
+Meteor.methods({
   currentUserCanAccessHome(homeId) {
     const currentUserId = Meteor.userId();
 
@@ -89,7 +89,6 @@ export const methods = {
 
     // Count the length of current resident IDs list
     return homeCurrentResidentIds.length;
-
   },
   getHomeActivities: function(homeId) {
     // Get all resident of this home
@@ -109,7 +108,7 @@ export const methods = {
 
     // Create a custom activities array using collection helpers
     // for resident names, activity type, and time ago
-    var homeActivitiesArray = homeActivities.map(function(activity) {
+    return homeActivities.map(function(activity) {
       return {
         residents: activity.residentNames(),
         type: activity.activityType(),
@@ -117,11 +116,9 @@ export const methods = {
         activityDate: activity.activityDate,
       };
     });
-
-    return homeActivitiesArray;
   },
   getHomeActivityLevelCounts: function(homeId) {
-    // // Get home residents by calling getHomeResidentIds
+    // Get home residents by calling getHomeResidentIds
     var residentIds = Meteor.call(
       'getHomeCurrentAndActiveResidentIds',
       homeId
@@ -245,9 +242,7 @@ export const methods = {
 
     // Create select options for Homes input
     // Grouping homes by group
-    return _.map(allowedGroups, function(
-      groupId
-    ) {
+    return _.map(allowedGroups, function(groupId) {
       // Find the name of this group
       var groupName = Groups.findOne(groupId).name;
 
@@ -303,36 +298,32 @@ export const methods = {
 
     // If groupId is not specified
     if (!groupId) throw new Meteor.Error(500, 'Group not specified');
-    if (users && users.length > 0) {
-      /* Even if permission for one user is not updated it will return false */
-      const allPermissionsUpdated = users.every(userId => {
-        try {
-          /* rowsUpdated=0 means no rows updated */
-          const rowsUpdated = Permissions.update(
-            {
-              groupId,
-              userId,
-            },
-            {
-              $set: { isManager: true },
-            },
-            { upsert: true }
-          );
-          return rowsUpdated >= 0;
-        } catch (error) {
-          throw new Meteor.Error(500, error.toString());
-        }
-      });
-      if (!allPermissionsUpdated)
-        throw new Meteor.Error(
-          500,
-          'Could not update all permissions'
-        );
-      return allPermissionsUpdated;
-    } else {
+    if (!users || users.length === 0) {
       /* If user array is empty */
       throw new Meteor.Error(500, 'Users not selected.');
     }
+    /* Even if permission for one user is not updated it will return false */
+    const allPermissionsUpdated = users.every(userId => {
+      try {
+        /* rowsUpdated=0 means no rows updated */
+        const rowsUpdated = Permissions.update(
+          {
+            groupId,
+            userId,
+          },
+          {
+            $set: { isManager: true },
+          },
+          { upsert: true }
+        );
+        return rowsUpdated >= 0;
+      } catch (error) {
+        throw new Meteor.Error(500, error.toString());
+      }
+    });
+    if (!allPermissionsUpdated)
+      throw new Meteor.Error(500, 'Could not update all permissions');
+    return allPermissionsUpdated;
   },
 
   getCurrentManagers(groupId) {
@@ -429,6 +420,4 @@ export const methods = {
     }
     return [];
   },
-};
-
-Meteor.methods(methods);
+});
