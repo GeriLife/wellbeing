@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import StubCollections from 'meteor/hwillson:stub-collections';
 
 /* Importing collection to stub */
-const Residents = require('../../both/collections/residents');
-const Residencies = require('../../both/collections/residencies');
-const Groups = require('../../both/collections/groups');
-const Permissions = require('../../both/collections/permissions');
+import { ResidentsCollection as Residents } from '../../both/collections/residents';
+import { ResidenciesCollection as Residencies } from '../../both/collections/residencies';
+import { GroupsCollection as Groups } from '../../both/collections/groups';
+import { PermissionsCollection as Permissions } from '../../both/collections/permissions';
 
 /* Import mock data variables */
 import { baseGroupObject, validResident } from './mockData.tests';

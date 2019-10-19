@@ -15,11 +15,10 @@ var ResidentsSchema = new SimpleSchema({
       },
     },
     custom() {
-      return !isUserAdmin()
-        ? isEdit(this)
-          ? 'notAllowed'
-          : undefined
-        : undefined;
+      if (!isUserAdmin() && isEdit(this)) {
+        return 'notAllowed';
+      }
+      return undefined;
     },
   },
   lastInitial: {
@@ -27,15 +26,16 @@ var ResidentsSchema = new SimpleSchema({
     max: 1,
     autoform: {
       readonly() {
+        /* For non admin users, editing an existing resident is not allowed */
         return !isUserAdmin() ? !isEdit(this) : false;
       },
     },
     custom() {
-      return !isUserAdmin()
-        ? isEdit(this)
-          ? 'notAllowed'
-          : undefined
-        : undefined;
+      /* For non admin users, editing an existing resident is not allowed */
+      if (!isUserAdmin() && isEdit(this)) {
+        return 'notAllowed';
+      }
+      return undefined;
     },
   },
   interestsDescription: {
@@ -113,8 +113,19 @@ Residents.allow({
     const schemaType = 'resident';
     const action = 'update';
     const residentId = doc._id;
+
+    /* Get an active residency for a given resident */
     const activeResidency = Residencies.findOne({
-      $and: [{ residentId }, { moveOut: { $exists: false } }],
+      $and: [
+        {
+          residentId,
+        },
+        {
+          moveOut: {
+            $exists: false,
+          },
+        },
+      ],
     });
     doc.homeId = '';
     if (activeResidency) {
@@ -132,8 +143,19 @@ Residents.allow({
     const schemaType = 'resident';
     const action = 'remove';
     const residentId = doc._id;
+
+    /* Get an active residency for a given resident */
     const activeResidency = Residencies.findOne({
-      $and: [{ residentId }, { moveOut: { $exists: false } }],
+      $and: [
+        {
+          residentId,
+        },
+        {
+          moveOut: {
+            $exists: false,
+          },
+        },
+      ],
     });
     doc.homeId = '';
     if (activeResidency) {
@@ -174,9 +196,9 @@ Residents.after.remove(function(userId, resident) {
 });
 
 function isUserAdmin() {
-  /* 
+  /*
       User Rights:
-      Only admin can change the name of a resident. 
+      Only admin can change the name of a resident.
       A manager can change the onHiatus field but not the name.
       A  normal user can change none
     */
@@ -188,4 +210,4 @@ function isEdit(that) {
   return !!this.docId;
 }
 
-module.exports = Residents;
+export const ResidentsCollection = Residents;

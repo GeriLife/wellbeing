@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import StubCollections from 'meteor/hwillson:stub-collections';
 
 /* Importing collection to stub */
-const Groups = require('../../both/collections/groups');
+import { GroupsCollection as Groups } from '../../both/collections/groups';
 
 /* Import mock data variables */
 import {

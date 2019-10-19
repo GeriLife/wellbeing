@@ -2,9 +2,9 @@ import { expect } from 'chai';
 import StubCollections from 'meteor/hwillson:stub-collections';
 
 /* Importing collection to stub */
-const Residencies = require('../../both/collections/residencies');
-const Residents = require('../../both/collections/residents');
-const Homes = require('../../both/collections/homes');
+import { ResidenciesCollection as Residencies } from '../../both/collections/residencies';
+import { ResidentsCollection as Residents } from '../../both/collections/residents';
+import { HomesCollection as Homes } from '../../both/collections/homes';
 
 /* Import mock data variables */
 import {
@@ -27,7 +27,6 @@ function _before(done, isAdmin) {
   /* Steps to do before executing tests */
   /* 1. stub Groups collection */
   StubCollections.stub([Residencies, Homes, Residents]);
-
   /* Login with a user */
   const user = isAdmin ? adminUser : nonAdminUser;
   if (!isAdmin) setupDbUsser(user, done);
@@ -192,7 +191,7 @@ describe('Tests for concurrent tests', function() {
     });
   });
 
-  describe('Adding a residency with a resident who already has an active residency', function() {
+  describe('Adding an active residency with a resident who already has an active residency', function() {
     finalCallFlag = 1;
     const insertObjectWithoutMoveout = {
       residentId: 'ResidentA',
