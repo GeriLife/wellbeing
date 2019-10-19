@@ -3,10 +3,10 @@ import StubCollections from 'meteor/hwillson:stub-collections';
 
 /* Importing collection to stub */
 
-const Permissions = require('../../both/collections/permissions');
-const ActivityTypes = require('../../both/collections/activityTypes');
-const Settings = require('../../both/collections/settings');
-const UserEventLog = require('../../both/collections/userEventLog');
+import { PermissionsCollection as Permissions } from '../../both/collections/permissions';
+import { ActivityTypesCollection as ActivityTypes } from '../../both/collections/activityTypes';
+import { SettingsCollection as Settings } from '../../both/collections/settings';
+import { UserEventLogCollection as UserEventLog } from '../../both/collections/userEventLog';
 
 /* Import mock data variables */
 import {
@@ -156,7 +156,7 @@ describe('admin insert test', function() {
       insertObject: ActivityTypesObject,
       updateObj: { $set: { name: 'updated name' } },
     }));
- 
+
   describe(`Admin crud for Settings`, () =>
     adminCrud(Settings, {
       insertObject: SettingsObject,

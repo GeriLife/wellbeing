@@ -61,4 +61,4 @@ Settings.after.remove(function (userId, setting) {
   })
 });
 
-module.exports = Settings
+export const SettingsCollection = Settings

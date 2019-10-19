@@ -71,4 +71,4 @@ UserEventLog.allow({
   }
 });
 
-module.exports = UserEventLog
+export const UserEventLogCollection = UserEventLog

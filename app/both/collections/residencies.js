@@ -197,4 +197,4 @@ function hasOtherActiveResidencies(residentId, residencyId, moveOut, moveIn) {
     );
   }
 }
-module.exports = Residencies
+export const ResidenciesCollection = Residencies
