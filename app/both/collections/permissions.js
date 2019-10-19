@@ -102,4 +102,4 @@ Permissions.allow({
     }
   }
 });
-module.exports = Permissions
+export const PermissionsCollection = Permissions

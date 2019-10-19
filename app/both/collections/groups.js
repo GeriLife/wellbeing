@@ -81,4 +81,4 @@ Groups.after.remove(function (userId, group) {
   })
 });
 
-module.exports = Groups;
+export const GroupsCollection = Groups;

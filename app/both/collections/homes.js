@@ -66,4 +66,4 @@ Homes.after.remove(function (userId, home) {
   })
 });
 
-module.exports = Homes
+export const HomesCollection = Homes

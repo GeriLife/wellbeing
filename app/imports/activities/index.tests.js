@@ -3,7 +3,7 @@ import StubCollections from 'meteor/hwillson:stub-collections';
 import moment from 'moment';
 
 /* Importing collection to stub */
-const Activities = require('../../both/collections/activities');
+import { ActivitiesCollection as Activities } from '../../both/collections/activities';
 
 /* Import mock data variables */
 import {

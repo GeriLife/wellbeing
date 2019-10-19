@@ -167,4 +167,4 @@ Activities.after.remove(function (userId, activity) {
 });
 
 
-module.exports=Activities
+export const ActivitiesCollection = Activities
