@@ -30,15 +30,18 @@ Template.homes.events({
 Template.homes.helpers({
   groups: function () {
     const templateInstance = Template.instance();
-    console.log(templateInstance)
+
     return templateInstance.sortedGroups.get();
   },
   showAlphabeticalSortingNotice () {
+    /*
+    Show alphabetical sorting notice 
+    when more than one group
+    */
     const templateInstance = Template.instance();
 
     const groups = templateInstance.sortedGroups.get();
 
-    // Show alphabetical sorting notice when more than one group
     return (groups.length > 1);
   },
 });
