@@ -12,6 +12,11 @@
     </h1>
   </div>
   {{# if Template.subscriptionsReady }}
+    {{# if showAlphabeticalSortingNotice }}
+    <p class="text-muted">
+      Groups are sorted alphabetically.
+    </p>
+    {{/ if }}
     {{# each groups }}
     {{> homeGroup }}
     {{/ each }}
