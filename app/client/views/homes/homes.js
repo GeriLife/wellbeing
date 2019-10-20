@@ -4,6 +4,20 @@ Template.homes.created = function() {
 
   // Subscribe to all groups
   templateInstance.subscribe("currentUserGroups");
+
+  templateInstance.sortedGroups = new ReactiveVar();
+
+  templateInstance.autorun(function() {
+    // Get all Groups
+    const unsortedGroups = Groups.find().fetch();
+
+    /* Sorting in mongo is case sensitive so sorting on data in meteor */
+    const sortedGroups = _.sortBy(unsortedGroups, function (group) {
+        return group.name.toLowerCase()
+    });
+
+    templateInstance.sortedGroups.set(sortedGroups);
+  });
 };
 
 Template.homes.events({
@@ -15,12 +29,16 @@ Template.homes.events({
 
 Template.homes.helpers({
   groups: function () {
-    // Get all Groups
-    const unsortedGroups = Groups.find().fetch();
+    const templateInstance = Template.instance();
+    console.log(templateInstance)
+    return templateInstance.sortedGroups.get();
+  },
+  showAlphabeticalSortingNotice () {
+    const templateInstance = Template.instance();
 
-    /* Sorting in mongo is case sensitive so sorting on data in meteor */
-    return  _.sortBy(unsortedGroups, function (group) {
-        return group.name.toLowerCase()
-    })
-  }
+    const groups = templateInstance.sortedGroups.get();
+
+    // Show alphabetical sorting notice when more than one group
+    return (groups.length > 1);
+  },
 });
