@@ -174,6 +174,7 @@
   },
   "homes-header": "Homes",
   "users-deactivateOn-label": "Deactivate on",
+  "homes-groupAlphabeticalSortMessage": "Groups are sorted alphabetically.",
   "homes-header-addNewButton-group": "Add Group",
   "homes-homeGroup-addNewButton-home": "Add Home",
   "homes-homeGroup-assignManagerButton-home": "Assign Manager",
