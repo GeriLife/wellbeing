@@ -82,27 +82,21 @@ function adminCrud(collection, { insertObject, updateObj }) {
   });
 }
 
-function nonAdminCrud(
-  collection,
-  { insertObject, updateId, updateObj }
-) {
+function nonAdminCrud(model, { insertObject, updateId, updateObj }) {
   let insertId, rowsUpdated, rowsRemoved;
   before(function(cb) {
-    collection.insert(insertObject, function(err, id) {
+    model.insert(insertObject, function(err, id) {
       insertId = id;
-      collection.update({ _id: updateId }, updateObj, function(
+      model.update({ _id: updateId }, updateObj, function(
         updateErr,
-        updateNoOfRows
+        numberOfRowsUpdated
       ) {
         if (updateErr) {
           cb();
         } else {
-          rowsUpdated = updateNoOfRows;
+          rowsUpdated = numberOfRowsUpdated;
 
-          collection.remove(updateId, function(
-            removeErr,
-            removeRows
-          ) {
+          model.remove(updateId, function(removeErr, removeRows) {
             if (removeErr) {
               cb();
             } else {
@@ -116,7 +110,7 @@ function nonAdminCrud(
   });
 
   it('Insert should be allowed only for userEventLog', function(done) {
-    if (collection === UserEventLog) {
+    if (model === UserEventLog) {
       expect(/^[A-Za-z0-9]{17}$/.test(insertId)).to.be.true;
     } else {
       expect(insertId).to.equal(undefined);
@@ -136,7 +130,7 @@ function nonAdminCrud(
   });
   after(function(done) {
     if (insertId) {
-      collection.remove(insertId, done);
+      model.remove(insertId, done);
     } else {
       done();
     }

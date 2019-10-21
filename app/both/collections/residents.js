@@ -2,7 +2,7 @@ import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
 SimpleSchema.extendOptions(['autoform']);
 import UserEventLog from '/both/collections/userEventLog';
-import { checkUserPermissions } from '../utils';
+import { checkUserPermissions, getActiveResidency } from '../utils';
 
 Residents = new Mongo.Collection('residents');
 
@@ -115,18 +115,7 @@ Residents.allow({
     const residentId = doc._id;
 
     /* Get an active residency for a given resident */
-    const activeResidency = Residencies.findOne({
-      $and: [
-        {
-          residentId,
-        },
-        {
-          moveOut: {
-            $exists: false,
-          },
-        },
-      ],
-    });
+    const activeResidency = getActiveResidency(residentId);
     doc.homeId = '';
     if (activeResidency) {
       doc.homeId = activeResidency.homeId;
@@ -142,21 +131,10 @@ Residents.allow({
   remove: function(userId, doc) {
     const schemaType = 'resident';
     const action = 'remove';
-    const residentId = doc._id;
+    const { _id } = doc;
 
     /* Get an active residency for a given resident */
-    const activeResidency = Residencies.findOne({
-      $and: [
-        {
-          residentId,
-        },
-        {
-          moveOut: {
-            $exists: false,
-          },
-        },
-      ],
-    });
+    const activeResidency = getActiveResidency(_id);
     doc.homeId = '';
     if (activeResidency) {
       doNotTrack.homeId = activeResidency.homeId;
