@@ -41,6 +41,7 @@
     "activityTypesSettings-header": "Aktiviteettityypit",
     "addResidencyForm-cancel": "Peruuta",
     "addResidencyForm-save": "Tallenna",
+    "addResidencyForm-undo": "Peru muutokset",
     "addResidencyForm-newOrExisting-existing": "Palveluun kirjattu asukas",
     "addResidencyForm-newOrExisting-new": "Uusi asukas",
     "addResidencyModal-header": "Lis\u00e4\u00e4 asiakkuus",
@@ -172,8 +173,12 @@
         }
     },
     "homes-header": "Yksikk\u00f6",
+    "users-deactivateOn-label": "Voimassaoloaika",
+    "homes-groupAlphabeticalSortMessage": "Huom. Yksik\u00f6t on lajiteltu aakkosj\u00e4rjestykseen.",
     "homes-header-addNewButton-group": "Lis\u00e4\u00e4 talo",
     "homes-homeGroup-addNewButton-home": "Lis\u00e4\u00e4 yksikk\u00f6",
+    "homes-homeGroup-assignManagerButton-home": "Muokkaaja",
+    "noDataToDisplay": "Ei n\u00e4ytett\u00e4vi\u00e4 tietoja",
     "homeGroup-noHomesAdded-text": "Taloon ei ole lis\u00e4tty yksikk\u00f6\u00e4",
     "homeResidentsActivitiesChart-title": "Yksik\u00f6n asukkaiden aktiviteetit",
     "homeResidentsActivitiesChart-yaxis-title": "Aktiviteettien lukum\u00e4\u00e4r\u00e4",
@@ -207,6 +212,17 @@
     "newFeeling-success": "Tunnetilan tallentaminen onnistui",
     "newHome-cancelButton-text": "Peruuta",
     "newHome-header-text": "Lis\u00e4\u00e4 uusi yksikk\u00f6",
+    "assignManager-header-text": "Muokkaaja",
+    "assignManager-currentManager-text": "Muokkaajia ovat",
+    "assignManager-noCurrentManager": "Muokkaajia ei ole nimetty",
+    "manager-filterLabels-address": "Osoite",
+    "assignManager-form-submitButton-text": "L\u00e4het\u00e4",
+    "manager-revoke-success": "Muokkaajaoikeudet peruutettu",
+    "assignManager-addNew-label": "Lis\u00e4\u00e4 uusi muokkaaja",
+    "assignManager-groupsLabel": "Valitse muokkaajat",
+    "manager-tableLabels-revoke": "Toiminto",
+    "managersSelectWidget-placeholder": "Valitse k\u00e4ytt\u00e4j\u00e4",
+    "manager-tableLabels-name": "Muokkaajan s\u00e4hk\u00f6posti",
     "newHome-saveButton-text": "Tallenna",
     "newResidentAndResidencySchema-homeId-label": "Yksikk\u00f6",
     "newUser-cancelButton": "Peruuta",
@@ -242,7 +258,10 @@
         },
         "moveOut": {
             "label": "L\u00e4ht\u00f6p\u00e4iv\u00e4"
-        }
+        },
+        "previousEndTime": "Previous residency ended on ",
+        "note": "Each residency is limited to a single home. So updating the home or resident here is not allowed. For such cases, it is recommended to end this residency and start a new one. Click here to end this residency today.",
+        "endResidency": "End Residency"
     },
     "residecyForm-save": "Tallenna",
     "residents": {
@@ -379,11 +398,15 @@
         }
     },
     "usersSettings-addUserButton": "Lis\u00e4\u00e4 k\u00e4ytt\u00e4j\u00e4",
+    "usersSettings-addUser-defaultFailureMessage": "Virhe k\u00e4ytt\u00e4j\u00e4oikeuden luomisessa",
     "usersSettings-header": "K\u00e4ytt\u00e4j\u00e4t",
     "usersSettingsTableActions-deleteButtonText": "Poista",
     "usersSettingsTableActions-editButtonText": "Muokkaa",
+    "usersSettings-editUser-defaultFailureText": "Virhe datan p\u00e4ivityksess\u00e4",
     "usersSettingsTable-tableHeaders-actions": "Toiminnot",
+    "usersSettingsTable-tableHeaders-isActive": "on aktiivinen",
     "usersSettingsTable-tableHeaders-email": "S\u00e4hk\u00f6posti",
     "usersSettingsTable-tableHeaders-roles": "Roolit",
-    "usersSettingsTable-tableHeaders-passwordActive": "Salasana aktiivinen"
+    "usersSettingsTable-tableHeaders-passwordActive": "Salasana aktiivinen",
+    "userVisibleResidentNames-GroupedtByHomes-notFound": "K\u00e4ytt\u00e4j\u00e4lle ei l\u00f6ytynyt asukkaita!"
 }
