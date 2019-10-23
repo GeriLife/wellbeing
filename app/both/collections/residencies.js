@@ -75,8 +75,14 @@ ResidenciesSchema.addValidator(function() {
     currentRecord = this.obj.$set;
   }
 
-  let resident = Residencies.findOne({_id:residencyId});
-  let residentId = resident.residentId;
+  let residentId;
+  if (!!residencyId) {
+    let resident = Residencies.findOne({ _id: residencyId });
+    residentId = resident.residentId;
+  } else {
+    residentId = currentRecord.residentId;
+  }
+
   let { moveOut, moveIn } = currentRecord;
 
   /* Error message key to indicate the entry is not allowed */
