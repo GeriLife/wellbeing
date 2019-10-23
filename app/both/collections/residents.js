@@ -11,6 +11,7 @@ var ResidentsSchema = new SimpleSchema({
     type: String,
     autoform: {
       readonly() {
+        /* For non admin users, editing an existing resident is not allowed */
         return !isUserAdmin() ? !isEdit(this) : false;
       },
     },
