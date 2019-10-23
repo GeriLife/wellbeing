@@ -6,34 +6,7 @@ Residencies = new Mongo.Collection('residencies');
 
 var ResidenciesSchema = new SimpleSchema({
   residentId: {
-    type: String,
-    custom() {
-      const residencyId = this.docId;
-      /* 
-        The data collected from the form is in this.obj so,
-        If this.obj exists:
-          -If residency exists i.e. in edit mode: 
-            The form data is in $set (a mongo modifier)
-          -else in create mode:
-            the data is in this.obj
-        else the object must be empty
-        
-        Ref: https://github.com/aldeed/meteor-simple-schema/blob/master/DOCS.md#the-object-to-validate
-      */
-      let currentRecord = this.obj
-        ? (
-          !!residencyId
-            ? this.obj.$set
-            : this.obj
-        )
-        : {};
-
-      let residentId = currentRecord.residencyId || this.value;
-      let { moveOut, moveIn } = currentRecord;
-
-      /* Error message key to indicate the entry is not allowed */
-      if (hasOtherActiveResidencies(residentId, residencyId, moveOut, moveIn)) return "notAllowed";
-    }
+    type: String
   },
   homeId: {
     type: String,
@@ -83,7 +56,32 @@ var ResidenciesSchema = new SimpleSchema({
 });
 
 Residencies.attachSchema(ResidenciesSchema);
+ResidenciesSchema.addValidator(function() {
+  const residencyId = this.docId;
+  /*
+    The data collected from the form is in this.obj so,
+    If this.obj exists:
+      -If residency exists i.e. in edit mode:
+        The form data is in $set (a mongo modifier)
+      -else in create mode:
+        the data is in this.obj
+    else the object must be empty
 
+    Ref: https://github.com/aldeed/meteor-simple-schema/blob/master/DOCS.md#the-object-to-validate
+  */
+  let currentRecord = this.obj || {}
+  if (!!residencyId) {
+    /* If edit, select the object set for updating. */
+    currentRecord = this.obj.$set;
+  }
+
+  let resident = Residencies.findOne({_id:residencyId});
+  let residentId = resident.residentId;
+  let { moveOut, moveIn } = currentRecord;
+
+  /* Error message key to indicate the entry is not allowed */
+  if (hasOtherActiveResidencies(residentId, residencyId, moveOut, moveIn)) return "notAllowed";
+})
 Residencies.allow({
   insert: function (userId, doc) {
     const schemaType = "residency";
@@ -186,9 +184,9 @@ function hasOtherActiveResidencies(residentId, residencyId, moveOut, moveIn) {
     Meteor.call(
       "hasOtherActiveResidencies",
       { residentId, residencyId, moveOut, moveIn },
-      function (err, hasOtherActiveResidencies) {
+      function (err, response) {
         /* Error message key to indicate the entry is not allowed */
-        if (!err) return hasOtherActiveResidencies;
+        if (!err) return response;
       }
     );
   }

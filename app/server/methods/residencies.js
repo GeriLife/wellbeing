@@ -121,12 +121,7 @@ Meteor.methods({
         moveIn
       });
     } else {
-      otherActiveResidencyDuringCurrent = buildConditionWhenMoveOutNotExists({
-        residentId,
-        residencyId,
-        moveOut,
-        moveIn
-      });
+      otherActiveResidencyDuringCurrent = buildConditionWhenMoveOutNotExists(moveIn);
     }
     condition = { ...condition, ...otherActiveResidencyDuringCurrent };
     const activeResidencies = Residencies.find(condition).count();
