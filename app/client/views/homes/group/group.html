@@ -31,7 +31,7 @@
     </div>
     <div class="panel-body">
       {{#if homes }}
-        {{> homeGroupHomesTable homes=homes }}
+        {{> homeGroupHomesTable homes=sortedHomes }}
       {{ else }}
         {{_ "homeGroup-noHomesAdded-text" }}
       {{/ if }}
