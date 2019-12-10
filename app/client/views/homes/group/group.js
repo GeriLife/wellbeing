@@ -43,3 +43,14 @@ Template.homeGroup.events({
     Router.go("homeReport", { homeId: homeId });
   }
 });
+
+Template.homeGroup.helpers({
+  sortedHomes() {
+    const unsortedHomes = this.homes();
+
+    /* Added sorting on client side as meteor collection does not support case insensitive sorting  */
+    return _.sortBy(unsortedHomes, function (home) {
+      return home.name.toLowerCase();
+    });
+  },
+});
