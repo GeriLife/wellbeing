@@ -6,7 +6,7 @@ Template.report.onCreated(function () {
   templateInstance.activityData = new ReactiveVar();
   templateInstance.activityMetric = new ReactiveVar();
   templateInstance.timePeriod = new ReactiveVar();
-  templateInstance.barMode = new ReactiveVar();
+  templateInstance.barMode = new ReactiveVar('stack');
 });
 
 Template.report.onRendered(function () {
@@ -95,3 +95,10 @@ Template.report.events({
     templateInstance.timePeriod.set(timePeriod);
   },
 });
+
+Template.report.helpers({
+  isGroupMode() {
+    const barMode = Template.instance().barMode.get();
+    return barMode === 'group'
+  }
+})
