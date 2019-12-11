@@ -14,7 +14,7 @@ Template.homeReport.onCreated(function() {
   templateInstance.activityData = new ReactiveVar();
   templateInstance.activityMetric = new ReactiveVar();
   templateInstance.timePeriod = new ReactiveVar();
-  templateInstance.barMode = new ReactiveVar();
+  templateInstance.barMode = new ReactiveVar('group');
 });
 
 Template.homeReport.onRendered(function() {
@@ -102,6 +102,10 @@ Template.homeReport.helpers({
 
     // Return current Home
     return Homes.findOne(homeId);
+  },
+  isGroupMode() {
+    const barMode = Template.instance().barMode.get();
+    return barMode === 'group'
   }
 });
 
