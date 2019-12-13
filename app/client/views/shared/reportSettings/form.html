@@ -41,12 +41,12 @@
             </label>
             &nbsp;
             <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-default active">
+                <label class="btn btn-default {{#if isGroupMode}}active{{/if}}">
                     <input id="barMode" name="barMode" type="radio" value="group">
                     {{_ "report-barMode-group" }}
                 </label>
-                <label class="btn btn-default">
-                    <input id="barMode" name="barMode" type="radio" value="stack" checked>
+                <label class="btn btn-default {{#unless isGroupMode}}active{{/unless}}">
+                    <input id="barMode" name="barMode" type="radio" value="stack">
                     {{_ "report-barMode-stack" }}
                 </label>
             </div>
