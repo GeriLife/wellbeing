@@ -22,9 +22,6 @@ Template.residentActivityTrendChart.onRendered(function () {
   const timePeriod = $('input[name="timePeriod"]:checked').val();
   templateInstance.timePeriod.set(timePeriod);
 
-  // Set initial bar mode from template
-  const barMode = $('input[name="barMode"]:checked').val();
-  templateInstance.barMode.set(barMode);
 
   // automatically fetch aggregated data
   templateInstance.autorun(function () {
