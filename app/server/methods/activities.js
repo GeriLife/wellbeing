@@ -97,6 +97,22 @@ Meteor.methods({
 
     return nestedActivities;
   },
+  getActivitiesAggregateReport(timePeriod) {
+    /* Key to selected based on time period */
+    const fieldSelector =
+      timePeriod === 'week' ? 'weeklyData' : 'monthlyData';
+
+    /* Pick an entry with the latest date */
+    const data = ActivityReportAggregate.findOne(
+      {},
+      { fields: { [fieldSelector]: 1, Date: 1, _id: 0 } },
+      { sort: { Date: -1, limit: 1 } }
+    );
+    return {
+      activityData: data[fieldSelector],
+      lastUpdated: data.Date,
+    };
+  },
   getResidentAggregatedActivities(residentId, timePeriod) {
     const activities = Activities.find({
       residentIds: residentId,

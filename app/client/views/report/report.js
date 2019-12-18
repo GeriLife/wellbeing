@@ -1,4 +1,5 @@
 import _ from "lodash";
+import moment from 'moment';
 
 Template.report.onCreated(function () {
   const templateInstance = this;
@@ -7,6 +8,7 @@ Template.report.onCreated(function () {
   templateInstance.activityMetric = new ReactiveVar();
   templateInstance.timePeriod = new ReactiveVar();
   templateInstance.barMode = new ReactiveVar('stack');
+  templateInstance.lastUpdated = new ReactiveVar();
 });
 
 Template.report.onRendered(function () {
@@ -25,9 +27,11 @@ Template.report.onRendered(function () {
     const timePeriod = templateInstance.timePeriod.get();
 
     // call method to retrieve aggregated activity data
-    Meteor.call('getAggregatedActivities', timePeriod, function (error, activityData) {
+    Meteor.call('getActivitiesAggregateReport', timePeriod, function (error, { activityData, lastUpdated }) {
+      
       // set activity data in the reactive variable
       templateInstance.activityData.set(activityData);
+      templateInstance.lastUpdated.set(lastUpdated);
     });
   });
 
@@ -100,5 +104,9 @@ Template.report.helpers({
   isGroupMode() {
     const barMode = Template.instance().barMode.get();
     return barMode === 'group'
-  }
-})
+  },
+  lastUpdated() {
+    const instance = Template.instance();
+    return moment(instance.lastUpdated.get()).format('DD-MM-YYYY');
+  },
+});
