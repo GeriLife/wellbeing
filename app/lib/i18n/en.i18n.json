@@ -236,6 +236,7 @@
   "report-barMode-stack": "stack",
   "report-chartSettingsButton-text": "chart settings",
   "report-header": "All Homes Report",
+  "report-lastUpdatedAt": "Last updated at",
   "report-timePeriod-label": "Time period",
   "report-timePeriod-week": "week",
   "report-timePeriod-month": "month",
