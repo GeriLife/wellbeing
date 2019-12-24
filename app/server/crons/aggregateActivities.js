@@ -26,13 +26,15 @@ new CronJob(
 
         /* Remove previous entries, if any so that after the following insert
         there is always only one entry in the collection */
-        ActivityReportAggregate.remove({});
+        AllHomesActivityReportAggregate.remove({
+          aggregateBy: 'type',
+        });
 
-        ActivityReportAggregate.insert(
+        AllHomesActivityReportAggregate.insert(
           {
-            Date: new Date(),
+            lastUpdatedDate: new Date(),
             weeklyData: weeklyData,
-
+            aggregateBy:'type',
             monthlyData: monthlyData,
           },
           function(error) {

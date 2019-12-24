@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 
-ActivityReportAggregate = new Mongo.Collection(
-  'activityReportAggregate'
+AllHomesActivityReportAggregate = new Mongo.Collection(
+  'allHomesActivityReportAggregate'
 );
 
 /* The activity count and minute data */
@@ -38,10 +38,14 @@ const aggregateSchema = new SimpleSchema({
 /* Collection schema as per the object returned by mongo query.
    Each record contains aggregated data for both time granularities i.e. monthly and weekly
 */
-ActivityReportAggregate.Schema = new SimpleSchema({
-  Date: {
+AllHomesActivityReportAggregate.Schema = new SimpleSchema({
+  lastUpdatedDate: {
     type: String,
     regEx: Date,
+  },
+  aggregateBy: {
+    type: String,
+    allowedValues: ['type', 'facilitator'],
   },
   weeklyData: {
     type: Array,
@@ -58,4 +62,6 @@ ActivityReportAggregate.Schema = new SimpleSchema({
   },
 });
 
-ActivityReportAggregate.attachSchema(ActivityReportAggregate.Schema);
+AllHomesActivityReportAggregate.attachSchema(
+  AllHomesActivityReportAggregate.Schema
+);

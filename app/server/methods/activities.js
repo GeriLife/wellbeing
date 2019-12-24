@@ -103,14 +103,14 @@ Meteor.methods({
       timePeriod === 'week' ? 'weeklyData' : 'monthlyData';
 
     /* Pick an entry with the latest date */
-    const data = ActivityReportAggregate.findOne(
+    const data = AllHomesActivityReportAggregate.findOne(
       {},
-      { fields: { [fieldSelector]: 1, Date: 1, _id: 0 } },
+      { fields: { [fieldSelector]: 1, lastUpdatedDate: 1, _id: 0 } },
       { sort: { Date: -1, limit: 1 } }
     );
     return {
-      activityData: data[fieldSelector],
-      lastUpdated: data.Date,
+      activityData: data ? data[fieldSelector] : [],
+      lastUpdated: data.lastUpdatedDate,
     };
   },
   getResidentAggregatedActivities(residentId, timePeriod) {
