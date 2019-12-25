@@ -16,8 +16,13 @@ Meteor.methods({
     // key: activityTypeId
     // value: activityTypeName
     const activityTypes = ActivityTypes.find().fetch();
+    const facilitators = Meteor.roles.find().fetch();
 
     const activityTypesDict = _(activityTypes)
+                                            .keyBy('_id')
+                                            .mapValues('name')
+                                            .value();
+    const facilitatorDict = _(facilitators)
                                             .keyBy('_id')
                                             .mapValues('name')
                                             .value();
@@ -31,18 +36,19 @@ Meteor.methods({
       const facilitatorRoleId = activity.facilitatorRoleId;
 
       activity['activityTypeName'] = activityTypesDict[activityTypeId];
+      activity['facilitatorName'] = facilitatorDict[facilitatorRoleId];
 
       return activity;
     });
 
     return annotatedActivities;
   },
-  aggregateActivities(annotatedActivities, timePeriod) {
+  aggregateActivities(annotatedActivities, timePeriod, aggregateBy = 'ActivityTypeName') {
     // aggregate activities into daily bins grouped by type
     //  - activity count
     //  - activity minutes
     const nestedActivities = d3.nest()
-      .key(function(activity) { return activity.activityTypeName })
+      .key(function(activity) { return activity[aggregateBy] })
       .key(function(activity) {
         return moment(activity.activityDate).startOf(timePeriod).toDate()
       })
@@ -58,6 +64,40 @@ Meteor.methods({
 
     return nestedActivities
   },
+  getAllHomeReportAggregates() {
+    try {
+      const weeklyDataByActivityType = Meteor.call(
+        'getAggregatedActivities',
+        'week',
+        'activityTypeName'
+      );
+      const monthlyDataByActivityType = Meteor.call(
+        'getAggregatedActivities',
+        'month',
+        'activityTypeName'
+      );
+      const weeklyDataByActivityFacilitator = Meteor.call(
+        'getAggregatedActivities',
+        'week',
+        'facilitatorName'
+      );
+      const monthlyDataByActivityFacilitator = Meteor.call(
+        'getAggregatedActivities',
+        'month',
+        'facilitatorName'
+      );
+      return {
+        weeklyDataByActivityType,
+        monthlyDataByActivityType,
+        weeklyDataByActivityFacilitator,
+        monthlyDataByActivityFacilitator,
+      };
+    } catch (e) {
+      console.error(e);
+      return { error: true, errorMessage: e.toString() };
+    }
+  },
+
   getDailyAggregatedHomeResidentActivities (homeId) {
     // Get all home activities
     const allHomeActivities = Meteor.call('getAllHomeResidentActivities', homeId);
@@ -85,7 +125,7 @@ Meteor.methods({
 
     return nestedActivities;
   },
-  getAggregatedActivities(timePeriod) {
+  getAggregatedActivities(timePeriod, aggregateBy) {
     const activities = Activities.find().fetch();
 
     // TODO: work out how to annotate the aggregated data,
@@ -93,18 +133,20 @@ Meteor.methods({
     // to increase performance of this function
     const annotatedActivities = Meteor.call('annotateActivities', activities);
 
-    const nestedActivities = Meteor.call('aggregateActivities', annotatedActivities, timePeriod);
+    const nestedActivities = Meteor.call('aggregateActivities', annotatedActivities, timePeriod, aggregateBy);
 
     return nestedActivities;
   },
-  getActivitiesAggregateReport(timePeriod) {
+  getActivitiesAggregateReport(timePeriod,aggregateBy) {
+    if (!aggregateBy) throw new Meteor.Error('Required aggregateBy field');
+
     /* Key to selected based on time period */
     const fieldSelector =
       timePeriod === 'week' ? 'weeklyData' : 'monthlyData';
 
     /* Pick an entry with the latest date */
     const data = AllHomesActivityReportAggregate.findOne(
-      {},
+      { aggregateBy },
       { fields: { [fieldSelector]: 1, lastUpdatedDate: 1, _id: 0 } },
       { sort: { Date: -1, limit: 1 } }
     );
@@ -134,7 +176,7 @@ Meteor.methods({
     // annotate activities with name and facilitator role
     const annotatedActivities = Meteor.call('annotateActivities', allHomeActivities);
 
-    const nestedActivities = Meteor.call('aggregateActivities', annotatedActivities,timePeriod);
+    const nestedActivities = Meteor.call('aggregateActivities', annotatedActivities, timePeriod);
 
     return nestedActivities;
   },

@@ -4,44 +4,44 @@ new CronJob(
   '0 0 12 * * *',
   Meteor.bindEnvironment(function(err, data) {
     /* Get monthly data */
-    Meteor.call('getAggregatedActivities', 'month', function(
-      errorForMonthlyData,
-      monthlyData
-    ) {
-      /* Exit if error fetching data */
-      if (errorForMonthlyData) {
-        console.error(errorForMonthlyData);
-        return;
-      }
+    Meteor.call('getAllHomeReportAggregates', function(error, data) {
+      if (error || data.error === true) return;
 
-      /* Get weekly data */
-      Meteor.call('getAggregatedActivities', 'week', function(
-        errorForWeeklyData,
-        weeklyData
-      ) {
-        if (errorForWeeklyData) {
-          console.error(errorForWeeklyData);
-          return;
-        }
-
-        /* Remove previous entries, if any so that after the following insert
+      /* Remove previous entries, if any so that after the following insert
         there is always only one entry in the collection */
-        AllHomesActivityReportAggregate.remove({
-          aggregateBy: 'type',
-        });
+      AllHomesActivityReportAggregate.remove({});
+      const lastUpdatedDate = new Date();
 
-        AllHomesActivityReportAggregate.insert(
-          {
-            lastUpdatedDate: new Date(),
-            weeklyData: weeklyData,
-            aggregateBy:'type',
-            monthlyData: monthlyData,
-          },
-          function(error) {
-            if (error) console.error(error);
-          }
-        );
-      });
+      /* Prepapre data for insert adding 2 rows as per type bcause 
+         retival will be easy
+      */
+      const activityTypeData = {
+        lastUpdatedDate,
+        weeklyData: data.weeklyDataByActivityType,
+        aggregateBy: 'type',
+        monthlyData: data.monthlyDataByActivityType,
+      };
+      const facilitatorData = {
+        lastUpdatedDate,
+        weeklyData: data.weeklyDataByActivityFacilitator,
+        aggregateBy: 'facilitator',
+        monthlyData: data.monthlyDataByActivityFacilitator,
+      };
+
+      /* Insert Data */
+      AllHomesActivityReportAggregate.insert(
+        activityTypeData,
+        function(error) {
+          if (error) console.error('activityTypeData: ', error);
+        }
+      );
+
+      AllHomesActivityReportAggregate.insert(
+        facilitatorData,
+        function(error) {
+          if (error) console.error('facilitatorData: ', error);
+        }
+      );
     });
   }),
   null,

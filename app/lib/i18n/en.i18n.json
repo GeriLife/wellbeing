@@ -236,6 +236,8 @@
   "report-barMode-stack": "stack",
   "report-chartSettingsButton-text": "chart settings",
   "report-header": "All Homes Report",
+  "report-activityByType": "Activities by activity type",
+  "report-activityByRole": "Activities by facilitator role",
   "report-lastUpdatedAt": "Last updated at",
   "report-timePeriod-label": "Time period",
   "report-timePeriod-week": "week",

@@ -1,19 +1,39 @@
 <template name="report">
-    <h1>
-        {{_ "report-header" }}
-        <button class="btn btn-primary btn-xs" type="button" data-toggle="collapse" data-target="#chartSettings"
-                aria-expanded="false" aria-controls="collapseExample">
-            <i class="fa fa-cog" aria-hidden="true"></i>
-            {{_ "report-chartSettingsButton-text" }}
-        </button>
-    </h1>
-    <span>{{_ "report-lastUpdatedAt" }}&nbsp;{{lastUpdated}}</span>
+  <h1>
+    {{_ "report-header" }}
+    <button
+      class="btn btn-primary btn-xs"
+      type="button"
+      data-toggle="collapse"
+      data-target="#chartSettings"
+      aria-expanded="false"
+      aria-controls="collapseExample"
+    >
+      <i class="fa fa-cog" aria-hidden="true"></i>
+      {{_ "report-chartSettingsButton-text" }}
+    </button>
+  </h1>
 
-    <div class="collapse" id="chartSettings">
-        <div class="well">
-            {{> sharedReportSettingsForm isGroupMode=isGroupMode}}
-        </div>
+  <div class="collapse" id="chartSettings">
+    <div class="well">
+      {{> sharedReportSettingsForm isGroupMode=isGroupMode}}
     </div>
+  </div>
+  <!-- Chart for activity by activity types -->
+  <h3>
+      {{_ "report-activityByType"}}
+  </h3>
+  <span
+    >{{_ "report-lastUpdatedAt" }}&nbsp;{{ lastUpdatedType }}</span
+  >
+  <div id="residentsActivitiesChartByType"></div>
 
-    <div id="residentsActivitiesChart"></div>
+  <!-- Chart for activity by activity roles -->
+  <h3>
+    {{_ "report-activityByRole"}}
+</h3>
+<span
+    >{{_ "report-lastUpdatedAt" }}&nbsp;{{ lastUpdatedRole }}</span
+  >
+  <div id="residentsActivitiesChartByRole"></div>
 </template>
