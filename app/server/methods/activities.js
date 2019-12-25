@@ -2,6 +2,28 @@ import _ from 'lodash';
 import d3 from 'd3';
 import moment from 'moment';
 
+function getAllHomeReportAggregates() {
+  try {
+    const weeklyDataByActivityType = Meteor.call('getAggregatedActivities', 'week', 'activityTypeName'
+    );
+    const monthlyDataByActivityType = Meteor.call('getAggregatedActivities', 'month', 'activityTypeName'
+    );
+    const weeklyDataByActivityFacilitator = Meteor.call('getAggregatedActivities', 'week', 'facilitatorName'
+    );
+    const monthlyDataByActivityFacilitator = Meteor.call('getAggregatedActivities', 'month', 'facilitatorName'
+    );
+    return {
+      weeklyDataByActivityType,
+      monthlyDataByActivityType,
+      weeklyDataByActivityFacilitator,
+      monthlyDataByActivityFacilitator,
+    };
+  } catch (e) {
+    console.error(e);
+    return { error: true, errorMessage: e.toString() };
+  }
+}
+
 Meteor.methods({
   annotateActivities (activities) {
     /*
@@ -64,40 +86,7 @@ Meteor.methods({
 
     return nestedActivities
   },
-  getAllHomeReportAggregates() {
-    try {
-      const weeklyDataByActivityType = Meteor.call(
-        'getAggregatedActivities',
-        'week',
-        'activityTypeName'
-      );
-      const monthlyDataByActivityType = Meteor.call(
-        'getAggregatedActivities',
-        'month',
-        'activityTypeName'
-      );
-      const weeklyDataByActivityFacilitator = Meteor.call(
-        'getAggregatedActivities',
-        'week',
-        'facilitatorName'
-      );
-      const monthlyDataByActivityFacilitator = Meteor.call(
-        'getAggregatedActivities',
-        'month',
-        'facilitatorName'
-      );
-      return {
-        weeklyDataByActivityType,
-        monthlyDataByActivityType,
-        weeklyDataByActivityFacilitator,
-        monthlyDataByActivityFacilitator,
-      };
-    } catch (e) {
-      console.error(e);
-      return { error: true, errorMessage: e.toString() };
-    }
-  },
-
+  getAllHomeReportAggregates,
   getDailyAggregatedHomeResidentActivities (homeId) {
     // Get all home activities
     const allHomeActivities = Meteor.call('getAllHomeResidentActivities', homeId);

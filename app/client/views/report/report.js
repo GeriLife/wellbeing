@@ -115,49 +115,42 @@ function prepareChartData(templateInstance, activityData, chartName) {
   const barmode = templateInstance.barMode.get();
 
   // Make sure we have some activity data
-  if (activityData) {
-    // Chart data consists of multiple traces
-    const data = _.map(activityData, function(activityCategoryData) {
-      // Create a trace for each activity type
-      return {
-        type: 'bar',
-        name: activityCategoryData.key,
-        // X values are activity dates
-        x: _.map(activityCategoryData.values, function(
-          activityCategoryDay
-        ) {
-          return new Date(activityCategoryDay.key);
-        }),
-        // Y values are (currently) activity minutes
-        // TODO: add page element to toggle between activity counts and minutes
-        y: _.map(activityCategoryData.values, function(
-          activityCategoryDay
-        ) {
-          return activityCategoryDay.value[activityMetric];
-        }),
-      };
-    });
-
-    // Add plot layout configuration
-    const layout = {
-      title: TAPi18n.__('reportPageActivitiesChart-title'),
-      xaxis: {
-        title: TAPi18n.__('reportPageActivitiesChart-xaxis-title'),
-      },
-      yaxis: {
-        title: TAPi18n.__(
-          `reportPageActivitiesChart-yaxis-${activityMetric}`
-        ),
-      },
-      barmode,
+  if (!activityData) return;
+  // Chart data consists of multiple traces
+  const data = _.map(activityData, activityCategoryData => {
+    // Create a trace for each activity type
+    return {
+      type: 'bar',
+      name: activityCategoryData.key,
+      // X values are activity dates
+      x: _.map(activityCategoryData.values, activityCategoryDay => {
+        return new Date(activityCategoryDay.key);
+      }),
+      // Y values are (currently) activity minutes
+      // TODO: add page element to toggle between activity counts and minutes
+      y: _.map(activityCategoryData.values, activityCategoryDay => {
+        return activityCategoryDay.value[activityMetric];
+      }),
     };
+  });
 
-    // Get client locale
-    const locale = TAPi18n.getLanguage();
+  // Add plot layout configuration
+  const layout = {
+    title: TAPi18n.__('reportPageActivitiesChart-title'),
+    xaxis: {
+      title: TAPi18n.__('reportPageActivitiesChart-xaxis-title'),
+    },
+    yaxis: {
+      title: TAPi18n.__(
+        `reportPageActivitiesChart-yaxis-${activityMetric}`
+      ),
+    },
+    barmode,
+  };
 
-    // Render plot
-    Plotly.newPlot(chartName, data, layout, {
-      locale,
-    });
-  }
+  // Get client locale
+  const locale = TAPi18n.getLanguage();
+
+  // Render plot
+  Plotly.newPlot(chartName, data, layout, { locale });
 }
