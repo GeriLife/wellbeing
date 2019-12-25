@@ -110,6 +110,23 @@ Template.report.helpers({
   },
 });
 
+const transformChartData = (activityCategoryData, activityMetric) => {
+  // Create a trace for each activity type
+  return {
+    type: 'bar',
+    name: activityCategoryData.key,
+    // X values are activity dates
+    x: _.map(activityCategoryData.values, activityCategoryDay => {
+      return new Date(activityCategoryDay.key);
+    }),
+    // Y values are (currently) activity minutes
+    // TODO: add page element to toggle between activity counts and minutes
+    y: _.map(activityCategoryData.values, activityCategoryDay => {
+      return activityCategoryDay.value[activityMetric];
+    }),
+  };
+};
+
 function prepareChartData(templateInstance, activityData, chartName) {
   const activityMetric = templateInstance.activityMetric.get();
   const barmode = templateInstance.barMode.get();
@@ -117,22 +134,9 @@ function prepareChartData(templateInstance, activityData, chartName) {
   // Make sure we have some activity data
   if (!activityData) return;
   // Chart data consists of multiple traces
-  const data = _.map(activityData, activityCategoryData => {
-    // Create a trace for each activity type
-    return {
-      type: 'bar',
-      name: activityCategoryData.key,
-      // X values are activity dates
-      x: _.map(activityCategoryData.values, activityCategoryDay => {
-        return new Date(activityCategoryDay.key);
-      }),
-      // Y values are (currently) activity minutes
-      // TODO: add page element to toggle between activity counts and minutes
-      y: _.map(activityCategoryData.values, activityCategoryDay => {
-        return activityCategoryDay.value[activityMetric];
-      }),
-    };
-  });
+  const data = _.map(activityData, activityCategoryData =>
+    transformChartData(activityCategoryData, activityMetric)
+  );
 
   // Add plot layout configuration
   const layout = {
