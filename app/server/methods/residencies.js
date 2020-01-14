@@ -1,27 +1,26 @@
-import newResidentAndResidencySchema from "/both/schemas/newResidentAndResidencySchema";
+import newResidentAndResidencySchema from '/both/schemas/newResidentAndResidencySchema';
 import { checkUserPermissions } from '/both/utils';
 
-Meteor.methods({
+export default Meteor.methods({
   addNewResidentAndResidency(document) {
-
     const userId = Meteor.userId();
     const userPermission = checkUserPermissions({
       schemaType: 'resident',
       action: 'insert',
       userId,
-      doc: document
-    })
+      doc: document,
+    });
     if (!userPermission) {
       throw new Meteor.Error(
-        "operation-not-allowed",
-        "Current User does not have enough rights to perform this action!"
+        'operation-not-allowed',
+        'Current User does not have enough rights to perform this action!'
       );
     }
-      // set up validation context based on new resident and residency schama
-      const validationContext = newResidentAndResidencySchema.newContext();
+    // set up validation context based on new resident and residency schama
+    const validationContext = newResidentAndResidencySchema.newContext();
 
-      // Check if submitted document is valid
-      const documentIsValid = validationContext.validate(document);
+    // Check if submitted document is valid
+    const documentIsValid = validationContext.validate(document);
     if (documentIsValid) {
       // Get fields from object
       const { firstName, lastInitial, homeId, moveIn } = document;
@@ -32,7 +31,11 @@ Meteor.methods({
 
       if (residentId) {
         // Insert residency document
-        const residencyId = Residencies.insert({ residentId, homeId, moveIn });
+        const residencyId = Residencies.insert({
+          residentId,
+          homeId,
+          moveIn,
+        });
 
         if (residencyId) {
           // Submission was successful
@@ -40,47 +43,50 @@ Meteor.methods({
         } else {
           // Could not create residency
           throw new Meteor.Error(
-            "could-not-create-residency",
-            "Could not create residency."
+            'could-not-create-residency',
+            'Could not create residency.'
           );
         }
       } else {
         // Could not create resident
         throw new Meteor.Error(
-          "could-not-create-resident",
-          "Could not create resident."
+          'could-not-create-resident',
+          'Could not create resident.'
         );
       }
     } else {
       // Document is not valid
       throw new Meteor.Error(
-        "resident-and-residency-invalid",
-        "Resident and residency document is not valid."
+        'resident-and-residency-invalid',
+        'Resident and residency document is not valid.'
       );
     }
   },
   getCurrentResidencies() {
     return Residencies.find({
       moveOut: {
-        $exists: false
-      }
+        $exists: false,
+      },
     }).fetch();
   },
   getUserVisibleResidencyIds(userId, includeDeparted) {
     const selector = {};
 
-    const userIsAdmin = Roles.userIsInRole(userId, "admin");
+    const userIsAdmin = Roles.userIsInRole(userId, 'admin');
 
     // Admin should see all residencies
     // otherwise, check user group permissions
     if (!userIsAdmin) {
       // get current user group IDs
-      const userGroupIds = Meteor.call("getSingleUserGroupIds", userId);
+      const userGroupIds = Meteor.call(
+        'getSingleUserGroupIds',
+        userId
+      );
 
       // get current user visible homes
-      const homeIds = Homes.find({ groupId: { $in: userGroupIds } }).map(
-        home => home._id
-      );
+      const homeIds = Homes.find({
+        groupId: { $in: userGroupIds },
+      }).map(home => home._id);
 
       // get homes active residency IDs
       selector.homeId = { $in: homeIds };
@@ -90,7 +96,7 @@ Meteor.methods({
     if (!includeDeparted) {
       // Get residents without move out date
       selector.moveOut = {
-        $exists: false
+        $exists: false,
       };
     }
 
@@ -98,7 +104,12 @@ Meteor.methods({
   },
 
   /*Check if the current resident has other residencies */
-  hasOtherActiveResidencies({ residentId, residencyId, moveOut, moveIn }) {
+  hasOtherActiveResidencies({
+    residentId,
+    residencyId,
+    moveOut,
+    moveIn,
+  }) {
     /* Move out date is set to 01-01-1970
     so need to check timestamp for validation  */
     const moveOutTimeStamp = new Date(moveOut).getTime();
@@ -113,36 +124,48 @@ Meteor.methods({
 
     let otherActiveResidencyDuringCurrent = {};
     if (moveOutTimeStamp > 0) {
-      otherActiveResidencyDuringCurrent = buildConditionWhenMoveOutExists({
-        residentId,
-        residencyId,
-        moveOut,
-        moveIn
-      });
+      otherActiveResidencyDuringCurrent = buildConditionWhenMoveOutExists(
+        {
+          residentId,
+          residencyId,
+          moveOut,
+          moveIn,
+        }
+      );
     } else {
-      otherActiveResidencyDuringCurrent = buildConditionWhenMoveOutNotExists(moveIn);
+      otherActiveResidencyDuringCurrent = buildConditionWhenMoveOutNotExists(
+        moveIn
+      );
     }
-    condition = { ...condition, ...otherActiveResidencyDuringCurrent };
+    condition = {
+      ...condition,
+      ...otherActiveResidencyDuringCurrent,
+    };
     const activeResidencies = Residencies.find(condition).count();
     return activeResidencies > 0;
   },
   isResidentManagedByCurrentUser(residentId) {
     const userId = Meteor.userId();
-    const isUserAdmin = Roles.userIsInRole(userId, ["admin"]);
+    const isUserAdmin = Roles.userIsInRole(userId, ['admin']);
 
     if (isUserAdmin) return true;
 
-    const residentInformation = Residencies.find({ $and: [{ residentId }, { moveOut: { $exists: false } }] }).fetch();
-    const homeId = residentInformation && residentInformation[0] && residentInformation[0].homeId
-    if (!homeId) return false
+    const residentInformation = Residencies.find({
+      $and: [{ residentId }, { moveOut: { $exists: false } }],
+    }).fetch();
+    const homeId =
+      residentInformation &&
+      residentInformation[0] &&
+      residentInformation[0].homeId;
+    if (!homeId) return false;
 
-    return Meteor.call("isHomeManagedByUser", { userId, homeId });
-  }
+    return Meteor.call('isHomeManagedByUser', { userId, homeId });
+  },
 });
 
 function buildConditionWhenMoveOutExists({ moveOut, moveIn }) {
   const otherActiveResidencyDuringCurrent = {
-    $or: []
+    $or: [],
   };
 
   //If a residency starts or end during cuurrent
@@ -154,15 +177,21 @@ function buildConditionWhenMoveOutExists({ moveOut, moveIn }) {
                  |--|
         o----------------------o
   */
-  otherActiveResidencyDuringCurrent["$or"].push({
+  otherActiveResidencyDuringCurrent['$or'].push({
     $or: [
       {
-        $and: [{ moveOut: { $gte: moveIn } }, { moveOut: { $lte: moveOut } }]
+        $and: [
+          { moveOut: { $gte: moveIn } },
+          { moveOut: { $lte: moveOut } },
+        ],
       },
       {
-        $and: [{ moveIn: { $gte: moveIn } }, { moveIn: { $lte: moveOut } }]
-      }
-    ]
+        $and: [
+          { moveIn: { $gte: moveIn } },
+          { moveIn: { $lte: moveOut } },
+        ],
+      },
+    ],
   });
 
   // If a current record is during another residency or it overlaps an active Residency
@@ -175,20 +204,23 @@ function buildConditionWhenMoveOutExists({ moveOut, moveIn }) {
   |----------------------------
         o---------------o
   */
-  otherActiveResidencyDuringCurrent["$or"].push({
+  otherActiveResidencyDuringCurrent['$or'].push({
     $and: [
       { moveIn: { $lt: moveOut } },
       {
-        $or: [{ moveOut: { $gte: moveOut } }, { moveOut: { $exists: false } }]
-      }
-    ]
+        $or: [
+          { moveOut: { $gte: moveOut } },
+          { moveOut: { $exists: false } },
+        ],
+      },
+    ],
   });
   return otherActiveResidencyDuringCurrent;
 }
 
 function buildConditionWhenMoveOutNotExists(moveIn) {
   const otherActiveResidencyDuringCurrent = {
-    $or: []
+    $or: [],
   };
   // If a residency ends after this moveIn
   /*
@@ -198,8 +230,8 @@ function buildConditionWhenMoveOutNotExists(moveIn) {
   |------------------|
       o-----------------------
   */
-  otherActiveResidencyDuringCurrent["$or"].push({
-    moveOut: { $gt: moveIn }
+  otherActiveResidencyDuringCurrent['$or'].push({
+    moveOut: { $gt: moveIn },
   });
 
   // If a residency starts after current moveIn
@@ -211,8 +243,8 @@ function buildConditionWhenMoveOutNotExists(moveIn) {
         |------------------------
       o-----------------------
   */
-  otherActiveResidencyDuringCurrent["$or"].push({
-    moveIn: { $gte: moveIn }
+  otherActiveResidencyDuringCurrent['$or'].push({
+    moveIn: { $gte: moveIn },
   });
 
   // If there already exists an active residency
@@ -223,6 +255,8 @@ function buildConditionWhenMoveOutNotExists(moveIn) {
   |----------------------
       o-----------------------
   */
-  otherActiveResidencyDuringCurrent["$or"].push({ moveOut: { $exists: false }});
+  otherActiveResidencyDuringCurrent['$or'].push({
+    moveOut: { $exists: false },
+  });
   return otherActiveResidencyDuringCurrent;
 }

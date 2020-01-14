@@ -65,3 +65,5 @@ AllHomesActivityReportAggregate.Schema = new SimpleSchema({
 AllHomesActivityReportAggregate.attachSchema(
   AllHomesActivityReportAggregate.Schema
 );
+
+module.exports = AllHomesActivityReportAggregate
