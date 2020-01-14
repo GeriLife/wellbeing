@@ -24,7 +24,7 @@ function getAllHomeReportAggregates() {
   }
 }
 
-Meteor.methods({
+export default Meteor.methods({
   annotateActivities (activities) {
     /*
     Given an array of Activity objects
@@ -65,7 +65,7 @@ Meteor.methods({
 
     return annotatedActivities;
   },
-  aggregateActivities(annotatedActivities, timePeriod, aggregateBy = 'ActivityTypeName') {
+  aggregateActivities(annotatedActivities, timePeriod, aggregateBy = 'activityTypeName') {
     // aggregate activities into daily bins grouped by type
     //  - activity count
     //  - activity minutes

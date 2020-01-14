@@ -1,5 +1,11 @@
-import { homeMethods } from '../server/methods/homes';
-import { residenciesMethods } from '../server/methods/residencies';
+import '../server/methods/homes';
+import '../server/methods/residencies';
+import '../server/methods/activities';
+import { resetDatabase } from 'meteor/xolvio:cleaner';
+
+Meteor.methods({
+  'test.resetDatabase': () => resetDatabase(),
+});
 
 function addAfterWait(ResidencyObj) {
   return new Promise(function(resolve, reject) {
@@ -85,5 +91,28 @@ Meteor.methods({
     } catch (e) {
       return { error: e.toString(), insertId };
     }
-  }
+  },
+
+  /* This method must only be used to test charts as for iserting it bypasses validations
+   */
+  prepareActivityData({
+    roles,
+    activityTypes,
+    activitesCollection,
+    aggregateData,
+  }) {
+    roles.forEach(role => {
+      Meteor.roles.insert(role);
+    });
+
+    activityTypes.forEach(activityType => {
+      ActivityTypes.insert(activityType);
+    });
+    activitesCollection.forEach(activity => {
+      Activities.insert(activity, { validate: false });
+    });
+    aggregateData.forEach(aggr => {
+      AllHomesActivityReportAggregate.insert(aggr);
+    });
+  },
 });
