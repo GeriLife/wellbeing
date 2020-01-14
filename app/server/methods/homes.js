@@ -4,7 +4,7 @@ import {
   activityLevelPercentage,
   makeUserManager,
 } from './utils/homes';
-Meteor.methods({
+export default Meteor.methods({
   currentUserCanAccessHome(homeId) {
     const currentUserId = Meteor.userId();
 

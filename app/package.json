@@ -23,6 +23,7 @@
     "moment": "^2.20.1",
     "plotly.js-dist": "^1.41.3",
     "simpl-schema": "^1.4.2",
+    "sinon": "^8.0.4",
     "slim-select": "^1.11.1",
     "vue": "^2.1.10",
     "vue-meteor-tracker": "^1.0.3"
