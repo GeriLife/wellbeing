@@ -88,6 +88,13 @@ meteor reset will delete the mock database
 
  meteor
 
+# Running tests
+## Command to run
+`npm run test`
+
+This command will start a server on port 8000. It is better to run `npm i` if the tests are run for the first time.
+Server code must be tested on server using `Meteor.isServer` flag. Code running in the `if` constructs of `Meteor.isServer` will show results on the console. For the others, `Meteor.isClient` must be used and they can be evaluated in the browser on `http://localhost:8000`.
+
 ## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):

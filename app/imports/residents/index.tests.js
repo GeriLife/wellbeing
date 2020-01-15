@@ -87,207 +87,211 @@ function disallowedActionToassert(action, done) {
   expect(action).to.equal(0);
   done();
 }
-describe('A manager can add and update but not remove', function() {
-  let insertId, update, removeErr;
-  before(function(done) {
-    StubCollections.stub([
-      Residencies,
-      Groups,
-      Residents,
-      Permissions,
-    ]);
 
-    createManagerAndLogin(function(err) {
-      if (!err) {
-        insertId = Residents.insert(validResident);
-        update = Residents.update(
-          { _id: insertId },
-          { $set: { firstName: 'qwerty' } }
+if (Meteor.isClient) {
+  describe('A manager can add and update but not remove', function() {
+    let insertId, update, removeErr;
+    before(function(done) {
+      StubCollections.stub([
+        Residencies,
+        Groups,
+        Residents,
+        Permissions,
+      ]);
+
+      createManagerAndLogin(function(err) {
+        if (!err) {
+          insertId = Residents.insert(validResident);
+          update = Residents.update(
+            { _id: insertId },
+            { $set: { firstName: 'qwerty' } }
+          );
+          Residents.remove(insertId, function(removeErrinResp, resp) {
+            removeErr = resp;
+
+            done();
+          });
+        } else {
+          done();
+        }
+      });
+    });
+
+    after(function(done) {
+      destroyDbUser(nonAdminUser.email, function() {
+        StubCollections.restore();
+        done();
+      });
+    });
+    it('insertid should be a valid mongo id', function(done) {
+      expect(/^[A-Za-z0-9]{17}$/.test(insertId)).to.be.true;
+      done();
+    });
+    it('update to equal to 1', function(done) {
+      expect(update).to.equal(1);
+      done();
+    });
+    it('Remove should fail', function(done) {
+      expect(removeErr).to.equal(0);
+      done();
+    });
+  });
+
+  describe('When admin inserts a resident', function() {
+    let insertId;
+    before(function(cb) {
+      StubCollections.stub([Residencies, Groups, Residents]);
+      loginAndInsert(
+        adminUser.email,
+        adminUser.password,
+        validResident,
+        function(err, id) {
+          insertId = id;
+          cb();
+        }
+      );
+    });
+
+    it('Row must be inserted', function(done) {
+      expect(insertId).to.exist;
+      expect(/^[A-Za-z0-9]{17}$/.test(insertId)).to.be.true;
+      done();
+    });
+    after(function(done) {
+      afterForAdminUser(insertId, done);
+    });
+  });
+
+  describe('When admin updates a resident', function() {
+    let updateNoOfRows, insertId;
+    before(function(cb) {
+      StubCollections.stub([Residencies, Groups, Residents]);
+      login(adminUser.email, adminUser.password, function() {
+        Meteor.call(
+          'insertAndUpdateResident',
+          validResident,
+          function(err, res) {
+            if (res.error) {
+              insertId = err.insertId;
+            } else {
+              updateNoOfRows = res.data;
+              insertId = res.insertId;
+            }
+            cb();
+          }
         );
-        Residents.remove(insertId, function(removeErrinResp, resp) {
-          removeErr = resp;
+      });
+    });
 
+    it('Update should be allowed', function(done) {
+      allowedActionToassert(updateNoOfRows, done);
+    });
+    after(function(done) {
+      afterForAdminUser(insertId, done);
+    });
+  });
+
+  describe('When admin remove a resident', function() {
+    let deleteNoOfRows;
+    before(function(cb) {
+      StubCollections.stub([Residencies, Groups, Residents]);
+      login(adminUser.email, adminUser.password, function() {
+        remove(function(err, res) {
+          deleteNoOfRows = res.data;
+          cb();
+        });
+      });
+    });
+
+    after(function(done) {
+      Meteor.logout();
+      StubCollections.restore();
+      done();
+    });
+
+    it('Removal should be allowed', function(done) {
+      allowedActionToassert(deleteNoOfRows, done);
+    });
+  });
+
+  describe('When non-admin inserts a resident', function() {
+    let insertId;
+    before(function(done) {
+      StubCollections.stub([Residencies, Groups, Residents]);
+      setupDbUsser(nonAdminUser, function(er, userId) {
+        Residents.insert(validResident, function(err, id) {
+          insertId = id;
           done();
         });
-      } else {
-        done();
-      }
+      });
     });
-  });
 
-  after(function(done) {
-    destroyDbUser(nonAdminUser.email, function() {
-      StubCollections.restore();
+    it('Insert ID must not be generated', function(done) {
+      expect(insertId).to.equal(undefined);
       done();
     });
-  });
-  it('insertid should be a valid mongo id', function(done) {
-    expect(/^[A-Za-z0-9]{17}$/.test(insertId)).to.be.true;
-    done();
-  });
-  it('update to equal to 1', function(done) {
-    expect(update).to.equal(1);
-    done();
-  });
-  it('Remove should fail', function(done) {
-    expect(removeErr).to.equal(0);
-    done();
-  });
-});
-
-describe('When admin inserts a resident', function() {
-  let insertId;
-  before(function(cb) {
-    StubCollections.stub([Residencies, Groups, Residents]);
-    loginAndInsert(
-      adminUser.email,
-      adminUser.password,
-      validResident,
-      function(err, id) {
-        insertId = id;
-        cb();
-      }
-    );
-  });
-
-  it('Row must be inserted', function(done) {
-    expect(insertId).to.exist;
-    expect(/^[A-Za-z0-9]{17}$/.test(insertId)).to.be.true;
-    done();
-  });
-  after(function(done) {
-    afterForAdminUser(insertId, done);
-  });
-});
-
-describe('When admin updates a resident', function() {
-  let updateNoOfRows, insertId;
-  before(function(cb) {
-    StubCollections.stub([Residencies, Groups, Residents]);
-    login(adminUser.email, adminUser.password, function() {
-      Meteor.call('insertAndUpdateResident', validResident, function(
-        err,
-        res
-      ) {
-        if (res.error) {
-          insertId = err.insertId;
-        } else {
-          updateNoOfRows = res.data;
-          insertId = res.insertId;
-        }
-        cb();
-      });
+    after(function(done) {
+      afterForNonAdmin(insertId, done);
     });
   });
 
-  it('Update should be allowed', function(done) {
-    allowedActionToassert(updateNoOfRows, done);
-  });
-  after(function(done) {
-    afterForAdminUser(insertId, done);
-  });
-});
+  describe('When non-admin updates a resident', function() {
+    let updateNoOfRows, insertId;
+    before(function(cb) {
+      StubCollections.stub([Residencies, Groups, Residents]);
+      login(adminUser.email, adminUser.password, function() {
+        insertId = Residents.insert(validResident);
 
-describe('When admin remove a resident', function() {
-  let deleteNoOfRows;
-  before(function(cb) {
-    StubCollections.stub([Residencies, Groups, Residents]);
-    login(adminUser.email, adminUser.password, function() {
-      remove(function(err, res) {
-        deleteNoOfRows = res.data;
-        cb();
+        Meteor.logout();
+
+        setupDbUsser(nonAdminUser, function() {
+          updateNoOfRows = Residents.update(
+            { _id: insertId },
+            { $set: { firstName: 'new name' } }
+          );
+
+          cb();
+        });
       });
+    });
+
+    it('Should not allow update', function(done) {
+      disallowedActionToassert(updateNoOfRows, done);
+    });
+    after(function(done) {
+      afterForNonAdmin(insertId, done);
     });
   });
 
-  after(function(done) {
-    Meteor.logout();
-    StubCollections.restore();
-    done();
-  });
+  describe('When non-admin remove a resident', function() {
+    let deleteNoOfRows;
+    let insertId;
+    before(function(cb) {
+      StubCollections.stub([Residencies, Groups, Residents]);
+      login(adminUser.email, adminUser.password, function() {
+        insertId = Residents.insert(validResident);
+        Meteor.logout();
 
-  it('Removal should be allowed', function(done) {
-    allowedActionToassert(deleteNoOfRows, done);
-  });
-});
+        setupDbUsser(nonAdminUser, function() {
+          try {
+            deleteNoOfRows = Residents.remove(insertId);
+          } catch (e) {
+            console.log(e);
+          }
+          cb();
+        });
+      });
+    });
 
-describe('When non-admin inserts a resident', function() {
-  let insertId;
-  before(function(done) {
-    StubCollections.stub([Residencies, Groups, Residents]);
-    setupDbUsser(nonAdminUser, function(er, userId) {
-      Residents.insert(validResident, function(err, id) {
-        insertId = id;
+    after(function(done) {
+      destroyDbUser(nonAdminUser.email, function() {
+        StubCollections.restore();
         done();
       });
     });
-  });
 
-  it('Insert ID must not be generated', function(done) {
-    expect(insertId).to.equal(undefined);
-    done();
-  });
-  after(function(done) {
-    afterForNonAdmin(insertId, done);
-  });
-});
-
-describe('When non-admin updates a resident', function() {
-  let updateNoOfRows, insertId;
-  before(function(cb) {
-    StubCollections.stub([Residencies, Groups, Residents]);
-    login(adminUser.email, adminUser.password, function() {
-      insertId = Residents.insert(validResident);
-
-      Meteor.logout();
-
-      setupDbUsser(nonAdminUser, function() {
-        updateNoOfRows = Residents.update(
-          { _id: insertId },
-          { $set: { firstName: 'new name' } }
-        );
-
-        cb();
-      });
+    it('Should not be allowed', function(done) {
+      disallowedActionToassert(deleteNoOfRows, done);
     });
   });
-
-  it('Should not allow update', function(done) {
-    disallowedActionToassert(updateNoOfRows, done);
-  });
-  after(function(done) {
-    afterForNonAdmin(insertId, done);
-  });
-});
-
-describe('When non-admin remove a resident', function() {
-  let deleteNoOfRows;
-  let insertId;
-  before(function(cb) {
-    StubCollections.stub([Residencies, Groups, Residents]);
-    login(adminUser.email, adminUser.password, function() {
-      insertId = Residents.insert(validResident);
-      Meteor.logout();
-
-      setupDbUsser(nonAdminUser, function() {
-        try {
-          deleteNoOfRows = Residents.remove(insertId);
-        } catch (e) {
-          console.log(e);
-        }
-        cb();
-      });
-    });
-  });
-
-  after(function(done) {
-    destroyDbUser(nonAdminUser.email, function() {
-      StubCollections.restore();
-      done();
-    });
-  });
-
-  it('Should not be allowed', function(done) {
-    disallowedActionToassert(deleteNoOfRows, done);
-  });
-});
+}
