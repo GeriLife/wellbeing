@@ -52,77 +52,80 @@ const promisifiedUpdate = function() {
     );
   });
 };
-describe('Simple Group insert by admin user', function() {
-  let insertRes;
-  before(function(done) {
-    _before(function() {
-      Meteor.call('addGroup', newGroup, function(err, insertId) {
-        insertRes = insertId;
-        done();
-      });
-    }, true);
-  });
 
-  /* Tests */
-  it('Allow any user role to add an activity', function(done) {
-    expect(insertRes).to.exist;
-    expect(/^[A-Za-z0-9]{17}$/.test(insertRes)).to.be.true;
-    done();
-  });
-  after(function(done) {
-    Meteor.call('removeGroup', insertRes);
-    _after(done, true);
-  });
-});
-
-describe('Group name under 30 chars', function() {
-  let error;
-  before(function(done) {
-    _before(function() {
-      Meteor.call('addGroup', invalidGroupName, function(err) {
-        error = err.reason;
-        done();
-      });
-    }, true);
-  });
-
-  /* Tests */
-  it('Callback should return false', function(done) {
-    expect(error).to.equal(
-      'Name cannot exceed 30 characters in groups insert'
-    );
-    done();
-  });
-  after(function(done) {
-    _after(done, true);
-  });
-});
-
-describe('Do not allow non-admins to insert or update', function() {
-  let insertOutput, updateOutput;
-  before(function(done) {
-    _before(function() {
-      Promise.all([promisifiedInsert(), promisifiedUpdate()]).then(
-        function(responses) {
-          insertOutput = responses[0];
-          updateOutput = responses[1];
+if (Meteor.isClient) {
+  describe('Simple Group insert by admin user', function() {
+    let insertRes;
+    before(function(done) {
+      _before(function() {
+        Meteor.call('addGroup', newGroup, function(err, insertId) {
+          insertRes = insertId;
           done();
-        }
+        });
+      }, true);
+    });
+
+    /* Tests */
+    it('Allow any user role to add an activity', function(done) {
+      expect(insertRes).to.exist;
+      expect(/^[A-Za-z0-9]{17}$/.test(insertRes)).to.be.true;
+      done();
+    });
+    after(function(done) {
+      Meteor.call('removeGroup', insertRes);
+      _after(done, true);
+    });
+  });
+
+  describe('Group name under 30 chars', function() {
+    let error;
+    before(function(done) {
+      _before(function() {
+        Meteor.call('addGroup', invalidGroupName, function(err) {
+          error = err.reason;
+          done();
+        });
+      }, true);
+    });
+
+    /* Tests */
+    it('Callback should return false', function(done) {
+      expect(error).to.equal(
+        'Name cannot exceed 30 characters in groups insert'
       );
-    }, false);
+      done();
+    });
+    after(function(done) {
+      _after(done, true);
+    });
   });
 
-  /* Tests */
-  it('Insert should throw error', async function(done) {
-    expect(insertOutput).to.equal('Access denied');
-    done();
-  });
+  describe('Do not allow non-admins to insert or update', function() {
+    let insertOutput, updateOutput;
+    before(function(done) {
+      _before(function() {
+        Promise.all([promisifiedInsert(), promisifiedUpdate()]).then(
+          function(responses) {
+            insertOutput = responses[0];
+            updateOutput = responses[1];
+            done();
+          }
+        );
+      }, false);
+    });
 
-  it('Update should throw error', function(done) {
-    expect(updateOutput).to.equal(0);
-    done();
+    /* Tests */
+    it('Insert should throw error', async function(done) {
+      expect(insertOutput).to.equal('Access denied');
+      done();
+    });
+
+    it('Update should throw error', function(done) {
+      expect(updateOutput).to.equal(0);
+      done();
+    });
+    after(function(done) {
+      _after(done, false);
+    });
   });
-  after(function(done) {
-    _after(done, false);
-  });
-});
+}

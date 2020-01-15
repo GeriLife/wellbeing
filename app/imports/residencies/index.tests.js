@@ -87,129 +87,134 @@ const promisifyUpdate = function(insertData, updateData) {
   });
 };
 
-describe('Residency move out must be after move in', function() {
-  let insertError, updateError, homeId, residentId;
-  before(function(done) {
-    _before(function() {
-      const data = insertHomeAndResident(home, resident);
-      if (data.homeAndReserr) {
-        insertError = homeAndReserr;
-      } else {
-        homeId = data.homeInsId;
-        residentId = data.residentInsId;
-        invalidResidency.homeId = homeId;
-        invalidResidency.residentId = residentId;
-        validResidency.homeId = homeId;
-        validResidency.residentId = residentId;
-        updateWithInvalidResidency.$set.residentId = residentId;
-        updateWithInvalidResidency.$set.residentId = residentId;
-        Promise.all([
-          promisifyInsert(invalidResidency),
-          promisifyUpdate(validResidency, updateWithInvalidResidency),
-        ])
-          .then(responses => {
-            insertError = responses[0];
-            updateError = responses[1].error;
-            done();
-          })
-          .catch(error => {
-            done();
-          });
-      }
-    }, true);
-  });
-
-  /* Tests */
-  it('Insert callback should return false', function(done) {
-    expect(insertError).to.exist;
-    expect(insertError).to.equal(false);
-    done();
-  });
-
-  it('Update callback should return error', function(done) {
-    expect(updateError).to.exist;
-    expect(updateError).to.equal(
-      'Move out is not a valid date in residencies update [400]'
-    );
-    done();
-  });
-
-  after(function(done) {
-    _after(function() {
-      if (homeId) {
-        Homes.remove(homeId);
-      }
-      if (residentId) {
-        Residents.remove(residentId);
-      }
-      done();
-    }, true);
-  });
-});
-
-describe('Tests for concurrent tests', function() {
-  let finalCallFlag = 0;
-  let insertObject = {
-    residentId: 'ResidentA',
-    homeId: 'homeA',
-    ...conflictingResidencyWithMoveOut,
-  };
-  before(function(done) {
-    _before(function() {
-      Residencies.insert(insertObject, function() {
-        done();
-      });
-    }, true);
-  });
-  after(done => {
-    if (finalCallFlag === 1) {
-      Meteor.call(
-        'removeResidency',
-        { residentId: 'ResidentA' },
-        done
-      );
-    } else {
-      done();
-    }
-  });
-
-  describe('Adding a residency with a resident who already has an active residency', function() {
-    let err;
-    before(done => {
-      Residencies.insert(
-        { ...insertObject, moveOut: '2019-03-14' },
-        function(errInst) {
-          err = errInst.message;
-          done();
+if (Meteor.isClient) {
+  describe('Residency move out must be after move in', function() {
+    let insertError, updateError, homeId, residentId;
+    before(function(done) {
+      _before(function() {
+        const data = insertHomeAndResident(home, resident);
+        if (data.homeAndReserr) {
+          insertError = homeAndReserr;
+        } else {
+          homeId = data.homeInsId;
+          residentId = data.residentInsId;
+          invalidResidency.homeId = homeId;
+          invalidResidency.residentId = residentId;
+          validResidency.homeId = homeId;
+          validResidency.residentId = residentId;
+          updateWithInvalidResidency.$set.residentId = residentId;
+          updateWithInvalidResidency.$set.residentId = residentId;
+          Promise.all([
+            promisifyInsert(invalidResidency),
+            promisifyUpdate(
+              validResidency,
+              updateWithInvalidResidency
+            ),
+          ])
+            .then(responses => {
+              insertError = responses[0];
+              updateError = responses[1].error;
+              done();
+            })
+            .catch(error => {
+              done();
+            });
         }
-      );
+      }, true);
     });
 
-    it('Inserting a residency within the same timeperiod must not be allowed', function(done) {
-      expect(err).to.equal('ResidentA is not an allowed value');
+    /* Tests */
+    it('Insert callback should return false', function(done) {
+      expect(insertError).to.exist;
+      expect(insertError).to.equal(false);
       done();
+    });
+
+    it('Update callback should return error', function(done) {
+      expect(updateError).to.exist;
+      expect(updateError).to.equal(
+        'Move out is not a valid date in residencies update [400]'
+      );
+      done();
+    });
+
+    after(function(done) {
+      _after(function() {
+        if (homeId) {
+          Homes.remove(homeId);
+        }
+        if (residentId) {
+          Residents.remove(residentId);
+        }
+        done();
+      }, true);
     });
   });
 
-  describe('Adding an active residency with a resident who already has an active residency', function() {
-    finalCallFlag = 1;
-    const insertObjectWithoutMoveout = {
+  describe('Tests for concurrent tests', function() {
+    let finalCallFlag = 0;
+    let insertObject = {
       residentId: 'ResidentA',
       homeId: 'homeA',
-      ...conflictingResidencyWithoutMoveOut,
+      ...conflictingResidencyWithMoveOut,
     };
-    let error;
-    before(done => {
-      Residencies.insert(insertObjectWithoutMoveout, function(err) {
-        error = err.message;
+    before(function(done) {
+      _before(function() {
+        Residencies.insert(insertObject, function() {
+          done();
+        });
+      }, true);
+    });
+    after(done => {
+      if (finalCallFlag === 1) {
+        Meteor.call(
+          'removeResidency',
+          { residentId: 'ResidentA' },
+          done
+        );
+      } else {
+        done();
+      }
+    });
+
+    describe('Adding a residency with a resident who already has an active residency', function() {
+      let err;
+      before(done => {
+        Residencies.insert(
+          { ...insertObject, moveOut: '2019-03-14' },
+          function(errInst) {
+            err = errInst.message;
+            done();
+          }
+        );
+      });
+
+      it('Inserting a residency within the same timeperiod must not be allowed', function(done) {
+        expect(err).to.equal('ResidentA is not an allowed value');
         done();
       });
     });
 
-    it('Inserting an active residency before the same existing movein must not be allowed', function(done) {
-      expect(error).to.exist;
-      expect(error).to.equal('ResidentA is not an allowed value');
-      done();
+    describe('Adding an active residency with a resident who already has an active residency', function() {
+      finalCallFlag = 1;
+      const insertObjectWithoutMoveout = {
+        residentId: 'ResidentA',
+        homeId: 'homeA',
+        ...conflictingResidencyWithoutMoveOut,
+      };
+      let error;
+      before(done => {
+        Residencies.insert(insertObjectWithoutMoveout, function(err) {
+          error = err.message;
+          done();
+        });
+      });
+
+      it('Inserting an active residency before the same existing movein must not be allowed', function(done) {
+        expect(error).to.exist;
+        expect(error).to.equal('ResidentA is not an allowed value');
+        done();
+      });
     });
   });
-});
+}
