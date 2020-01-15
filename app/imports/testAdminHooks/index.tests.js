@@ -136,91 +136,96 @@ function nonAdminCrud(model, { insertObject, updateId, updateObj }) {
     }
   });
 }
-describe('admin insert test', function() {
-  before(done => {
-    login(adminUser.email, adminUser.password, done);
-  });
-  describe(`Admin crud for Permissions`, () =>
-    adminCrud(Permissions, {
-      insertObject: PermissionsObject,
-      updateObj: { $set: { groupId: 'updated-group-id' } },
-    }));
-  describe(`Admin crud for ActivityTypes`, () =>
-    adminCrud(ActivityTypes, {
-      insertObject: ActivityTypesObject,
-      updateObj: { $set: { name: 'updated name' } },
-    }));
 
-  describe(`Admin crud for Settings`, () =>
-    adminCrud(Settings, {
-      insertObject: SettingsObject,
-      updateObj: { $set: { name: 'updated name' } },
-    }));
-  describe(`Admin crud for UserEventLog`, () =>
-    adminCrud(UserEventLog, {
-      insertObject: UserEventLogObject,
-      updateObj: { $set: { action: 'updated action' } },
-    }));
+if (Meteor.isClient) {
+  describe('admin insert test', function() {
+    before(done => {
+      login(adminUser.email, adminUser.password, done);
+    });
+    describe(`Admin crud for Permissions`, () =>
+      adminCrud(Permissions, {
+        insertObject: PermissionsObject,
+        updateObj: { $set: { groupId: 'updated-group-id' } },
+      }));
+    describe(`Admin crud for ActivityTypes`, () =>
+      adminCrud(ActivityTypes, {
+        insertObject: ActivityTypesObject,
+        updateObj: { $set: { name: 'updated name' } },
+      }));
 
-  after(done => {
-    StubCollections.restore();
-    Meteor.logout(done);
-  });
-});
+    describe(`Admin crud for Settings`, () =>
+      adminCrud(Settings, {
+        insertObject: SettingsObject,
+        updateObj: { $set: { name: 'updated name' } },
+      }));
+    describe(`Admin crud for UserEventLog`, () =>
+      adminCrud(UserEventLog, {
+        insertObject: UserEventLogObject,
+        updateObj: { $set: { action: 'updated action' } },
+      }));
 
-describe('Non-admin crud', function() {
-  let Permissionsid;
-  let ActivityTypesid;
-  let Settingsid;
-  let UserEventLogid;
-  before(done => {
-    StubCollections.stub([
-      Permissions,
-      ActivityTypes,
-      Settings,
-      UserEventLog,
-    ]);
-
-    login(adminUser.email, adminUser.password, function() {
-      Permissionsid = Permissions.insert(PermissionsBaseObject);
-      ActivityTypesid = ActivityTypes.insert(ActivityTypesBaseObject);
-      Settingsid = Settings.insert(SettingsBaseObject);
-      UserEventLogid = UserEventLog.insert(UserEventLogBaseObject);
-      setupDbUsser(nonAdminUser, done);
+    after(done => {
+      StubCollections.restore();
+      Meteor.logout(done);
     });
   });
 
-  describe(`Admin crud for Permissions`, () =>
-    nonAdminCrud(Permissions, {
-      insertObject: PermissionsObject,
-      updateId: Permissionsid,
-      updateObj: { $set: { groupId: 'updated-group-id' } },
-    }));
-  describe(`Non-admin crud for ActivityTypes`, () =>
-    nonAdminCrud(ActivityTypes, {
-      insertObject: ActivityTypesObject,
-      updateId: ActivityTypesid,
-      updateObj: { $set: { name: 'updated name' } },
-    }));
-  describe(`Non-admin crud for Settings`, () =>
-    nonAdminCrud(Settings, {
-      insertObject: SettingsObject,
-      updateId: Settingsid,
-      updateObj: { $set: { name: 'updated name' } },
-    }));
-  describe(`Non-admin crud for UserEventLog`, () =>
-    nonAdminCrud(UserEventLog, {
-      insertObject: UserEventLogObject,
-      updateId: UserEventLogid,
-      updateObj: { $set: { action: 'updated action' } },
-    }));
+  describe('Non-admin crud', function() {
+    let Permissionsid;
+    let ActivityTypesid;
+    let Settingsid;
+    let UserEventLogid;
+    before(done => {
+      StubCollections.stub([
+        Permissions,
+        ActivityTypes,
+        Settings,
+        UserEventLog,
+      ]);
 
-  after(done => {
-    Meteor.logout(function() {
-      destroyDbUser(nonAdminUser.email, function() {
-        StubCollections.restore();
-        done();
+      login(adminUser.email, adminUser.password, function() {
+        Permissionsid = Permissions.insert(PermissionsBaseObject);
+        ActivityTypesid = ActivityTypes.insert(
+          ActivityTypesBaseObject
+        );
+        Settingsid = Settings.insert(SettingsBaseObject);
+        UserEventLogid = UserEventLog.insert(UserEventLogBaseObject);
+        setupDbUsser(nonAdminUser, done);
+      });
+    });
+
+    describe(`Admin crud for Permissions`, () =>
+      nonAdminCrud(Permissions, {
+        insertObject: PermissionsObject,
+        updateId: Permissionsid,
+        updateObj: { $set: { groupId: 'updated-group-id' } },
+      }));
+    describe(`Non-admin crud for ActivityTypes`, () =>
+      nonAdminCrud(ActivityTypes, {
+        insertObject: ActivityTypesObject,
+        updateId: ActivityTypesid,
+        updateObj: { $set: { name: 'updated name' } },
+      }));
+    describe(`Non-admin crud for Settings`, () =>
+      nonAdminCrud(Settings, {
+        insertObject: SettingsObject,
+        updateId: Settingsid,
+        updateObj: { $set: { name: 'updated name' } },
+      }));
+    describe(`Non-admin crud for UserEventLog`, () =>
+      nonAdminCrud(UserEventLog, {
+        insertObject: UserEventLogObject,
+        updateId: UserEventLogid,
+        updateObj: { $set: { action: 'updated action' } },
+      }));
+
+    after(done => {
+      Meteor.logout(function() {
+        destroyDbUser(nonAdminUser.email, function() {
+          StubCollections.restore();
+          done();
+        });
       });
     });
   });
-});
+}

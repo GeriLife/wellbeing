@@ -30,7 +30,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "TEST_WATCH=1 meteor test --driver-package meteortesting:mocha --port 3100"
+    "test": "TEST_WATCH=1 meteor test --driver-package meteortesting:mocha --port 8000"
   },
   "repository": {
     "type": "git",
