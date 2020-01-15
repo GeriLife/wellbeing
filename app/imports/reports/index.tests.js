@@ -62,7 +62,7 @@ if (Meteor.isServer) {
     });
 
     describe('Annotate Activites', function() {
-      it('For a list of activities it shloud append the names of linked roles and activity types', function(done) {
+      it('For a list of activities it should append the names of linked roles and activity types', function(done) {
         Meteor.call(
           'annotateActivities',
           annotateActivityInput,
