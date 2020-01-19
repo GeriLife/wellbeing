@@ -1,6 +1,7 @@
 import '../server/methods/homes';
 import '../server/methods/residencies';
 import '../server/methods/activities';
+import '../server/methods/residentActivities';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 
 Meteor.methods({
@@ -100,19 +101,43 @@ Meteor.methods({
     activityTypes,
     activitesCollection,
     aggregateData,
+    residencyData,
+    residentsData,
   }) {
-    roles.forEach(role => {
-      Meteor.roles.insert(role);
-    });
+    if (roles) {
+      roles.forEach(role => {
+        Meteor.roles.insert(role);
+      });
+    }
 
-    activityTypes.forEach(activityType => {
-      ActivityTypes.insert(activityType);
-    });
-    activitesCollection.forEach(activity => {
-      Activities.insert(activity, { validate: false });
-    });
-    aggregateData.forEach(aggr => {
-      AllHomesActivityReportAggregate.insert(aggr);
-    });
+    if (activityTypes) {
+      activityTypes.forEach(activityType => {
+        ActivityTypes.insert(activityType);
+      });
+    }
+
+    if (activitesCollection) {
+      activitesCollection.forEach(activity => {
+        Activities.insert(activity, { validate: false });
+      });
+    }
+
+    if (aggregateData) {
+      aggregateData.forEach(aggr => {
+        AllHomesActivityReportAggregate.insert(aggr);
+      });
+    }
+
+    if (residencyData) {
+      residencyData.forEach(residency => {
+        Residencies.insert(residency);
+      });
+    }
+
+    if (residentsData) {
+      residentsData.forEach(resident => {
+        Residents.insert(resident, { validate: false });
+      });
+    }
   },
 });
