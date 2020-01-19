@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 export const activityTypes = [
   { name: 'type1', _id: '1' },
   { name: 'type2', _id: '2' },
@@ -48,7 +50,7 @@ export const activitesCollection = [
     activityTypeId: '1',
     facilitatorRoleId: '3',
     activityDate: '2020-01-03 12:00:00',
-    residentIds: ['2', '2', '12', '5', '5', '77'],
+    residentIds: ['2', '42', '12', '5', '5', '77'],
     duration: 5,
   },
 
@@ -276,5 +278,134 @@ export const aggregatedActivitiesByFaciliatatorAndMonth = [
         value: { activity_count: 2, activity_minutes: 20 },
       },
     ],
+  },
+];
+
+export const residencyData = [
+  {
+    residentId: '1',
+    homeId: '1',
+    moveIn: '2019-01-30 00:00:00',
+    moveOut: '2019-02-28 00:00:00',
+  },
+  {
+    residentId: 'BmJdgv6vZQ42MGerG',
+    homeId: '1',
+    moveIn: '2020-01-10 00:00:00',
+  },
+  {
+    residentId: 'LmJdgv6vZQ42MFerG',
+    homeId: '12',
+    moveIn: '2020-01-12 00:00:00',
+  },
+  {
+    residentId: 'LmJgdv6vZQ42MFerG',
+    homeId: '112',
+    moveIn: '2020-01-04 00:00:00',
+  },
+  {
+    residentId: 'DmJdgv6vZQ42MFerG',
+    homeId: '112',
+    moveIn: '2020-01-04 00:00:00',
+  },
+  {
+    residentId: 'DJJggv6vZQ42MFerG',
+    homeId: '112',
+    moveIn: '2020-01-04 00:00:00',
+  },
+];
+
+export const residentsData = [
+  {
+    _id: 'BmJdgv6vZQ42MGerG',
+    firstName: 'Shailee',
+    lastInitial: 'M',
+    onHiatus: false,
+  },
+];
+
+export const residentsScenario1 = [
+  {
+    _id: 'LmJgdv6vZQ42MFerG',
+    firstName: 'kirti',
+    lastInitial: 'K',
+    onHiatus: false,
+  },
+];
+
+export const residentsScenario2 = [
+  {
+    _id: 'DmJdgv6vZQ42MFerG',
+    firstName: 'kirti',
+    lastInitial: 'K',
+    onHiatus: false,
+  },
+];
+
+export const residentsScenario3 = [
+  {
+    _id: 'DJJggv6vZQ42MFerG',
+    firstName: 'kirti',
+    lastInitial: 'K',
+    onHiatus: false,
+  },
+];
+
+const referenceDate = moment().format('YYYY-MM-DD');
+export const activitiesForTestingActivityLevelConditions = [
+  {
+    activityTypeId: '1',
+    facilitatorRoleId: '2',
+    activityDate: referenceDate.toString(),
+    residentIds: ['DmJdgv6vZQ42MFerG', 'DJJggv6vZQ42MFerG'],
+    duration: 5,
+  },
+
+  {
+    activityTypeId: '1',
+    facilitatorRoleId: '2',
+    activityDate: moment(referenceDate)
+      .subtract(1, 'days')
+      .toString(),
+    residentIds: ['DmJdgv6vZQ42MFerG', 'DJJggv6vZQ42MFerG'],
+    duration: 5,
+  },
+
+  {
+    activityTypeId: '1',
+    facilitatorRoleId: '2',
+    activityDate: moment(referenceDate)
+      .subtract(2, 'days')
+      .toString(),
+    residentIds: ['DJJggv6vZQ42MFerG'],
+    duration: 5,
+  },
+
+  {
+    activityTypeId: '1',
+    facilitatorRoleId: '2',
+    activityDate: moment(referenceDate)
+      .subtract(3, 'days')
+      .toString(),
+    residentIds: ['DJJggv6vZQ42MFerG'],
+    duration: 5,
+  },
+  {
+    activityTypeId: '1',
+    facilitatorRoleId: '2',
+    activityDate: moment(referenceDate)
+      .subtract(4, 'days')
+      .toString(),
+    residentIds: ['DJJggv6vZQ42MFerG'],
+    duration: 5,
+  },
+  {
+    activityTypeId: '1',
+    facilitatorRoleId: '2',
+    activityDate: moment(referenceDate)
+      .subtract(5, 'days')
+      .toString(),
+    residentIds: ['DJJggv6vZQ42MFerG'],
+    duration: 5,
   },
 ];
