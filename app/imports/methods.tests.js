@@ -104,40 +104,34 @@ Meteor.methods({
     residencyData,
     residentsData,
   }) {
-    if (roles) {
+    roles &&
       roles.forEach(role => {
         Meteor.roles.insert(role);
       });
-    }
 
-    if (activityTypes) {
+    activityTypes &&
       activityTypes.forEach(activityType => {
         ActivityTypes.insert(activityType);
       });
-    }
 
-    if (activitesCollection) {
+    activitesCollection &&
       activitesCollection.forEach(activity => {
         Activities.insert(activity, { validate: false });
       });
-    }
 
-    if (aggregateData) {
+    aggregateData &&
       aggregateData.forEach(aggr => {
         AllHomesActivityReportAggregate.insert(aggr);
       });
-    }
 
-    if (residencyData) {
+    residencyData &&
       residencyData.forEach(residency => {
         Residencies.insert(residency);
       });
-    }
 
-    if (residentsData) {
+    residentsData &&
       residentsData.forEach(resident => {
         Residents.insert(resident, { validate: false });
       });
-    }
   },
 });
