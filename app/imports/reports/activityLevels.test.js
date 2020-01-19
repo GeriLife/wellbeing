@@ -239,7 +239,7 @@ if (Meteor.isServer) {
       });
 
       describe('getHomeActivityLevelCounts', function() {
-        it('Should return inactive for residents with no ativity, semi active with those < 5 days of activity nd active for residents over 5days of activities', function(done) {
+        it('Should return inactive for residents with no activity, semi-active for those with < 5 days of activity and active for residents over 5 days of activities', function(done) {
           Meteor.call('getHomeActivityLevelCounts', '112', function(
             err,
             result
