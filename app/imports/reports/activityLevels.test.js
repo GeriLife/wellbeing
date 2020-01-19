@@ -76,7 +76,7 @@ if (Meteor.isServer) {
         );
       });
 
-      it('Should return activity count if used was active', function(done) {
+      it('Should return activity count if user was active', function(done) {
         Meteor.call(
           'checkIfResidentWasActiveOnDate',
           '2',
@@ -213,7 +213,7 @@ if (Meteor.isServer) {
     });
 
     describe('getHomeCurrentAndActiveResidentCount', function() {
-      it('Should returncount of all active residents for a given home', function(done) {
+      it('Should return count of all active residents for a given home', function(done) {
         Meteor.call(
           'getHomeCurrentAndActiveResidentCount',
           '1',
