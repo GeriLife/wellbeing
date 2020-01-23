@@ -132,10 +132,10 @@ function createMockActivityTypes() {
 function createMockActivities() {
   console.log('Creating mock activies');
   // Number of activities to create per resident
-  var amount =  25;
+  var amount =  50;
 
   // Number, in days, for the earliest activity date
-  var earliestActivityDate = 30;
+  var earliestActivityDate = 365;
 
   // Get list of residents
   var residents = Residents.find().fetch();
