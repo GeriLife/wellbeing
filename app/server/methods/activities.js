@@ -139,9 +139,10 @@ export default Meteor.methods({
       { fields: { [fieldSelector]: 1, lastUpdatedDate: 1, _id: 0 } },
       { sort: { Date: -1, limit: 1 } }
     );
+
     return {
       activityData: data ? data[fieldSelector] : [],
-      lastUpdated: data.lastUpdatedDate,
+      lastUpdated: data ? data.lastUpdatedDate : null,
     };
   },
   getResidentAggregatedActivities(residentId, timePeriod) {
