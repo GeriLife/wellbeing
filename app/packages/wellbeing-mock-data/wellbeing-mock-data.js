@@ -240,6 +240,7 @@ Meteor.methods({
     createMockActivityTypes();
     createMockActivities();
     createMockResidency(start, percentMovedOut);
+    Meteor.call('aggregateActivitiesAndPopulateAggregateCollection')
   },
   'createMockGroups': function () {
     createMockGroups();
