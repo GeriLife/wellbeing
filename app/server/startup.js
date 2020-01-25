@@ -2,14 +2,9 @@ import moment from 'moment';
 
 Meteor.startup(function() {
   Migrations.migrateTo('latest');
+  const isDemo = process.env.GERILIFE_DEMO === 'true';
 
-  const mongoUrl = process.env.MONGO_URL;
-
-  if (
-    Meteor.isServer &&
-    mongoUrl.includes('27019') &&
-    mongoUrl.includes('wellbeing-demo')
-  ) {
+  if (Meteor.isServer && isDemo) {
     /* Remove any users, if exist */
     Meteor.users.remove({});
 
