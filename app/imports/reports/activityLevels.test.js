@@ -20,37 +20,38 @@ if (Meteor.isServer) {
   describe('/homes - Activity levels charts', function() {
     beforeEach(function(done) {
       /* Stub */
-      resetDatabase();
-      StubCollections.stub(Activities);
-      StubCollections.stub(Residencies);
-      StubCollections.stub(Residents);
+      resetDatabase(null, function() {
+        StubCollections.stub(Activities);
+        StubCollections.stub(Residencies);
+        StubCollections.stub(Residents);
 
-      /* Prepare Data */
-      Meteor.call(
-        'prepareActivityData',
-        {
-          roles: [],
-          activityTypes: [],
-          activitesCollection,
-          aggregateData: [],
-          residencyData,
-          residentsData: [
-            ...residentsData,
-            ...residentsScenario1,
-            ...residentsScenario2,
-            ...residentsScenario3,
-          ],
-        },
-        done
-      );
+        /* Prepare Data */
+        Meteor.call(
+          'prepareActivityData',
+          {
+            roles: [],
+            activityTypes: [],
+            activitesCollection,
+            aggregateData: [],
+            residencyData,
+            residentsData: [
+              ...residentsData,
+              ...residentsScenario1,
+              ...residentsScenario2,
+              ...residentsScenario3,
+            ],
+          },
+          done
+        );
+      });
     });
 
-    afterEach(function() {
+    afterEach(function(done) {
       /* Restore stubs */
       StubCollections.restore(Activities);
       StubCollections.restore(Residencies);
       StubCollections.restore(Residents);
-      resetDatabase();
+      resetDatabase(null, done);
     });
 
     describe('checkIfResidentWasActiveOnDate', function() {

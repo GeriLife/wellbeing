@@ -53,23 +53,23 @@ export default Meteor.methods({
       'getHomeCurrentResidencies',
       homeId
     );
-
+    
     return _.map(homeCurrentResidencies, function(residency) {
       return residency.residentId;
     });
   },
-  getHomeCurrentAndActiveResidentIds: function(homeId) {
+
+  getHomeCurrentAndActiveResidents: function(homeId, onHiatus) {
     /*
-    Get all residents of specific home who have an active residency and are not on hiatus
-     */
-    const onHiatus = false;
+   Get all residents of specific home who have an active residency and are not on hiatus
+    */
 
     const currentResidentIds = Meteor.call(
       'getHomeCurrentResidentIds',
       homeId
     );
 
-    const residents = Residents.find(
+    return Residents.find(
       {
         _id: {
           $in: currentResidentIds,
@@ -78,6 +78,14 @@ export default Meteor.methods({
       },
       { sort: { firstName: 1 } }
     ).fetch();
+  },
+
+  getHomeCurrentAndActiveResidentIds: function(homeId) {
+    const residents = Meteor.call(
+      'getHomeCurrentAndActiveResidents',
+      homeId,
+      false
+    );
 
     // Create an array containing only resident IDs
     return _.map(residents, function(resident) {
@@ -363,5 +371,9 @@ export default Meteor.methods({
       );
     }
     return [];
+  },
+
+  getHomeDetails: function(homeId) {
+    return Homes.findOne(homeId);
   },
 });
