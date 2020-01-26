@@ -1,4 +1,4 @@
-Template.home.onCreated(function () {
+Template.home.onCreated(function() {
   const templateInstance = this;
 
   // Set current Home ID from router
@@ -6,35 +6,47 @@ Template.home.onCreated(function () {
 
   // Create reactive variables to hold activity metric and period
   templateInstance.activityMetric = new ReactiveVar('count');
+  templateInstance.residents = new ReactiveVar([]);
   templateInstance.activityPeriod = new ReactiveVar('7');
+  templateInstance.homeDetails = new ReactiveVar(null);
 
-  // Subscribe to current home
-  templateInstance.subscribe('singleHome', templateInstance.homeId);
+  this.autorun(function() {
+    Meteor.call(
+      'getHomeCurrentAndActiveResidents',
+      templateInstance.homeId,
+      function(err, residentsArray) {
+        if (residentsArray) {
+          templateInstance.residents.set(residentsArray);
+        }
+      }
+    );
 
-  // Subscribe to Home Residents
-  templateInstance.subscribe('homeCurrentResidents', templateInstance.homeId);
+    Meteor.call('getHomeDetails', templateInstance.homeId, function(
+      err,
+      result
+    ) {
+      if (result) {
+        templateInstance.homeDetails.set(result);
+      }
+    });
+  });
 });
 
 Template.home.events({
-  'click #edit-home': function () {
-    // Get reference to template instance
-    const templateInstance = Template.instance();
+  'click #edit-home': function() {
+    const home = Template.instance().homeDetails.get();
 
-    // Get Home ID
-    const homeId = templateInstance.homeId;
-
-    // Get home
-    const home = Homes.findOne(homeId);
-
-    // Show the edit home modal
+    // Open edit home modal
     Modal.show('editHome', home);
   },
-  'change input[name="activityMetric"]' (event, templateInstance) {
+
+  'change input[name="activityMetric"]'(event, templateInstance) {
     const activityMetric = event.currentTarget.value;
 
     templateInstance.activityMetric.set(activityMetric);
   },
-  'change input[name="activityPeriod"]' (event, templateInstance) {
+
+  'change input[name="activityPeriod"]'(event, templateInstance) {
     const activityPeriod = event.currentTarget.value;
 
     templateInstance.activityPeriod.set(activityPeriod);
@@ -42,29 +54,22 @@ Template.home.events({
 });
 
 Template.home.helpers({
-  'home': function () {
-    // Create reference to template instance
-    const templateInstance = Template.instance();
-
-    // Get Home ID from template instance
-    const homeId = templateInstance.homeId;
-
-    // Return current Home
-    return Homes.findOne(homeId);
+  home: function() {
+    return Template.instance().homeDetails.get();
   },
-  'residents': function () {
+  residents: function() {
     // Return all residents for current home, sorting by first name
     //NOTE: these should be filtered by the subscription, as they are dependent on residency status
-    return Residents.find({}, {sort: {firstName: 1}});
+    return Template.instance().residents.get();
   },
-  activityMetric () {
+  activityMetric() {
     // get reference to template instance
     const templateInstance = Template.instance();
-    return templateInstance.activityMetric.get()
+    return templateInstance.activityMetric.get();
   },
-  activityPeriod () {
+  activityPeriod() {
     // get reference to template instance
     const templateInstance = Template.instance();
-    return templateInstance.activityPeriod.get()
-  }
+    return templateInstance.activityPeriod.get();
+  },
 });

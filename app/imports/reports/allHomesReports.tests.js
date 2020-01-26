@@ -38,27 +38,33 @@ if (Meteor.isServer) {
 
     beforeEach(function(done) {
       /* Stub */
-      resetDatabase();
-      StubCollections.stub(ActivityTypes);
-      StubCollections.stub(Meteor.roles);
-      StubCollections.stub(Activities);
-      StubCollections.stub(AllHomesActivityReportAggregate);
+      resetDatabase(null, function() {
+        StubCollections.stub(ActivityTypes);
+        StubCollections.stub(Meteor.roles);
+        StubCollections.stub(Activities);
+        StubCollections.stub(AllHomesActivityReportAggregate);
 
-      /* Prepare Data */
-      Meteor.call(
-        'prepareActivityData',
-        { roles, activityTypes, activitesCollection, aggregateData },
-        done
-      );
+        /* Prepare Data */
+        Meteor.call(
+          'prepareActivityData',
+          {
+            roles,
+            activityTypes,
+            activitesCollection,
+            aggregateData,
+          },
+          done
+        );
+      });
     });
 
-    afterEach(function() {
+    afterEach(function(done) {
       /* Restore stubs */
       StubCollections.restore(ActivityTypes);
       StubCollections.restore(Meteor.roles);
       StubCollections.restore(Activities);
       StubCollections.restore(AllHomesActivityReportAggregate);
-      resetDatabase();
+      resetDatabase(null, done);
     });
 
     describe('Annotate Activites', function() {
