@@ -103,6 +103,7 @@ Meteor.methods({
     aggregateData,
     residencyData,
     residentsData,
+    homesData,
   }) {
     roles &&
       roles.forEach(role => {
@@ -132,6 +133,11 @@ Meteor.methods({
     residentsData &&
       residentsData.forEach(resident => {
         Residents.insert(resident, { validate: false });
+      });
+
+    homesData &&
+      homesData.forEach(home => {
+        Homes.insert(home, { validate: false });
       });
   },
 });
