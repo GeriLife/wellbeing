@@ -16,11 +16,6 @@ if (Meteor.isClient) {
             onEditingChange: () => 0,
           },
           function(el) {
-            console.log(
-              $(el)
-                .find('.active #barMode')
-                .val()
-            );
             chai.assert.equal(
               $(el)
                 .find('.active #timePeriod')

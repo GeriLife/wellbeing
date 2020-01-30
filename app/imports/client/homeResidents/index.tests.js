@@ -1,11 +1,11 @@
-import residentsTable from './residentsTable.test';
+import residentsTable from './residentsTable.tests';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 import StubCollections from 'meteor/hwillson:stub-collections';
 import {
   activitesCollection,
   residencyData,
   residentsData,
-  homeData,
+  homesData,
 } from '../mockData.tests';
 
 /* Importing collection to stub */
@@ -34,7 +34,7 @@ if (Meteor.isClient) {
             aggregateData: [],
             residencyData,
             residentsData,
-            homeData,
+            homesData,
           },
           done
         );
