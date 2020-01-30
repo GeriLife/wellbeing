@@ -40,8 +40,6 @@ export const promisifyMethod = (
 ) => {
   return new Promise((resolve, reject) => {
     const cb = function(error, response) {
-      console.log(error,JSON.stringify(response))
-
       if (error) reject(error);
       else {
         resolve(response);

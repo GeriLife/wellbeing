@@ -125,7 +125,7 @@ export const residentsData = [
   },
 ];
 
-export const homeData = [
+export const homesData = [
   {
     _id: 'ZQ42bd6vZQ42MGerG',
     name: 'home-1',
