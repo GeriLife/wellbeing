@@ -409,3 +409,11 @@ export const activitiesForTestingActivityLevelConditions = [
     duration: 5,
   },
 ];
+
+export const homesData = [
+  {
+    _id: '1',
+    name: 'home-1',
+    groupId: 'g1',
+  },
+];

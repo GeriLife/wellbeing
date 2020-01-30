@@ -53,16 +53,23 @@ export default Meteor.methods({
       'getHomeCurrentResidencies',
       homeId
     );
-    
+
     return _.map(homeCurrentResidencies, function(residency) {
       return residency.residentId;
     });
   },
 
-  getHomeCurrentAndActiveResidents: function(homeId, onHiatus) {
+  getHomeCurrentAndActiveResidents: function(
+    homeId,
+    onHiatus = false
+  ) {
     /*
    Get all residents of specific home who have an active residency and are not on hiatus
     */
+
+    if (!homeId) {
+      throw new Meteor.Error(500, 'User id is mandatory');
+    }
 
     const currentResidentIds = Meteor.call(
       'getHomeCurrentResidentIds',
@@ -374,6 +381,10 @@ export default Meteor.methods({
   },
 
   getHomeDetails: function(homeId) {
+    if (!homeId) {
+      throw new Meteor.Error(500, 'User id is mandatory');
+    }
+
     return Homes.findOne(homeId);
   },
 });
