@@ -1,5 +1,10 @@
  #!/bin/bash
-export MONGO_URL="mongodb://localhost:27019/wellbeing-demo"
+
+ #kill exisiting process
+ kill -9 $(ps axf | grep meteor | grep -v grep | awk '{print $1}')
+
+#start the new one
 export GERILIFE_DEMO=true
-mongo wellbeing-demo --port 27019 --eval "db.dropDatabase()"
-meteor --port 9000
+/usr/local/bin/meteor --allow-superuser reset
+
+/usr/local/bin/meteor --allow-superuser --port 9000
