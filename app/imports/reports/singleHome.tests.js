@@ -1,10 +1,10 @@
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 import StubCollections from 'meteor/hwillson:stub-collections';
 import {
-  activitesCollection,
+  activitiesForTestingActivityLevelConditions,
   residencyData,
-  residentsData,
   homesData,
+  residentsScenario2,
 } from './mockData.tests';
 import { expect } from 'chai';
 
@@ -30,10 +30,10 @@ if (Meteor.isServer) {
           {
             roles: [],
             activityTypes: [],
-            activitesCollection,
+            activitesCollection: activitiesForTestingActivityLevelConditions,
             aggregateData: [],
             residencyData,
-            residentsData,
+            residentsData: residentsScenario2,
             homesData,
           },
           done
@@ -65,12 +65,131 @@ if (Meteor.isServer) {
         });
       });
     });
+
+    describe('getResidentRecentActiveDays', function() {
+      it('Should take current date as default and give activities done in last 7 days', function(done) {
+        Meteor.call(
+          'getResidentRecentActiveDays',
+          'DmJdgv6vZQ42MFerG',
+          function(err, result) {
+            expect(result.length).to.eq(7);
+            expect(
+              result.map(r => r.residentWasActive)
+            ).to.have.members([
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              true,
+            ]);
+            done();
+          }
+        );
+      });
+
+      it('When data is not present, all 7 days must be false', function(done) {
+        Meteor.call(
+          'getResidentRecentActiveDays',
+          'DmJdgv6vZQ42MFerG',
+          '2020-01-01',
+          function(err, result) {
+            expect(result.length).to.eq(7);
+            expect(
+              result.map(r => r.residentWasActive)
+            ).to.have.members([
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+            ]);
+            done();
+          }
+        );
+      });
+    });
+
+    describe('getResidentRecentActiveDaysAndCount', function() {
+      it('Should take current date as default and give activities done in last 7 days', function(done) {
+        Meteor.call(
+          'getResidentRecentActiveDaysAndCount',
+          'DmJdgv6vZQ42MFerG',
+          function(err, result) {
+            const { recentActiveDays, activeDaysCount } = result;
+            expect(recentActiveDays.length).to.eq(7);
+            expect(
+              recentActiveDays.map(r => r.residentWasActive)
+            ).to.have.members([
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              true,
+            ]);
+            expect(activeDaysCount).to.eq(2);
+            done();
+          }
+        );
+      });
+
+      it('When data is not present, all 7 days must be false', function(done) {
+        Meteor.call(
+          'getResidentRecentActiveDaysAndCount',
+          'DmJdgv6vZQ42MFerG',
+          '2020-01-01',
+          function(err, result) {
+            const { recentActiveDays, activeDaysCount } = result;
+            expect(recentActiveDays.length).to.eq(7);
+            expect(
+              recentActiveDays.map(r => r.residentWasActive)
+            ).to.have.members([
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+            ]);
+            expect(activeDaysCount).to.eq(0);
+            done();
+          }
+        );
+      });
+    });
+
+    describe('getHomeCurrentAndActiveResidents', function() {
+      it('Should throw error if no homeId passed', function(done) {
+        Meteor.call('getHomeCurrentAndActiveResidents', function(
+          err
+        ) {
+          expect(err.message).to.eq('User id is mandatory [500]');
+          done();
+        });
+      });
+
+      it('Should return residents list', function(done) {
+        Meteor.call(
+          'getHomeCurrentAndActiveResidents',
+          '112',
+          function(err, result) {
+            expect(result.length).to.eq(1);
+            expect(result[0]).to.contain({
+              _id: 'DmJdgv6vZQ42MFerG',
+              firstName: 'kirti',
+              lastInitial: 'K',
+              onHiatus: false,
+            });
+            done();
+          }
+        );
+      });
+    });
   });
 }
-
-
-/* 
-getResidentRecentActiveDaysAndCount
-getHomeCurrentAndActiveResidents
-getResidentRecentActiveDays
-*/
