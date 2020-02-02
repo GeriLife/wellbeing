@@ -53,7 +53,7 @@ if (Meteor.isServer) {
     describe('getHomeDetails', function() {
       it('Should throw error if homeId is not defined', function(done) {
         Meteor.call('getHomeDetails', function(err, resp) {
-          expect(err.message).to.eq('User id is mandatory [500]');
+          expect(err.message).to.eq('Home id is mandatory [500]');
           done();
         });
       });
@@ -169,7 +169,7 @@ if (Meteor.isServer) {
         Meteor.call('getHomeCurrentAndActiveResidents', function(
           err
         ) {
-          expect(err.message).to.eq('User id is mandatory [500]');
+          expect(err.message).to.eq('Home id is mandatory [500]');
           done();
         });
       });
