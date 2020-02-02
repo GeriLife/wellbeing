@@ -68,7 +68,7 @@ export default Meteor.methods({
     */
 
     if (!homeId) {
-      throw new Meteor.Error(500, 'User id is mandatory');
+      throw new Meteor.Error(500, 'Home id is mandatory');
     }
 
     const currentResidentIds = Meteor.call(
@@ -382,7 +382,7 @@ export default Meteor.methods({
 
   getHomeDetails: function(homeId) {
     if (!homeId) {
-      throw new Meteor.Error(500, 'User id is mandatory');
+      throw new Meteor.Error(500, 'Home id is mandatory');
     }
 
     return Homes.findOne(homeId);
