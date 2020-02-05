@@ -28,7 +28,7 @@ function prepareTemplateData(cb) {
 }
 
 export default function() {
-  describe.only('Residents Table', function() {
+  describe('Residents Table', function() {
     let homeDetails = [];
     let homeCurrentAndActiveResidents = [];
 
@@ -57,7 +57,7 @@ export default function() {
       );
     });
 
-    it('Should have 4 residents nad hence four rows', function(done) {
+    it('Should have 4 residents and hence four rows', function(done) {
       withRenderedTemplate(
         'homeResidents',
         {

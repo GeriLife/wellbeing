@@ -15,6 +15,7 @@ import {
 import { ActivitiesCollection as Activities } from '../../both/collections/activities';
 import { ResidenciesCollection as Residencies } from '../../both/collections/residencies';
 import { ResidentsCollection as Residents } from '../../both/collections/residents';
+import moment from 'moment';
 
 if (Meteor.isServer) {
   describe('/homes - Activity levels charts', function() {
@@ -318,6 +319,72 @@ if (Meteor.isServer) {
               done();
             }
           );
+        });
+      });
+
+      describe('getHomeActivityCountTrend', function() {
+        beforeEach(function(done) {
+          Activities.remove({}, function() {
+            Meteor.call(
+              'prepareActivityData',
+              {
+                activitesCollection: activitiesForTestingActivityLevelConditions,
+              },
+              done
+            );
+          });
+        });
+
+        it('Should expect data to be returned for 6 days days each starting 6 days from today', function(done) {
+          Meteor.call('getHomeActivityCountTrend', '112', function(
+            err,
+            res
+          ) {
+            console.log(JSON.stringify(res));
+            expect(res.activityCounts.length).to.eq(7);
+            expect(res.activityCounts).to.have.members([
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+            ]);
+
+            expect(res.inactivityCounts.length).to.eq(7);
+            expect(res.inactivityCounts).to.have.members([
+              3,
+              2,
+              2,
+              2,
+              2,
+              1,
+              1,
+            ]);
+
+            expect(res.semiActivityCounts.length).to.eq(7);
+            expect(res.semiActivityCounts).to.have.members([
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+            ]);
+
+            expect(res.date.length).to.eq(7);
+            const endDate = moment();
+            const startDate = moment(endDate).subtract(6, 'days');
+            expect(moment(res.date[0]).format('YYYY-MM-DD')).to.eq(
+              startDate.format('YYYY-MM-DD')
+            );
+            expect(moment(res.date[6]).format('YYYY-MM-DD')).to.eq(
+              endDate.format('YYYY-MM-DD')
+            );
+            done();
+          });
         });
       });
     });
