@@ -4,11 +4,16 @@ import StubCollections from 'meteor/hwillson:stub-collections';
 import {
   activitesCollection,
   residencyData,
+  roles,
   residentsData,
   activitiesForTestingActivityLevelConditions,
   residentsScenario1,
   residentsScenario2,
   residentsScenario3,
+  activitySummaryData,
+  activitySummaryResidency,
+  activitySummaryResident,
+  activityTypes,
 } from './mockData.tests';
 
 /* Importing collection to stub */
@@ -30,8 +35,7 @@ if (Meteor.isServer) {
         Meteor.call(
           'prepareActivityData',
           {
-            roles: [],
-            activityTypes: [],
+            roles,
             activitesCollection,
             aggregateData: [],
             residencyData,
@@ -41,6 +45,7 @@ if (Meteor.isServer) {
               ...residentsScenario2,
               ...residentsScenario3,
             ],
+            activityTypes,
           },
           done
         );
@@ -340,7 +345,6 @@ if (Meteor.isServer) {
             err,
             res
           ) {
-            console.log(JSON.stringify(res));
             expect(res.activityCounts.length).to.eq(7);
             expect(res.activityCounts).to.have.members([
               0,
@@ -385,6 +389,213 @@ if (Meteor.isServer) {
             );
             done();
           });
+        });
+      });
+    });
+
+    describe('getResidentActivitiesByType, getMinutesOfResidentActivitiesByType and getCountOfResidentActivitiesByType', function() {
+      beforeEach(function(done) {
+        Meteor.call(
+          'prepareActivityData',
+          {
+            activitesCollection: activitySummaryData,
+            residencyData: activitySummaryResidency,
+            residentsData: activitySummaryResident,
+          },
+          done
+        );
+      });
+
+      afterEach(function(done) {
+        Activities.remove(
+          { activityTypeId: 'activityTestActId' },
+          function() {
+            Residencies.remove(
+              { activityTypeId: 'activityTestActId' },
+              function() {
+                Residents.remove(
+                  { activityTypeId: 'activityTestActId' },
+                  done
+                );
+              }
+            );
+          }
+        );
+      });
+
+      it('Should return all activities of a type for the given resident', function(done) {
+        Meteor.call(
+          'getResidentActivitiesByType',
+          {
+            residentId: 'activityTestResId',
+            activityTypeId: 'activityTestActId',
+            period: '7',
+          },
+          function(err, result) {
+            expect(Object.keys(result[0])).to.have.members([
+              '_id',
+              'activityTypeId',
+              'facilitatorRoleId',
+              'activityDate',
+              'residentIds',
+              'duration',
+            ]);
+            expect(result[0].activityTypeId).to.eq(
+              'activityTestActId'
+            );
+            expect(result[1].activityTypeId).to.eq(
+              'activityTestActId'
+            );
+            done();
+          }
+        );
+      });
+
+      it('Should return count of an activity for the given resident', function(done) {
+        Meteor.call(
+          'getCountOfResidentActivitiesByType',
+          {
+            residentId: 'activityTestResId',
+            activityTypeId: 'activityTestActId',
+            period: '7',
+          },
+          function(err, result) {
+            expect(result).to.eq(2);
+            done();
+          }
+        );
+      });
+
+      it('Should return minutes of the activity', function(done) {
+        Meteor.call(
+          'getMinutesOfResidentActivitiesByType',
+          {
+            residentId: 'activityTestResId',
+            activityTypeId: 'activityTestActId',
+            period: '7',
+          },
+          function(err, result) {
+            expect(result).to.eq(30);
+
+            done();
+          }
+        );
+      });
+
+      it('Should return 0 minutes if no activity was recorded', function(done) {
+        Meteor.call(
+          'getMinutesOfResidentActivitiesByType',
+          {
+            residentId: 'NA',
+            activityTypeId: 'NA',
+            period: '7',
+          },
+          function(err, result) {
+            expect(result).to.eq(0);
+
+            done();
+          }
+        );
+      });
+
+      it('Should return 0 count if no activities found', function(done) {
+        Meteor.call(
+          'getCountOfResidentActivitiesByType',
+          {
+            residentId: 'nonExistentResId',
+            activityTypeId: 'nonExistentActId',
+            period: '7',
+          },
+          function(err, result) {
+            expect(result).to.eq(0);
+            done();
+          }
+        );
+      });
+
+      describe('getHomeResidentsActivitySumsByType', function() {
+        it('Should return actve residents and their activity counts', function(done) {
+          Meteor.call(
+            'getHomeResidentsActivitySumsByType',
+            {
+              homeId: '1',
+              period: '30',
+            },
+            function(err, res) {
+              expect(res.length).to.eq(4);
+              expect(
+                res.map(r => r.key).includes('activityTestActId')
+              ).to.eq(true);
+              const activityUser = res.find(
+                residentIdValues =>
+                  residentIdValues.key === 'activityTestActId'
+              );
+
+              expect(activityUser.values[1].count).to.eq(2);
+              expect(activityUser.values[1].minutes).to.eq(30);
+              done();
+            }
+          );
+        });
+      });
+
+      describe('getHomeActivityTypeMetrics', function() {
+        it('Should return actve residents and their activity counts', function(done) {
+          Meteor.call(
+            'getHomeActivityTypeMetrics',
+            {
+              homeId: '1',
+              period: '30',
+            },
+            function(err, res) {
+              expect(res.length).to.eq(1);
+              expect(res[0].key).to.eq('activityTestActId');
+
+              expect(res[0].value).to.contains({
+                count: 2,
+                minutes: 30,
+              });
+              done();
+            }
+          );
+        });
+      });
+
+      describe('getHomeActivitiesFacilitatorRoleMetrics', function() {
+        it('Should return actve residents and their activity counts', function(done) {
+          Meteor.call(
+            'getHomeActivitiesFacilitatorRoleMetrics',
+            {
+              homeId: '1',
+              period: '7',
+            },
+            function(err, res) {
+              expect(res.length).to.eq(1);
+              expect(res[0].key).to.eq('role1');
+
+              expect(res[0].value).to.contains({
+                count: 2,
+                minutes: 30,
+              });
+              done();
+            }
+          );
+        });
+      });
+
+      describe('getHomeCurrentResidentsActivityIds', function() {
+        it('Should return correct activity ids corresponding to current residents of a given home', function(done) {
+          Meteor.call(
+            'getHomeCurrentResidentsActivityIds',
+            {
+              homeId: '1',
+              period: '7',
+            },
+            function(err, result) {
+              expect(result.length).to.eq(2);
+              done();
+            }
+          );
         });
       });
     });
