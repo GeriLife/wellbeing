@@ -190,7 +190,12 @@ if (Meteor.isClient) {
       });
 
       it('Inserting a residency within the same timeperiod must not be allowed', function(done) {
-        expect(err).to.equal('ResidentA is not an allowed value');
+        expect(
+          [
+            'Access denied [403]',
+            'ResidentA is not an allowed value',
+          ].includes(err)
+        ).to.equal(true);
         done();
       });
     });
@@ -212,7 +217,12 @@ if (Meteor.isClient) {
 
       it('Inserting an active residency before the same existing movein must not be allowed', function(done) {
         expect(error).to.exist;
-        expect(error).to.equal('ResidentA is not an allowed value');
+        expect(
+          [
+            'Access denied [403]',
+            'ResidentA is not an allowed value',
+          ].includes(error)
+        ).to.equal(true);
         done();
       });
     });

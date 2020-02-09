@@ -2,6 +2,8 @@ import '../server/methods/homes';
 import '../server/methods/residencies';
 import '../server/methods/activities';
 import '../server/methods/residentActivities';
+import '../server/methods/residents';
+import '../server/methods/charts/homeCharts';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 
 Meteor.methods({

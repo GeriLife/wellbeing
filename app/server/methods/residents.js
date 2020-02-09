@@ -26,7 +26,7 @@ Meteor.methods({
     // Get all activities of a specific type involving resident
     // make sure activities are in the past (i.e. not planned)
     //  sort in reverse order by activity date
-    const activities = Activities.find(
+    return Activities.find(
       {
         residentIds: residentId,
         activityTypeId: activityTypeId,
@@ -34,27 +34,13 @@ Meteor.methods({
       },
       { sort: { activityDate: -1 } }
     ).fetch();
-
-    if (activities) {
-      return activities;
-    }
   },
   getCountOfResidentActivitiesByType({ residentId, activityTypeId, period }) {
-    const activities = Meteor.call("getResidentActivitiesByType", {
+    return Meteor.call("getResidentActivitiesByType", {
       residentId,
       activityTypeId,
       period
-    });
-
-    // Placeholder for sum of activities
-    let activityCount = 0;
-
-    if (activities) {
-      // Count the resident activity
-      activityCount = activities.length;
-    }
-
-    return activityCount;
+    }).length;
   },
   getAllResidentSelectOptions() {
     /*
@@ -76,25 +62,19 @@ Meteor.methods({
 
     return residentSelectOptions;
   },
-  getMinutesOfResidentActivitiesByType({ residentId, activityTypeId, period }) {
-    // Date period ago
-    const activityPeriodStart = moment()
-      .subtract(period, "days")
-      .toDate();
-
-    // Date today
-    const now = new Date();
-
-    const residentActivities = Activities.find(
+  getMinutesOfResidentActivitiesByType({
+    residentId,
+    activityTypeId,
+    period,
+  }) {
+    const residentActivities = Meteor.call(
+      'getResidentActivitiesByType',
       {
-        residentIds: residentId,
-        activityTypeId: activityTypeId,
-        activityDate: { $gte: activityPeriodStart, $lte: now }
-      },
-      {
-        sort: { activityDate: -1 }
+        residentId,
+        activityTypeId,
+        period,
       }
-    ).fetch();
+    );
 
     // Sum of duration for particular resident & activity
     return residentActivities.reduce(

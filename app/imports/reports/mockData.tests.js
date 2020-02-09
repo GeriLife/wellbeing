@@ -4,6 +4,7 @@ export const activityTypes = [
   { name: 'type1', _id: '1' },
   { name: 'type2', _id: '2' },
   { name: 'type3', _id: '3' },
+  { name: 'activityTestActId', _id: 'activityTestActId' },
 ];
 
 export const roles = [
@@ -83,6 +84,34 @@ export const activitesCollection = [
     facilitatorRoleId: '3',
     activityDate: '2019-12-21 12:00:00',
     residentIds: ['2', '44', '12', '5', '7', '77'],
+    duration: 15,
+  },
+];
+
+export const activitySummaryData = [
+  {
+    activityTypeId: 'activityTestActId',
+    facilitatorRoleId: '1',
+    activityDate: moment().toString(),
+    residentIds: ['activityTestResId'],
+    duration: 15,
+  },
+  {
+    activityTypeId: 'activityTestActId',
+    facilitatorRoleId: '1',
+    activityDate: moment()
+      .subtract(3, 'days')
+      .toString(),
+    residentIds: ['activityTestResId'],
+    duration: 15,
+  },
+  {
+    activityTypeId: 'activityTestActId',
+    facilitatorRoleId: '1',
+    activityDate: moment()
+      .subtract(34, 'days')
+      .toString(),
+    residentIds: ['activityTestResId'],
     duration: 15,
   },
 ];
@@ -348,6 +377,23 @@ export const residentsScenario3 = [
     firstName: 'kirti',
     lastInitial: 'K',
     onHiatus: false,
+  },
+];
+
+export const activitySummaryResident = [
+  {
+    _id: 'activityTestResId',
+    firstName: 'activityTestResId',
+    lastInitial: 'i',
+    onHiatus: false,
+  },
+];
+
+export const activitySummaryResidency = [
+  {
+    residentId: 'activityTestResId',
+    homeId: '1',
+    moveIn: '2019-01-30 00:00:00',
   },
 ];
 
