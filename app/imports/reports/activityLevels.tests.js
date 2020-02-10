@@ -260,7 +260,7 @@ if (Meteor.isServer) {
           });
         });
 
-        it('Should return no count if active raisdents are not found', function(done) {
+        it('Should return no count if active residents are not found', function(done) {
           Meteor.call('getHomeActivityLevelCounts', '12', function(
             err,
             result
@@ -540,7 +540,7 @@ if (Meteor.isServer) {
       });
 
       describe('getHomeActivityTypeMetrics', function() {
-        it('Should return actve residents and their activity counts', function(done) {
+        it('Should return activities aggregated by time having total minutes and count', function(done) {
           Meteor.call(
             'getHomeActivityTypeMetrics',
             {
@@ -561,8 +561,9 @@ if (Meteor.isServer) {
         });
       });
 
+      
       describe('getHomeActivitiesFacilitatorRoleMetrics', function() {
-        it('Should return actve residents and their activity counts', function(done) {
+        it('Should return activities aggregated by time having total minutes and count', function(done) {
           Meteor.call(
             'getHomeActivitiesFacilitatorRoleMetrics',
             {
@@ -584,7 +585,7 @@ if (Meteor.isServer) {
       });
 
       describe('getHomeCurrentResidentsActivityIds', function() {
-        it('Should return correct activity ids corresponding to current residents of a given home', function(done) {
+        it('Should return activities corresponding to current residents of a given home', function(done) {
           Meteor.call(
             'getHomeCurrentResidentsActivityIds',
             {
