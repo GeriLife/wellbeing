@@ -95,6 +95,16 @@ meteor reset will delete the mock database
 This command will start a server on port 8000. It is better to run `npm i` if the tests are run for the first time.
 Server code must be tested on server using `Meteor.isServer` flag. Code running in the `if` constructs of `Meteor.isServer` will show results on the console. For the others, `Meteor.isClient` must be used and they can be evaluated in the browser on `http://localhost:8000`.
 
+
+## Steps to start the demo app
+1. Make sh file executable. Run `sudo chmod +x start-demo.sh`
+2. Make current user owner of meteor file by running `sudo chown -Rh shailee .meteor/local`
+3. The start-demo.sh file starts the app in demo mode (Make sure to not start it on the same server as the production server or else the mongo database will be overwritten).
+4. To start the demo as a cron job run 
+  1. `sudo crontab -e`
+  2. This will open a cronjob editor. On the last line of the editor add `0 0 * * * cd /path/to/sh-file && /bin/sh start-demo.sh >> cron.log 2>&1`.
+  3. Save and exit. This will restart and reset the app everyday at midnight.
+
 ## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
