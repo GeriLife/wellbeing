@@ -4,59 +4,48 @@ Template.residentActivityTypesChart.onRendered(function() {
 
   instance.autorun(function() {
     // Empty the activity types chart, in case of data change
-    $("#activityTypesChart").empty();
+    $('#activityTypesChart').empty();
 
-    // Get activities from template data
-    let activities = Template.currentData().activities;
+    Meteor.call(
+      'getCountsByType',
+      instance.data.residentId,
+      'activityTypeName',
+      function(error, activityTypeCounts) {
+        if (activityTypeCounts && activityTypeCounts.length > 0) {
+          const data = [
+            {
+              type: 'bar',
+              y: _.map(activityTypeCounts, r => r.key.substr(0, 6)),
+              x: _.map(activityTypeCounts, r => r.value),
+              text: _.map(activityTypeCounts, r => `${r.key}`),
+              marker: {
+                color: '#9ac0db',
+              },
+              orientation: 'h',
+            },
+          ];
 
-    // Add 'type' field to each activity,
-    // Containing activity type name
-    activities = _.map(activities, function(activity) {
-      // Get activity type name via collection helper
-      activity.type = activity.activityType();
+          const layout = {
+            xaxis: {
+              title: TAPi18n.__(
+                'residentActivityTypesChart-xAxis-title'
+              ),
+            },
+            yaxis: {
+              title: TAPi18n.__(
+                'residentActivityTypesChart-yAxis-title'
+              ),
+            },
+          };
 
-      return activity;
-    });
+          const locale = TAPi18n.getLanguage();
 
-    const activityTypeCounts = d3
-      .nest()
-      .key(function(activity) {
-        return activity.type;
-      })
-      .rollup(function(activityType) {
-        return activityType.length;
-      })
-      .entries(activities);
-
-    if (activityTypeCounts && activityTypeCounts.length > 0) {
-      const data = [
-        {
-          type: "bar",
-          y: _.map(activityTypeCounts, r => r.key.substr(0, 6)),
-          x: _.map(activityTypeCounts, r => r.values),
-          text: _.map(
-            activityTypeCounts,
-            r => `${r.key}`
-          ),
-          marker: {
-            color: "#9ac0db"
-          },
-          orientation: "h"
+          Plotly.newPlot('activityTypesChart', data, layout, {
+            locale,
+            responsive: true,
+          });
         }
-      ];
-
-      const layout = {
-        xaxis: {
-          title: TAPi18n.__("residentActivityTypesChart-xAxis-title")
-        },
-        yaxis: {
-          title: TAPi18n.__("residentActivityTypesChart-yAxis-title")
-        },
-      };
-
-      const locale = TAPi18n.getLanguage();
-
-      Plotly.newPlot("activityTypesChart", data, layout, { locale, responsive: true });
-    }
+      }
+    );
   });
 });
