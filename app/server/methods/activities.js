@@ -408,15 +408,12 @@ export default Meteor.methods({
         residentId
       );
       // Group activities by activity date
-      const summedActivities = d3.nest()
-        .key(function(activity) {
-          return activity.activityDate;
-        })
+      const summedActivities = d3
+        .nest()
+        .key(activity => activity.activityDate)
         .rollup(function(activity) {
           return {
-            duration: d3.sum(activity, function(activity) {
-              return activity.duration;
-            }),
+            duration: d3.sum(activity, activity => activity.duration),
           };
         })
         .entries(activities);
