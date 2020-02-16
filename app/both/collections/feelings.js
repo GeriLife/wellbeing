@@ -59,3 +59,5 @@ Feelings.after.remove(function (userId, feeling) {
     entityId: feeling._id,
   })
 });
+
+export const feelingsCollection = Feelings

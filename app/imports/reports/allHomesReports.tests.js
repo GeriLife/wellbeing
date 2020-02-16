@@ -255,15 +255,14 @@ if (Meteor.isServer) {
         );
       });
 
-      it('Should throw error if aggregate is not correct', function(done) {
+      it('Should return null if aggregate is not correct', function(done) {
         Meteor.call(
           'getActivitiesAggregateReport',
           'week',
-          'no',
-          function(err) {
-            expect(err.message).to.eq(
-              "Cannot read property 'lastUpdatedDate' of undefined"
-            );
+          'vcvbcno',
+          function(err, res) {
+            expect(res.activityData.length).to.eq(0);
+            expect(res.lastUpdated).to.eq(null);
             done();
           }
         );

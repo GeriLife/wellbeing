@@ -379,7 +379,7 @@ export default Meteor.methods({
 
   getCountsByType(residentId, type) {
     if (!type || !residentId) {
-      return Meteor.Error(500, 'Type and resident ids are required');
+      throw new Meteor.Error(500, 'Type and resident ids are required');
     }
 
     try {
@@ -397,7 +397,7 @@ export default Meteor.methods({
         })
         .entries(activities);
     } catch (error) {
-      return Meteor.Error(500, error.toString());
+      throw new Meteor.Error(500, error.toString());
     }
   },
 
