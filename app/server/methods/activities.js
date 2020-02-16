@@ -408,8 +408,7 @@ export default Meteor.methods({
         residentId
       );
       // Group activities by activity date
-      const summedActivities = d3
-        .nest()
+      const summedActivities = d3.nest()
         .key(function(activity) {
           return activity.activityDate;
         })
@@ -422,16 +421,12 @@ export default Meteor.methods({
         })
         .entries(activities);
 
-      summedActivities.forEach(function(activity) {
-        // Create date and duration attributes with proper data types
-        activity.timestamp = new Date(activity.key).getTime();
-        activity.duration = parseInt(activity.value.duration);
-
-        // Delete unused key and values
-        delete activity.value;
-        delete activity.key;
+      return summedActivities.map(function(activity) {
+        return {
+          timestamp: new Date(activity.key).getTime(),
+          duration: parseInt(activity.value.duration),
+        };
       });
-      return summedActivities;
     } catch (error) {
       return Meteor.Error(500, error.toString());
     }
