@@ -463,3 +463,47 @@ export const homesData = [
     groupId: 'g1',
   },
 ];
+
+export const feelingsData = [
+  {
+    _id: 'QnzqqsWjTeB5J5qJB',
+    residentId: 'DJJggv6vZQ42MFerG',
+    feeling: 'joy',
+    date: moment().toDate(),
+  },
+
+  {
+    _id: 'QnzqqsWjTeB5J5jbA',
+    residentId: 'DJJggv6vZQ42MFerG',
+    feeling: 'fear',
+    date: moment().toDate(),
+  },
+
+  {
+    _id: 'QnzqqsWeJtB5J5jbA',
+    residentId: 'DJJggv6vZQ42MFerG',
+    feeling: 'fear',
+    date: moment().toDate(),
+  },
+
+  {
+    _id: 'AbzqqsWjTeB5J5qJB',
+    residentId: 'Cp5BfRj8EA848MS2b',
+    feeling: 'fear',
+    date: moment().toDate(),
+  },
+
+  {
+    _id: 'cDzqqsWjTeB5J5qJB',
+    residentId: 'Cp5BfRj8EA848MS3c',
+    feeling: 'sad',
+    date: moment().toDate(),
+  },
+
+  {
+    _id: '3FzqqsWjTeB5J5qJB',
+    residentId: 'Cp5BfRj8EA848MSd4',
+    feeling: 'anger',
+    date: moment().toDate(),
+  },
+];

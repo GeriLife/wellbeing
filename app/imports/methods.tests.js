@@ -4,6 +4,7 @@ import '../server/methods/activities';
 import '../server/methods/residentActivities';
 import '../server/methods/residents';
 import '../server/methods/charts/homeCharts';
+import '../server/methods/feelings';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 
 Meteor.methods({
@@ -106,6 +107,7 @@ Meteor.methods({
     residencyData,
     residentsData,
     homesData,
+    feelingsData,
   }) {
     roles &&
       roles.forEach(role => {
@@ -140,6 +142,11 @@ Meteor.methods({
     homesData &&
       homesData.forEach(home => {
         Homes.insert(home, { validate: false });
+      });
+
+    feelingsData &&
+      feelingsData.forEach(feeling => {
+        Feelings.insert(feeling, { validate: false });
       });
   },
 });
