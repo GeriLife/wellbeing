@@ -11,10 +11,10 @@
   <!-- histograms -->
   <div class="row">
     <div class="col-md-6 col-sm-12">
-    {{> residentActivityTypesChart activities=activities }}
+    {{> residentActivityTypesChart residentId=resident._id}}
     </div>
     <div class="col-md-6 col-sm-12">
-    {{> residentFacilitatorRolesChart activities=activities }}
+    {{> residentFacilitatorRolesChart residentId=resident._id }}
     </div>
   </div>
   <!-- Nav tabs -->
@@ -34,7 +34,7 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="calendar">
-      {{> activityCalendar activities=activities }}
+      {{> activityCalendar residentId=resident._id }}
     </div>
     <div role="tabpanel" class="tab-pane" id="table">
       {{> activityTable activities=activities }}

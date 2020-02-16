@@ -344,7 +344,98 @@ export default Meteor.methods({
     };
 
   },
-  aggregateActivitiesAndPopulateAggregateCollection
+  aggregateActivitiesAndPopulateAggregateCollection,
+
+  getResidentActvitiesWithActivityAndFaciltatorName(residentId) {
+    const activityTypes = ActivityTypes.find().fetch();
+    const facilitatorRoles = Meteor.roles
+      .find({ name: { $ne: 'admin' } })
+      .fetch();
+
+    const activityTypesMap = activityTypes.reduce((map, activity) => {
+      return { ...map, [activity._id]: activity.name };
+    }, {});
+
+    const facilitatorRolesMap = facilitatorRoles.reduce(
+      (map, role) => {
+        return { ...map, [role._id]: role.name };
+      },
+      {}
+    );
+
+    const residentActivities = Activities.find({
+      residentIds: residentId,
+    }).fetch();
+
+    return residentActivities.map(activity => {
+      return {
+        ...activity,
+        activityTypeName: activityTypesMap[activity.activityTypeId],
+        facilitatorRoleName:
+          facilitatorRolesMap[activity.facilitatorRoleId],
+      };
+    });
+  },
+
+  getCountsByType(residentId, type) {
+    if (!type || !residentId) {
+      return Meteor.Error(500, 'Type and resident ids are required');
+    }
+
+    try {
+      const activities = Meteor.call(
+        'getResidentActvitiesWithActivityAndFaciltatorName',
+        residentId
+      );
+      return d3
+        .nest()
+        .key(function(activity) {
+          return activity[type];
+        })
+        .rollup(function(activityType) {
+          return activityType.length;
+        })
+        .entries(activities);
+    } catch (error) {
+      return Meteor.Error(500, error.toString());
+    }
+  },
+
+  getDaywiseActivityDuration(residentId) {
+    try {
+      const activities = Meteor.call(
+        'getResidentActvitiesWithActivityAndFaciltatorName',
+        residentId
+      );
+      // Group activities by activity date
+      const summedActivities = d3
+        .nest()
+        .key(function(activity) {
+          return activity.activityDate;
+        })
+        .rollup(function(activity) {
+          return {
+            duration: d3.sum(activity, function(activity) {
+              return activity.duration;
+            }),
+          };
+        })
+        .entries(activities);
+
+      summedActivities.forEach(function(activity) {
+        // Create date and duration attributes with proper data types
+        activity.timestamp = new Date(activity.key).getTime();
+        activity.duration = parseInt(activity.value.duration);
+
+        // Delete unused key and values
+        delete activity.value;
+        delete activity.key;
+      });
+      return summedActivities;
+    } catch (error) {
+      return Meteor.Error(500, error.toString());
+    }
+  }
 });
 
 

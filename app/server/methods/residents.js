@@ -181,5 +181,21 @@ Meteor.methods({
           lastInitial: 1
         }
       }).fetch();
-  }
+  },
+
+  getResidentDetails(residentId) {
+    let fields = {
+      _id: 1,
+      firstName: 1,
+    };
+
+    // Some fields should only be published to authenticated users
+    if (Meteor.user) {
+      fields.lastInitial = 1;
+      fields.onHiatus = 1;
+      fields.departed = 1;
+    }
+
+    return Residents.findOne(residentId, { fields });
+  },
 });
