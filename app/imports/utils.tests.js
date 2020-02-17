@@ -32,24 +32,3 @@ export const createManager = function(groupId, user, cb) {
     Meteor.call('assignManager', { groupId, users: [userId] }, cb);
   });
 };
-
-export const promisifyMethod = (
-  method,
-  passAsObject = false,
-  ...params
-) => {
-  return new Promise((resolve, reject) => {
-    const cb = function(error, response) {
-      if (error) reject(error);
-      else {
-        resolve(response);
-      }
-    };
-
-    if (passAsObject === true) {
-      Meteor.call(method, params, cb);
-    } else {
-      Meteor.call(method, ...params, cb);
-    }
-  });
-};
