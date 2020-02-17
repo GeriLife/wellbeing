@@ -3,44 +3,16 @@ import chai from 'chai';
 import { $ } from 'meteor/jquery';
 import '../../../client/views/home/residents/residents.html';
 import '../../../client/views/home/residents/resident/resident.html';
-import { promisifyMethod } from '../../utils.tests';
-
-function prepareTemplateData(cb) {
-  Promise.all([
-    promisifyMethod(
-      'getHomeCurrentAndActiveResidents',
-      false,
-      'ZQ42bd6vZQ42MGerG'
-    ),
-    promisifyMethod('getHomeDetails', false, 'ZQ42bd6vZQ42MGerG'),
-    promisifyMethod(
-      'getResidentRecentActiveDaysAndCount',
-      false,
-      'ZQ42bd6vZQ42MGerG'
-    ),
-  ])
-    .then(resp => {
-      cb(null, resp);
-    })
-    .catch(err => {
-      cb(err);
-    });
-}
-
-export default function() {
+import { homesData, residentsData } from '../mockData.tests';
+if (Meteor.isClient) {
   describe('Residents Table', function() {
     let homeDetails = [];
     let homeCurrentAndActiveResidents = [];
 
     beforeEach(function(done) {
-      prepareTemplateData(function(err, resp) {
-        if (err) done();
-        else {
-          homeDetails = resp[1];
-          homeCurrentAndActiveResidents = resp[0];
-          done();
-        }
-      });
+      homeDetails = homesData[0];
+      homeCurrentAndActiveResidents = residentsData;
+      done();
     });
 
     it('Should render a table', function(done) {
@@ -86,7 +58,7 @@ export default function() {
           chai.assert.equal($(el).find('tr').length, 1);
           chai.assert.equal($(el).find('td').length, 4);
 
-          chai.assert.equal($('td:nth-child(1)').text(), 'Kunjan P');
+          chai.assert.equal($('td:nth-child(1)').text(), 'Shailee M');
           chai.assert.equal(
             $('td:nth-child(2)')
               .text()
