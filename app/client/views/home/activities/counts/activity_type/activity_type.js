@@ -4,7 +4,7 @@ Template.homeActivityCountsByActivityType.onCreated(function () {
 
   let currentActivityPeriod;
   // Get home ID from template instance
-  const homeId = templateInstance.data.homeId;
+  const homeId = Router.current().params.homeId;
 
   // Set up reactive variable for chart data
   templateInstance.chartData = new ReactiveVar();
@@ -13,7 +13,7 @@ Template.homeActivityCountsByActivityType.onCreated(function () {
     const activityPeriod = Template.currentData().activityPeriod;
 
     // Not fetch data if period isn't changed
-    if (currentActivityPeriod !== activityPeriod) {
+    if (!currentActivityPeriod || currentActivityPeriod !== activityPeriod) {
       // Call method to fetch data, assigning it to reactive variable
       Meteor.call('getHomeActivityTypeMetrics', { homeId, period: activityPeriod }, function (error, chartData) {
         // update chart data reactive variable

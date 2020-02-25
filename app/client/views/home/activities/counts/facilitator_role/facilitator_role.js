@@ -3,7 +3,7 @@ Template.homeActivityCountsByFacilitatorRole.onCreated(function () {
   const templateInstance = this;
 
   // Get home ID from template instance
-  const homeId = templateInstance.data.homeId;
+  const homeId = Router.current().params.homeId;
 
   let currentActivityPeriod;
   // Set up reactive variable for chart data
