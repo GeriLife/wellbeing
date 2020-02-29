@@ -2,7 +2,7 @@ import moment from 'moment';
 
 export default Meteor.methods({
   checkIfResidentWasActiveOnDate (residentId, date) {
-    if (!date) throw new Meteor.Error('Date is mandatory');
+    if (!date) throw new Meteor.Error(TAPi18n.__('requiredFields', 'Date'));
 
     // Create morning and evening dates (Date objects)
     // in order to query activities for date

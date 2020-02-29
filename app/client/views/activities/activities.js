@@ -71,23 +71,23 @@ Template.activities.helpers({
       fields: [
         {
           key: 'residents',
-          label: 'Resident(s)',
+          label: TAPi18n.__('activities.residentIds.label'),
           tmpl: Template.activitiesTableResidentsCell,
         },
         {
           key: 'type',
-          label: 'Activity Type',
+          label: TAPi18n.__('activities.activityTypeId.label'),
           sortOrder: 2,
           sortDirection: 'ascending',
           tmpl: Template.activitiesTableActivityTypeCell,
         },
         {
           key: 'duration',
-          label: 'Duration',
+          label: TAPi18n.__('activities.duration.label'),
         },
         {
           key: 'activityDate',
-          label: 'Activity Date',
+          label: TAPi18n.__('activities.activityDate.label'),
           sortOrder: 0,
           sortDirection: 'descending',
           tmpl: Template.activityDateCell,
