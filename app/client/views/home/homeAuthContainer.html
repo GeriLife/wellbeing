@@ -5,7 +5,7 @@
     {{#if userIsAuthorized }}
       {{> Template.dynamic template=authorizedTemplate }}
     {{else}}
-      <h1>Not Authorized</h1>
+      <h1>{{_ 'noAuth'}}</h1>
     {{/if}}
   {{/if}}
 </template>

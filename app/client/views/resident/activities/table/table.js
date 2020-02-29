@@ -50,4 +50,7 @@ Template.activityTable.helpers({
 
     return tableSettings;
   },
+  ActivityTypeLabel: function() {
+    return TAPi18n.__('activityTypesLabel');
+  },
 });
