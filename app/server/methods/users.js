@@ -10,12 +10,20 @@ Meteor.methods({
 
     // Make sure mail configuration is present
     if (!process.env.MAIL_URL) {
-      throw new Meteor.Error('MailConfigurationError', 'No mail settings available.')
+      throw new Meteor.Error(
+        'MailConfigurationError',
+        TAPi18n.__('MailConfigurationError', { setting: 'Mail' })
+      );
     }
 
     // Make sure 'from email' address was provied by environmental variable
     if (!process.env.FROM_EMAIL) {
-      throw new Meteor.Error('MailConfigurationError', 'No from email address available.')
+      throw new Meteor.Error(
+        'MailConfigurationError',
+        TAPi18n.__('MailConfigurationError', {
+          setting: 'Sender email address',
+        })
+      );
     }
 
     // Set the from email address

@@ -10,7 +10,7 @@ Template.deleteActivityType.onCreated(function () {
 
   Meteor.call('getActivityCountByActivityTypeId', activityTypeId, function (error, activityCount) {
     if (error) {
-      throw new Meteor.Error('could not get count of activies');
+      throw new Meteor.Error(TAPi18n.__('activity-errorFetching'));
     } else {
       templateInstance.activityCount.set(activityCount);
     }

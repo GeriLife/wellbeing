@@ -127,7 +127,10 @@ export default Meteor.methods({
     return nestedActivities;
   },
   getActivitiesAggregateReport(timePeriod,aggregateBy) {
-    if (!aggregateBy) throw new Meteor.Error('Required aggregateBy field');
+    if (!aggregateBy)
+      throw new Meteor.Error(
+        TAPi18n.__('requiredFields', 'AggregateBy')
+      );
 
     /* Key to selected based on time period */
     const fieldSelector =
@@ -379,7 +382,12 @@ export default Meteor.methods({
 
   getCountsByType(residentId, type) {
     if (!type || !residentId) {
-      throw new Meteor.Error(500, 'Type and resident ids are required');
+      throw new Meteor.Error(
+        500,
+        TAPi18n.__('requiredFields', {
+          fields: 'type and resident ID',
+        })
+      );
     }
 
     try {

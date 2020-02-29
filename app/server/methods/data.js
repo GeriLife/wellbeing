@@ -1,5 +1,5 @@
 function _exportDataToConcernedColection(collectionName, data) {
-  if (!Array.isArray(data)) throw "Data not in required format";
+  if (!Array.isArray(data)) throw TAPi18n.__('dataExport-formatIncorrect');
 
   const collections = {
     activities: Activities,
@@ -58,16 +58,16 @@ Meteor.methods({
     // Check if current user is Admin
     const currentUserIsAdmin = Roles.userIsInRole(currentUserId, "admin");
     if (!currentUserIsAdmin)
-      return { error: { message: "Action not allowed" } };
+      return { error: { message: TAPi18n.__('noAuth') } };
 
-    if (!fileData) return { error: { message: "No Data recieved!!" } };
+    if (!fileData) return { error: { message: TAPi18n.__("dataExport-noData") } };
 
     let jsonData;
     try {
       jsonData = JSON.parse(fileData);
 
       if (!typeof jsonData === "object" || Array.isArray(jsonData))
-        throw "JSON not in required format";
+        throw TAPi18n.__('dataExport-JSONIncorrect');
 
       let res = Object.keys(jsonData).map(collectionName => {
         try {
@@ -78,13 +78,15 @@ Meteor.methods({
 
           return {
             collectionName,
-            message: `Data for ${collectionName} imported successfully!`
+            message: TAPi18n.__('dataExport-collectionImportSuccessfull', {
+              collectionName,
+            }),
           };
         } catch (e) {
           return {
             collectionName,
             error: {
-              message: `${collectionName}: Error displaying data`,
+              message: TAPi18n.__('dataExport-genericError'),
               data: getMessage(e)
             }
           };
@@ -93,7 +95,7 @@ Meteor.methods({
 
       return res;
     } catch (e) {
-      return { error: { message: "Invalid File" } };
+      return { error: { message: TAPi18n.__('dataExport-invalidFile') } };
     }
   }
 });

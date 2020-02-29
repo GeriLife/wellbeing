@@ -14,8 +14,24 @@
     },
     "facilitatorRoleId": {
       "label": "Activity facilitator role"
+    },
+    "pagination": {
+      "prev": "Previous",
+      "next": "Next"
     }
   },
+  "modal-close": "Close",
+  "userEventLog": {
+    "eventDate": "Event Date",
+    "userId": "User ID",
+    "action": "Action",
+    "entityType": "Entity Type",
+    "entityId": "Entity ID"
+  },
+  "invalidEmail": "Email: Invalid email",
+  "userInactive": "User account is inactive.",
+  "couldNotRevokeAccess": "Could not revoke access",
+  "activity-errorFetching": "Could not get count of activies",
   "activities-addActivityButton": "Add Activity",
   "activities-pageHeader": "Activities",
   "activities-filterActivities-activityTypeFilterLabel": "Type",
@@ -23,6 +39,7 @@
   "activities-filterActivities-heading": "Filter activities",
   "activities-filterActivities-residentFilterLabel": "Resident",
   "activities-filterActivities-showOnlyLatest": "Show only latest",
+  "activityTypesLabel": "Activity Type",
   "activityTypes": {
     "name": {
       "label": "Name"
@@ -135,6 +152,18 @@
     }
   },
   "groups-header": "Groups",
+  "requiredFields": "Required fields not found. The required fields are: __fields__",
+  "dataExport-formatIncorrect": "Data not in required format",
+  "dataExport-noData": "No Data recieved",
+  "noAuth": "Not authorised to perform this action",
+  "errorUpdatingPermission": "Could not update all permissions",
+  "dataExport-JSONIncorrect": "JSON not in required format",
+  "dataExport-collectionImportSuccessfull": "Data for __collectionName__ imported successfully",
+  "dataExport-genericError": "Error displaying data",
+  "dataExport-invalidFile": "File is invalid",
+  "residencies-resourceCreateError": "Could not create __data__",
+  "residencies-resourceInvalid": "Resident and residency document is not valid",
+  "MailConfigurationError": "__setting__ not found",
   "home-editHomeButton": "Edit home",
   "home-residentsPanel-heading": "Residents",
   "home-activityLevelTrendsPanel-heading": "Activity level trends",
