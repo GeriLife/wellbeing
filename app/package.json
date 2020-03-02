@@ -6,6 +6,23 @@
   "directories": {
     "doc": "docs"
   },
+  "babel": {
+    "env": {
+      "COVERAGE": {
+        "plugins": [
+          [
+            "istanbul",
+            {
+              "exclude": [
+                "both/**"
+              ],
+              "exclude-after-remap": false
+            }
+          ]
+        ]
+      }
+    }
+  },
   "dependencies": {
     "@babel/runtime": "^7.4.4",
     "babel-runtime": "^6.26.0",
@@ -27,9 +44,11 @@
     "vue": "^2.1.10",
     "vue-meteor-tracker": "^1.0.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-plugin-istanbul": "^6.0.0"
+  },
   "scripts": {
-    "test": "TEST_WATCH=1 meteor test --driver-package meteortesting:mocha --port 8000"
+    "test": "BABEL_ENV=COVERAGE COVERAGE=1 COVERAGE_VERBOSE=1 COVERAGE_APP_FOLDER=$PWD/ TEST_WATCH=1 meteor test --driver-package meteortesting:mocha --port 8000"
   },
   "repository": {
     "type": "git",

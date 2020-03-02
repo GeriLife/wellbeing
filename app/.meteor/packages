@@ -55,3 +55,4 @@ akryum:vue-sass
 meteortesting:mocha
 hwillson:stub-collections
 xolvio:cleaner
+lmieulet:meteor-coverage
