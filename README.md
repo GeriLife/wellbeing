@@ -95,6 +95,11 @@ meteor reset will delete the mock database
 This command will start a server on port 8000. It is better to run `npm i` if the tests are run for the first time.
 Server code must be tested on server using `Meteor.isServer` flag. Code running in the `if` constructs of `Meteor.isServer` will show results on the console. For the others, `Meteor.isClient` must be used and they can be evaluated in the browser on `http://localhost:8000`.
 
+## Coverage 
+Coverage can be found at `http://localhost:8000/coverage`. This will show the coverage for server files. To get the coverage for client,
+1. Open the console at `http://localhost:8000`.
+2. Run this command `Meteor.sendCoverage(function(stats,nbErr) {console.log(stats,nbErr);});`
+3. Now if `http://localhost:8000/coverage` is reloaded the coverage for client is visible. 
 
 ## Steps to start the demo app
 1. Make sh file executable. Run `sudo chmod +x start-demo.sh`
