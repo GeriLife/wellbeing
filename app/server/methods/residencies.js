@@ -13,7 +13,7 @@ export default Meteor.methods({
     if (!userPermission) {
       throw new Meteor.Error(
         'operation-not-allowed',
-        TAPi18n.__('noAuth')
+        'Current User does not have enough rights to perform this action!'
       );
     }
     // set up validation context based on new resident and residency schama
@@ -44,25 +44,21 @@ export default Meteor.methods({
           // Could not create residency
           throw new Meteor.Error(
             'could-not-create-residency',
-            TAPi18n.__('residencies-resourceCreateError', {
-              data: 'residency',
-            })
+            'Could not create residency.'
           );
         }
       } else {
         // Could not create resident
         throw new Meteor.Error(
           'could-not-create-resident',
-          TAPi18n.__('residencies-resourceCreateError', {
-            data: 'resident',
-          })
+          'Could not create resident.'
         );
       }
     } else {
       // Document is not valid
       throw new Meteor.Error(
         'resident-and-residency-invalid',
-        TAPi18n.__('residencies-resourceInvalid')
+        'Resident and residency document is not valid.'
       );
     }
   },

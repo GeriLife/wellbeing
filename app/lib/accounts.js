@@ -35,7 +35,7 @@ Meteor.startup(function() {
     } catch (e) {
       // Must throw meteor error to show custom validation message
       // Sending static error message for consistency with messages from previous validators
-      throw new Meteor.Error(500, TAPi18n.__('invalidEmail'));
+      throw new Meteor.Error(500, 'Email: Invalid email');
     }
   });
 
@@ -46,7 +46,7 @@ Meteor.startup(function() {
     /* If the user is inactive throw an error */
     if (isActive === false) {
       attempt.allowed = false;
-      throw new Meteor.Error(403, TAPi18n.__('userInactive'));
+      throw new Meteor.Error(403, 'User account is inactive.');
     }
 
     /* else return permission set by the login method */
