@@ -68,7 +68,7 @@ export default Meteor.methods({
     */
 
     if (!homeId) {
-      throw new Meteor.Error(500, TAPi18n.__('requiredFields', 'Home ID'));
+      throw new Meteor.Error(500, 'Home id is mandatory');
     }
 
     const currentResidentIds = Meteor.call(
@@ -310,20 +310,16 @@ export default Meteor.methods({
       'admin'
     );
     if (!currentUserIsAdmin)
-      throw new Meteor.Error(500, TAPi18n.__('noAuth'));
+      throw new Meteor.Error(
+        500,
+        'User does not have right to perform this action'
+      );
 
     // If groupId is not specified
-    if (!groupId)
-      throw new Meteor.Error(
-        500,
-        TAPi18n.__('requiredFields', 'Group ID')
-      );
+    if (!groupId) throw new Meteor.Error(500, 'Group not specified');
     if (!users || users.length === 0) {
       /* If user array is empty */
-      throw new Meteor.Error(
-        500,
-        TAPi18n.__('requiredFields', 'Users')
-      );
+      throw new Meteor.Error(500, 'Users not selected.');
     }
     /* Even if permission for one user is not updated it will return false */
     const allPermissionsUpdated = users.every(userId => {
@@ -336,10 +332,7 @@ export default Meteor.methods({
       }
     });
     if (!allPermissionsUpdated)
-      throw new Meteor.Error(
-        500,
-        TAPi18n.__('errorUpdatingPermission')
-      );
+      throw new Meteor.Error(500, 'Could not update all permissions');
     return allPermissionsUpdated;
   },
 
@@ -389,7 +382,7 @@ export default Meteor.methods({
 
   getHomeDetails: function(homeId) {
     if (!homeId) {
-      throw new Meteor.Error(500, TAPi18n.__('requiredFields', 'Home ID'));
+      throw new Meteor.Error(500, 'Home id is mandatory');
     }
 
     return Homes.findOne(homeId);
