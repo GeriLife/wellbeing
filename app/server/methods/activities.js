@@ -379,10 +379,7 @@ export default Meteor.methods({
 
   getCountsByType(residentId, type) {
     if (!type || !residentId) {
-      throw new Meteor.Error(
-        500,
-        'Type and resident ids are required'
-      );	
+      throw new Meteor.Error(500, 'Type and resident ids are required');
     }
 
     try {
