@@ -97,9 +97,13 @@ Server code must be tested on server using `Meteor.isServer` flag. Code running 
 
 ## Coverage 
 Coverage can be found at `http://localhost:8000/coverage`. This will show the coverage for server files. To get the coverage for client,
-1. Open the console at `http://localhost:8000`.
+1. Open the developer-tools console at `http://localhost:8000` in your preferred browser.
 2. Run this command `Meteor.sendCoverage(function(stats,nbErr) {console.log(stats,nbErr);});`
 3. Now if `http://localhost:8000/coverage` is reloaded the coverage for client is visible. 
+Please note that the server for tests is started in watch mode so that client tests can be evaluated on the browser. These tests take 2 runs of the test to get the correct results due to some issues with the underlying babel. Here's what can be done:
+1. start the server.
+2. Once the process logs this messages `listening on localhost:8000`, change any file and save it.
+3. This triggers the watch and tests are rerun correctly.
 
 ## Steps to start the demo app
 1. Make sh file executable. Run `sudo chmod +x start-demo.sh`
