@@ -1,1 +1,0 @@
-export default { filters: { localize: TAPi18n.__ } };
