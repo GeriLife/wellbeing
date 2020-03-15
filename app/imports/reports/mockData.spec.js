@@ -92,7 +92,7 @@ export const activitySummaryData = [
   {
     activityTypeId: 'activityTestActId',
     facilitatorRoleId: '1',
-    activityDate: moment().toString(),
+    activityDate: moment().toDate(),
     residentIds: ['activityTestResId'],
     duration: 15,
   },
@@ -101,7 +101,7 @@ export const activitySummaryData = [
     facilitatorRoleId: '1',
     activityDate: moment()
       .subtract(3, 'days')
-      .toString(),
+      .toDate(),
     residentIds: ['activityTestResId'],
     duration: 15,
   },
@@ -110,7 +110,7 @@ export const activitySummaryData = [
     facilitatorRoleId: '1',
     activityDate: moment()
       .subtract(34, 'days')
-      .toString(),
+      .toDate(),
     residentIds: ['activityTestResId'],
     duration: 15,
   },
@@ -176,11 +176,13 @@ export const aggregatedActivitiesByTypeAndMonth = [
     key: 'type1',
     values: [
       {
-        key: 'Wed Jan 01 2020 00:00:00 GMT+0530 (IST)',
+        key:
+          'Wed Jan 01 2020 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 2, activity_minutes: 10 },
       },
       {
-        key: 'Sun Dec 01 2019 00:00:00 GMT+0530 (IST)',
+        key:
+          'Sun Dec 01 2019 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 1, activity_minutes: 15 },
       },
     ],
@@ -189,11 +191,13 @@ export const aggregatedActivitiesByTypeAndMonth = [
     key: 'type3',
     values: [
       {
-        key: 'Wed Jan 01 2020 00:00:00 GMT+0530 (IST)',
+        key:
+          'Wed Jan 01 2020 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 1, activity_minutes: 35 },
       },
       {
-        key: 'Sun Dec 01 2019 00:00:00 GMT+0530 (IST)',
+        key:
+          'Sun Dec 01 2019 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 1, activity_minutes: 5 },
       },
     ],
@@ -202,7 +206,8 @@ export const aggregatedActivitiesByTypeAndMonth = [
     key: 'type2',
     values: [
       {
-        key: 'Sun Dec 01 2019 00:00:00 GMT+0530 (IST)',
+        key:
+          'Sun Dec 01 2019 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 1, activity_minutes: 5 },
       },
     ],
@@ -213,11 +218,13 @@ export const aggregatedActivitiesByTypeAndWeek = [
     key: 'type1',
     values: [
       {
-        key: 'Sun Dec 29 2019 00:00:00 GMT+0530 (IST)',
+        key:
+          'Sun Dec 29 2019 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 2, activity_minutes: 10 },
       },
       {
-        key: 'Sun Dec 15 2019 00:00:00 GMT+0530 (IST)',
+        key:
+          'Sun Dec 15 2019 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 1, activity_minutes: 15 },
       },
     ],
@@ -226,11 +233,13 @@ export const aggregatedActivitiesByTypeAndWeek = [
     key: 'type3',
     values: [
       {
-        key: 'Sun Jan 05 2020 00:00:00 GMT+0530 (IST)',
+        key:
+          'Sun Jan 05 2020 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 1, activity_minutes: 35 },
       },
       {
-        key: 'Sun Dec 08 2019 00:00:00 GMT+0530 (IST)',
+        key:
+          'Sun Dec 08 2019 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 1, activity_minutes: 5 },
       },
     ],
@@ -239,7 +248,8 @@ export const aggregatedActivitiesByTypeAndWeek = [
     key: 'type2',
     values: [
       {
-        key: 'Sun Dec 08 2019 00:00:00 GMT+0530 (IST)',
+        key:
+          'Sun Dec 08 2019 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 1, activity_minutes: 5 },
       },
     ],
@@ -250,15 +260,18 @@ export const aggregatedActivitiesByFaciliatatorAndWeek = [
     key: 'role2',
     values: [
       {
-        key: 'Sun Dec 29 2019 00:00:00 GMT+0530 (IST)',
+        key:
+          'Sun Dec 29 2019 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 1, activity_minutes: 5 },
       },
       {
-        key: 'Sun Jan 05 2020 00:00:00 GMT+0530 (IST)',
+        key:
+          'Sun Jan 05 2020 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 1, activity_minutes: 35 },
       },
       {
-        key: 'Sun Dec 08 2019 00:00:00 GMT+0530 (IST)',
+        key:
+          'Sun Dec 08 2019 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 1, activity_minutes: 5 },
       },
     ],
@@ -267,15 +280,18 @@ export const aggregatedActivitiesByFaciliatatorAndWeek = [
     key: 'role3',
     values: [
       {
-        key: 'Sun Dec 29 2019 00:00:00 GMT+0530 (IST)',
+        key:
+          'Sun Dec 29 2019 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 1, activity_minutes: 5 },
       },
       {
-        key: 'Sun Dec 08 2019 00:00:00 GMT+0530 (IST)',
+        key:
+          'Sun Dec 08 2019 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 1, activity_minutes: 5 },
       },
       {
-        key: 'Sun Dec 15 2019 00:00:00 GMT+0530 (IST)',
+        key:
+          'Sun Dec 15 2019 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 1, activity_minutes: 15 },
       },
     ],
@@ -286,11 +302,13 @@ export const aggregatedActivitiesByFaciliatatorAndMonth = [
     key: 'role2',
     values: [
       {
-        key: 'Wed Jan 01 2020 00:00:00 GMT+0530 (IST)',
+        key:
+          'Wed Jan 01 2020 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 2, activity_minutes: 40 },
       },
       {
-        key: 'Sun Dec 01 2019 00:00:00 GMT+0530 (IST)',
+        key:
+          'Sun Dec 01 2019 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 1, activity_minutes: 5 },
       },
     ],
@@ -299,11 +317,13 @@ export const aggregatedActivitiesByFaciliatatorAndMonth = [
     key: 'role3',
     values: [
       {
-        key: 'Wed Jan 01 2020 00:00:00 GMT+0530 (IST)',
+        key:
+          'Wed Jan 01 2020 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 1, activity_minutes: 5 },
       },
       {
-        key: 'Sun Dec 01 2019 00:00:00 GMT+0530 (IST)',
+        key:
+          'Sun Dec 01 2019 00:00:00 GMT+0530 (India Standard Time)',
         value: { activity_count: 2, activity_minutes: 20 },
       },
     ],
@@ -397,12 +417,12 @@ export const activitySummaryResidency = [
   },
 ];
 
-const referenceDate = moment().format('YYYY-MM-DD');
+const referenceDate = moment().format('YYYY-MM-DD HH:mm:ss');
 export const activitiesForTestingActivityLevelConditions = [
   {
     activityTypeId: '1',
     facilitatorRoleId: '2',
-    activityDate: referenceDate.toString(),
+    activityDate: referenceDate,
     residentIds: ['DmJdgv6vZQ42MFerG', 'DJJggv6vZQ42MFerG'],
     duration: 5,
   },
@@ -412,7 +432,7 @@ export const activitiesForTestingActivityLevelConditions = [
     facilitatorRoleId: '2',
     activityDate: moment(referenceDate)
       .subtract(1, 'days')
-      .toString(),
+      .format('YYYY-MM-DD HH:mm:ss'),
     residentIds: ['DmJdgv6vZQ42MFerG', 'DJJggv6vZQ42MFerG'],
     duration: 5,
   },
@@ -422,7 +442,7 @@ export const activitiesForTestingActivityLevelConditions = [
     facilitatorRoleId: '2',
     activityDate: moment(referenceDate)
       .subtract(2, 'days')
-      .toString(),
+      .format('YYYY-MM-DD HH:mm:ss'),
     residentIds: ['DJJggv6vZQ42MFerG'],
     duration: 5,
   },
@@ -432,7 +452,7 @@ export const activitiesForTestingActivityLevelConditions = [
     facilitatorRoleId: '2',
     activityDate: moment(referenceDate)
       .subtract(3, 'days')
-      .toString(),
+      .format('YYYY-MM-DD HH:mm:ss'),
     residentIds: ['DJJggv6vZQ42MFerG'],
     duration: 5,
   },
@@ -441,7 +461,7 @@ export const activitiesForTestingActivityLevelConditions = [
     facilitatorRoleId: '2',
     activityDate: moment(referenceDate)
       .subtract(4, 'days')
-      .toString(),
+      .format('YYYY-MM-DD HH:mm:ss'),
     residentIds: ['DJJggv6vZQ42MFerG'],
     duration: 5,
   },
@@ -450,7 +470,7 @@ export const activitiesForTestingActivityLevelConditions = [
     facilitatorRoleId: '2',
     activityDate: moment(referenceDate)
       .subtract(5, 'days')
-      .toString(),
+      .format('YYYY-MM-DD HH:mm:ss'),
     residentIds: ['DJJggv6vZQ42MFerG'],
     duration: 5,
   },

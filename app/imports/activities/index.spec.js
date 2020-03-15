@@ -10,10 +10,10 @@ import {
   mockInsertData,
   insertWithInvalidActivityDate,
   updateActivityObject,
-} from './mockData.tests';
-import { nonAdminUser } from '../mockData.tests';
+} from './mockData.spec';
+import { nonAdminUser } from '../mockData.spec';
 
-import { setupDbUsser, destroyDbUser } from '../utils.tests';
+import { setupDbUsser, destroyDbUser } from '../utils.spec';
 
 function _before(done) {
   /* Steps to do before executing tests */
