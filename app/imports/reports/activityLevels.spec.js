@@ -14,7 +14,7 @@ import {
   activitySummaryResidency,
   activitySummaryResident,
   activityTypes,
-} from './mockData.tests';
+} from './mockData.spec';
 
 /* Importing collection to stub */
 import { ActivitiesCollection as Activities } from '../../both/collections/activities';
@@ -26,6 +26,7 @@ if (Meteor.isServer) {
   describe('/homes - Activity levels charts', function() {
     beforeEach(function(done) {
       /* Stub */
+
       resetDatabase(null, function() {
         StubCollections.stub(Activities);
         StubCollections.stub(Residencies);
@@ -62,7 +63,7 @@ if (Meteor.isServer) {
 
     describe('checkIfResidentWasActiveOnDate', function() {
       it('Should return error if date is not provided', function(done) {
-        Meteor.call('checkIfResidentWasActiveOnDate', '222', function(
+        Meteor.call('checkIfResidentWasActiveOnDate', '12', function(
           err,
           res
         ) {
@@ -74,8 +75,8 @@ if (Meteor.isServer) {
       it('Should return false if not active', function(done) {
         Meteor.call(
           'checkIfResidentWasActiveOnDate',
-          '222',
-          new Date(),
+          '2222222',
+          '2020-01-03',
           function(err, res) {
             expect(res).to.be.eq(false);
             done();
@@ -83,11 +84,12 @@ if (Meteor.isServer) {
         );
       });
 
+
       it('Should return activity count if user was active', function(done) {
         Meteor.call(
           'checkIfResidentWasActiveOnDate',
-          '2',
-          '2020-01-03 12:00:00',
+          '12',
+          '2020-01-01 12:00:00',
           function(err, res) {
             expect(res).to.be.eq(true);
             done();
@@ -169,7 +171,6 @@ if (Meteor.isServer) {
         );
       });
     });
-
     describe('getHomeCurrentResidencies', function() {
       it('Should return all active resident its for a given home', function(done) {
         Meteor.call('getHomeCurrentResidencies', '1', function(
@@ -177,16 +178,13 @@ if (Meteor.isServer) {
           result
         ) {
           const resultWithDate = result[0];
-          resultWithDate.moveIn = new Date(
-            resultWithDate.moveIn
-          ).getTime();
 
-          expect(resultWithDate).to.contains({
-            residentId: 'BmJdgv6vZQ42MGerG',
-            homeId: '1',
-            moveIn: new Date('2020-01-09T00:00:00.000Z').getTime(),
-          });
-
+          expect(resultWithDate.residentId).to.equal(
+            'BmJdgv6vZQ42MGerG'
+          );
+          expect(resultWithDate.moveIn).to.equal(
+            '2020-01-10 00:00:00'
+          );
           done();
         });
       });
@@ -204,6 +202,7 @@ if (Meteor.isServer) {
         });
       });
     });
+
 
     describe('getHomeCurrentAndActiveResidentIds', function() {
       it('Should return all active resident ids for a given home', function(done) {
@@ -251,11 +250,10 @@ if (Meteor.isServer) {
             err,
             result
           ) {
-            expect(result).to.deep.eq({
-              inactive: 1,
-              semiActive: 1,
-              active: 1,
-            });
+            expect(result.inactive).to.eq(1);
+            expect(result.semiActive).to.eq(1);
+            expect(result.active).to.eq(1);
+
             done();
           });
         });
@@ -561,7 +559,6 @@ if (Meteor.isServer) {
         });
       });
 
-      
       describe('getHomeActivitiesFacilitatorRoleMetrics', function() {
         it('Should return activities aggregated by time having total minutes and count', function(done) {
           Meteor.call(

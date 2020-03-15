@@ -6,8 +6,8 @@ export default Meteor.methods({
 
     // Create morning and evening dates (Date objects)
     // in order to query activities for date
-    const morning = moment(date).startOf('day').toDate();
-    const evening = moment(date).endOf('day').toDate();
+    const morning = moment(date).startOf('day').format('YYYY-MM-DD HH:mm:ss');
+    const evening = moment(date).endOf('day').format('YYYY-MM-DD HH:mm:ss');
 
     // Count the number of activities recorded for the resident on the given date
     const residentActivityCountOnDate = Activities.find({

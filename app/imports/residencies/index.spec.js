@@ -15,10 +15,10 @@ import {
   updateWithInvalidResidency,
   conflictingResidencyWithoutMoveOut,
   conflictingResidencyWithMoveOut,
-} from './mockData.tests';
-import { adminUser, nonAdminUser } from '../mockData.tests';
+} from './mockData.spec';
+import { adminUser, nonAdminUser } from '../mockData.spec';
 
-import { setupDbUsser, destroyDbUser, login } from '../utils.tests';
+import { setupDbUsser, destroyDbUser, login } from '../utils.spec';
 if (Meteor.isClient) {
   Meteor.subscribe('currentUserVisibleResidencies', true);
 }
@@ -150,6 +150,7 @@ if (Meteor.isClient) {
       }, true);
     });
   });
+
 
   describe('Tests for concurrent tests', function() {
     let finalCallFlag = 0;
