@@ -12,7 +12,7 @@ import {
   aggregatedActivitiesByFaciliatatorAndWeek,
   aggregatedActivitiesByFaciliatatorAndMonth,
   activitesCollection,
-} from './mockData.tests';
+} from './mockData.spec';
 
 /* Importing collection to stub */
 import { ActivitiesCollection as Activities } from '../../both/collections/activities';

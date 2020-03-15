@@ -9,7 +9,8 @@ import {
   residentsScenario3,
   roles,
   activityTypes,
-} from './mockData.tests';
+} from './mockData.spec';
+
 
 /* Importing collection to stub */
 import { feelingsCollection as Feelings } from '../../both/collections/feelings';

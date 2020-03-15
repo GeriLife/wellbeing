@@ -8,15 +8,15 @@ import { GroupsCollection as Groups } from '../../both/collections/groups';
 import { PermissionsCollection as Permissions } from '../../both/collections/permissions';
 
 /* Import mock data variables */
-import { baseGroupObject, validResident } from './mockData.tests';
-import { adminUser, nonAdminUser } from '../mockData.tests';
+import { baseGroupObject, validResident } from './mockData.spec';
+import { adminUser, nonAdminUser } from '../mockData.spec';
 
 import {
   setupDbUsser,
   destroyDbUser,
   login,
   createManager,
-} from '../utils.tests';
+} from '../utils.spec';
 
 /* To create appropriate user for the test */
 function loginAndInsert(email, password, resident, cb) {

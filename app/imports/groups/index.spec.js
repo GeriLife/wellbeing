@@ -9,17 +9,15 @@ import {
   newGroup,
   invalidGroupName,
   adminInsertGroup,
-} from './mockData.tests';
-import { adminUser, nonAdminUser } from '../mockData.tests';
+} from './mockData.spec';
+import { adminUser, nonAdminUser } from '../mockData.spec';
 
-import { setupDbUsser, destroyDbUser, login } from '../utils.tests';
+import { setupDbUsser, destroyDbUser, login } from '../utils.spec';
 
 function _before(done, isAdmin) {
   /* Steps to do before executing tests */
   /* 1. stub Groups collection */
   StubCollections.stub([Groups]);
-
-  /* Login with a user */
   const user = isAdmin ? adminUser : nonAdminUser;
   if (!isAdmin) setupDbUsser(user, done);
   else login(user.email, user.password, done);
@@ -32,26 +30,6 @@ function _after(done, isAdmin) {
   if (!isAdmin) destroyDbUser(email, done);
   else Meteor.logout(done);
 }
-
-const promisifiedInsert = function() {
-  return new Promise(function(resolve) {
-    Groups.insert(adminInsertGroup, function(err) {
-      resolve(err.reason);
-    });
-  });
-};
-
-const promisifiedUpdate = function() {
-  return new Promise(function(resolve) {
-    Groups.update(
-      { _id: 'Group 1' },
-      { $set: { name: 'g-1' } },
-      function(err, resp) {
-        resolve(resp);
-      }
-    );
-  });
-};
 
 if (Meteor.isClient) {
   describe('Simple Group insert by admin user', function() {
@@ -81,7 +59,7 @@ if (Meteor.isClient) {
     let error;
     before(function(done) {
       _before(function() {
-        Meteor.call('addGroup', invalidGroupName, function(err) {
+        Meteor.call('addGroup', invalidGroupName, function(err, res) {
           error = err.reason;
           done();
         });
@@ -101,28 +79,28 @@ if (Meteor.isClient) {
   });
 
   describe('Do not allow non-admins to insert or update', function() {
-    let insertOutput, updateOutput;
     before(function(done) {
-      _before(function() {
-        Promise.all([promisifiedInsert(), promisifiedUpdate()]).then(
-          function(responses) {
-            insertOutput = responses[0];
-            updateOutput = responses[1];
-            done();
-          }
-        );
-      }, false);
+      _before(done, false);
     });
 
     /* Tests */
-    it('Insert should throw error', async function(done) {
-      expect(insertOutput).to.equal('Access denied');
-      done();
+    it('Insert should throw error', function(done) {
+      Groups.insert(adminInsertGroup, function(err, res) {
+        expect(err).to.exist;
+        expect(err.resson).to.equal('Access denied');
+        done();
+      });
     });
 
     it('Update should throw error', function(done) {
-      expect(updateOutput).to.equal(0);
-      done();
+      Groups.update(
+        { _id: 'Group 1' },
+        { $set: { name: 'g-1' } },
+        function(err, resp) {
+          expect(resp).to.eq(0);
+          done();
+        }
+      );
     });
     after(function(done) {
       _after(done, false);

@@ -1,9 +1,10 @@
-import { withRenderedTemplate } from '../../test-helpers.js';
+import { withRenderedTemplate } from '../../test-helpers.spec.js';
 import chai from 'chai';
 import { $ } from 'meteor/jquery';
 import '../../../client/views/report/report.html';
 import '../../../client/views/shared/reportSettings/form.html';
 import '../../../client/views/report/report.js';
+
 
 if (Meteor.isClient) {
   describe('reports', function() {

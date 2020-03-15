@@ -1,9 +1,9 @@
-import { withRenderedTemplate } from '../../test-helpers.js';
+import { withRenderedTemplate } from '../../test-helpers.spec.js';
 import chai from 'chai';
 import { $ } from 'meteor/jquery';
 import '../../../client/views/home/residents/residents.html';
 import '../../../client/views/home/residents/resident/resident.html';
-import { homesData, residentsData } from '../mockData.tests';
+import { homesData, residentsData } from '../mockData.spec';
 if (Meteor.isClient) {
   describe('Residents Table', function() {
     let homeDetails = [];

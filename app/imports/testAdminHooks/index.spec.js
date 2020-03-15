@@ -18,10 +18,10 @@ import {
   ActivityTypesBaseObject,
   SettingsBaseObject,
   UserEventLogBaseObject,
-} from './mockData.tests';
-import { adminUser, nonAdminUser } from '../mockData.tests';
+} from './mockData.spec';
+import { adminUser, nonAdminUser } from '../mockData.spec';
 
-import { setupDbUsser, destroyDbUser, login } from '../utils.tests';
+import { setupDbUsser, destroyDbUser, login } from '../utils.spec';
 
 /* Crud operations */
 

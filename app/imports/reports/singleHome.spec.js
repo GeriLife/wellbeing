@@ -5,7 +5,7 @@ import {
   residencyData,
   homesData,
   residentsScenario2,
-} from './mockData.tests';
+} from './mockData.spec';
 import { expect } from 'chai';
 
 /* Importing collection to stub */
@@ -71,6 +71,7 @@ if (Meteor.isServer) {
         Meteor.call(
           'getResidentRecentActiveDays',
           'DmJdgv6vZQ42MFerG',
+          
           function(err, result) {
             expect(result.length).to.eq(7);
             expect(
