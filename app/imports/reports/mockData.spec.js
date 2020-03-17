@@ -43,14 +43,14 @@ export const activitesCollection = [
   {
     activityTypeId: '1',
     facilitatorRoleId: '2',
-    activityDate: '2020-01-01 12:00:00',
+    activityDate: new Date('2020-01-01 12:00:00'),
     residentIds: ['2', '23', '12', '5', '34', '77'],
     duration: 5,
   },
   {
     activityTypeId: '1',
     facilitatorRoleId: '3',
-    activityDate: '2020-01-03 12:00:00',
+    activityDate: new Date('2020-01-03 12:00:00'),
     residentIds: ['2', '42', '12', '5', '5', '77'],
     duration: 5,
   },
@@ -58,7 +58,7 @@ export const activitesCollection = [
   {
     activityTypeId: '3',
     facilitatorRoleId: '2',
-    activityDate: '2020-01-08 12:00:00',
+    activityDate: new Date('2020-01-08 12:00:00'),
     residentIds: ['5', '7', '77'],
     duration: 35,
   },
@@ -66,7 +66,7 @@ export const activitesCollection = [
   {
     activityTypeId: '2',
     facilitatorRoleId: '3',
-    activityDate: '2019-12-08 12:00:00',
+    activityDate: new Date('2019-12-08 12:00:00'),
     residentIds: ['2', '44', '7', '21'],
     duration: 5,
   },
@@ -74,7 +74,7 @@ export const activitesCollection = [
   {
     activityTypeId: '3',
     facilitatorRoleId: '2',
-    activityDate: '2019-12-12 12:00:00',
+    activityDate: new Date('2019-12-12 12:00:00'),
     residentIds: ['1', '3', '78', '77', '5', '7'],
     duration: 5,
   },
@@ -82,7 +82,7 @@ export const activitesCollection = [
   {
     activityTypeId: '1',
     facilitatorRoleId: '3',
-    activityDate: '2019-12-21 12:00:00',
+    activityDate: new Date('2019-12-21 12:00:00'),
     residentIds: ['2', '44', '12', '5', '7', '77'],
     duration: 15,
   },
@@ -122,7 +122,7 @@ export const annotatedActivites = [
     facilitatorRoleId: '2',
     activityTypeName: 'type1',
     facilitatorName: 'role2',
-    activityDate: '2020-01-01 12:00:00',
+    activityDate: moment('2020-01-01 12:00:00').toDate(),
     duration: 5,
   },
   {
@@ -130,7 +130,7 @@ export const annotatedActivites = [
     facilitatorRoleId: '3',
     activityTypeName: 'type1',
     facilitatorName: 'role3',
-    activityDate: '2020-01-03 12:00:00',
+    activityDate: moment('2020-01-03 12:00:00').toDate(),
     duration: 5,
   },
 
@@ -139,7 +139,7 @@ export const annotatedActivites = [
     facilitatorRoleId: '2',
     activityTypeName: 'type3',
     facilitatorName: 'role2',
-    activityDate: '2020-01-08 12:00:00',
+    activityDate: moment('2020-01-08 12:00:00').toDate(),
     duration: 35,
   },
 
@@ -148,7 +148,7 @@ export const annotatedActivites = [
     facilitatorRoleId: '3',
     activityTypeName: 'type2',
     facilitatorName: 'role3',
-    activityDate: '2019-12-08 12:00:00',
+    activityDate: moment('2019-12-08 12:00:00').toDate(),
     duration: 5,
   },
 
@@ -157,7 +157,7 @@ export const annotatedActivites = [
     facilitatorRoleId: '2',
     activityTypeName: 'type3',
     facilitatorName: 'role2',
-    activityDate: '2019-12-12 12:00:00',
+    activityDate: moment('2019-12-12 12:00:00').toDate(),
     duration: 5,
   },
 
@@ -166,7 +166,7 @@ export const annotatedActivites = [
     facilitatorRoleId: '3',
     activityTypeName: 'type1',
     facilitatorName: 'role3',
-    activityDate: '2019-12-21 12:00:00',
+    activityDate: moment('2019-12-21 12:00:00').toDate(),
     duration: 15,
   },
 ];
@@ -334,33 +334,33 @@ export const residencyData = [
   {
     residentId: '1',
     homeId: '1',
-    moveIn: '2019-01-30 00:00:00',
-    moveOut: '2019-02-28 00:00:00',
+    moveIn: new Date('2019-01-30 00:00:00'),
+    moveOut: new Date('2019-02-28 00:00:00'),
   },
   {
     residentId: 'BmJdgv6vZQ42MGerG',
     homeId: '1',
-    moveIn: '2020-01-10 00:00:00',
+    moveIn: new Date('2020-01-10 00:00:00'),
   },
   {
     residentId: 'LmJdgv6vZQ42MFerG',
     homeId: '12',
-    moveIn: '2020-01-12 00:00:00',
+    moveIn: new Date('2020-01-12 00:00:00'),
   },
   {
     residentId: 'LmJgdv6vZQ42MFerG',
     homeId: '112',
-    moveIn: '2020-01-04 00:00:00',
+    moveIn: new Date('2020-01-04 00:00:00'),
   },
   {
     residentId: 'DmJdgv6vZQ42MFerG',
     homeId: '112',
-    moveIn: '2020-01-04 00:00:00',
+    moveIn: new Date('2020-01-04 00:00:00'),
   },
   {
     residentId: 'DJJggv6vZQ42MFerG',
     homeId: '112',
-    moveIn: '2020-01-04 00:00:00',
+    moveIn: new Date('2020-01-04 00:00:00'),
   },
 ];
 
@@ -413,11 +413,11 @@ export const activitySummaryResidency = [
   {
     residentId: 'activityTestResId',
     homeId: '1',
-    moveIn: '2019-01-30 00:00:00',
+    moveIn: new Date('2019-01-30 00:00:00'),
   },
 ];
 
-const referenceDate = moment().format('YYYY-MM-DD HH:mm:ss');
+const referenceDate = moment().toDate();
 export const activitiesForTestingActivityLevelConditions = [
   {
     activityTypeId: '1',
@@ -432,7 +432,7 @@ export const activitiesForTestingActivityLevelConditions = [
     facilitatorRoleId: '2',
     activityDate: moment(referenceDate)
       .subtract(1, 'days')
-      .format('YYYY-MM-DD HH:mm:ss'),
+      .toDate(),
     residentIds: ['DmJdgv6vZQ42MFerG', 'DJJggv6vZQ42MFerG'],
     duration: 5,
   },
@@ -442,7 +442,7 @@ export const activitiesForTestingActivityLevelConditions = [
     facilitatorRoleId: '2',
     activityDate: moment(referenceDate)
       .subtract(2, 'days')
-      .format('YYYY-MM-DD HH:mm:ss'),
+      .toDate(),
     residentIds: ['DJJggv6vZQ42MFerG'],
     duration: 5,
   },
@@ -452,7 +452,7 @@ export const activitiesForTestingActivityLevelConditions = [
     facilitatorRoleId: '2',
     activityDate: moment(referenceDate)
       .subtract(3, 'days')
-      .format('YYYY-MM-DD HH:mm:ss'),
+      .toDate(),
     residentIds: ['DJJggv6vZQ42MFerG'],
     duration: 5,
   },
@@ -461,7 +461,7 @@ export const activitiesForTestingActivityLevelConditions = [
     facilitatorRoleId: '2',
     activityDate: moment(referenceDate)
       .subtract(4, 'days')
-      .format('YYYY-MM-DD HH:mm:ss'),
+      .toDate(),
     residentIds: ['DJJggv6vZQ42MFerG'],
     duration: 5,
   },
@@ -470,7 +470,7 @@ export const activitiesForTestingActivityLevelConditions = [
     facilitatorRoleId: '2',
     activityDate: moment(referenceDate)
       .subtract(5, 'days')
-      .format('YYYY-MM-DD HH:mm:ss'),
+      .toDate(),
     residentIds: ['DJJggv6vZQ42MFerG'],
     duration: 5,
   },
