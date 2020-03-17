@@ -182,8 +182,8 @@ if (Meteor.isServer) {
           expect(resultWithDate.residentId).to.equal(
             'BmJdgv6vZQ42MGerG'
           );
-          expect(resultWithDate.moveIn).to.equal(
-            '2020-01-10 00:00:00'
+          expect(new Date(resultWithDate.moveIn).getTime()).to.equal(
+            new Date('2020-01-10 00:00:00').getTime()
           );
           done();
         });
