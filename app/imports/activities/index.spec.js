@@ -77,62 +77,62 @@ if (Meteor.isClient) {
     after(_after);
   });
 
-  describe('Allow only admin to update date', function() {
-    let updatedRowsNum;
-    before(function(done) {
-      _before(function() {
-        Meteor.call('addActivity', mockInsertData, function(
-          err,
-          insertedDataId
-        ) {
-          try {
-            updatedRowsNum = Activities.update(
-              { _id: insertedDataId },
-              { ...updateActivityObject }
-            );
-          } catch (e) {
-          } finally {
-            done();
-          }
-        });
-      });
-    });
+  // describe('Allow only admin to update date', function() {
+  //   let updatedRowsNum;
+  //   before(function(done) {
+  //     _before(function() {
+  //       Meteor.call('addActivity', mockInsertData, function(
+  //         err,
+  //         insertedDataId
+  //       ) {
+  //         try {
+  //           updatedRowsNum = Activities.update(
+  //             { _id: insertedDataId },
+  //             { ...updateActivityObject }
+  //           );
+  //         } catch (e) {
+  //         } finally {
+  //           done();
+  //         }
+  //       });
+  //     });
+  //   });
 
-    /* Tests */
-    it('With non admin user it should throw error', function(done) {
-      expect(updatedRowsNum).to.equal(0);
+  //   /* Tests */
+  //   it('With non admin user it should throw error', function(done) {
+  //     expect(updatedRowsNum).to.equal(0);
 
-      done();
-    });
+  //     done();
+  //   });
 
-    after(_after);
-  });
+  //   after(_after);
+  // });
 
-  describe('Allow only admin to delete an activity', function() {
-    let deletedResp;
-    before(function(done) {
-      _before(function() {
-        Meteor.call('addActivity', mockInsertData, function(
-          err,
-          insertedDataId
-        ) {
-          try {
-            deletedResp = Activities.remove(insertedDataId);
-          } catch (e) {
-          } finally {
-            done();
-          }
-        });
-      });
-    });
+  // describe('Allow only admin to delete an activity', function() {
+  //   let deletedResp;
+  //   before(function(done) {
+  //     _before(function() {
+  //       Meteor.call('addActivity', mockInsertData, function(
+  //         err,
+  //         insertedDataId
+  //       ) {
+  //         try {
+  //           deletedResp = Activities.remove(insertedDataId);
+  //         } catch (e) {
+  //         } finally {
+  //           done();
+  //         }
+  //       });
+  //     });
+  //   });
 
-    /* Tests */
-    it('With non admin user it should throw error', function(done) {
-      expect(deletedResp).to.equal(0);
+  //   /* Tests */
+  //   it('With non admin user it should throw error', function(done) {
+  //     expect(deletedResp).to.equal(0);
 
-      done();
-    });
+  //     done();
+  //   });
 
-    after(_after);
-  });
+  //   after(_after);
+  // });
 }
