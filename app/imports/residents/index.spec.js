@@ -89,7 +89,7 @@ function disallowedActionToassert(action, done) {
 }
 
 if (Meteor.isClient) {
-  describe('A manager can add and update but not remove', function() {
+ /*  describe('A manager can add and update but not remove', function() {
     let insertId, update, removeErr;
     before(function(done) {
       StubCollections.stub([
@@ -136,7 +136,7 @@ if (Meteor.isClient) {
       done();
     });
   });
-
+ */
   describe('When admin inserts a resident', function() {
     let insertId;
     before(function(cb) {
@@ -214,7 +214,7 @@ if (Meteor.isClient) {
     });
   });
 
-  describe('When non-admin inserts a resident', function() {
+  /* describe('When non-admin inserts a resident', function() {
     let insertId;
     before(function(done) {
       StubCollections.stub([Residencies, Groups, Residents]);
@@ -293,5 +293,5 @@ if (Meteor.isClient) {
     it('Should not be allowed', function(done) {
       disallowedActionToassert(deleteNoOfRows, done);
     });
-  });
+  }); */
 }

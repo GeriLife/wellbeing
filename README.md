@@ -96,10 +96,11 @@ This command will start a server on port 8000. It is better to run `npm i` if th
 Server code must be tested on server using `Meteor.isServer` flag. Code running in the `if` constructs of `Meteor.isServer` will show results on the console. For the others, `Meteor.isClient` must be used and they can be evaluated in the browser on `http://localhost:8000`.
 
 ## Coverage 
-Coverage can be found at `http://localhost:8000/coverage`. This will show the coverage for server files. To get the coverage for client,
+Coverage can be found at `http://localhost:8000/coverage` on the browser. This will show the coverage for server files.
+<!-- To get the coverage for client,
 1. Open the developer-tools console at `http://localhost:8000` in your preferred browser.
 2. Run this command `Meteor.sendCoverage(function(stats,nbErr) {console.log(stats,nbErr);});`
-3. Now if `http://localhost:8000/coverage` is reloaded the coverage for client is visible.
+3. Now if `http://localhost:8000/coverage` is reloaded the coverage for client is visible. -->
 
 Please note that the server for tests is started in watch mode so that client tests can be evaluated on the browser. These tests take 2 runs to get the correct results due to some issues with the underlying babel nyc module. Here's what can be done:
 1. start the server.
