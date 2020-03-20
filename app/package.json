@@ -16,7 +16,10 @@
               "exclude": [
                 "both/**"
               ],
-              "exclude-after-remap": false
+              "exclude-after-remap": false,
+              "collectCoverageFrom": [
+                "packages/**/src/*.js"
+              ]
             }
           ]
         ]
@@ -46,7 +49,7 @@
     "babel-plugin-istanbul": "^6.0.0"
   },
   "scripts": {
-    "test": "BABEL_ENV=COVERAGE COVERAGE=1 COVERAGE_VERBOSE=1 COVERAGE_APP_FOLDER=$PWD/ TEST_WATCH=1 meteor test --driver-package meteortesting:mocha --port 8000"
+    "test": "BABEL_ENV=COVERAGE COVERAGE=1 COVERAGE_APP_FOLDER=$PWD/ TEST_WATCH=1 meteor test --driver-package meteortesting:mocha --port 8000"
   },
   "repository": {
     "type": "git",
