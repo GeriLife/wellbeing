@@ -1,0 +1,13 @@
+{
+  "checks": {
+    "file-lines": {
+      "enabled": false
+    },
+    "method-lines": {
+      "enabled": false
+    },
+    "identical-code": {
+      "enabled": false
+    }
+  }
+}
