@@ -24,6 +24,9 @@ Groups.allow({
   },
   update () {
     return false;
+  },
+  remove () {
+    return false;
   }
 });
 
