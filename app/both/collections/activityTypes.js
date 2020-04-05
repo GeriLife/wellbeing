@@ -5,72 +5,51 @@ ActivityTypes = new Mongo.Collection('activityTypes');
 
 var ActivityTypesSchema = new SimpleSchema({
   name: {
-    type: String
-  }
+    type: String,
+  },
 });
 
 ActivityTypes.allow({
-  insert () {
-    // Get current user ID
-    const currentUserId = Meteor.userId();
-
-    // Chack if user is administrator
-    const userIsAdmin = Roles.userIsInRole(currentUserId, 'admin');
-
-    // Only Admin user can insert
-    return userIsAdmin;
+  insert() {
+    return false;
   },
-  remove () {
-    // Get current user ID
-    const currentUserId = Meteor.userId();
-
-    // Chack if user is administrator
-    const userIsAdmin = Roles.userIsInRole(currentUserId, 'admin');
-
-    // Only Admin user can remove
-    return userIsAdmin;
+  remove() {
+    return false;
   },
-  update () {
-    // Get current user ID
-    const currentUserId = Meteor.userId();
-
-    // Chack if user is administrator
-    const userIsAdmin = Roles.userIsInRole(currentUserId, 'admin');
-
-    // Only Admin user can update
-    return userIsAdmin;
-  }
+  update() {
+    return false;
+  },
 });
 
 ActivityTypes.attachSchema(ActivityTypesSchema);
 
-ActivityTypes.after.insert(function (userId, activityType) {
+ActivityTypes.after.insert(function(userId, activityType) {
   // Add event log
   UserEventLog.insert({
     userId,
     action: 'insert',
     entityType: 'activityType',
     entityId: activityType._id,
-  })
+  });
 });
 
-ActivityTypes.after.update(function (userId, activityType) {
+ActivityTypes.after.update(function(userId, activityType) {
   // Add event log
   UserEventLog.insert({
     userId,
     action: 'update',
     entityType: 'activityType',
     entityId: activityType._id,
-  })
+  });
 });
 
-ActivityTypes.after.remove(function (userId, activityType) {
+ActivityTypes.after.remove(function(userId, activityType) {
   // Add event log
   UserEventLog.insert({
     userId,
     action: 'remove',
     entityType: 'activityType',
     entityId: activityType._id,
-  })
+  });
 });
-export const ActivityTypesCollection = ActivityTypes
+export const ActivityTypesCollection = ActivityTypes;

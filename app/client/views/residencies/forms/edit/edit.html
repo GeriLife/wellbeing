@@ -15,7 +15,7 @@
           {{# if residency }}
           {{#unless addNewResidencyClicked}}
 
-          {{#autoForm id="editResidencyForm" type="update" collection="Residencies" doc=residency }}
+          {{#autoForm id="editResidencyForm" type="method-update" meteormethod="editResidency" collection="Residencies" doc=residency }}
 
           <label for="residentId">
             {{_ "residencies.residentId.label" }}

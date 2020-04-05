@@ -21,10 +21,12 @@ Template.activityForm.helpers({
     const activityTypes = ActivityTypes.find().fetch();
 
     // Create an options array of activity types with label and value pairs
-    const activityTypesOptions = _.map(activityTypes, function(activityType) {
+    const activityTypesOptions = _.map(activityTypes, function(
+      activityType
+    ) {
       return {
         label: activityType.name,
-        value: activityType._id
+        value: activityType._id,
       };
     });
 
@@ -32,7 +34,9 @@ Template.activityForm.helpers({
   },
   facilitatorRoleIdOptions() {
     // Get all roles, except admin, from db
-    const roles = Meteor.roles.find({ name: { $not: "admin" } }).fetch();
+    const roles = Meteor.roles
+      .find({ name: { $not: 'admin' } })
+      .fetch();
 
     // Create an options array of roles with label (name) and value (id) pairs
     const rolesOptions = _.map(roles, function(role) {
@@ -40,7 +44,7 @@ Template.activityForm.helpers({
       // Return role name and ID object
       return {
         label: role.name,
-        value: role._id
+        value: role._id,
       };
     });
 
@@ -53,17 +57,17 @@ Template.activityForm.helpers({
     // Check if current activity is available
     if (templateInstance.data && templateInstance.data.activity) {
       // form type is 'update'
-      return "update";
+      return 'method-update';
     }
 
     // Default form type is 'insert'
-    return "insert";
+    return 'method';
   },
   residentsSelectOptions() {
     const templateInstance = Template.instance();
 
     return templateInstance.residentOptions.get();
-  }
+  },
 });
 
 Template.activityForm.events({

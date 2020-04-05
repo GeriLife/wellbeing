@@ -9,10 +9,10 @@ Template.groupModal.helpers({
     // Check if group was passed in to template
     if (group) {
       // update existing group
-      formType = 'update';
+      formType = 'method-update';
     } else {
       // insert new group
-      formType = 'insert';
+      formType = 'method';
     }
 
     return formType;

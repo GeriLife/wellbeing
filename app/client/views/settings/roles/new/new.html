@@ -9,7 +9,7 @@
             {{_ "newRole-header" }}
            </h4>
         </div>
-        {{# autoForm id="newRoleForm" type="insert" collection="Meteor.roles"  }}
+        {{# autoForm id="newRoleForm" type="method" meteormethod="addRole" collection="Meteor.roles"  }}
 
         <div class="modal-body">
           <label for="name">

@@ -1,5 +1,10 @@
+import { isCurrentUserAdmin } from '../utils/user';
+
 Meteor.methods({
   addSingleUserPermissions(userId, groupIds) {
+    if (!isCurrentUserAdmin()) {
+      throw new Meteor.Error(500, 'Operation not allowed');
+    }
     // Remove existing user permissions
     Permissions.remove({ userId });
 

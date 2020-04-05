@@ -1,7 +1,7 @@
 <template name="activityForm">
   {{> flashMessages}}
   {{#if residentsSelectOptions }}
-    {{# autoForm id="activityForm" type=formType collection="Activities" doc=activity }}
+    {{# autoForm id="activityForm" type=formType collection="Activities" meteormethod="saveActivity" doc=activity }}
       <div class="modal-body">
         <label for="activityTypeId">
           {{_ 'activities.residentIds.label'}}

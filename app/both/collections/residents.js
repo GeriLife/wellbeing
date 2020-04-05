@@ -104,43 +104,14 @@ Residents.helpers({
 });
 
 Residents.allow({
-  insert: function(userId, doc) {
-    const schemaType = 'resident';
-    const action = 'insert';
-
-    return checkUserPermissions({ schemaType, action, userId, doc });
+  insert: function() {
+    return false;
   },
-  update: function(userId, doc) {
-    const schemaType = 'resident';
-    const action = 'update';
-    const residentId = doc._id;
-
-    /* Get an active residency for a given resident */
-    const activeResidency = getActiveResidency(residentId);
-    doc.homeId = '';
-    if (activeResidency) {
-      doc.homeId = activeResidency.homeId;
-    }
-
-    return checkUserPermissions({
-      schemaType,
-      action,
-      userId,
-      doc,
-    });
+  update: function() {
+    return false;
   },
-  remove: function(userId, doc) {
-    const schemaType = 'resident';
-    const action = 'remove';
-    const { _id } = doc;
-
-    /* Get an active residency for a given resident */
-    const activeResidency = getActiveResidency(_id);
-    doc.homeId = '';
-    if (activeResidency) {
-      doNotTrack.homeId = activeResidency.homeId;
-    }
-    return checkUserPermissions({ schemaType, action, userId, doc });
+  remove: function() {
+    return false;
   },
 });
 

@@ -1,3 +1,5 @@
+import { isCurrentUserAdmin } from '../utils/user';
+
 Meteor.methods({
   addUser (user) {
     // Add new user
@@ -6,6 +8,9 @@ Meteor.methods({
     return userId;
   },
   addUsersAndSendEnrollmentEmails (enrollmentDocument) {
+    if (!isCurrentUserAdmin()) {
+      throw new Meteor.Error(500, 'Operation not allowed');
+    }
     // original example: https://stackoverflow.com/a/16098693/1191545
 
     // Make sure mail configuration is present
@@ -91,7 +96,6 @@ Meteor.methods({
     if (deactivateOn) {
       objectToSet.$set.deactivateOn = deactivateOn;
     } else {
-      
       /* When the deactive date is emptied */
       objectToSet.$unset = { deactivateOn: true };
     }
@@ -104,9 +108,6 @@ Meteor.methods({
     } catch (e) {
       throw new Meteor.Error(500, e.toString());
     }
-
-    
-
     return userId;
   },
   removeUserFromAdminRole (userId) {

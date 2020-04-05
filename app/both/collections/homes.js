@@ -3,12 +3,15 @@ import UserEventLog from '/both/collections/userEventLog';
 
 Homes = new Mongo.Collection('homes');
 
-var HomesSchema = new SimpleSchema({
+const HomesSchema = new SimpleSchema({
   name:{
     type:String
   },
   groupId: {
     type: String,
+    custom(){
+      return !!this.docId ? 'notAllowed' : undefined;
+    }
   }
 });
 
@@ -29,11 +32,14 @@ Homes.helpers({
 
 Homes.allow({
   insert: function () {
-    return true;
+    return false;
   },
   update: function () {
-    return true;
-  }
+    return false;
+  },
+  remove: function () {
+    return false;
+  },
 });
 
 Homes.after.insert(function (userId, home) {
