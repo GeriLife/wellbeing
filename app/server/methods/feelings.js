@@ -3,6 +3,7 @@ Methods related to resident Feelings
 */
 
 import d3 from 'd3';
+import { isCurrentUserAdmin } from '../utils/user';
 
 Meteor.methods({
   getFeelingsCountsByResidentId (residentId) {
@@ -10,7 +11,7 @@ Meteor.methods({
     const residentFeelings = Feelings.find({ residentId }).fetch();
 
     // Get counts of feelings grouped by type
-    const feelingsCounts = d3.nest()
+    return d3.nest()
       // each resident feeling observation has a 'feeling' field
       // group observations by value of 'feeling'
       .key(function (residentFeeling) { return residentFeeling.feeling })
@@ -19,14 +20,13 @@ Meteor.methods({
       // pass resident feelings into D3 nest/rollup
       .entries(residentFeelings);
 
-    return feelingsCounts;
   },
   getFeelingsPercentagesByResidentId (residentId) {
     // Get all feelings observations for resident
     const residentFeelings = Feelings.find({ residentId }).fetch();
 
     // Get counts of feelings grouped by type
-    const feelingsCounts = d3.nest()
+    return d3.nest()
       // each resident feeling observation has a 'feeling' field
       // group observations by value of 'feeling'
       .key(function (residentFeeling) { return residentFeeling.feeling })
@@ -34,7 +34,12 @@ Meteor.methods({
       .rollup(function (aggregateFeelings) { return aggregateFeelings.length / residentFeelings.length })
       // pass resident feelings into D3 nest/rollup
       .entries(residentFeelings);
+  },
 
-    return feelingsCounts;
+  addFeeling(feelingData){
+    if (!isCurrentUserAdmin()) {
+      throw new Meteor.Error(500, 'Operation not allowed');
+    }
+    return Feelings.insert(feelingData);
   }
 });

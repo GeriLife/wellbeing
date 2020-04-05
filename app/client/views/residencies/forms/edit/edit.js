@@ -1,4 +1,6 @@
-Template.editResidencyModal.onCreated(function() {
+import moment from 'moment';
+
+Template.editResidencyModal.onCreated(function () {
   // Get reference to template instance
   const templateInstance = this;
 
@@ -8,6 +10,7 @@ Template.editResidencyModal.onCreated(function() {
   // reactive placeholder for home select options with groups
   templateInstance.homeSelectOptionsWithGroups = new ReactiveVar();
   templateInstance.addNewResidencyClicked = new ReactiveVar(false);
+  templateInstance.newResidency = new ReactiveVar(null);
 
   Meteor.call(
     'getAllResidentSelectOptions',
@@ -48,29 +51,7 @@ Template.editResidencyModal.helpers({
   },
   newResidency() {
     const templateInstance = Template.instance();
-
-    if (templateInstance.data.residency) {
-      const {
-        residentId,
-        moveIn,
-        _id,
-      } = templateInstance.data.residency;
-      /* 
-      Check if movein date of current residency is after current date. If so 
-      set the move out date to that very very day (= current moveIn date). In all other cases,
-      set the move out date to today's date.
-      */
-      const newMoveIn =
-        moveIn.getTime() > new Date().getTime() ? moveIn : new Date();
-
-      Residencies.update({ _id }, { $set: { moveOut: newMoveIn } });
-      const newResidency = {
-        residentId,
-        newMoveIn,
-        oldResidencyId: _id,
-      };
-      return newResidency;
-    }
+    return templateInstance.newResidency.get();
   },
   addNewResidencyClicked() {
     return Template.instance().addNewResidencyClicked.get();
@@ -91,14 +72,64 @@ Template.editResidencyModal.helpers({
 
     return () => {
       const { _id } = parentTemplate.data.residency;
-      parentTemplate.addNewResidencyClicked.set(false);
-      Residencies.update({ _id }, { $unset: { moveOut: true } });
+      Meteor.call(
+        'editResidency',
+        { _id, modifier: { $unset: { moveOut: true } } },
+        function (err) {
+          if (err) {
+            FlashMessages.clear();
+            FlashMessages.sendError(
+              '<i class="fa fa-error"></i> ' + err.message,
+              { autoHide: true, hideDelay: 3000 }
+            );
+            return;
+          }
+          parentTemplate.addNewResidencyClicked.set(false);
+        }
+      );
     };
   },
 });
 
 Template.editResidencyModal.events({
   'click .add-new-residency-link'(event, templateInstance) {
-    Template.instance().addNewResidencyClicked.set(true);
+    if (templateInstance.data.residency) {
+      const {
+        residentId,
+        moveIn,
+        _id,
+      } = templateInstance.data.residency;
+      /* 
+      Check if move-in date of current residency is after current date. If so 
+      set the move out date to that very very day (= current moveIn date). In all other cases,
+      set the move out date to today's date.
+      */
+      const newMoveIn =
+        moveIn.getTime() > new Date().getTime()
+          ? moment(moveIn).utc().format()
+          : moment().utc().format();
+
+      Meteor.call(
+        'editResidency',
+        { _id, modifier: { $set: { moveOut: newMoveIn } } },
+        function (err) {
+          if (err) {
+            FlashMessages.clear();
+            FlashMessages.sendError(
+              '<i class="fa fa-error"></i> ' + err.message,
+              { autoHide: true, hideDelay: 3000 }
+            );
+            return;
+          }
+          const newResidency = {
+            residentId,
+            newMoveIn,
+            oldResidencyId: _id,
+          };
+          templateInstance.newResidency.set(newResidency);
+          templateInstance.addNewResidencyClicked.set(true);
+        }
+      );
+    }
   },
 });

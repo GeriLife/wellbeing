@@ -2,9 +2,8 @@
   {{#if residency.residentId}}
   <p>{{_ "residencies.previousEndTime"}} {{ residency.newMoveIn }}</p>
   {{/if}}
-  
   <!-- Form -->
-  {{#autoForm id="addResidencyForExistingResident" type="insert" collection="Residencies" doc=residency}}
+  {{#autoForm id="addResidencyForExistingResident" type="method" meteormethod="addNewResidencyWithExistingResident" collection="Residencies" doc=residency}}
   <label for="residentId">
     {{_ "residencies.residentId.label" }}
   </label>

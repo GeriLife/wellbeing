@@ -1,6 +1,154 @@
 import newResidentAndResidencySchema from '/both/schemas/newResidentAndResidencySchema';
 import { checkUserPermissions } from '/both/utils';
 
+function addNewResidencyWithExistingResident(residencyInfo) {
+  const schemaType = 'residency';
+  const action = 'insert';
+  const isOperationAllowed = checkUserPermissions({
+    schemaType,
+    action,
+    userId: Meteor.userId(),
+    doc: residencyInfo,
+  });
+
+  if (!isOperationAllowed) {
+    throw Meteor.Error(500, 'Operation is not allowed');
+  }
+
+  return Residencies.insert(residencyInfo);
+}
+
+function editResidency({ _id, modifier }) {
+  const schemaType = 'residency';
+  const action = 'update';
+  const residency = Residencies.findOne({
+    $and: [
+      {
+        _id,
+      },
+      {
+        moveOut: {
+          $exists: true,
+        },
+      },
+    ],
+  });
+
+  const hasDeparted = !residency ? false : true;
+  const isOperationAllowed = checkUserPermissions({
+    schemaType,
+    action,
+    userId: Meteor.userId(),
+    doc: modifier.$set,
+    hasDeparted,
+  });
+
+  if (!isOperationAllowed) {
+    throw Meteor.Error(500, 'Operation not allowed');
+  }
+
+  return Residencies.update({ _id }, modifier);
+}
+
+// ToDo: enhance cases
+function buildConditionWhenMoveOutExists({ moveOut, moveIn }) {
+  const otherActiveResidencyDuringCurrent = {
+    $or: [],
+  };
+
+  //If a residency starts or end during current
+  /*
+  Existing Residency => |------
+  Current Record => o------
+  Cases:
+  |-------------|   |--------------|
+                 |--|
+        o----------------------o
+  */
+  otherActiveResidencyDuringCurrent['$or'].push({
+    $or: [
+      {
+        $and: [
+          { moveOut: { $gte: moveIn } },
+          { moveOut: { $lte: moveOut } },
+        ],
+      },
+      {
+        $and: [
+          { moveIn: { $gte: moveIn } },
+          { moveIn: { $lte: moveOut } },
+        ],
+      },
+    ],
+  });
+
+  // If a current record is during another residency or it overlaps an active Residency
+  /*
+  Existing Residnecy => |------
+  Current Record => o------
+  Cases:
+  |-------------------------------|
+            |-------------------------
+  |----------------------------
+        o---------------o
+  */
+  otherActiveResidencyDuringCurrent['$or'].push({
+    $and: [
+      { moveIn: { $lt: moveOut } },
+      {
+        $or: [
+          { moveOut: { $gte: moveOut } },
+          { moveOut: { $exists: false } },
+        ],
+      },
+    ],
+  });
+  return otherActiveResidencyDuringCurrent;
+}
+
+function buildConditionWhenMoveOutNotExists(moveIn) {
+  const otherActiveResidencyDuringCurrent = {
+    $or: [],
+  };
+  // If a residency ends after this moveIn
+  /*
+  Existing Residnecy => |------
+  Current Record => o------
+  Cases:
+  |------------------|
+      o-----------------------
+  */
+  otherActiveResidencyDuringCurrent['$or'].push({
+    moveOut: { $gt: moveIn },
+  });
+
+  // If a residency starts after current moveIn
+  /*
+  Existing Residnecy => |------
+  Current Record => o------
+  Cases:
+            |------------------|
+        |------------------------
+      o-----------------------
+  */
+  otherActiveResidencyDuringCurrent['$or'].push({
+    moveIn: { $gte: moveIn },
+  });
+
+  // If there already exists an active residency
+  /*
+  Existing Residnecy => |------
+  Current Record => o------
+  Cases:
+  |----------------------
+      o-----------------------
+  */
+  otherActiveResidencyDuringCurrent['$or'].push({
+    moveOut: { $exists: false },
+  });
+  return otherActiveResidencyDuringCurrent;
+}
+
 export default Meteor.methods({
   addNewResidentAndResidency(document) {
     const userId = Meteor.userId();
@@ -19,6 +167,8 @@ export default Meteor.methods({
     // set up validation context based on new resident and residency schama
     const validationContext = newResidentAndResidencySchema.newContext();
 
+
+    //check user permission
     // Check if submitted document is valid
     const documentIsValid = validationContext.validate(document);
     if (documentIsValid) {
@@ -141,6 +291,7 @@ export default Meteor.methods({
       ...condition,
       ...otherActiveResidencyDuringCurrent,
     };
+    console.log("here::",JSON.stringify(condition),Residencies.find(condition).fetch())
     const activeResidencies = Residencies.find(condition).count();
     return activeResidencies > 0;
   },
@@ -161,102 +312,6 @@ export default Meteor.methods({
 
     return Meteor.call('isHomeManagedByUser', { userId, homeId });
   },
+  addNewResidencyWithExistingResident,
+  editResidency
 });
-
-function buildConditionWhenMoveOutExists({ moveOut, moveIn }) {
-  const otherActiveResidencyDuringCurrent = {
-    $or: [],
-  };
-
-  //If a residency starts or end during cuurrent
-  /*
-  Existing Residnecy => |------
-  Current Record => o------
-  Cases:
-  |-------------|   |--------------|
-                 |--|
-        o----------------------o
-  */
-  otherActiveResidencyDuringCurrent['$or'].push({
-    $or: [
-      {
-        $and: [
-          { moveOut: { $gte: moveIn } },
-          { moveOut: { $lte: moveOut } },
-        ],
-      },
-      {
-        $and: [
-          { moveIn: { $gte: moveIn } },
-          { moveIn: { $lte: moveOut } },
-        ],
-      },
-    ],
-  });
-
-  // If a current record is during another residency or it overlaps an active Residency
-  /*
-  Existing Residnecy => |------
-  Current Record => o------
-  Cases:
-  |-------------------------------|
-            |-------------------------
-  |----------------------------
-        o---------------o
-  */
-  otherActiveResidencyDuringCurrent['$or'].push({
-    $and: [
-      { moveIn: { $lt: moveOut } },
-      {
-        $or: [
-          { moveOut: { $gte: moveOut } },
-          { moveOut: { $exists: false } },
-        ],
-      },
-    ],
-  });
-  return otherActiveResidencyDuringCurrent;
-}
-
-function buildConditionWhenMoveOutNotExists(moveIn) {
-  const otherActiveResidencyDuringCurrent = {
-    $or: [],
-  };
-  // If a residency ends after this moveIn
-  /*
-  Existing Residnecy => |------
-  Current Record => o------
-  Cases:
-  |------------------|
-      o-----------------------
-  */
-  otherActiveResidencyDuringCurrent['$or'].push({
-    moveOut: { $gt: moveIn },
-  });
-
-  // If a residency starts after current moveIn
-  /*
-  Existing Residnecy => |------
-  Current Record => o------
-  Cases:
-            |------------------|
-        |------------------------
-      o-----------------------
-  */
-  otherActiveResidencyDuringCurrent['$or'].push({
-    moveIn: { $gte: moveIn },
-  });
-
-  // If there already exists an active residency
-  /*
-  Existing Residnecy => |------
-  Current Record => o------
-  Cases:
-  |----------------------
-      o-----------------------
-  */
-  otherActiveResidencyDuringCurrent['$or'].push({
-    moveOut: { $exists: false },
-  });
-  return otherActiveResidencyDuringCurrent;
-}

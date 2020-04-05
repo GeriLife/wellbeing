@@ -13,22 +13,6 @@ Template.residentForm.onCreated(function () {
 });
 
 Template.residentForm.helpers({
-  formType () {
-    // Get reference to template instance
-    const templateInstance = Template.instance();
-
-    // Placeholder for form type
-    let formType;
-
-    // Check whether residentId was passed in to template data context
-    if (templateInstance.data && templateInstance.data.residentId) {
-      formType = 'update';
-    } else {
-      formType = 'insert';
-    }
-
-    return formType;
-  },
   resident () {
     // Get reference to template instance
     const templateInstance = Template.instance();

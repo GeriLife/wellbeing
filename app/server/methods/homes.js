@@ -4,6 +4,20 @@ import {
   activityLevelPercentage,
   makeUserManager,
 } from './utils/homes';
+import { isCurrentUserAdmin } from '../utils/user';
+
+function addOrUpdateHome(formData) {
+  if (!isCurrentUserAdmin()) {
+    throw new Meteor.Error(500, 'Operation not allowed');
+  }
+
+  if (formData._id) {
+    const { _id, modifier } = formData;
+    return Homes.update({ _id }, modifier);
+  }
+  return Homes.insert(formData);
+}
+
 export default Meteor.methods({
   currentUserCanAccessHome(homeId) {
     const currentUserId = Meteor.userId();
@@ -387,4 +401,5 @@ export default Meteor.methods({
 
     return Homes.findOne(homeId);
   },
+  addOrUpdateHome
 });
