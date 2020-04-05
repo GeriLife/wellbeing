@@ -32,11 +32,11 @@ function _after(done, isAdmin) {
 }
 
 if (Meteor.isClient) {
-  describe('Simple Group insert by admin user', function() {
+  describe('Simple Group insert by admin user', function () {
     let insertRes;
-    before(function(done) {
-      _before(function() {
-        Meteor.call('addGroup', newGroup, function(err, insertId) {
+    before(function (done) {
+      _before(function () {
+        Meteor.call('addGroup', newGroup, function (err, insertId) {
           insertRes = insertId;
           done();
         });
@@ -44,22 +44,25 @@ if (Meteor.isClient) {
     });
 
     /* Tests */
-    it('Allow any user role to add an activity', function(done) {
+    it('Allow any user role to add an activity', function (done) {
       expect(insertRes).to.exist;
       expect(/^[A-Za-z0-9]{17}$/.test(insertRes)).to.be.true;
       done();
     });
-    after(function(done) {
+    after(function (done) {
       Meteor.call('removeGroup', insertRes);
       _after(done, true);
     });
   });
 
-  describe('Group name under 30 chars', function() {
+  describe('Group name under 30 chars', function () {
     let error;
-    before(function(done) {
-      _before(function() {
-        Meteor.call('addGroup', invalidGroupName, function(err, res) {
+    before(function (done) {
+      _before(function () {
+        Meteor.call('addGroup', invalidGroupName, function (
+          err,
+          res
+        ) {
           error = err.reason;
           done();
         });
@@ -67,43 +70,43 @@ if (Meteor.isClient) {
     });
 
     /* Tests */
-    it('Callback should return false', function(done) {
+    it('Callback should return false', function (done) {
       expect(error).to.equal(
         'Name cannot exceed 30 characters in groups insert'
       );
       done();
     });
-    after(function(done) {
+    after(function (done) {
       _after(done, true);
     });
   });
 
-  // describe('Do not allow non-admins to insert or update', function() {
-  //   before(function(done) {
-  //     _before(done, false);
-  //   });
+  describe('Do not allow non-admins to insert or update', function () {
+    before(function (done) {
+      _before(done, false);
+    });
 
-  //   /* Tests */
-  //   it('Insert should throw error', function(done) {
-  //     Groups.insert(adminInsertGroup, function(err, res) {
-  //       expect(err).to.exist;
-  //       expect(err.resson).to.equal('Access denied');
-  //       done();
-  //     });
-  //   });
+    /* Tests */
+    // it('Insert should throw error', function (done) {
+    //   Groups.insert({ $set: adminInsertGroup }, function (err, res) {
+    //     expect(err).to.exist;
+    //     expect(err.reason).to.equal('Access denied');
+    //     done();
+    //   });
+    // });
 
-  //   it('Update should throw error', function(done) {
-  //     Groups.update(
-  //       { _id: 'Group 1' },
-  //       { $set: { name: 'g-1' } },
-  //       function(err, resp) {
-  //         expect(resp).to.eq(0);
-  //         done();
-  //       }
-  //     );
-  //   });
-  //   after(function(done) {
-  //     _after(done, false);
-  //   });
-  // });
+    it('Update should throw error', function (done) {
+      Groups.update(
+        { _id: 'Group 1' },
+        { $set: { name: 'g-1' } },
+        function (err, resp) {
+          expect(resp).to.eq(0);
+          done();
+        }
+      );
+    });
+    after(function (done) {
+      _after(done, false);
+    });
+  });
 }
