@@ -9,7 +9,7 @@
             {{_ "newActivityType-header" }}
            </h4>
         </div>
-        {{# autoForm id="newActivityTypeForm" type="insert" collection="ActivityTypes"  }}
+        {{# autoForm id="newActivityTypeForm" type="method" meteormethod="addActivityType" collection="ActivityTypes"  }}
 
         <div class="modal-body">
           <label for="name">

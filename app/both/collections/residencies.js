@@ -56,6 +56,7 @@ var ResidenciesSchema = new SimpleSchema({
 });
 
 Residencies.attachSchema(ResidenciesSchema);
+
 ResidenciesSchema.addValidator(function() {
   const residencyId = this.docId;
   /*
@@ -88,43 +89,16 @@ ResidenciesSchema.addValidator(function() {
   /* Error message key to indicate the entry is not allowed */
   if (hasOtherActiveResidencies(residentId, residencyId, moveOut, moveIn)) return "notAllowed";
 })
-Residencies.allow({
-  insert: function (userId, doc) {
-    const schemaType = "residency";
-    const action = "insert";
-    return checkUserPermissions({ schemaType, action, userId, doc });
-  },
-  update: function (userId, doc) {
-    const schemaType = "residency";
-    const action = "update";
-    const residencyId = doc._id;
-    const residency = Residencies.findOne({
-      $and: [
-        {
-          _id: residencyId,
-          
-        },
-        {
-          moveOut: {
-            $exists: true
-          }
-        }
-      ]
-    });
-    const hasDeparted = !!residency ? true : false;
 
-    return checkUserPermissions({
-      schemaType,
-      action,
-      userId,
-      doc,
-      hasDeparted
-    });
+Residencies.allow({
+  insert: function () {
+    return false
+  },
+  update: function () {
+   return false
   },
   remove: function (userId) {
-    const schemaType = "residency";
-    const action = "remove";
-    return checkUserPermissions({ schemaType, action, userId });
+    return false;
   }
 });
 

@@ -1,4 +1,36 @@
 import moment from "moment";
+import {
+  checkUserPermissions,
+  getActiveResidency,
+} from '../../both/utils';
+
+function updateResidentInfo(residentInfo) {
+  const doc = {
+    _id: residentInfo._id,
+    ...residentInfo.modifier.$set,
+  };
+  const schemaType = 'resident';
+  const action = 'update';
+  const residentId = doc._id;
+
+  /* Get an active residency for a given resident */
+  const activeResidency = getActiveResidency(residentId);
+  doc.homeId = activeResidency ? activeResidency.homeId : '';
+
+  const isOperationAllow = checkUserPermissions({
+    schemaType,
+    action,
+    userId: Meteor.userId(),
+    doc,
+  });
+
+  if (!isOperationAllow) {
+    throw Meteor.Error(500, 'Operation not allowed');
+  }
+
+  const { _id, modifier } = residentInfo;
+  return Residents.update({ _id }, modifier);
+}
 
 Meteor.methods({
   getAllResidentIds() {
@@ -7,12 +39,10 @@ Meteor.methods({
     // Get all residents
     const residents = Residents.find().fetch();
 
-    // Create an array of resident IDs
-    const residentIds = _.map(residents, function(resident) {
+    return _.map(residents, function(resident) {
       return resident._id;
     });
 
-    return residentIds;
   },
   getResidentActivitiesByType({ residentId, activityTypeId, period }) {
     // Date period ago
@@ -52,15 +82,13 @@ Meteor.methods({
     // Get all residents
     const residents = Residents.find().fetch();
 
-    // Create array of resident select options
-    const residentSelectOptions = _.map(residents, resident => {
+    return _.map(residents, resident => {
       return {
         label: `${resident.firstName} ${resident.lastInitial}`,
-        value: resident._id
+        value: resident._id,
       };
     });
 
-    return residentSelectOptions;
   },
   getMinutesOfResidentActivitiesByType({
     residentId,
@@ -105,7 +133,7 @@ Meteor.methods({
     ).fetch();
 
     // Create an array residents grouped by home
-    const residentsSelectOptions = _.map(homes, function(home) {
+   return _.map(homes, function(home) {
       // do not show departed residents
       const notDeparted = {
         moveOut: {
@@ -127,26 +155,23 @@ Meteor.methods({
           return { ...residence, fullName };
         });
       // Create an object containing a home and its residents
-      const homeGroup = {
+      return {
         optgroup: home.name,
         options: _.chain(homeResidents)
           .map(function(resident) {
             // Create an object containing the resident name and ID
-            const residentObject = {
+            return {
               value: resident.residentId,
-              label: resident.fullName
+              label: resident.fullName,
             };
 
-            return residentObject;
           })
-          .sortBy("label")
-          .value()
+          .sortBy('label')
+          .value(),
       };
-      return homeGroup;
     });
-
-    return residentsSelectOptions;
   },
+
   getResidentsWithoutActiveResidencies() {
     const activeResidencies = Meteor.call("getCurrentResidencies");
     const activeResidents = activeResidencies.map(residency => residency.residentId);
@@ -178,4 +203,6 @@ Meteor.methods({
 
     return Residents.findOne(residentId, { fields });
   },
+
+  updateResidentInfo
 });

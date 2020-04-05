@@ -25,7 +25,6 @@ Template.residentFeelings.onCreated(function() {
   templateInstance.autorun(() => {
     // Get resident feelings count
     // This is just a reactive trigger to fetch resident feelings percentages
-    const feelingsCount = Counts.get(`resident_${residentId}_feelings_count`);
 
     // Get resident feelings percentages when feelings count changes
     Meteor.call("getFeelingsPercentagesByResidentId", residentId, function(

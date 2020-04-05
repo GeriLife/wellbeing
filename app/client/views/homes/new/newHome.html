@@ -10,7 +10,7 @@
             {{_ "newHome-header-text" }}
           </h2>
         </div>
-        {{#autoForm id="newHomeForm" type="insert" collection="Homes" }}
+        {{#autoForm id="newHomeForm" type="method" meteormethod="addOrUpdateHome" collection="Homes" }}
 
         <div class="modal-body">
           <label for="name">

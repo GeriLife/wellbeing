@@ -42,7 +42,7 @@
 
         <!-- / feelings select -->
 
-        {{# autoForm id="newFeelingForm" type="insert" collection="Feelings" residentOptions=residentOptions }}
+        {{# autoForm id="newFeelingForm" type="method" meteormethod="addFeeling" collection="Feelings" residentOptions=residentOptions }}
         <div class="modal-body">
           <!-- show selected feeling preview if feeling has been selected -->
           {{# if selectedFeeling }}

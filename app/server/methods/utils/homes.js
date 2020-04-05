@@ -1,3 +1,4 @@
+import { isCurrentUserAdmin } from '../../utils/user';
 export const getCurrentManagers = function(groupId) {
   /* Do nothing if already a manager */
   const ManagerPermissionRecords = Permissions.find({
@@ -59,7 +60,11 @@ export const activityLevelPercentage = function(
   });
 };
 
-export const makeUserManager = function(groupId, userId) {
+export const makeUserManager = function (groupId, userId) {
+  if (!isCurrentUserAdmin()) {
+    throw new Meteor.Error(500, 'Operation not allowed');
+  }
+
   return Permissions.update(
     {
       groupId,

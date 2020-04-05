@@ -1,12 +1,16 @@
 Template.deleteActivityTypeConfirmation.events({
-  'click #confirm-delete' (event, templateInstance) {
+  'click #confirm-delete'(event, templateInstance) {
     // Get activity type ID
     const activityTypeId = templateInstance.data.activityTypeId;
 
     // Delete activity type
-    ActivityTypes.remove(activityTypeId);
-
-    // Dismiss confirmation
-    Modal.hide('deleteActivityTypeConfirmation');
-  }
+    Meteor.call('removeActivityType', activityTypeId, function(
+      error
+    ) {
+      if (!error) {
+        // Dismiss confirmation
+        Modal.hide('deleteActivityTypeConfirmation');
+      }
+    });
+  },
 });
