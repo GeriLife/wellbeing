@@ -8,8 +8,3 @@ Router.route('/activities', function () {
   name: 'activities'
 });
 
-Router.route('/activities/new', function () {
-  this.render('newActivity');
-}, {
-  name: 'newActivity'
-});
