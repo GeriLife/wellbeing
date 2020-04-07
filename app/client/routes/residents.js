@@ -8,20 +8,28 @@ Router.route('/residents', function () {
   name: 'residents'
 });
 
-Router.route('/resident/:residentId', function () {
-  var controller = this;
-  var residentId = controller.params.residentId;
-  this.render('resident', {
-    data: function() {
-      return Residents.findOne(residentId);
-    }
-  });
-}, {
-  name: 'resident'
-});
+Router.route(
+  '/resident/:residentId',
+  function () {
+    var controller = this;
+    var residentId = controller.params.residentId;
+    Meteor.call('getResidentDetails', residentId, function (
+      err,
+      residentDetails
+    ) {
+      if (err || !residentDetails) {
+        Router.go('/');
+      } else {
+        controller.render('resident', {
+          data: function () {
+            return residentDetails;
+          },
+        });
+      }
+    });
+  },
+  {
+    name: 'resident',
+  }
+);
 
-Router.route('/residents/new', function () {
-  this.render('newResident');
-}, {
-  name: 'newResident'
-});

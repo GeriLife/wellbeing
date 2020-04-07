@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 import StubCollections from 'meteor/hwillson:stub-collections';
+
 import {
   activitesCollection,
   residencyData,
