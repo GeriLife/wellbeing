@@ -1,4 +1,4 @@
-Template.resident.onCreated(function() {
+Template.resident.onCreated(function () {
   const templateInstance = this;
 
   // used to pass all resident activities into some charts
@@ -6,46 +6,66 @@ Template.resident.onCreated(function() {
 
   templateInstance.activitiesWithTypes = new ReactiveVar();
   templateInstance.residentDetails = new ReactiveVar();
+  templateInstance.refresh = new ReactiveVar(false);
+  templateInstance.residentFeelingsPercentages = new ReactiveVar();
 
   // Get Resident ID from router
   templateInstance.residentId = Router.current().params.residentId;
 
   templateInstance.canCurrentUserEdit = new ReactiveVar(false);
 
-  Meteor.call(
-    'isResidentManagedByCurrentUser',
-    templateInstance.residentId,
-    function(err, isResidentManagedByCurrentUser) {
-      if (!err) {
-        templateInstance.canCurrentUserEdit.set(
-          isResidentManagedByCurrentUser
+  this.autorun(function () {
+    const refresh = templateInstance.refresh.get();
+
+    if (refresh === true) {
+      templateInstance.refresh.set(false);
+    }
+
+    Meteor.call(
+      'isResidentManagedByCurrentUser',
+      templateInstance.residentId,
+      function (err, isResidentManagedByCurrentUser) {
+        if (!err) {
+          templateInstance.canCurrentUserEdit.set(
+            isResidentManagedByCurrentUser
+          );
+        }
+      }
+    );
+
+    Meteor.call(
+      'getResidentActvitiesWithActivityAndFaciltatorName',
+      templateInstance.residentId,
+      function (error, activities) {
+        if (!error) {
+          templateInstance.activitiesWithTypes.set(activities);
+        }
+      }
+    );
+
+    Meteor.call(
+      'getResidentDetails',
+      templateInstance.residentId,
+      function (error, resident) {
+        if (!error) {
+          templateInstance.residentDetails.set(resident);
+        }
+      }
+    );
+
+    // Get resident feelings count
+    // Get resident feelings percentages when feelings count changes
+    Meteor.call(
+      'getFeelingsPercentagesByResidentId',
+      templateInstance.residentId,
+      function (error, residentFeelingsPercentages) {
+        // Update resident feelings counts with returned value from method call
+        templateInstance.residentFeelingsPercentages.set(
+          residentFeelingsPercentages
         );
       }
-    }
-  );
-
-  Meteor.call(
-    'getResidentActvitiesWithActivityAndFaciltatorName',
-    templateInstance.residentId,
-    function(error, activities) {
-      if (!error) {
-        templateInstance.activitiesWithTypes.set(activities);
-      }
-    }
-  );
-
-  Meteor.call(
-    'getResidentDetails',
-    templateInstance.residentId,
-    function(error, resident) {
-      if (!error) {
-        templateInstance.residentDetails.set(resident);
-      }
-    }
-  );
-
-  // Subscribe to all roles except admin
-  templateInstance.subscribe('allRolesExceptAdmin');
+    );
+  });
 });
 
 Template.resident.events({
@@ -73,6 +93,10 @@ Template.resident.events({
       residentId: templateInstance.residentId,
     });
   },
+
+  'click #refresh'(event, templateInstance) {
+    templateInstance.refresh.set(true);
+  },
 });
 
 Template.resident.helpers({
@@ -91,4 +115,8 @@ Template.resident.helpers({
   canCurrentUserEdit() {
     return Template.instance().canCurrentUserEdit.get();
   },
+
+  residentFeelingsPercentages(){
+    return Template.instance().residentFeelingsPercentages.get();
+  }
 });

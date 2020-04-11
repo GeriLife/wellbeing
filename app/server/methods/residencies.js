@@ -358,10 +358,7 @@ export default Meteor.methods({
       ...condition,
       ...otherActiveResidencyDuringCurrent,
     };
-
-    console.log(JSON.stringify(condition, 2, null), 'condition');
-    console.log(Residencies.find(condition).fetch());
-    console.log('-------------end-------------');
+    
     const activeResidencies = Residencies.find(condition).count();
     return activeResidencies > 0;
   },
