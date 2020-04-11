@@ -1,6 +1,5 @@
 import SimpleSchema from 'simpl-schema';
 import UserEventLog from '/both/collections/userEventLog';
-import { checkUserPermissions } from '../utils';
 
 Residencies = new Mongo.Collection('residencies');
 
@@ -57,39 +56,6 @@ var ResidenciesSchema = new SimpleSchema({
 
 Residencies.attachSchema(ResidenciesSchema);
 
-ResidenciesSchema.addValidator(function() {
-  const residencyId = this.docId;
-  /*
-    The data collected from the form is in this.obj so,
-    If this.obj exists:
-      -If residency exists i.e. in edit mode:
-        The form data is in $set (a mongo modifier)
-      -else in create mode:
-        the data is in this.obj
-    else the object must be empty
-
-    Ref: https://github.com/aldeed/meteor-simple-schema/blob/master/DOCS.md#the-object-to-validate
-  */
-  let currentRecord = this.obj || {}
-  if (!!residencyId) {
-    /* If edit, select the object set for updating. */
-    currentRecord = this.obj.$set;
-  }
-
-  let residentId;
-  if (!!residencyId) {
-    let resident = Residencies.findOne({ _id: residencyId });
-    residentId = resident.residentId;
-  } else {
-    residentId = currentRecord.residentId;
-  }
-
-  let { moveOut, moveIn } = currentRecord;
-
-  /* Error message key to indicate the entry is not allowed */
-  if (hasOtherActiveResidencies(residentId, residencyId, moveOut, moveIn)) return "notAllowed";
-})
-
 Residencies.allow({
   insert: function () {
     return false
@@ -133,42 +99,21 @@ Residencies.after.remove(function (userId, residency) {
 });
 
 
-/* 
-Verifies whethers the move out date 
+/*
+Verifies whether the move out date
 if specified is always greater than move in Date
 */
 function validateDate(moveIn, moveOut) {
   const moveOutDate = new Date(moveOut).getTime();
   const moveInDate = new Date(moveIn).getTime();
-  /* it checks if moveout date if exists and is before 
-  the movein date it will throw an error */
+  /* it checks if move-out date if exists and is before
+  the move-in date it will throw an error */
   if (!isNaN(moveOutDate) && moveOutDate > 0 && moveInDate > moveOutDate) return false
-  /* 
-  In all other cases, i.e 
-  1) if the moveOut date is not specified or 
+  /*
+  In all other cases, i.e
+  1) if the moveOut date is not specified or
   2) it is a date greater than move in date, it returns true */
   return true
 }
 
-function hasOtherActiveResidencies(residentId, residencyId, moveOut, moveIn) {
-  // In edit server method is called
-  if (Meteor.isServer) {
-    return Meteor.call("hasOtherActiveResidencies", {
-      residentId,
-      residencyId,
-      moveOut,
-      moveIn
-    });
-  } else {
-    // When adding new residency method executed from client
-    Meteor.call(
-      "hasOtherActiveResidencies",
-      { residentId, residencyId, moveOut, moveIn },
-      function (err, response) {
-        /* Error message key to indicate the entry is not allowed */
-        if (!err) return response;
-      }
-    );
-  }
-}
 export const ResidenciesCollection = Residencies
