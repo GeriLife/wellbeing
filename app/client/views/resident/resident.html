@@ -1,14 +1,18 @@
 <template name="resident">
-  {{#if Template.subscriptionsReady}}
+  {{#if resident}}
     <h1 class="page-header">
       {{# if currentUser }}
-      <button type="button" class="btn btn-success pull-right" id="add-feeling">
+      <button type="button" class="btn btn-success pull-right margin-right" id="add-feeling">
         <i class="fa fa-stethoscope"></i>
         {{_ "resident-addFeeling-buttonText" }}
       </button>
-      <button type="button" class="btn btn-success pull-right" id="add-activity">
+      <button type="button" class="btn btn-success pull-right margin-right" id="add-activity">
         <i class="fa fa-heartbeat"></i>
         {{_ "resident-addActivity-buttonText" }}
+      </button>
+      <button type="button" class="btn btn-info pull-right margin-right" id="refresh">
+        <i class="fa fa-refresh"></i>
+        {{_ "resident-refresh-buttonText" }}
       </button>
       {{/ if }}<!-- current user -->
 
@@ -33,7 +37,7 @@
       {{/ if }}
     </h1>
     <div class="row">
-      {{> residentFeelings residentId=resident._id }}
+      {{> residentFeelings residentFeelingsPercentages=residentFeelingsPercentages residentId=resident._id }}
     </div>
     <!-- make sure resident has activities -->
     {{# if activities }}

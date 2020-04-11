@@ -121,9 +121,6 @@ Template.residents.helpers({
   managesAGroup() {
     return Template.instance().managesAGroup.get();
   },
-  refreshChild() {
-    console.log('refreshing....');
-  },
 });
 
 Template.residents.events({
