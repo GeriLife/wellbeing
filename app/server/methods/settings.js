@@ -1,7 +1,7 @@
 Meteor.methods({
   createOrEditTimezoneSettings(selectedTimezone) {
     if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
-      throw Meteor.Error(500, 'Operation Not Allowed');
+      throw new Meteor.Error(500, 'Operation Not Allowed');
     }
 
     // Get current timezone setting
@@ -21,7 +21,7 @@ Meteor.methods({
 
   getTimezone() {
     if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
-      throw Meteor.Error(500, 'Operation Not Allowed');
+      throw new Meteor.Error(500, 'Operation Not Allowed');
     }
 
     return Settings.findOne({

@@ -25,7 +25,7 @@ function updateResidentInfo(residentInfo) {
   });
 
   if (!isOperationAllow) {
-    throw Meteor.Error(500, 'Operation not allowed');
+    throw new Meteor.Error(500, 'Operation not allowed');
   }
 
   const { _id, modifier } = residentInfo;

@@ -85,6 +85,7 @@ Template.editResidencyModal.helpers({
             return;
           }
           parentTemplate.addNewResidencyClicked.set(false);
+          Session.set('refresh-residents', true);
         }
       );
     };
@@ -128,6 +129,8 @@ Template.editResidencyModal.events({
           };
           templateInstance.newResidency.set(newResidency);
           templateInstance.addNewResidencyClicked.set(true);
+          Session.set('refresh-residents', true);
+
         }
       );
     }

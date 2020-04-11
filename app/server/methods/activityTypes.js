@@ -17,7 +17,7 @@ Meteor.methods({
 
   addActivityType(formData) {
     if (!Roles.userIsInRole(Meteor.userId(), 'admin')) {
-      throw Meteor.Error(500, 'Operation not allowed');
+      throw new Meteor.Error(500, 'Operation not allowed');
     }
 
     return ActivityTypes.insert(formData);
@@ -25,7 +25,7 @@ Meteor.methods({
 
   removeActivityType(activityTypeId) {
     if (!Roles.userIsInRole(Meteor.userId(), 'admin')) {
-      throw Meteor.Error(500, 'Operation not allowed');
+      throw new Meteor.Error(500, 'Operation not allowed');
     }
 
     return ActivityTypes.remove(activityTypeId);

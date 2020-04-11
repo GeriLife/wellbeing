@@ -600,7 +600,7 @@ export default Meteor.methods({
         };
       });
     } catch (error) {
-      return Meteor.Error(500, error.toString());
+      throw new Meteor.Error(500, error.toString());
     }
   },
 
