@@ -1,5 +1,6 @@
 import newResidentAndResidencySchema from '/both/schemas/newResidentAndResidencySchema';
 import { checkUserPermissions } from '/both/utils';
+import { hasOtherActiveResidencies } from '../utils/residencies';
 
 function addNewResidencyWithExistingResident(residencyInfo) {
   const schemaType = 'residency';
@@ -12,10 +13,19 @@ function addNewResidencyWithExistingResident(residencyInfo) {
   });
 
   if (!isOperationAllowed) {
-    throw Meteor.Error(500, 'Operation is not allowed');
+    throw new Meteor.Error(500, 'Operation is not allowed');
   }
 
-  return Residencies.insert(residencyInfo);
+  if (
+    hasOtherActiveResidencies({
+      _id: null,
+      modifier: residencyInfo,
+    })
+  ) {
+    throw new Meteor.Error(500, 'This user already has an active residency');
+
+  }
+    return Residencies.insert(residencyInfo);
 }
 
 function editResidency({ _id, modifier }) {
@@ -44,109 +54,166 @@ function editResidency({ _id, modifier }) {
   });
 
   if (!isOperationAllowed) {
-    throw Meteor.Error(500, 'Operation not allowed');
+    throw new Meteor.Error(500, 'Operation not allowed');
+  }
+
+  if (hasOtherActiveResidencies({ _id, modifier })) {
+    throw new Meteor.Error(
+      500,
+      'This user already has an active residency'
+    );
   }
 
   return Residencies.update({ _id }, modifier);
 }
 
-// ToDo: enhance cases
 function buildConditionWhenMoveOutExists({ moveOut, moveIn }) {
-  const otherActiveResidencyDuringCurrent = {
-    $or: [],
-  };
-
-  //If a residency starts or end during current
   /*
-  Existing Residency => |------
+   Existing Residency => |------
   Current Record => o------
-  Cases:
-  |-------------|   |--------------|
-                 |--|
-        o----------------------o
   */
-  otherActiveResidencyDuringCurrent['$or'].push({
+  return {
     $or: [
+      /*
+      Cases covered:
+               |---|
+               |---------
+               |------|
+            o-------o
+      */
       {
         $and: [
-          { moveOut: { $gte: moveIn } },
-          { moveOut: { $lte: moveOut } },
+          { moveIn: { $lt: moveOut } },
+          { moveIn: { $gt: moveIn } },
         ],
       },
       {
+        /*
+      Cases covered:
+        |------|
+        |--------
+        |-----------------|
+          |-----------|
+          o-----------o
+        */
         $and: [
-          { moveIn: { $gte: moveIn } },
-          { moveIn: { $lte: moveOut } },
+          { moveIn: { $lte: moveIn } },
+          {
+            $or: [
+              { moveOut: { $exists: false } },
+              { moveOut: { $gt: moveIn } },
+            ],
+          },
         ],
       },
     ],
-  });
-
-  // If a current record is during another residency or it overlaps an active Residency
-  /*
-  Existing Residnecy => |------
-  Current Record => o------
-  Cases:
-  |-------------------------------|
-            |-------------------------
-  |----------------------------
-        o---------------o
-  */
-  otherActiveResidencyDuringCurrent['$or'].push({
-    $and: [
-      { moveIn: { $lt: moveOut } },
-      {
-        $or: [
-          { moveOut: { $gte: moveOut } },
-          { moveOut: { $exists: false } },
-        ],
-      },
-    ],
-  });
-  return otherActiveResidencyDuringCurrent;
+  };
 }
 
 function buildConditionWhenMoveOutNotExists(moveIn) {
-  const otherActiveResidencyDuringCurrent = {
-    $or: [],
+  /*
+   Existing Residency => |------
+  Current Record => o------
+  */
+
+  return {
+    $or: [
+      /*
+      Cases covered:
+               |---------
+               |------|
+            o---------
+      */
+      { moveIn: { $gt: moveIn } },
+      {
+        /*
+      Cases covered:
+               |---------
+               |------|
+                  o-------o
+                  |---
+                  |---|
+      */
+        $and: [
+          { moveIn: { $lte: moveIn } },
+          {
+            $or: [
+              { moveOut: { $exists: false } },
+              { moveOut: { $gt: moveIn } },
+            ],
+          },
+        ],
+      },
+    ],
   };
-  // If a residency ends after this moveIn
-  /*
-  Existing Residnecy => |------
-  Current Record => o------
-  Cases:
-  |------------------|
-      o-----------------------
-  */
-  otherActiveResidencyDuringCurrent['$or'].push({
-    moveOut: { $gt: moveIn },
+}
+
+function getResidentsWithHomeAndResidentDetails(includeDeparted) {
+  const groupsManagedByCurrentUser = (
+    Meteor.call('getGroupsManagedByCurrentUser') || []
+  ).map((group) => {
+    return group.groupId;
   });
 
-  // If a residency starts after current moveIn
-  /*
-  Existing Residnecy => |------
-  Current Record => o------
-  Cases:
-            |------------------|
-        |------------------------
-      o-----------------------
-  */
-  otherActiveResidencyDuringCurrent['$or'].push({
-    moveIn: { $gte: moveIn },
-  });
+  const selector = {};
+  const currentUserIsAdmin = Roles.userIsInRole(
+    Meteor.userId(),
+    'admin'
+  );
 
-  // If there already exists an active residency
-  /*
-  Existing Residnecy => |------
-  Current Record => o------
-  Cases:
-  |----------------------
-      o-----------------------
-  */
-  otherActiveResidencyDuringCurrent['$or'].push({
-    moveOut: { $exists: false },
-  });
-  return otherActiveResidencyDuringCurrent;
+  if (!currentUserIsAdmin) {
+    const userVisibleHomeIds = Meteor.call(
+      'getUserVisibleHomeIds',
+      userId
+    );
+    selector.homeId = { $in: userVisibleHomeIds };
+  }
+
+  if (!includeDeparted) {
+    // non-departed residents should not have move out date
+    selector.moveOut = {
+      $exists: false,
+    };
+  }
+  const residencies = Residencies.find(selector)
+
+  // Iterate through residents
+  // set full name and home name from collection helpers
+  return {
+    managesAGroup:
+      currentUserIsAdmin || groupsManagedByCurrentUser.length > 0,
+    residencies: residencies.map(function (residency) {
+      let residentName = 'unknown';
+      let homeName = 'unknown';
+      let canEdit = false;
+      const hasUserDeparted = 'moveOut' in residency;
+
+      const resident = Residents.findOne(residency.residentId);
+      const home = Homes.findOne(residency.homeId);
+      const isHomeInUserManagedGroups =
+        groupsManagedByCurrentUser.indexOf(home.groupId) > -1;
+
+      if (
+        currentUserIsAdmin ||
+        (isHomeInUserManagedGroups && !hasUserDeparted)
+      ) {
+        canEdit = true;
+      }
+      if (resident) {
+        residentName = resident.fullName();
+      }
+
+      if (home) {
+        homeName = home.name;
+      }
+      return {
+        ...residency,
+        residentName,
+        homeName,
+        canEdit,
+      };
+    }),
+  };
 }
 
 export default Meteor.methods({
@@ -291,6 +358,10 @@ export default Meteor.methods({
       ...condition,
       ...otherActiveResidencyDuringCurrent,
     };
+
+    console.log(JSON.stringify(condition, 2, null), 'condition');
+    console.log(Residencies.find(condition).fetch());
+    console.log('-------------end-------------');
     const activeResidencies = Residencies.find(condition).count();
     return activeResidencies > 0;
   },
@@ -312,5 +383,6 @@ export default Meteor.methods({
     return Meteor.call('isHomeManagedByUser', { userId, homeId });
   },
   addNewResidencyWithExistingResident,
-  editResidency
+  editResidency,
+  getResidentsWithHomeAndResidentDetails
 });

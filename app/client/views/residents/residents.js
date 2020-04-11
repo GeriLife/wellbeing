@@ -1,193 +1,141 @@
-Template.residents.onCreated(function() {
+function updateResidents(templateInstance, includeDeparted) {
+  // Get all residents, respecting departed setting
+  Meteor.call(
+    'getResidentsWithHomeAndResidentDetails',
+    includeDeparted,
+    function (err, { managesAGroup, residencies }) {
+      if (!err) {
+        templateInstance.managesAGroup.set(managesAGroup);
+        templateInstance.residencies.set(residencies || []);
+      }
+    }
+  );
+}
+
+Template.residents.onCreated(function () {
   const templateInstance = this;
 
   // Reactive variable to toggle resident subscription based on departed status
   templateInstance.includeDeparted = new ReactiveVar();
-  templateInstance.groupsManagedByCurrentUser = new ReactiveVar([]);
   templateInstance.managesAGroup = new ReactiveVar(false);
+  templateInstance.residencies = new ReactiveVar(null);
 
-  /* Check if current user is admin */
-  const currentUserId = Meteor.userId();
-  const currentUserIsAdmin = Roles.userIsInRole(currentUserId, [
-    "admin"
-  ]);
-  templateInstance.currentUserIsAdmin = new ReactiveVar(currentUserIsAdmin);
-
-  Meteor.call("getGroupsManagedByCurrentUser", function (err, groups) {
-
-    /* Check if the current user manages at least 1 group */
-    if (currentUserIsAdmin || (groups && groups.length > 0))
-      templateInstance.managesAGroup.set(true)
-
-    /* List of groups managed by the user */
-    if (!err && groups) {
-      const groupsManagedByCurrentUser = groups.map(group => {
-        return group.groupId;
-      })
-
-      templateInstance.groupsManagedByCurrentUser.set(
-        groupsManagedByCurrentUser
-      );
-    }
-  })
-
-  // Subscribe to all homes, for data table
-  templateInstance.subscribe("allHomes");
-
+  updateResidents(
+    templateInstance,
+    templateInstance.includeDeparted.get()
+  );
 
   // Toggle resident subscription based on departed status
-  templateInstance.autorun(function() {
+  templateInstance.autorun(function () {
     const includeDeparted = templateInstance.includeDeparted.get();
+    updateResidents(templateInstance, includeDeparted);
 
-    // Get all residencies, respecting departed setting
-    templateInstance.subscribe(
-      "currentUserVisibleResidencies",
-      includeDeparted
-    );
-
-    // Get all residetns, respecting departed setting
-    templateInstance.subscribe("currentUserVisibleResidents", includeDeparted);
+    if (Session.get('refresh-residents')) {
+      Session.set('refresh-residents', false);
+    }
   });
 });
 
 Template.residents.helpers({
   residencies() {
     const templateInstance = Template.instance();
-
-    // Make sure subscriptions are ready
-    if (templateInstance.subscriptionsReady()) {
-      const groupsManagedByCurrentUser = templateInstance.groupsManagedByCurrentUser.get()
-      // Create a placeholder array for residency details objects
-      const residencyDetailsArray = [];
-
-      const residencies = Residencies.find().fetch();
-
-      // Iterate through residents
-      // set full name and home name from collection helpers
-      residencies.forEach(function(residency) {
-        let residentName, homeName;
-        let canEdit = false;
-        const currentUserIsAdmin = templateInstance.currentUserIsAdmin.get();
-        const hasUserDeparted = "moveOut" in residency;
-        
-        const resident = Residents.findOne(residency.residentId);
-        const home = Homes.findOne(residency.homeId);
-        const isHomeInUserManagedGroups =
-          groupsManagedByCurrentUser.indexOf(home.groupId) > -1;
-
-        if (
-          currentUserIsAdmin ||
-          (isHomeInUserManagedGroups && !hasUserDeparted)
-        ) {
-          canEdit = true;
-        }
-        if (resident) {
-          residentName = resident.fullName();
-        } else {
-          residentName = "unknown";
-        }
-
-        if (home) {
-          homeName = home.name;
-        } else {
-          homeName = "unknown";
-        }
-        const residencyDetails = {
-          ...residency,
-          residentName,
-          homeName,
-          canEdit
-        };
-
-        // Add resident object to residents list
-        residencyDetailsArray.push(residencyDetails);
-      });
-
-      return residencyDetailsArray;
-    }
-
-    // return an empty array if no data is available
-    return [];
+    return templateInstance.residencies.get() || [];
   },
+
   tableSettings() {
     // Create placeholder object for filter labels
     const tableLabels = {};
-    const templateInstance = Template.instance()
+    const templateInstance = Template.instance();
 
     // Get translation strings for filter values
-    tableLabels.viewResident = TAPi18n.__("residents-tableLabels-viewResident");
-    tableLabels.fullName = TAPi18n.__("residents-tableLabels-fullName");
-    tableLabels.homeName = TAPi18n.__("residents-tableLabels-homeName");
-    tableLabels.residency = TAPi18n.__("residents-tableLabels-residency");
+    tableLabels.viewResident = TAPi18n.__(
+      'residents-tableLabels-viewResident'
+    );
+    tableLabels.fullName = TAPi18n.__(
+      'residents-tableLabels-fullName'
+    );
+    tableLabels.homeName = TAPi18n.__(
+      'residents-tableLabels-homeName'
+    );
+    tableLabels.residency = TAPi18n.__(
+      'residents-tableLabels-residency'
+    );
 
     const tableSettings = {
       showFilter: false,
       fields: [
         {
-          key: "homeId",
+          key: 'homeId',
           label: tableLabels.viewResident,
-          tmpl: Template.residentViewButton
+          tmpl: Template.residentViewButton,
         },
         {
-          key: "residentName",
+          key: 'residentName',
           label: tableLabels.fullName,
           sortOrder: 0,
-          sortDirection: "ascending",
-          tmpl: Template.residentName
+          sortDirection: 'ascending',
+          tmpl: Template.residentName,
         },
         {
-          key: "homeName",
+          key: 'homeName',
           label: tableLabels.homeName,
           sortOrder: 1,
-          sortDirection: "ascending"
+          sortDirection: 'ascending',
         },
         {
-          key: "homeId",
+          key: 'homeId',
           label: tableLabels.residency,
           tmpl: Template.residentCurrentResidency,
-          hidden: function() {
+          hidden: function () {
             return !templateInstance.managesAGroup.get();
-          }
-        }
+          },
+        },
       ],
-      filters: ["nameFilter", "homeFilter"]
+      filters: ['nameFilter', 'homeFilter'],
     };
 
     return tableSettings;
   },
   nameFilterFields() {
     // Return relevant field name(s) for name filter
-    return ["residentName"];
+    return ['residentName'];
   },
   homeFilterFields() {
     // Return relevant field name(s) for home filter
-    return ["homeName"];
+    return ['homeName'];
   },
   filterLabels() {
     // Create placeholder object for filter labels
     const filterLabels = {};
 
     // Get translation strings for filter values
-    filterLabels.fullName = TAPi18n.__("residents-filterLabels-fullName");
-    filterLabels.homeName = TAPi18n.__("residents-filterLabels-homeName");
+    filterLabels.fullName = TAPi18n.__(
+      'residents-filterLabels-fullName'
+    );
+    filterLabels.homeName = TAPi18n.__(
+      'residents-filterLabels-homeName'
+    );
 
     return filterLabels;
   },
   managesAGroup() {
     return Template.instance().managesAGroup.get();
-  }
+  },
+  refreshChild() {
+    console.log('refreshing....');
+  },
 });
 
 Template.residents.events({
-  "click #new-resident"() {
+  'click #new-resident'() {
     // Show the edit home modal
-    Modal.show("addResidencyModal");
+    Modal.show('addResidencyModal');
   },
-  "click #include-departed"(event) {
+  'click #include-departed'(event) {
     const instance = Template.instance();
 
     const includeDepartedValue = event.target.checked;
 
     instance.includeDeparted.set(includeDepartedValue);
-  }
+  },
 });

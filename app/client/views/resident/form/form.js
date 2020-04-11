@@ -1,37 +1,34 @@
 Template.residentForm.onCreated(function () {
   // Get reference to template instance
   const templateInstance = this;
+  templateInstance.residentDetails = new ReactiveVar();
 
-  // Check whether residentId was passed in to template data context
-  if (templateInstance.data && templateInstance.data.residentId) {
-    // Get resident ID
-    const residentId = templateInstance.data.residentId;
-
-    // Subscribe to single resident, based on Resident ID
-    templateInstance.subscribe('singleResident', residentId);
-  }
-});
-
-Template.residentForm.helpers({
-  resident () {
-    // Get reference to template instance
-    const templateInstance = Template.instance();
-
+  this.autorun(function () {
     // Check whether residentId was passed in to template data context
     if (templateInstance.data && templateInstance.data.residentId) {
       // Get resident ID
       const residentId = templateInstance.data.residentId;
 
-      // Get resident document
-      const resident = Residents.findOne(residentId);
-
-      return resident;
+      Meteor.call('getResidentDetails', residentId, function (
+        err,
+        resident
+      ) {
+        templateInstance.residentDetails.set(resident || {});
+      });
     }
-  }
+  });
+});
+
+Template.residentForm.helpers({
+  resident() {
+    // Get reference to template instance
+    const templateInstance = Template.instance();
+    return templateInstance.residentDetails.get();
+  },
 });
 
 Template.residentForm.events({
   'click .btn-danger'() {
     FlashMessages.clear();
-  }
-})
+  },
+});

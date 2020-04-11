@@ -48,7 +48,7 @@ Template.activities.events({
     Modal.show('activityFormModal');
   },
   'click #clear-filters'(event, templateInstance) {
-    // Clear value for all selectpickers
+    // Clear value for all select pickers
     $('#resident-filter').val(undefined);
     $('#activity-type-filter').val(undefined);
 

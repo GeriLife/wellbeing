@@ -26,7 +26,8 @@ function onSuccess(formType, success) {
   // check if submission was successful
   if (success) {
     // Hide modal dialogue
-    Modal.hide("addResidencyModal");
+    Session.set('refresh-residents', true);
     FlashMessages.clear();
+    Modal.hide("addResidencyModal");
   }
 }
