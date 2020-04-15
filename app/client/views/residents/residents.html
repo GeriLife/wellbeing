@@ -40,7 +40,8 @@
       </div>
     </div>
   </div>
-  {{# if residencies }}
+
+  {{# if hasResidencies }}
   {{> reactiveTable collection=residencies settings=tableSettings }}
   {{ else }}
   {{> spinner }}
