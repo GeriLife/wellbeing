@@ -31,32 +31,21 @@ function addNewResidencyWithExistingResident(residencyInfo) {
 function editResidency({ _id, modifier }) {
   const schemaType = 'residency';
   const action = 'update';
-  const residency = Residencies.findOne({
-    $and: [
-      {
-        _id,
-      },
-      {
-        moveOut: {
-          $exists: true,
-        },
-      },
-    ],
-  });
+  const residency = Residencies.findOne({ _id });
+  const { homeId } = residency
 
-  const hasDeparted = !residency ? false : true;
+  const hasDeparted = !residency.moveOut ? false : true;
   const isOperationAllowed = checkUserPermissions({
     schemaType,
     action,
     userId: Meteor.userId(),
-    doc: modifier.$set,
+    doc: { ...modifier.$set, homeId },
     hasDeparted,
   });
 
   if (!isOperationAllowed) {
     throw new Meteor.Error(500, 'Operation not allowed');
   }
-
   if (hasOtherActiveResidencies({ _id, modifier })) {
     throw new Meteor.Error(
       500,
@@ -164,7 +153,7 @@ function getResidentsWithHomeAndResidentDetails(includeDeparted) {
   if (!currentUserIsAdmin) {
     const userVisibleHomeIds = Meteor.call(
       'getUserVisibleHomeIds',
-      userId
+      Meteor.userId()
     );
     selector.homeId = { $in: userVisibleHomeIds };
   }

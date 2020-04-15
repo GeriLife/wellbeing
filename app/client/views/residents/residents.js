@@ -42,6 +42,11 @@ Template.residents.helpers({
     return templateInstance.residencies.get() || [];
   },
 
+  hasResidencies() {
+    const templateInstance = Template.instance();
+    return templateInstance.residencies.get() !== null;
+  },
+
   tableSettings() {
     // Create placeholder object for filter labels
     const tableLabels = {};
