@@ -9,7 +9,6 @@
           </h4>
         </div>
         <!-- / .modal-header -->
-        {{# if Template.subscriptionsReady }}
         <div class="modal-body">
           <!-- check if residency exists - editing -->
           {{# if residency }}
@@ -75,10 +74,6 @@
           {{/ if }}
         </div>
         <!-- / .modal-body -->
-        {{ else }}
-        {{> spinner }}
-        {{/ if }}
-        <!-- /if Template.subscriptionsReady -->
       </div>
       <!-- / .modal-content -->
     </div>

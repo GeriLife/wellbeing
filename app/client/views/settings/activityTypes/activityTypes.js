@@ -1,22 +1,32 @@
 Template.activityTypesSettings.created = function () {
   // Get reference to template instance
   var instance = this;
+  instance.activityTypes = new ReactiveVar();
 
-  instance.subscribe('allActivityTypes');
+  this.autorun(function () {
+    const refreshFlag = Session.get('refresh-activitytype-list');
+
+    if (refreshFlag) {
+      Session.set('refresh-activitytype-list', false);
+    }
+
+    Meteor.call('getAllActivityTypes', function (err, types) {
+      if (!err) {
+        instance.activityTypes.set(types);
+      }
+    });
+  });
 };
 
 Template.activityTypesSettings.helpers({
-  "activityTypes": function () {
-    // Get all activity types
-    var activityTypes = ActivityTypes.find({}, {sort: {name: 1}}).fetch();
-
-    return activityTypes;
-  }
+  activityTypes: function () {
+    return Template.instance().activityTypes.get();
+  },
 });
 
 Template.activityTypesSettings.events({
   'click #add-activity-type': function () {
     // Show the add activity modal
     Modal.show('newActivityType');
-  }
+  },
 });

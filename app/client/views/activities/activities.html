@@ -11,7 +11,6 @@
       {{_ "activities-pageHeader" }}
     </h1>
   </div>
-  {{# if Template.subscriptionsReady }}
   <div class="panel panel-default">
     <div class="panel-heading">
       <h2 class="panel-title">
@@ -38,7 +37,5 @@
     {{> reactiveTable collection=allUserVisibleActivities settings=tableSettings }}
     {{>pagination reset=reset totalRows=totalRows onChange=onChange}}
   </div>
-  {{ else }}
-  {{> spinner }}
-  {{/ if }}
+ 
 </template>

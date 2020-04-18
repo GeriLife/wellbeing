@@ -1,8 +1,18 @@
-Template.activitiesTableActivityTypeCell.helpers({
-  activityType () {
-    // Get activity type document
-    const activityType = ActivityTypes.findOne(this.activityTypeId);
+Template.activitiesTableActivityTypeCell.onCreated(function () {
+  const instance = this;
+  instance.activityType = new ReactiveVar(null);
 
-    return activityType;
-  }
+  Meteor.call(
+    'getActivityTypeData',
+    this.data.activityTypeId,
+    function (err, activityTypeData) {
+      instance.activityType.set(activityTypeData);
+    }
+  );
+});
+
+Template.activitiesTableActivityTypeCell.helpers({
+  activityType() {
+    return Template.instance().activityType.get();
+  },
 });

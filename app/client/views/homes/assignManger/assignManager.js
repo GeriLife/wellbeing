@@ -3,14 +3,12 @@ import assignManagerSchema from "./schema";
 Template.assignManager.onCreated(function() {
   const templateInstance = this;
   const groupId = templateInstance.data.groupId;
-  templateInstance.subscribe("allUsers");
   templateInstance.currentManagers = new ReactiveVar(null);
+  templateInstance.currentSchema = new ReactiveVar(null);
 
   UpdateCurrentManagersList(templateInstance, groupId);
-});
 
-Template.assignManager.helpers({
-  assignManagerSchema() {
+  this.autorun(function(){
     const groupId = Template.instance().data.groupId;
     const currentManager = Template.instance().currentManagers.get();
     let currentManagerIds = [];
@@ -19,7 +17,24 @@ Template.assignManager.helpers({
     if (!!currentManager) {
       currentManagerIds = currentManager.map(manager => manager.userId);
     }
-    return assignManagerSchema(groupId, currentManagerIds);
+
+    Meteor.call(
+      'getEligibleManagerList',
+      currentManagerIds,
+      function (err, managerList) {
+        if (!err) {
+          templateInstance.currentSchema.set(
+            assignManagerSchema(groupId, managerList)
+          );
+        }
+      }
+    );
+  })
+});
+
+Template.assignManager.helpers({
+  assignManagerSchema() {
+    return Template.instance().currentSchema.get();
   },
 
   buttonContent() {

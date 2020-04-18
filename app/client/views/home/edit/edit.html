@@ -2,14 +2,14 @@
   <div class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-        {{# if Template.subscriptionsReady }}
+        {{# if isReadyToRender }}
         <div class="modal-header">
           {{> flashMessages}}
           <h4 class="modal-title">
             {{_ "editHome-title" }}
           </h4>
         </div>
-        {{#autoForm id="editHomeForm" type="method-update" meteormethod="addOrUpdateHome" collection="Homes" doc=this }}
+        {{#autoForm id="editHomeForm" type="method-update" meteormethod="addOrUpdateHome" collection="Homes" doc=home }}
 
         <div class="modal-body">
           <label for="name">

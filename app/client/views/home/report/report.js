@@ -7,12 +7,10 @@ Template.homeReport.onCreated(function() {
   // Get Home ID from template instance
   templateInstance.homeId = Router.current().params.homeId;
 
-  // Get home data for page elements
-  templateInstance.subscribe("singleHome", templateInstance.homeId);
-
   // set reactive variable to hold chart data (attached to template instance)
   templateInstance.activityData = new ReactiveVar();
   templateInstance.activityMetric = new ReactiveVar();
+  templateInstance.home = new ReactiveVar(null);
   templateInstance.timePeriod = new ReactiveVar();
   templateInstance.barMode = new ReactiveVar('group');
 });
@@ -42,6 +40,12 @@ Template.homeReport.onRendered(function() {
         templateInstance.activityData.set(activities);
       }
     );
+
+    Meteor.call('getHomeDetails', homeId, function (err, homeDetails) {
+      if (!err) {
+        templateInstance.home.set(homeDetails);
+      }
+    });
   });
 
   templateInstance.autorun(function() {
@@ -95,14 +99,9 @@ Template.homeReport.onRendered(function() {
 
 Template.homeReport.helpers({
   home: function() {
-    // Create reference to template instance
-    const templateInstance = Template.instance();
-
-    const homeId = templateInstance.homeId;
-
-    // Return current Home
-    return Homes.findOne(homeId);
+    return Template.instance().home.get();
   },
+
   isGroupMode() {
     const barMode = Template.instance().barMode.get();
     return barMode === 'group'

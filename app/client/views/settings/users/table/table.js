@@ -1,9 +1,13 @@
-Template.usersSettingsTable.onCreated(function() {
+Template.usersSettingsTable.onCreated(function () {
   // Get reference to Template instance
-  var instance = this;
+  const instance = this;
+  instance.users = ReactiveVar([]);
 
-  // Subscribe to all users
-  instance.subscribe('allUsers');
+  Meteor.call('getUserList', function (err, userList) {
+    if (!err) {
+      instance.users.set(userList);
+    }
+  });
 });
 
 function setActiveFlagValue(value) {
@@ -23,7 +27,7 @@ const isActiveKey = {
 Template.usersSettingsTable.helpers({
   tableSettings() {
     return {
-      collection: Meteor.users,
+      collection: Template.instance().users.get(),
       fields: [
         {
           key: 'emails.0.address',

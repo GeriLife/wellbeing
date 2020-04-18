@@ -8,7 +8,7 @@ AutoForm.addInputType("managerSelectFormTemplate", {
     return this.val();
   }
 });
-const assignManagerSchema = function(groupId, idsToFilter) {
+const assignManagerSchema = function(groupId, managerList) {
   return new SimpleSchema({
     groupId: {
       type: String,
@@ -24,7 +24,7 @@ const assignManagerSchema = function(groupId, idsToFilter) {
       optional: false,
       autoform: {
         type: "managerSelectFormTemplate",
-        options: () => getAssignManagerSchemaUsers(idsToFilter)
+        options: () => managerList
       }
     },
     "users.$": {
@@ -35,21 +35,3 @@ const assignManagerSchema = function(groupId, idsToFilter) {
 
 export default assignManagerSchema;
 
-function getAssignManagerSchemaUsers(idsToFilter) {
-  const users = Meteor.users
-    .find()
-    .fetch()
-    .filter(user => idsToFilter.indexOf(user._id) === -1)
-    .map(user => {
-      let address = "Unknown";
-      if (user.emails.length > 0) {
-        address = user.emails[0].address || "Unknown";
-      }
-      return {
-        label: address,
-        value: user._id
-      };
-    });
-
-  return users;
-}

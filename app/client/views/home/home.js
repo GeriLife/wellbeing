@@ -6,7 +6,7 @@ Template.home.onCreated(function() {
 
   // Create reactive variables to hold activity metric and period
   templateInstance.activityMetric = new ReactiveVar('count');
-  templateInstance.residents = new ReactiveVar([]);
+  templateInstance.residents = new ReactiveVar(null);
   templateInstance.activityPeriod = new ReactiveVar('7');
   templateInstance.homeDetails = new ReactiveVar(null);
 
@@ -54,13 +54,12 @@ Template.home.events({
 });
 
 Template.home.helpers({
-  home: function() {
+  home: function () {
     return Template.instance().homeDetails.get();
   },
-  residents: function() {
+  residents: function () {
     // Return all residents for current home, sorting by first name
-    //NOTE: these should be filtered by the subscription, as they are dependent on residency status
-    return Template.instance().residents.get();
+    return Template.instance().residents.get() || [];
   },
   activityMetric() {
     // get reference to template instance
@@ -71,5 +70,12 @@ Template.home.helpers({
     // get reference to template instance
     const templateInstance = Template.instance();
     return templateInstance.activityPeriod.get();
+  },
+
+  isReadyTorender() {
+    return (
+      Template.instance().residents.get() !== null &&
+      Template.instance().homeDetails.get() !== null
+    );
   },
 });

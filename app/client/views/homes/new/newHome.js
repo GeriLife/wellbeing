@@ -1,18 +1,22 @@
 Template.newHome.created = function () {
   // Create reference to template instance
   var instance = this;
+  instance.groups = new ReactiveVar(null);
 
-  // Subscribe to all Groups
-  instance.subscribe('allGroups');
+  Meteor.call('currentUserGroups', function (error, userGroups) {
+    if (!error) {
+      instance.groups.set(userGroups);
+    }
+  });
 };
 
 Template.newHome.helpers({
-  groupIdOptions: function() {
-    return _.map(Groups.find().fetch(), function(group) {
+  groupIdOptions: function () {
+    return _.map(Template.instance().groups.get(), function (group) {
       return {
         label: group.name,
-        value: group._id
+        value: group._id,
       };
     });
-  }
+  },
 });

@@ -1,22 +1,17 @@
 Template.homes.created = function() {
   // Get reference to template instance
   const templateInstance = this;
+  templateInstance.sortedGroups = new ReactiveVar(null);
 
-  // Subscribe to all groups
-  templateInstance.subscribe("currentUserGroups");
-
-  templateInstance.sortedGroups = new ReactiveVar();
-
-  templateInstance.autorun(function() {
-    // Get all Groups
-    const unsortedGroups = Groups.find().fetch();
-
-    /* Sorting in mongo is case sensitive so sorting on data in meteor */
-    const sortedGroups = _.sortBy(unsortedGroups, function (group) {
-        return group.name.toLowerCase()
+  templateInstance.autorun(function () {
+    Meteor.call('currentUserGroups', function (
+      err,
+      userVisibleGroups
+    ) {
+      if (!err) {
+        templateInstance.sortedGroups.set(userVisibleGroups);
+      }
     });
-
-    templateInstance.sortedGroups.set(sortedGroups);
   });
 };
 
@@ -33,6 +28,11 @@ Template.homes.helpers({
 
     return templateInstance.sortedGroups.get();
   },
+
+  groupsLoaded() {
+    return Template.instance().sortedGroups.get() !== null;
+  },
+
   showAlphabeticalSortingNotice () {
     /*
     Show alphabetical sorting notice 
