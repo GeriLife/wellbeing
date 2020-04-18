@@ -2,14 +2,6 @@ Template.activities.onCreated(function() {
   // Get reference to template instance
   const instance = this;
 
-  // Instance subscriptions
-  // Activity types, residents, and homes
-  instance.subscribe('allActivityTypes');
-
-  // Subscribe to user-visible residents and homes
-  this.subscribe('currentUserVisibleResidents');
-  this.subscribe('currentUserVisibleHomes');
-
   instance.currentPageOfActivities = new ReactiveVar([]);
   instance.rowsPerPage = new ReactiveVar(10);
   instance.currentPage = new ReactiveVar(1);
@@ -65,9 +57,6 @@ Template.activities.helpers({
       rowsPerPage: Template.instance().rowsPerPage,
       showNavigation: 'never',
       filters: ['residentFilter', 'typeFilter'],
-      data: {
-        rows: Activities.find().count(),
-      },
       fields: [
         {
           key: 'residents',

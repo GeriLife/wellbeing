@@ -1,13 +1,34 @@
 import { isCurrentUserAdmin } from '../utils/user';
 
+function getEligibleManagerList(idsToFilter) {
+  if (!isCurrentUserAdmin()) {
+    return [];
+  }
+
+  return Meteor.users
+    .find()
+    .fetch()
+    .filter((user) => idsToFilter.indexOf(user._id) === -1)
+    .map((user) => {
+      let address = 'Unknown';
+      if (user.emails.length > 0) {
+        address = user.emails[0].address || 'Unknown';
+      }
+      return {
+        label: address,
+        value: user._id,
+      };
+    });
+}
+
 Meteor.methods({
-  addUser (user) {
+  addUser(user) {
     // Add new user
     var userId = Accounts.createUser(user);
 
     return userId;
   },
-  addUsersAndSendEnrollmentEmails (enrollmentDocument) {
+  addUsersAndSendEnrollmentEmails(enrollmentDocument) {
     if (!isCurrentUserAdmin()) {
       throw new Meteor.Error(500, 'Operation not allowed');
     }
@@ -15,12 +36,18 @@ Meteor.methods({
 
     // Make sure mail configuration is present
     if (!process.env.MAIL_URL) {
-      throw new Meteor.Error('MailConfigurationError', 'No mail settings available.')
+      throw new Meteor.Error(
+        'MailConfigurationError',
+        'No mail settings available.'
+      );
     }
 
     // Make sure 'from email' address was provied by environmental variable
     if (!process.env.FROM_EMAIL) {
-      throw new Meteor.Error('MailConfigurationError', 'No from email address available.')
+      throw new Meteor.Error(
+        'MailConfigurationError',
+        'No from email address available.'
+      );
     }
 
     // Set the from email address
@@ -29,12 +56,12 @@ Meteor.methods({
     // Set enrollment subject from document
     Accounts.emailTemplates.enrollAccount.subject = (user) => {
       return enrollmentDocument.subject;
-    }
+    };
 
     // Set enrollment message from document
     Accounts.emailTemplates.enrollAccount.text = (user, url) => {
-      return `${ enrollmentDocument.message } \n\n ${ url }`;
-    }
+      return `${enrollmentDocument.message} \n\n ${url}`;
+    };
 
     // Get emails from enrollment document
     const emailAddresses = enrollmentDocument.emailAddresses;
@@ -43,23 +70,23 @@ Meteor.methods({
     emailAddresses.forEach((emailAddress) => {
       // Create a user with current email address
       const userId = Accounts.createUser({
-        email: emailAddress
+        email: emailAddress,
       });
 
       if (enrollmentDocument.groups) {
-        enrollmentDocument.groups.forEach(groupId => {
-          Permissions.insert({ userId, groupId })
-        })
+        enrollmentDocument.groups.forEach((groupId) => {
+          Permissions.insert({ userId, groupId });
+        });
       }
       // Send enrollment email to newly created user
       Accounts.sendEnrollmentEmail(userId);
     });
   },
-  addUserToAdminRole (userId) {
+  addUserToAdminRole(userId) {
     // Add user to admin role
-    Roles.addUsersToRoles(userId, "admin");
+    Roles.addUsersToRoles(userId, 'admin');
   },
-  deleteUser (user) {
+  deleteUser(user) {
     // Make sure user object provided with '_id' property
     check(user, Object);
     check(user._id, String);
@@ -110,8 +137,16 @@ Meteor.methods({
     }
     return userId;
   },
-  removeUserFromAdminRole (userId) {
+  removeUserFromAdminRole(userId) {
     // Add user to admin role
-    Roles.removeUsersFromRoles(userId, "admin");
-  }
+    Roles.removeUsersFromRoles(userId, 'admin');
+  },
+  getEligibleManagerList,
+  getUserList() {
+    if (!isCurrentUserAdmin()) {
+      return [];
+    }
+
+    return Meteor.users.find().fetch();
+  },
 });

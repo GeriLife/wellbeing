@@ -15,7 +15,7 @@ function updateResidents(templateInstance, includeDeparted) {
 Template.residents.onCreated(function () {
   const templateInstance = this;
 
-  // Reactive variable to toggle resident subscription based on departed status
+  // Reactive variable to toggle resident based on departed status
   templateInstance.includeDeparted = new ReactiveVar();
   templateInstance.managesAGroup = new ReactiveVar(false);
   templateInstance.residencies = new ReactiveVar(null);
@@ -25,7 +25,7 @@ Template.residents.onCreated(function () {
     templateInstance.includeDeparted.get()
   );
 
-  // Toggle resident subscription based on departed status
+  // Toggle resident based on departed status
   templateInstance.autorun(function () {
     const includeDeparted = templateInstance.includeDeparted.get();
     updateResidents(templateInstance, includeDeparted);

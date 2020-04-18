@@ -1,6 +1,6 @@
 <template name="homeActivities">
   <h2>{{_ "activities-pageHeader"}}</h2>
-  {{# if Template.subscriptionsReady }}
+  {{# if homeActivities }}
   {{> reactiveTable collection=homeActivities settings=tableSettings }}
   {{ else }}
   {{> spinner }}

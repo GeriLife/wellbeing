@@ -1,22 +1,25 @@
+Template.activitiesTableResidentsCell.onCreated(function () {
+  const instance = this;
+  const uniqueResidentIds = _.uniq(this.data.residentIds);
+  instance.residents = new ReactiveVar(null);
+
+  Meteor.call(
+    'getSelectedResidentDetails',
+    uniqueResidentIds,
+    function (err, residents) {
+      if (!err) {
+        instance.residents.set(residents);
+      }
+    }
+  );
+});
+
 Template.activitiesTableResidentsCell.helpers({
   residentNames() {
-    // Get reference to current activity
-    const activity = this;
+    const residents = Template.instance().residents.get();
 
-    // Get all unique resident IDs
-    const uniqueResidentIds = _.uniq(activity.residentIds);
-
-    // Get resident name for each unique resident ID
-    const residentNames = _.map(uniqueResidentIds, function(residentId) {
-      // Get resident
-      const resident = Residents.findOne(residentId);
-
-      // Get resident full name, padded with left space for display
-      const residentName = " " + resident.fullName();
-
-      return residentName;
-    });
-
-    return residentNames;
-  }
+    return (residents || []).map(
+      (resident) => resident.residentFullName
+    );
+  },
 });

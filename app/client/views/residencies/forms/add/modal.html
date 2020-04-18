@@ -8,7 +8,6 @@
             {{_ "addResidencyModal-header" }}
           </h4>
         </div> <!-- / .modal-header -->
-        {{# if Template.subscriptionsReady }}
         <div class="modal-body">
           <!-- new resident radio (checked by default) -->
           <div class="radio">
@@ -33,9 +32,6 @@
             {{> addResidencyForNewResidentForm }}
           {{/ if }}
         </div> <!-- / .modal-body -->
-        {{ else }}
-          {{> spinner }}
-        {{/ if }} <!-- /if Template.subscriptionsReady -->
       </div> <!-- / .modal-content -->
     </div> <!-- / .modal-dialogue -->
   </div> <!-- / .modal fade -->

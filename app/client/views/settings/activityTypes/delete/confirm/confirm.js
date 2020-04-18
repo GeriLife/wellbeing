@@ -10,6 +10,8 @@ Template.deleteActivityTypeConfirmation.events({
       if (!error) {
         // Dismiss confirmation
         Modal.hide('deleteActivityTypeConfirmation');
+        Session.set('refresh-activitytype-list',true);
+
       }
     });
   },

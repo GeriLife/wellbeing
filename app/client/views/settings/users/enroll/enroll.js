@@ -1,17 +1,22 @@
-import usersEnrollSchema from "./schema";
-Template.usersEnroll.onCreated(function() {
+import usersEnrollSchema from './schema';
+Template.usersEnroll.onCreated(function () {
   const templateInstance = this;
-  templateInstance.subscribe("allGroups");
+  templateInstance.groups = new ReactiveVar([]);
+
+  Meteor.call('currentUserGroups', function (err, currentGroups) {
+    if (!err) {
+      templateInstance.groups.set(currentGroups);
+    }
+  });
 });
+
 Template.usersEnroll.helpers({
   buttonContent() {
     // Get localized text for send buttonContent
-    const buttonContent = TAPi18n.__("usersEnroll-form-submitButton-text");
-
-    return buttonContent;
+    return TAPi18n.__('usersEnroll-form-submitButton-text');
   },
+
   usersEnrollSchema() {
-    const allGroups = Groups.find().fetch();
-    return usersEnrollSchema(allGroups);
+    return usersEnrollSchema(Template.instance().groups.get());
   }
 });

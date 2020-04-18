@@ -7,4 +7,10 @@ Meteor.methods({
     }
     return Meteor.roles.insert(roleName, { filter: false });
   },
+
+  getRolesExceptAdmin() {
+    return Meteor.roles
+      .find({ name: { $ne: 'admin' } }, { sort: { name: 1 } })
+      .fetch();
+  },
 });

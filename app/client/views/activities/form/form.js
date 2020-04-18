@@ -1,27 +1,39 @@
-Template.activityForm.onCreated(function() {
+Template.activityForm.onCreated(function () {
   const templateInstance = this;
-
-  templateInstance.subscribe("allActivityTypes");
-  templateInstance.subscribe("allRolesExceptAdmin");
 
   // placeholder for resident select options
   templateInstance.residentOptions = new ReactiveVar();
+  templateInstance.roles = new ReactiveVar();
+  templateInstance.activityTypes = new ReactiveVar();
 
-  Meteor.call("userVisibleResidentNamesGroupedtByHomes", function(
-    error,
-    residentSelectOptions
-  ) {
-    templateInstance.residentOptions.set(residentSelectOptions);
+  this.autorun(function () {
+    Meteor.call('userVisibleResidentNamesGroupedtByHomes', function (
+      error,
+      residentSelectOptions
+    ) {
+      templateInstance.residentOptions.set(residentSelectOptions);
+    });
+
+    Meteor.call('getRolesExceptAdmin', function (err, roles) {
+      if (!err) {
+        templateInstance.roles.set(roles);
+      }
+    });
+
+    Meteor.call('getAllActivityTypes', function (err, activityTypes) {
+      if (!err) {
+        templateInstance.activityTypes.set(activityTypes);
+      }
+    });
   });
 });
 
 Template.activityForm.helpers({
-  activityTypeIdOptions: function() {
-    // Get all activity types from db
-    const activityTypes = ActivityTypes.find().fetch();
+  activityTypeIdOptions: function () {
+    const activityTypes = Template.instance().activityTypes.get();
 
     // Create an options array of activity types with label and value pairs
-    const activityTypesOptions = _.map(activityTypes, function(
+    const activityTypesOptions = _.map(activityTypes, function (
       activityType
     ) {
       return {
@@ -33,14 +45,10 @@ Template.activityForm.helpers({
     return activityTypesOptions;
   },
   facilitatorRoleIdOptions() {
-    // Get all roles, except admin, from db
-    const roles = Meteor.roles
-      .find({ name: { $not: 'admin' } })
-      .fetch();
+    const roles = Template.instance().roles.get();
 
     // Create an options array of roles with label (name) and value (id) pairs
-    const rolesOptions = _.map(roles, function(role) {
-      // Don't return the admin role
+    const rolesOptions = _.map(roles, function (role) {
       // Return role name and ID object
       return {
         label: role.name,
@@ -71,7 +79,7 @@ Template.activityForm.helpers({
 });
 
 Template.activityForm.events({
-  "click .btn-danger"() {
+  'click .btn-danger'() {
     FlashMessages.clear();
-  }
-})
+  },
+});

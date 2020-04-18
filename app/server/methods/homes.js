@@ -18,6 +18,10 @@ function addOrUpdateHome(formData) {
   return Homes.insert(formData);
 }
 
+function getGroupHomes(groupId) {
+  return Homes.find({ groupId }).fetch();
+}
+
 export default Meteor.methods({
   currentUserCanAccessHome(homeId) {
     const currentUserId = Meteor.userId();
@@ -401,5 +405,6 @@ export default Meteor.methods({
 
     return Homes.findOne(homeId);
   },
-  addOrUpdateHome
+  addOrUpdateHome,
+  getGroupHomes
 });

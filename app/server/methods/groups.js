@@ -19,6 +19,36 @@ function canUserAccessGroup(groupId) {
   return userGroupIds.includes(groupId);
 }
 
+function currentUserGroups() {
+  if (!Meteor.user()) {
+    return [];
+  }
+  const userId = Meteor.user()._id;
+  let unsortedGroups = [];
+
+  // Admin users can see all groups
+  if (Roles.userIsInRole(userId, ['admin'])) {
+    unsortedGroups = Groups.find().fetch();
+  } else {
+    // Check for existing user permissions
+    const existingUserPermissions = Permissions.find({
+      userId,
+    }).fetch();
+
+    const existingUserPermissionGroupIds = existingUserPermissions.map(
+      (permission) => permission.groupId
+    );
+
+    unsortedGroups = Groups.find({
+      _id: { $in: existingUserPermissionGroupIds },
+    }).fetch();
+  }
+
+  return _.sortBy(unsortedGroups, (group) =>
+    group.name.toLowerCase()
+  );
+}
+
 Meteor.methods({
   addOrUpdateAGroup,
   canUserAccessGroup,
@@ -31,4 +61,6 @@ Meteor.methods({
     }
     throw new Meteor.Error(500, 'Operation not allowed');
   },
+
+  currentUserGroups,
 });

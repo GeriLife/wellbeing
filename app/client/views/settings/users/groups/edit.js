@@ -2,8 +2,20 @@ Template.editUserGroups.onCreated(function() {
   const templateInstance = this;
   const userId = templateInstance.data.user._id;
 
-  templateInstance.subscribe("allGroups");
-  templateInstance.subscribe("userPermissions", userId);
+  templateInstance.groups = new ReactiveVar([]);
+  templateInstance.existingPermissions = new ReactiveVar([]);
+
+  Meteor.call('currentUserGroups', function (err, currentGroups) {
+    if (!err) {
+      templateInstance.groups.set(currentGroups);
+    }
+  });
+
+  Meteor.call('getSingleUserGroupIds', userId, function (err, permissions) {
+    if (!err) {
+      templateInstance.existingPermissions.set(permissions);
+    }
+  });
 });
 
 Template.editUserGroups.onRendered(function() {
@@ -13,36 +25,28 @@ Template.editUserGroups.onRendered(function() {
 
 Template.editUserGroups.helpers({
   groupSelectOptions() {
-    const templateInstance = Template.instance();
+    const allGroups = Template.instance().groups.get();
 
-    if (!templateInstance.subscriptionsReady()) {
-      return false;
-    } else {
-      const allGroups = Groups.find().fetch();
+    // Check for existing permissions
+    const existingUserPermissionGroupIds = Template.instance().existingPermissions.get();
 
-      const userId = templateInstance.data.user._id;
+    // annotate groups with "selected", based on group membership
+    // used by select widget
+    const annotatedGroups = allGroups.map(function (group) {
+      const groupId = group._id;
 
-      // Check for existing permissions
-      const existingUserPermissionGroupIds = Permissions.find({ userId }).map(
-        permission => permission.groupId
+      const userIsInGroup = existingUserPermissionGroupIds.includes(
+        groupId
       );
 
-      // annotate groups with "selected", based on group membership
-      // used by select widget
-      const annotatedGroups = allGroups.map(function(group) {
-        const groupId = group._id;
+      // mark group as "selected", if user already assigned
+      const selected = userIsInGroup ? 'selected' : undefined;
 
-        const userIsInGroup = existingUserPermissionGroupIds.includes(groupId);
+      return Object.assign({ selected }, group);
+    });
 
-        // mark group as "selected", if user already assigned
-        const selected = userIsInGroup ? "selected" : undefined;
-
-        return Object.assign({ selected }, group);
-      });
-
-      return annotatedGroups;
-    }
-  }
+    return annotatedGroups;
+  },
 });
 
 Template.editUserGroups.events({

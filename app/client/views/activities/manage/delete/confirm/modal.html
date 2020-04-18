@@ -2,7 +2,6 @@
   <div class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-        {{# if Template.subscriptionsReady }}
         <div class="modal-header">
           <h4 class="modal-title">
             <i class="fa fa-user"></i>&nbsp;
@@ -22,10 +21,6 @@
             {{_ "deleteActivityConfirmation-cancel" }}
           </button>
         </div>
-
-        {{ else }}
-        {{> spinner }}
-        {{/ if }}
       </div>
     </div>
   </div>

@@ -1,6 +1,12 @@
 Template.activitiesTableActivityTypeFilter.onCreated(function () {
   // Initialize ReactiveTable filter for activity types
   this.filter = new ReactiveTable.Filter('typeFilter', ['activityTypeId']);
+  const instance = this;
+  instance.activityTypes = new ReactiveVar();
+
+  Meteor.call('getAllActivityTypes', function (err, response) {
+    instance.activityTypes.set(response);
+  });
 });
 
 Template.activitiesTableActivityTypeFilter.events({
@@ -15,9 +21,6 @@ Template.activitiesTableActivityTypeFilter.events({
 
 Template.activitiesTableActivityTypeFilter.helpers({
   activityTypes () {
-    // Get all activity types
-    const activityTypes = ActivityTypes.find().fetch();
-
-    return activityTypes;
+    return Template.instance().activityTypes.get();
   }
 });
