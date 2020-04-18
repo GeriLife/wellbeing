@@ -6,7 +6,7 @@ Template.homeActivities.onCreated(function () {
   const homeId = Router.current().params.homeId;
 
   // Create activities reactive variable
-  templateInstance.activities = new ReactiveVar();
+  templateInstance.activities = new ReactiveVar(null);
 
   Meteor.call('getHomeActivities', homeId, function (error, activities) {
     // Update the activities reactive variable
@@ -16,19 +16,9 @@ Template.homeActivities.onCreated(function () {
 
 Template.homeActivities.helpers({
   homeActivities: function () {
-    // Get reference to template instance
-    const instance = Template.instance();
-
-    // Get all activities, from template subscription
-    const activities = instance.activities.get();
-
-    // Return activities if available, otherwise return an empty array
-    if (activities ) {
-     return activities;
-    } else {
-      return [];
-    }
+    return Template.instance().activities.get();
   },
+
   tableSettings: function () {
     const tableSettings = {
       showFilter: false,

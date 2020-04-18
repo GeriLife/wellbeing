@@ -2,8 +2,12 @@ Template.homeGroup.onCreated(function() {
   const templateInstance = this;
   const groupId = templateInstance.data._id;
 
-  // Subscribe to all homes
-  templateInstance.subscribe("homesBelongingToGroup", groupId);
+  templateInstance.homes = new ReactiveVar(null);
+  Meteor.call('getGroupHomes', groupId, function (err, homesList) {
+    if (!err) {
+      templateInstance.homes.set(homesList);
+    }
+  });
 });
 
 Template.homeGroup.events({
@@ -46,11 +50,6 @@ Template.homeGroup.events({
 
 Template.homeGroup.helpers({
   sortedHomes() {
-    const unsortedHomes = this.homes();
-
-    /* Added sorting on client side as meteor collection does not support case insensitive sorting  */
-    return _.sortBy(unsortedHomes, function (home) {
-      return home.name.toLowerCase();
-    });
+    return Template.instance().homes.get();
   },
 });

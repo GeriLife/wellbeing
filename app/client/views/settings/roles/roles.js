@@ -1,17 +1,23 @@
 Template.rolesSettings.created = function () {
   // Get reference to template instance
-  var instance = this;
+  const instance = this;
+  instance.roles = new ReactiveVar(null);
 
-  // Subscribe to roles publication
-  instance.subscribe('allRolesExceptAdmin');
+  this.autorun(function () {
+    const refreshFlag = Session.get('refresh-roles');
+    if (refreshFlag) {
+      Session.set('refresh-roles', false);
+    }
+
+    Meteor.call('getRolesExceptAdmin', function (err, rolesData) {
+      instance.roles.set(rolesData);
+    });
+  });
 };
 
 Template.rolesSettings.helpers({
-  "roles": function () {
-    // Get all roles except 'admin'
-    var roles = Meteor.roles.find({name: {$ne: "admin"}}, {sort: {name: 1}}).fetch();
-
-    return roles;
+  roles: function () {
+    return Template.instance().roles.get();
   }
 });
 

@@ -1,18 +1,15 @@
 Meteor.methods({
-  getAllActivityTypeIds: function() {
-    // TODO: determine how to secure this method to prevent client abuse
+  getAllActivityTypes() {
+    return ActivityTypes.find({}, {sort: {name: 1}}).fetch();
+  },
 
+  getAllActivityTypeIds: function () {
     // Get all Activity Types
-    var activityTypes = ActivityTypes.find().fetch();
-
-    var activityTypeIds = [];
+    const activityTypes = Meteor.call('getAllActivityTypes');
 
     // Create an array of Activity Type IDs
-    activityTypes.forEach(function(activityType) {
-      activityTypeIds.push(activityType._id);
-    });
+    return activityTypes.map((activityType) => activityType._id);
 
-    return activityTypeIds;
   },
 
   addActivityType(formData) {
@@ -29,5 +26,9 @@ Meteor.methods({
     }
 
     return ActivityTypes.remove(activityTypeId);
+  },
+
+  getActivityTypeData(activityTypeId) {
+    return ActivityTypes.findOne(activityTypeId);
   },
 });

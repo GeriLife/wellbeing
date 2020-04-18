@@ -1,33 +1,51 @@
 Template.editHome.onCreated(function () {
   // Get reference to template instance
-  var instance = this;
+  const instance = this;
+  instance.home = new ReactiveVar(null);
+  instance.groups = new ReactiveVar(null);
 
   // Get reference to router
-  var router = Router.current();
+  const router = Router.current();
 
   // Get Home ID from router parameter
-  var homeId = router.params.homeId;
+  const homeId = router.params.homeId;
 
-  // Subscribe to single home, based on Home ID
-  instance.subscribe('singleHome', homeId);
+  Meteor.call('getHomeDetails', homeId, function (err, homeDetails) {
+    if (!err) {
+      instance.home.set(homeDetails);
+    }
+  });
 
-  // Subscribe to all groups, for the group select options
-  instance.subscribe('allGroups');
+  Meteor.call('currentUserGroups', function (error, userGroups) {
+    if (!error) {
+      instance.groups.set(userGroups);
+    }
+  });
 });
 
 Template.editHome.helpers({
-  groupOptions () {
-    // Get all groups
-    const groups = Groups.find().fetch();
-    
-    // Create options list of groups with label/value keys
-    const groupOptions = _.map(groups, function (group) {
-      return {
-        label: group.name,
-        value: group._id,
+  groupOptions() {
+    const groupOptions = _.map(
+      Template.instance().groups.get(),
+      function (group) {
+        return {
+          label: group.name,
+          value: group._id,
+        };
       }
-    });
+    );
 
     return groupOptions;
-  }
-})
+  },
+
+  home() {
+    return Template.instance().home.get();
+  },
+
+  isReadyToRender() {
+    return (
+      Template.instance().groups.get() !== null &&
+      Template.instance().home.get() !== null
+    );
+  },
+});

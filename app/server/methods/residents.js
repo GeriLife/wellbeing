@@ -204,5 +204,17 @@ Meteor.methods({
     return Residents.findOne(residentId, { fields });
   },
 
-  updateResidentInfo
+  updateResidentInfo,
+
+  getSelectedResidentDetails(residentIds) {
+    const residents = Residents.find({
+      _id: { $in: residentIds },
+    }).fetch();
+    return residents.map((resident) => ({
+      ...resident,
+      residentFullName: resident.lastInitial
+        ? `${resident.firstName} ${resident.lastInitial}`
+        : resident.firstName,
+    }));
+  },
 });
