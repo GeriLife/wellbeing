@@ -1,4 +1,3 @@
-import UserEventLog from '/both/collections/userEventLog';
 
 const fields = [
   {
@@ -23,6 +22,18 @@ const fields = [
   },
 ];
 
+Template.userEventLog.onCreated(function () {
+  const instance = this;
+
+  instance.logs = new ReactiveVar([]);
+
+  Meteor.call('getUserEventLogs', function (err, logsDetails) {
+    if (!err) {
+      instance.logs.set(logsDetails);
+    }
+  });
+});
+
 Template.userEventLog.helpers({
   tableSettings() {
     return {
@@ -30,5 +41,9 @@ Template.userEventLog.helpers({
       showFilter: false,
       fields,
     };
+  },
+
+  logs() {
+    return Template.instance().logs.get();
   },
 });
