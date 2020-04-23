@@ -11,20 +11,6 @@ Template.report.onCreated(function() {
   templateInstance.barMode = new ReactiveVar('stack');
   templateInstance.lastUpdatedActivityType = new ReactiveVar();
   templateInstance.lastUpdatedActivityRole = new ReactiveVar();
-});
-
-Template.report.onRendered(function() {
-  const templateInstance = this;
-
-  // Set initial activity metric from template
-  const activityMetric = $(
-    'input[name="activityMetric"]:checked'
-  ).val();
-  templateInstance.activityMetric.set(activityMetric);
-
-  // Set initial time period from template
-  const timePeriod = $('input[name="timePeriod"]:checked').val();
-  templateInstance.timePeriod.set(timePeriod);
 
   // fetch chart data in reactive context
   templateInstance.autorun(function() {
@@ -53,6 +39,21 @@ Template.report.onRendered(function() {
       }
     );
   });
+
+});
+
+Template.report.onRendered(function() {
+  const templateInstance = this;
+
+  // Set initial activity metric from template
+  const activityMetric = $(
+    'input[name="activityMetric"]:checked'
+  ).val();
+  templateInstance.activityMetric.set(activityMetric);
+
+  // Set initial time period from template
+  const timePeriod = $('input[name="timePeriod"]:checked').val();
+  templateInstance.timePeriod.set(timePeriod);
 
   // Render chart in reactive context
   templateInstance.autorun(() => {
