@@ -1,5 +1,7 @@
 AutoForm.addHooks(['newHomeForm'], {
   onSuccess: function() {
+    Session.set('refresh-data', true);
+
     // Hide the modal dialogue
     Modal.hide('newHome');
     FlashMessages.clear();

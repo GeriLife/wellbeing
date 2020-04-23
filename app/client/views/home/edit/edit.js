@@ -10,16 +10,26 @@ Template.editHome.onCreated(function () {
   // Get Home ID from router parameter
   const homeId = router.params.homeId;
 
-  Meteor.call('getHomeDetails', homeId, function (err, homeDetails) {
-    if (!err) {
-      instance.home.set(homeDetails);
+  this.autorun(function () {
+    const refreshFlag = Session.get('refresh-data');
+    if (refreshFlag) {
+      Session.set('refresh-data', false);
     }
-  });
 
-  Meteor.call('currentUserGroups', function (error, userGroups) {
-    if (!error) {
-      instance.groups.set(userGroups);
-    }
+    Meteor.call('getHomeDetails', homeId, function (
+      err,
+      homeDetails
+    ) {
+      if (!err) {
+        instance.home.set(homeDetails);
+      }
+    });
+
+    Meteor.call('currentUserGroups', function (error, userGroups) {
+      if (!error) {
+        instance.groups.set(userGroups);
+      }
+    });
   });
 });
 
