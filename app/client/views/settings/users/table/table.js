@@ -2,11 +2,17 @@ Template.usersSettingsTable.onCreated(function () {
   // Get reference to Template instance
   const instance = this;
   instance.users = ReactiveVar([]);
-
-  Meteor.call('getUserList', function (err, userList) {
-    if (!err) {
-      instance.users.set(userList);
+  this.autorun(function () {
+    const refreshFlag = Session.get('refresh-user-list');
+    if (refreshFlag) {
+      Session.set('refresh-user-list', false);
     }
+
+    Meteor.call('getUserList', function (err, userList) {
+      if (!err) {
+        instance.users.set(userList);
+      }
+    });
   });
 });
 

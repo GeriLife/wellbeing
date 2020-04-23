@@ -22,6 +22,8 @@ AutoForm.addHooks('userForm', {
     });
   },
   onSuccess: function() {
+    Session.set('refresh-user-list', true);
+
     // Hide the modal dialogue
     Modal.hide('manageUser');
     FlashMessages.clear();

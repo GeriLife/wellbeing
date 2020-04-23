@@ -4,6 +4,12 @@ Template.homes.created = function() {
   templateInstance.sortedGroups = new ReactiveVar(null);
 
   templateInstance.autorun(function () {
+    const refreshFlag = Session.get('refresh-data');
+
+    if (refreshFlag) {
+      Session.set('refresh-data', false);
+    }
+
     Meteor.call('currentUserGroups', function (
       err,
       userVisibleGroups
