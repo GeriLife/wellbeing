@@ -272,17 +272,29 @@ export default Meteor.methods({
     const fieldSelector =
       timePeriod === 'week' ? 'weeklyData' : 'monthlyData';
 
-    /* Pick an entry with the latest date */
-    const data = AllHomesActivityReportAggregate.findOne(
-      { aggregateBy },
-      { fields: { [fieldSelector]: 1, lastUpdatedDate: 1, _id: 0 } },
-      { sort: { Date: -1, limit: 1 } }
-    );
+    /* If collection is empty, prefill it */
+    const aggregateCount = AllHomesActivityReportAggregate.find().count();
+    try {
+      if (aggregateCount === 0) {
+        Meteor.call(
+          'aggregateActivitiesAndPopulateAggregateCollection'
+        );
+      }
+    } finally {
+      /* Pick an entry with the latest date */
+      const data = AllHomesActivityReportAggregate.findOne(
+        { aggregateBy },
+        {
+          fields: { [fieldSelector]: 1, lastUpdatedDate: 1, _id: 0 },
+        },
+        { sort: { Date: -1, limit: 1 } }
+      );
 
-    return {
-      activityData: data ? data[fieldSelector] : [],
-      lastUpdated: data ? data.lastUpdatedDate : null,
-    };
+      return {
+        activityData: data ? data[fieldSelector] : [],
+        lastUpdated: data ? data.lastUpdatedDate : null,
+      };
+    }
   },
   getResidentAggregatedActivities(residentId, timePeriod) {
     const activities = Activities.find({
