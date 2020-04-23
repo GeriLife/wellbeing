@@ -1,5 +1,6 @@
 AutoForm.addHooks('usersEnrollForm', {
   onError (formType, error) {
+    Session.set('refresh-user-list', true);
     // Show the error to end user
     // TODO: add internationalization support for specefic error type(s)
 
@@ -12,5 +13,9 @@ AutoForm.addHooks('usersEnrollForm', {
       FlashMessages.sendError(error.message, { autoHide: true, hideDelay: 3000 });
       
     }
-  }
+  },
+
+  onSuccess() {
+    Session.set('refresh-user-list', true);
+  },
 });
