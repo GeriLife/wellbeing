@@ -10,18 +10,23 @@ Template.home.onCreated(function() {
   templateInstance.activityPeriod = new ReactiveVar('7');
   templateInstance.homeDetails = new ReactiveVar(null);
 
-  this.autorun(function() {
+  this.autorun(function () {
+    const refreshFlag = Session.get('refresh-data');
+    if (refreshFlag) {
+      Session.set('refresh-data', false);
+    }
+
     Meteor.call(
       'getHomeCurrentAndActiveResidents',
       templateInstance.homeId,
-      function(err, residentsArray) {
+      function (err, residentsArray) {
         if (residentsArray) {
           templateInstance.residents.set(residentsArray);
         }
       }
     );
 
-    Meteor.call('getHomeDetails', templateInstance.homeId, function(
+    Meteor.call('getHomeDetails', templateInstance.homeId, function (
       err,
       result
     ) {

@@ -5,6 +5,8 @@ Template.deleteUser.events({
 
     // Confirmed. Delete user.
     Meteor.call('deleteUser', user, function () {
+      Session.set('refresh-user-list', true);
+
       // Hide the delete user dialogue
       Modal.hide('deleteUser');
     });

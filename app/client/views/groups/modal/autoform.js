@@ -1,5 +1,7 @@
 AutoForm.addHooks(['groupForm'], {
   onSuccess: function() {
+    Session.set('refresh-data', true);
+
     // Hide the modal dialogue
     Modal.hide('newGroup');
     FlashMessages.clear();

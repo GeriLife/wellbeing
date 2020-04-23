@@ -1,5 +1,7 @@
 AutoForm.addHooks(['editHomeForm'], {
   onSuccess: function() {
+    Session.set('refresh-data', true);
+
     // Hide the modal dialogue
     Modal.hide('editHome');
     FlashMessages.clear();

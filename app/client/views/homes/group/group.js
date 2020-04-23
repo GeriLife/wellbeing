@@ -1,12 +1,19 @@
-Template.homeGroup.onCreated(function() {
+Template.homeGroup.onCreated(function () {
   const templateInstance = this;
   const groupId = templateInstance.data._id;
 
   templateInstance.homes = new ReactiveVar(null);
-  Meteor.call('getGroupHomes', groupId, function (err, homesList) {
-    if (!err) {
-      templateInstance.homes.set(homesList);
+  this.autorun(function () {
+    const refreshFlag = Session.get('refresh-data');
+    if (refreshFlag) {
+      Session.set('refresh-data', true);
     }
+
+    Meteor.call('getGroupHomes', groupId, function (err, homesList) {
+      if (!err) {
+        templateInstance.homes.set(homesList);
+      }
+    });
   });
 });
 
