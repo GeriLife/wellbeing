@@ -73,8 +73,14 @@ function prepareFilters(
 }
 
 function aggregateActivitiesAndPopulateAggregateCollection() {
+  /* Return empty array if activity collection is empty */
+  if (Activities.find().count() === 0) {
+    AllHomesActivityReportAggregate.remove({});
+    return
+  }
+
   /* Get monthly data */
-  Meteor.call('getAllHomeReportAggregates', function(error, data) {
+  Meteor.call('getAllHomeReportAggregates', function (error, data) {
     if (error || data.error === true) return;
 
     /* Remove previous entries, if any so that after the following insert
@@ -97,13 +103,13 @@ function aggregateActivitiesAndPopulateAggregateCollection() {
     };
 
     /* Insert Data */
-    AllHomesActivityReportAggregate.insert(activityTypeData, function(
+    AllHomesActivityReportAggregate.insert(activityTypeData, function (
       error
-    ) {
-      if (error) console.error('activityTypeData: ', error);
-    });
+      ) {
+        if (error) console.error('activityTypeData: ', error);
+      });
 
-    AllHomesActivityReportAggregate.insert(facilitatorData, function(
+    AllHomesActivityReportAggregate.insert(facilitatorData, function (
       error
     ) {
       if (error) console.error('facilitatorData: ', error);
