@@ -1,4 +1,4 @@
-Thank you for contributing to Geri life. To maintain the quality of code please make sure of the following before merging a PR.
+Thank you for contributing to GeriLife. To maintain the quality of code please make sure of the following before merging a PR.
 - [ ] Mentioned issues addressed in this PR.
 - [ ] There are no code-climate issues or have been resolved before the PR is merged.
 - [ ] Added test cases for new code
