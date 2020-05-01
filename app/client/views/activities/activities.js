@@ -60,11 +60,13 @@ Template.activities.helpers({
       fields: [
         {
           key: 'residents',
+          sortable: false,
           label: TAPi18n.__('activities.residentIds.label'),
           tmpl: Template.activitiesTableResidentsCell,
         },
         {
           key: 'type',
+          sortable: false,
           label: TAPi18n.__('activities.activityTypeId.label'),
           sortOrder: 2,
           sortDirection: 'ascending',
@@ -72,17 +74,18 @@ Template.activities.helpers({
         },
         {
           key: 'duration',
+          sortable: false,
           label: TAPi18n.__('activities.duration.label'),
         },
         {
           key: 'activityDate',
+          sortable: false,
           label: TAPi18n.__('activities.activityDate.label'),
-          sortOrder: 0,
-          sortDirection: 'descending',
           tmpl: Template.activityDateCell,
         },
         {
           key: '_id',
+          sortable: false,
           label: '',
           tmpl: Template.manageActivityButtons,
           hidden: function() {
