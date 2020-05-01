@@ -1,8 +1,19 @@
+/**
+ * @namespace Activities
+ */
+
 import _ from 'lodash';
 import d3 from 'd3';
 import moment from 'moment';
 import { isCurrentUserAdmin } from '../utils/user';
 
+/**
+ * @memberof Activities
+ * @name getAllHomeReportAggregates
+ * @description Aggregate activities based on facilitator name and activity type name and at weekly and monthly granularity
+ *
+ * @returns {Object} 4 keys having weekly and monthly data for facilitator name and activity type each.
+ */
 function getAllHomeReportAggregates() {
   try {
     const weeklyDataByActivityType = Meteor.call(
@@ -37,7 +48,15 @@ function getAllHomeReportAggregates() {
   }
 }
 
-
+/**
+ * @memberof Activities
+ * @name PrepareFilters
+ * @description To prepare mongo filter json object. Selects activities of a given activity type and one or more residents
+ * @param {String} activityTypeId
+ * @param {String} residentId
+ * @param {Array} userVisibleActiveResidentIds
+ * @returns {Object}
+ */
 function prepareFilters(
   activityTypeId,
   residentId,
@@ -72,6 +91,12 @@ function prepareFilters(
   return condition;
 }
 
+/**
+ * @memberof Activities
+ * @name aggregateActivitiesAndPopulateAggregateCollection
+ * @description Method call by aggregate cron job. It aggregates data for all reports page,
+ * removes all past data and adds the freshly aggregated data to the aggregate collection.
+ */
 function aggregateActivitiesAndPopulateAggregateCollection() {
   /* Return empty array if activity collection is empty */
   if (Activities.find().count() === 0) {
@@ -117,6 +142,16 @@ function aggregateActivitiesAndPopulateAggregateCollection() {
   });
 }
 
+/**
+ * @memberof Activities
+ * @name saveActivity
+ * @description Add new activity if doesn't exist else update.
+ * Only admin can update an activity where else any type of user can add new activity.
+ *
+ * @param {Object} formData contains form keys in create mode,
+ * else has the _id key and modifier key (i.e. the mongo modifier object)
+ * @returns returns remove output
+ */
 function saveActivity(formData) {
   const currentUserIsAdmin = Roles.userIsInRole(
     Meteor.userId(),
@@ -134,6 +169,14 @@ function saveActivity(formData) {
   throw new Meteor.Error(500, 'Operation not allowed');
 }
 
+/**
+ * @memberof Activities
+ * @name removeActivity
+ * @description Remove selected activity. Only admin can remove an activity.
+ *
+ * @param {String} activityId
+ * @returns returns remove output
+ */
 function removeActivity(activityId) {
   if (!isCurrentUserAdmin()) {
     throw new Meteor.Error(500, 'Operation not allowed');
@@ -143,7 +186,16 @@ function removeActivity(activityId) {
 }
 
 export default Meteor.methods({
-  annotateActivities(activities) {
+
+/**
+ * @memberof Activities
+ * @name annotateActivities
+ * @description For the given activities, map the activity types ids and facilitator ids to their names
+ *
+ * @param {Array} activities
+ * @returns {Array}
+ */
+annotateActivities(activities) {
     /*
     Given an array of Activity objects
     add 'activityTypeName' attribute
@@ -183,6 +235,18 @@ export default Meteor.methods({
       return activity;
     });
   },
+
+  /**
+   * @memberof Activities
+   * @name aggregateActivities
+   * @description Aggregate activities get activity count and sum of minutes of the activities
+   *
+   * @param {Array} annotatedActivities array of activities
+   * @param {String} timePeriod time aggregation granularity. (week or monthly)
+   * @param {string} [aggregateBy='activityTypeName'] aggregate parameter
+   * @returns {Array} nested array of activities with total count of activities and sum of minutes of activities,
+   * aggregated by time and either activity type or facilitator name
+   */
   aggregateActivities(
     annotatedActivities,
     timePeriod,
@@ -213,7 +277,17 @@ export default Meteor.methods({
       })
       .entries(annotatedActivities);
   },
+
   getAllHomeReportAggregates,
+
+  /**
+   * @memberof Activities
+   * @name getDailyAggregatedHomeResidentActivities
+   * @description get daily count and time of activities
+   *
+   * @param {String} homeId home for which daily activity aggregate is required
+   * @returns {Array} nested array of aggregated activities
+   */
   getDailyAggregatedHomeResidentActivities(homeId) {
     // Get all home activities
     const allHomeActivities = Meteor.call(
@@ -252,6 +326,16 @@ export default Meteor.methods({
       })
       .entries(annotatedActivities);
   },
+
+/**
+ * @memberof Activities
+ * @name getAggregatedActivities
+ *
+ * @param {String} timePeriod  time aggregation granularity. (week or monthly)
+ * @param {String} aggregateBy aggregate parameter
+ * @returns nested array of activities with total count of activities and sum of minutes of activities,
+   * aggregated by time and either activity type or facilitator name
+ */
   getAggregatedActivities(timePeriod, aggregateBy) {
     const activities = Activities.find().fetch();
 
@@ -270,6 +354,17 @@ export default Meteor.methods({
       aggregateBy
     );
   },
+
+/**
+ * @memberof Activities
+ * @name getActivitiesAggregateReport
+ * @description Get aggregated homes report from the pre aggregated data.
+ * If there aggregation collection is empty populate it.
+ *
+ * @param {String} timePeriod time aggregation granularity. (week or monthly)
+ * @param {String} aggregateBy aggregate parameter
+ * @returns {Object} Aggregate report data and last aggregated on date.
+ */
   getActivitiesAggregateReport(timePeriod, aggregateBy) {
     if (!aggregateBy)
       throw new Meteor.Error('Required aggregateBy field');
@@ -302,6 +397,16 @@ export default Meteor.methods({
       };
     }
   },
+
+  /**
+   * @memberof Activities
+   * @name getResidentAggregatedActivities
+   * @description Aggregate activities of a resident on weekly or monthly basis
+   *
+   * @param {String} residentId resident for whom the activity aggregate is required
+   * @param {String} timePeriod time level granularity to use for aggregation
+   * @returns {Array} array aggregated by time period and activity type
+   */
   getResidentAggregatedActivities(residentId, timePeriod) {
     const activities = Activities.find({
       residentIds: residentId,
@@ -321,7 +426,16 @@ export default Meteor.methods({
       timePeriod
     );
   },
-  getMonthlyAggregatedHomeResidentActivities: function(
+
+/**
+ * @memberof Activities
+ * @name getMonthlyAggregatedHomeResidentActivities
+ * @description get monthly aggregate activities
+ * @param {String} homeId Home for which activities are to be aggregated
+ * @param {String} timePeriod time granularity
+ * @returns {Array} list of aggregated activities
+ */
+getMonthlyAggregatedHomeResidentActivities(
     homeId,
     timePeriod
   ) {
@@ -345,6 +459,15 @@ export default Meteor.methods({
 
     return nestedActivities;
   },
+
+  /**
+   * @memberof Activities
+   * @name getAllHomeResidentActivities
+   * @description get all activities for a given home's active residents
+   *
+   * @param {String} homeId
+   * @returns {Array} list of activities
+   */
   getAllHomeResidentActivities(homeId) {
     // Get all home Residencies
     const query = {
@@ -382,7 +505,17 @@ export default Meteor.methods({
     // Sort home residents activities array by activity date
     return _.sortBy(homeResidentsActivities, 'activityDate');
   },
-  getResidentLatestActivityIdByType: function(
+
+/**
+ * @memberof Activities
+ * @name getResidentLatestActivityIdByType
+ * @description get the activity type of the last activity entered in db
+ *
+ * @param {String} residentId
+ * @param {String} activityTypeId
+ * @returns {String} activity typeid
+ */
+  getResidentLatestActivityIdByType(
     residentId,
     activityTypeId
   ) {
@@ -407,7 +540,16 @@ export default Meteor.methods({
       return residentLatestActivityByType._id;
     }
   },
-  getAllResidentsLatestActivityIdsByType: function(activityTypeId) {
+
+/**
+ * @memberof Activities
+ * @name getAllResidentsLatestActivityIdsByType
+ * @description get activities of residents done most recently
+ *
+ * @param {String} activityTypeId
+ * @returns {Array} array of resident with latest activity
+ */
+  getAllResidentsLatestActivityIdsByType(activityTypeId) {
     // Get all resident IDs
     var residentIds = Meteor.call('getAllResidentIds');
 
@@ -436,6 +578,16 @@ export default Meteor.methods({
       return residentsLatestActivityIdsByType;
     }
   },
+
+  /**
+   * @memberof Activities
+   * @name getHomeCurrentResidentsActivityIds
+   * @description get activities of all active residents added in a given time period
+   *
+   * @param {String} homeId Home to get activities for
+   * @param {Number} period signifies a number of days to select period between (`today - period`) days and today
+   * @returns {Array} list of activities
+   */
   getHomeCurrentResidentsActivityIds({ homeId, period }) {
     /*
     Get all activities in past period
@@ -468,7 +620,7 @@ export default Meteor.methods({
       },
     };
 
-    // Get activties documents cursor
+    // Get activities documents cursor
     const activities = Activities.find(query).fetch();
 
     // Create an array of activity IDs
@@ -476,7 +628,15 @@ export default Meteor.methods({
       return activity._id;
     });
   },
-  getLatestActivityIds: function() {
+
+/**
+ * @memberof Activities
+ * @name getLatestActivityIds
+ * @description gets all latest activities for each activity type
+ *
+ * @returns {Array} array of activity ids
+ */
+getLatestActivityIds() {
     // Get all activity type IDs
     var activityTypeIds = Meteor.call('getAllActivityTypeIds');
 
@@ -498,10 +658,32 @@ export default Meteor.methods({
     // Flatten the latestActivityIds array
     return _.flatten(latestActivityIds);
   },
+
+  /**
+   * @memberof Activities
+   * @name getActivityCountByActivityTypeId
+   * @description get count of activities for a given type
+   *
+   * @param {String} activityTypeId
+   * @returns {Number}
+   */
   getActivityCountByActivityTypeId(activityTypeId) {
     // Get count of activities by activity type ID
     return Activities.find({ activityTypeId }).count();
   },
+
+  /**
+   * @memberof Activities
+   * @name allUserVisibleActivities-paginated
+   * @description Paginate activity list for a given user
+   *
+   * @param {Number}  currentPage data offset
+   * @param {Number}  rowsPerPage data limit
+   * @param {String}  activityTypeId used to filter based on given activity
+   * @param {String}  residentId used to filter based on given resident
+   *
+   * @returns {Array}
+   */
   'allUserVisibleActivities-paginated'({
     currentPage,
     rowsPerPage,
@@ -530,12 +712,22 @@ export default Meteor.methods({
       rows: Activities.find(condtionForActivities, {
         skip: (currentPage - 1) * rowsPerPage,
         limit: rowsPerPage,
+        sort: { activityDate: -1 }
       }).fetch(),
       count: Activities.find(condtionForActivities).count(),
     };
   },
+
   aggregateActivitiesAndPopulateAggregateCollection,
 
+  /**
+   * @memberof Activities
+   * @name getResidentActvitiesWithActivityAndFaciltatorName
+   * @description get resident activities with activity types and facilitator names
+   *
+   * @param {String} residentId
+   * @returns {Array} list of activities
+   */
   getResidentActvitiesWithActivityAndFaciltatorName(residentId) {
     const activityTypes = ActivityTypes.find().fetch();
     const facilitatorRoles = Meteor.roles
@@ -567,6 +759,15 @@ export default Meteor.methods({
     });
   },
 
+/**
+ * @memberof Activities
+ * @name getCountsByType
+ * @description count of activities grouped by type
+ *
+ * @param {*} residentId activity aggregate of the given resident
+ * @param {*} type column of activity
+ * @returns {Array} list with count of activity grouped by the given type
+ */
   getCountsByType(residentId, type) {
     if (!type || !residentId) {
       throw new Meteor.Error(
@@ -594,6 +795,14 @@ export default Meteor.methods({
     }
   },
 
+/**
+ * @memberof Activities
+ * @name getDaywiseActivityDuration
+ * @description for a given user get total time in minutes spend daily in each activity
+ *
+ * @param {String} residentId
+ * @returns {Array} list containing dates and corresponding time spend in various activities
+ */
   getDaywiseActivityDuration(residentId) {
     try {
       const activities = Meteor.call(

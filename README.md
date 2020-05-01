@@ -68,28 +68,39 @@ As a family member
 I want to know that my relative is active
 so that I know they are living an enjoyable life
 ```
+# Developer instructions
+## Dev mode setup
 
+1. Install meteor. Follow instructions on https://www.meteor.com/install.
+2. Clone the directory
+3. The meteor app resides inside the wellbeing/app folder. Install npm modules here.
+4. To start the app, run `meteor`.
 
-#Integration with vue
+### Mock data
+For running app in dev mode, there is a process to generate dummy data and user accounts.
+
+To create the dummy data open the meteor shell and run `Meteor.call("createMockData")`. This method call will generate data that can be used fr testing and development.
+
+To be able to use the app, a user account is needed. This can be created in the following way:
+1. Open `app/lib/accounts.js` and in the configurations set `forbidClientAccountCreation` to `false`.
+2. Run the app
+3. Open the app in browser.
+4. On the login page, a user registration link will be now available. Register a user with the link. The first user registered this way, will always be an admin and the rest will be non-admin users.
+
 
 ## Upgrade meteor version
-rm -rf nodemodules and package lock
-npm i
+1. `rm -rf node_modules package-lock`
+2. `npm i`
+3. `meteor update`
+4. `meteor update --all-packages`
 
-meteor update
-meteor update --all-packages
+5. ` ~/.meteor/packages/meteor-tool/1.8.1/mt-os.linux.x86_64/dev_bundle/mongodb/bin/mongod  --dbpath .meteor/local/db --repair`
 
- ~/.meteor/packages/meteor-tool/1.8.1/mt-os.linux.x86_64/dev_bundle/mongodb/bin/mongod  --dbpath .meteor/local/db --repair
+if necessary run `meteor reset`. Warning: This will clear all collections and user accounts.
+6. `meteor`
 
-if necessary meteor reset(
-WARNING!!! 
-meteor reset will delete the mock database
-)
-
- meteor
-
-# Running tests
-## Command to run
+## Running tests
+### Command to run
 `npm run test`
 
 This command will start a server on port 8000. It is better to run `npm i` if the tests are run for the first time.

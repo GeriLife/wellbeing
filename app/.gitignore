@@ -1,3 +1,5 @@
 .vscode
 .coverage
 !.coverage.json
+out
+docs.md
