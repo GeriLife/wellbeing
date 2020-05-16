@@ -18,6 +18,7 @@
       </div>
       <!-- /.box-header -->
 
+      {{> flashMessages}}
       <div class="box-body">
         <p>
           {{_ "dataSettings-rawData-helpText" }}
@@ -32,6 +33,15 @@
           {{_ "dataSettings-rawData-exportRawDataButton" }}
         </button>
 
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="export-data-xls"
+          disabled="{{ fetchingData }}"
+        >
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i
+          >&nbsp; {{_ "dataSettings-rawData-exportXlsButton" }}
+        </button>
         {{# if showSpinner }}
         {{> spinner }}
         {{/if }}

@@ -1,4 +1,5 @@
 import FileSaver from "file-saver";
+import xlsUtils from './exportAsXls';
 
 const _clear = templateInstance => {
 
@@ -47,6 +48,39 @@ Template.dataSettings.events({
         // hide spinner
         templateInstance.fetchingData.set(false);
       }
+    });
+  },
+
+  'click #export-data-xls'(event, templateInstance) {
+    // Set 'fetching data' variable to true
+    templateInstance.fetchingData.set(true);
+
+    // Export all data
+    Meteor.call('exportAllData', function (error, exportData) {
+      if (
+        !error &&
+        exportData &&
+        Object.keys(exportData).length > 0
+      ) {
+        const xlsData = xlsUtils.convertToXls(exportData);
+        const exportBlob = new Blob([xlsData], {
+          type: 'application/octet-stream',
+        });
+        FileSaver.saveAs(exportBlob, 'GeriLife-export.xlsx');
+
+        templateInstance.fetchingData.set(false);
+        return null;
+      }
+
+      templateInstance.fetchingData.set(false);
+      FlashMessages.sendError(
+        `<i class="fa fa-warning"></i> ${
+          !error
+            ? TAPi18n.__('dataSettings-export-noData')
+            : error.message || error
+        }`,
+        { autoHide: true, hideDelay: 3000 }
+      );
     });
   },
 
