@@ -43,7 +43,8 @@
     "plotly.js-dist": "^1.52.3",
     "simpl-schema": "^1.5.7",
     "sinon": "^9.0.1",
-    "slim-select": "^1.25.0"
+    "slim-select": "^1.25.0",
+    "xlsx": "0.16.0"
   },
   "devDependencies": {
     "babel-plugin-istanbul": "6.0.0",
