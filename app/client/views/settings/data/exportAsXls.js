@@ -10,9 +10,24 @@ module.exports = {
     const wb = XLSX.utils.book_new();
 
     const sheets = Object.keys(jsonData);
-
     sheets.forEach((sheetName) => {
-      createXlsSheet(wb, sheetName, jsonData[sheetName]);
+      if (jsonData[sheetName] && jsonData[sheetName].length > 0) {
+        const reference = jsonData[sheetName][0];
+        const keys = [];
+        Object.keys(reference || {}).forEach((key) => {
+          if (Array.isArray(reference[key])) {
+            keys.push(key);
+          }
+        });
+        if (keys.length > 0) {
+          jsonData[sheetName].forEach((data) => {
+            keys.forEach((key) => {
+              data[key] = data[key] ? JSON.stringify(data[key]) : '';
+            });
+          });
+        }
+        createXlsSheet(wb, sheetName, jsonData[sheetName]);
+      }
     });
 
     return XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
