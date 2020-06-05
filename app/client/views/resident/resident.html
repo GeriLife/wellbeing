@@ -1,15 +1,21 @@
 <template name="resident">
   {{#if resident}}
     <h1 class="page-header">
-      {{# if currentUser }}
+      {{# if userLoggedInAndCanEdit }}
       <button type="button" class="btn btn-success pull-right margin-right" id="add-feeling">
         <i class="fa fa-stethoscope"></i>
         {{_ "resident-addFeeling-buttonText" }}
       </button>
+      {{/ if}}
+   
+      {{#if userIsAdmin}}
       <button type="button" class="btn btn-success pull-right margin-right" id="add-activity">
         <i class="fa fa-heartbeat"></i>
         {{_ "resident-addActivity-buttonText" }}
       </button>
+      {{/ if}}
+      
+      {{# if userLoggedInAndCanEdit }}
       <button type="button" class="btn btn-info pull-right margin-right" id="refresh">
         <i class="fa fa-refresh"></i>
         {{_ "resident-refresh-buttonText" }}

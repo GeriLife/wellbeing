@@ -116,7 +116,19 @@ Template.resident.helpers({
     return Template.instance().canCurrentUserEdit.get();
   },
 
-  residentFeelingsPercentages(){
+  residentFeelingsPercentages() {
     return Template.instance().residentFeelingsPercentages.get();
+  },
+
+  userLoggedInAndCanEdit() {
+    return (
+      Template.instance().canCurrentUserEdit.get() &&
+      Meteor.userId() !== null
+    );
+  },
+
+  userIsAdmin() {
+    const currentUserId = Meteor.userId();
+    return Roles.userIsInRole(currentUserId, ['admin']);
   }
 });

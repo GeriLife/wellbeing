@@ -120,6 +120,11 @@ Template.activities.helpers({
   totalRows() {
     return Template.instance().totalRows.get();
   },
+
+  userIsAdmin() {
+    const currentUserId = Meteor.userId();
+    return Roles.userIsInRole(currentUserId, ['admin']);
+  }
 });
 
 function onChange(activitiesTemplate, rowsPerPage, currentPage) {
