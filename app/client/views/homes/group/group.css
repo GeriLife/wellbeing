@@ -1,4 +1,5 @@
 .clip-text {
+  padding: 6px;
   max-width: 30ch;
   white-space: nowrap;
   overflow: hidden;

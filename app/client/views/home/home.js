@@ -1,4 +1,4 @@
-Template.home.onCreated(function() {
+Template.home.onCreated(function () {
   const templateInstance = this;
 
   // Set current Home ID from router
@@ -21,7 +21,9 @@ Template.home.onCreated(function() {
       templateInstance.homeId,
       function (err, residentsArray) {
         if (residentsArray) {
-          templateInstance.residents.set(residentsArray);
+          templateInstance.residents.set(residentsArray || []);
+        } else {
+          templateInstance.residents.set([]);
         }
       }
     );
@@ -38,7 +40,7 @@ Template.home.onCreated(function() {
 });
 
 Template.home.events({
-  'click #edit-home': function() {
+  'click #edit-home': function () {
     const home = Template.instance().homeDetails.get();
 
     // Open edit home modal
@@ -66,6 +68,11 @@ Template.home.helpers({
     // Return all residents for current home, sorting by first name
     return Template.instance().residents.get() || [];
   },
+
+  loadingResidents() {
+    return Template.instance().residents.get() === null;
+  },
+
   activityMetric() {
     // get reference to template instance
     const templateInstance = Template.instance();

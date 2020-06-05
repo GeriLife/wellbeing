@@ -226,6 +226,7 @@
   "homeResidents-tableHeader-activityLevel": "Level",
   "homeResidents-tableHeader-pastWeek": "Past week (showing active days)",
   "homeResidents-loadingMessage": "Loading residents",
+  "homeResidents-noResidents": "No residents",
   "homeReport-header": "all activities report",
   "logout-logoutButton": "Logout",
   "newFeeling-cancel": "Cancel",
