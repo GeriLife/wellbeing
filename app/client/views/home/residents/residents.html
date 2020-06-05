@@ -33,12 +33,19 @@
         {{# each resident in residents }}
         {{> homeResident resident=resident }}
         {{/ each }}
+
       {{ else }}
+
       <tr>
         <td>
+        {{# if loadingResidents}}
           {{_ "homeResidents-loadingMessage" }}
+        {{ else }}
+        {{_ "homeResidents-noResidents"}}
+        {{/ if }}
         </td>
       </tr>
+
       {{/ if }}
     </tbody>
   </table>

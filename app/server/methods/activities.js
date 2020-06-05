@@ -366,6 +366,10 @@ annotateActivities(activities) {
  * @returns {Object} Aggregate report data and last aggregated on date.
  */
   getActivitiesAggregateReport(timePeriod, aggregateBy) {
+    if (!isCurrentUserAdmin()) {
+      throw new Meteor.Error(500, 'Operation not allowed');
+    }
+
     if (!aggregateBy)
       throw new Meteor.Error('Required aggregateBy field');
 

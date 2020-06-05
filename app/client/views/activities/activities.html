@@ -1,11 +1,14 @@
 <template name="activities">
   <div class="page-heading">
+    {{# if userIsAdmin}}
     <button
       id="add-activity"
       class="btn btn-primary pull-right"
     >
       {{_ "activities-addActivityButton" }}
     </button>
+    {{/ if}}
+
     <h1 class="page-header">
       <i class="fa fa-heartbeat"></i>&nbsp;
       {{_ "activities-pageHeader" }}
