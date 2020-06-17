@@ -9,6 +9,7 @@ const countsSchema = new SimpleSchema({
   activity_count: {
     type: Number,
   },
+
   activity_minutes: { type: Number },
 });
 
@@ -31,7 +32,17 @@ const aggregateSchema = new SimpleSchema({
     type: Array,
   },
   'values.$': {
-    type: valuesSchema,
+    type: new SimpleSchema({
+      key: {
+        type: String,
+      },
+      values: {
+        type: Array,
+      },
+      'values.$': {
+        type: valuesSchema,
+      },
+    }),
   },
 });
 
@@ -66,4 +77,4 @@ AllHomesActivityReportAggregate.attachSchema(
   AllHomesActivityReportAggregate.Schema
 );
 
-module.exports = AllHomesActivityReportAggregate
+module.exports = AllHomesActivityReportAggregate;
