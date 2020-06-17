@@ -6,6 +6,7 @@ import _ from 'lodash';
 import d3 from 'd3';
 import moment from 'moment';
 import { isCurrentUserAdmin } from '../utils/user';
+import { getActivityWithHomes, aggregateActivitiesWithHome, mergeHomes }from './activityReports';
 
 /**
  * @memberof Activities
@@ -36,6 +37,7 @@ function getAllHomeReportAggregates() {
       'month',
       'facilitatorName'
     );
+
     return {
       weeklyDataByActivityType,
       monthlyDataByActivityType,
@@ -337,7 +339,7 @@ annotateActivities(activities) {
    * aggregated by time and either activity type or facilitator name
  */
   getAggregatedActivities(timePeriod, aggregateBy) {
-    const activities = Activities.find().fetch();
+    const activities = getActivityWithHomes();
 
     // TODO: work out how to annotate the aggregated data,
     // rather than all individual activities
@@ -347,8 +349,7 @@ annotateActivities(activities) {
       activities
     );
 
-    return Meteor.call(
-      'aggregateActivities',
+    return aggregateActivitiesWithHome(
       annotatedActivities,
       timePeriod,
       aggregateBy
@@ -366,12 +367,13 @@ annotateActivities(activities) {
  * @returns {Object} Aggregate report data and last aggregated on date.
  */
   getActivitiesAggregateReport(timePeriod, aggregateBy) {
-    if (!isCurrentUserAdmin()) {
-      throw new Meteor.Error(500, 'Operation not allowed');
-    }
-
     if (!aggregateBy)
       throw new Meteor.Error('Required aggregateBy field');
+
+    const homeIds = Meteor.call(
+      'getUserVisibleHomeIds',
+      Meteor.userId()
+    );
 
     /* Key to selected based on time period */
     const fieldSelector =
@@ -387,6 +389,11 @@ annotateActivities(activities) {
       }
     } finally {
       /* Pick an entry with the latest date */
+      /*
+      Todo: wait for meteor to support mongo filtering syntax or workaround for it
+      const homeIdField = `${fieldSelector}.values.key`;
+      Clause: { [homeIdField]: { $in: homeIds } }
+      */
       const data = AllHomesActivityReportAggregate.findOne(
         { aggregateBy },
         {
@@ -394,9 +401,10 @@ annotateActivities(activities) {
         },
         { sort: { Date: -1, limit: 1 } }
       );
-
       return {
-        activityData: data ? data[fieldSelector] : [],
+        activityData: data
+          ? mergeHomes(data[fieldSelector], homeIds)
+          : [],
         lastUpdated: data ? data.lastUpdatedDate : null,
       };
     }
