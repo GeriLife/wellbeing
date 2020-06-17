@@ -56,7 +56,10 @@ Meteor.startup(function() {
 
   /* Preventing login attempts by inactive users */
   Accounts.validateLoginAttempt(function(attempt) {
-    var { isActive } = attempt.user;
+    if (!attempt.user) {
+      throw new Meteor.Error(403, 'Login forbidden');
+    }
+    const { isActive } = attempt.user;
 
     /* If the user is inactive throw an error */
     if (isActive === false) {
