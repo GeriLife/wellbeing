@@ -1,0 +1,32 @@
+.single-value-widget .list-group {
+  margin: 0px;
+  padding: 0px;
+  border-radius: 0px;
+}
+
+.single-value-widget .panel-body {
+  margin: 0px;
+  padding: 0px !important;
+}
+
+.single-value-widget .panel-body ul {
+  margin: 0px;
+}
+
+.widget-title {
+  margin: 0;
+}
+
+.single-value-widget .list-group-item:first-child {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.single-value-widget .mr {
+  margin-right: 3px;
+}
+
+.overflow {
+  max-height: 168px;
+  overflow-y: auto;
+}

@@ -1,0 +1,18 @@
+<template name="singleValueCharts">
+  <div class="single-value-widget panel panel-primary">
+    <div class="panel-heading">
+      <h4 class="widget-title">
+        <span class="mr">{{title}}</span>{{number}}
+      </h4>
+      <small> {{info}}</small>
+    </div>
+
+    <div class="panel-body">
+      <ul class="list-group overflow">
+        {{# each stat in statsList}}
+        <li class="list-group-item">{{stat}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</template>

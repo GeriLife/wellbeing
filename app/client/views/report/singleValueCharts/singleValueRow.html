@@ -1,0 +1,13 @@
+<template name="singleValueRow">
+  <div class="row">
+    <div class="col-md-3">
+      {{> singleValueCharts title=homeLeastActiveTitle info=homeInfo
+      statsList=homeTopStatsList}}
+    </div>
+
+    <div class="col-md-3">
+      {{> singleValueCharts title=homeTitle info=homeLeastActiveInfo
+      statsList=homeBottomStatsList}}
+    </div>
+  </div>
+</template>

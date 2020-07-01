@@ -109,6 +109,10 @@ Template.report.helpers({
       'DD-MM-YYYY'
     );
   },
+
+  timePeriod() {
+    return Template.instance().timePeriod.get()
+  }
 });
 
 const transformChartData = (activityCategoryData, activityMetric) => {
