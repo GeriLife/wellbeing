@@ -256,7 +256,7 @@ export const calculatePercentageActivityPerHomePerDay = ({
     periodInDays
   );
 
-  const homes = Object.keys(residentsPerHome)
+  return Object.keys(residentsPerHome)
     .map((home) => {
       const activityDailyMap = (
         activitiesPerHome[home] || { residents: [] }
@@ -296,6 +296,7 @@ export const calculatePercentageActivityPerHomePerDay = ({
               0
             ) / currentHome.residents.length,
 
+        /* sum of all activities of a period of days divided by total days */
         averageDailyActivities:
           activityPercentagePerDay.length === 0
             ? 0
@@ -309,21 +310,27 @@ export const calculatePercentageActivityPerHomePerDay = ({
       (prev, curr) =>
         curr.averageDailyActivities - prev.averageDailyActivities
     );
+};
 
-  const edgeValues = Array.from(
+export const getEdgeValues = (homes) => {
+  /* get unique values */
+  const uniqueValues = Array.from(
     new Set(homes.map((r) => r.averageDailyActivities))
   ).sort(
     (prev, curr) =>
       curr.averageDailyActivities - prev.averageDailyActivities
   );
 
-  const top5Values = edgeValues.filter((v) => !!v).slice(0, 5);
+  const top5Values = uniqueValues.filter((v) => !!v).slice(0, 5);
   let bottom5Values = [0];
 
-  if (edgeValues.length > 10) {
-    bottom5Values = edgeValues.slice(
-      edgeValues.length < 5 ? 0 : edgeValues.length - 5
-    );
+  if (uniqueValues.length > 5) {
+    bottom5Values = [
+      ...bottom5Values,
+      ...uniqueValues
+        .filter((value) => !top5Values.includes(value))
+        .slice(uniqueValues.length < 5 ? 0 : uniqueValues.length - 5),
+    ];
   }
 
   /* Return top 5 */
@@ -335,4 +342,13 @@ export const calculatePercentageActivityPerHomePerDay = ({
       bottom5Values.includes(home.averageDailyActivities)
     ),
   };
+};
+
+export const getEdgeValuesByPeriod = ({ endDate, periodInDays }) => {
+  return getEdgeValues(
+    calculatePercentageActivityPerHomePerDay({
+      endDate,
+      periodInDays,
+    })
+  );
 };

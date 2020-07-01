@@ -6,7 +6,7 @@ import _ from 'lodash';
 import d3 from 'd3';
 import moment from 'moment';
 import { isCurrentUserAdmin } from '../utils/user';
-import { getActivityWithHomes, aggregateActivitiesWithHome, mergeHomes,calculatePercentageActivityPerHomePerDay }from './activityReports';
+import { getActivityWithHomes, aggregateActivitiesWithHome, mergeHomes, getEdgeValuesByPeriod }from './activityReports';
 
 /**
  * @memberof Activities
@@ -845,6 +845,6 @@ getLatestActivityIds() {
 
   saveActivity,
   removeActivity,
-  calculatePercentageActivityPerHomePerDay
+  getEdgeValuesByPeriod
 });
 

@@ -6,7 +6,7 @@ Template.singleValueRow.onCreated(function () {
     const timePeriod = Template.currentData().timePeriod;
 
     Meteor.call(
-      'calculatePercentageActivityPerHomePerDay',
+      'getEdgeValuesByPeriod',
       {
         endDate: new Date(),
         periodInDays: timePeriod === 'month' ? 30 : 7,
