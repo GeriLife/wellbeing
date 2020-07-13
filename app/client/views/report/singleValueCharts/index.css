@@ -30,3 +30,20 @@
   max-height: 168px;
   overflow-y: auto;
 }
+
+.set-right {
+  float: right;
+}
+
+#data {
+  width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#data:hover {
+  overflow: visible;
+  white-space: normal;
+  width: auto;
+}

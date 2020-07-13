@@ -16,11 +16,17 @@ Template.singleValueRow.onCreated(function () {
           console.error(err);
         } else {
           templateInstance.homeStatsList.set(
-            results.top5.map((home) => home.homeName)
+            results.top5.map((home) => ({
+              value: home.averageDailyActivities.toFixed(2) + '%',
+              name: home.homeName,
+            }))
           );
 
           templateInstance.homeBottomStatsList.set(
-            results.bottom5.map((home) => home.homeName)
+            results.bottom5.map((home) => ({
+              value: home.averageDailyActivities.toFixed(2) + '%',
+              name: home.homeName,
+            }))
           );
         }
       }

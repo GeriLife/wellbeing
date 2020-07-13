@@ -4,13 +4,17 @@
       <h4 class="widget-title">
         <span class="mr">{{title}}</span>{{number}}
       </h4>
-      <small> {{info}}</small>
+      <small>
+        <div id="data">{{info}}</div>
+      </small>
     </div>
 
     <div class="panel-body">
       <ul class="list-group overflow">
         {{# each stat in statsList}}
-        <li class="list-group-item">{{stat}}</li>
+        <li class="list-group-item">
+          {{stat.name}} <span class="set-right">{{stat.value}}</span>
+        </li>
         {{/each}}
       </ul>
     </div>

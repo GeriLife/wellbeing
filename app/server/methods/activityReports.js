@@ -1,7 +1,22 @@
+/**
+ * @namespace ActivityReport
+ */
 import _ from 'lodash';
 import d3 from 'd3';
 import moment from 'moment';
 
+/**
+ * @memberof ActivityReport
+ * @name getActivityWithHomes
+ *
+ * Get a list of activities with the residents and their respective homes at
+ * the time the activity was recorded.
+ *
+ * @param {Date} startDate start date of activities
+ * @param {Number} endDate end date of activities
+ *
+ * @returns {Array}
+ */
 export const getActivityWithHomes = (startDate, endDate) => {
   /* Get all activities with their corresponding homeIds */
   const activityCondition =
@@ -59,6 +74,9 @@ export const getActivityWithHomes = (startDate, endDate) => {
 };
 
 /**
+ * @memberof ActivityReport
+ * @name aggregateActivitiesWithHome
+ *
  * @memberof Activities
  * @name aggregateActivities
  * @description Aggregate activities get activity count and sum of minutes of the activities
@@ -103,6 +121,16 @@ export const aggregateActivitiesWithHome = (
     .entries(annotatedActivities);
 };
 
+/**
+ * @memberof ActivityReport
+ * @name mergeHomes
+ *
+ * Creates an array with key home name and contains value of activity count for each home
+ * @param {Array} dataRows array of activities
+ * @param {Array} homeIds array of homes
+ *
+ * @returns {Array}
+ */
 export const mergeHomes = (dataRows, homeIds) => {
   return dataRows.map((homeRows) => ({
     key: homeRows.key,
@@ -130,6 +158,18 @@ export const mergeHomes = (dataRows, homeIds) => {
   }));
 };
 
+/**
+ * @memberof ActivityReport
+ * @name totalResidentsPerHome
+ *
+ * Get a map of all homes. For each home there is an array of all days between
+ * startDate and endDate with percentage of resident activities for each day
+ *
+ * @param {Date} endDate date up to which data is to be fetched
+ * @param {NumberConstructor} periodInDays days before the end date to include
+ *
+ * @returns {Object}
+ */
 export const totalResidentsPerHome = (endDate, periodInDays) => {
   const homes = Homes.find().fetch();
   const residents = Residencies.find({
@@ -161,6 +201,18 @@ export const totalResidentsPerHome = (endDate, periodInDays) => {
   }, {});
 };
 
+/**
+ * @memberof ActivityReport
+ * @name getResidentsForEachDay
+ *
+ * Gets start and end date based on input. For each day in the range, get number
+ * of residents on that day
+ * @param {Array} residents
+ * @param {Date} endDate date up to which data is to be fetched
+ * @param {NumberConstructor} periodInDays days before the end date to include
+ *
+ * @returns {Array}
+ */
 export const getResidentsForEachDay = (
   residents,
   endDate,
@@ -168,7 +220,7 @@ export const getResidentsForEachDay = (
 ) => {
   const startDate = moment(endDate)
     .clone()
-    .subtract('days', periodInDays);
+    .subtract(periodInDays, 'days');
   const dates = enumerateDaysBetweenDates(startDate, endDate);
   return dates.map((date) => ({
     date,
@@ -184,6 +236,16 @@ export const getResidentsForEachDay = (
   }));
 };
 
+/**
+ * @memberof ActivityReport
+ * @name enumerateDaysBetweenDates
+ *
+ * Gets all days between  days
+ * @param {Date} startDate
+ * @param {Date} endDate
+ *
+ * @returns {Array}
+ */
 export const enumerateDaysBetweenDates = (startDate, endDate) => {
   const dates = [];
 
@@ -197,13 +259,25 @@ export const enumerateDaysBetweenDates = (startDate, endDate) => {
   return dates;
 };
 
+/**
+ * @memberof ActivityReport
+ * @name totalActiveResidentsPerHome
+ *
+ * Gets start and end date based on input. For each day in the range, get number
+ * of active residents on that day.
+ *
+ * @param {Date} endDate date up to which data is to be fetched
+ * @param {NumberConstructor} periodInDays days before the end date to include
+ *
+ * @returns {Object}
+ */
 export const totalActiveResidentsPerHome = (
   endDate,
   periodInDays
 ) => {
   const startDate = moment(endDate)
     .clone()
-    .subtract('days', periodInDays);
+    .subtract(periodInDays, 'days');
   const activities = getActivityWithHomes(startDate, endDate);
   const homeActivityMap = activities.reduce((homeMap, current) => {
     if (!homeMap[current.homeId]) {
@@ -235,7 +309,15 @@ export const totalActiveResidentsPerHome = (
 };
 
 /**
- * @returns homes = [
+ * @memberof ActivityReport
+ * @name calculatePercentageActivityPerHomePerDay
+ *
+ * For each home average out the daily activity percentage by the number of days
+ *
+ * @param {Date} endDate date up to which data is to be fetched
+ * @param {NumberConstructor} periodInDays days before the end date to include
+ *
+ * @returns {Array} homes = [
     {
       activityPercentagePerDay: Array,
       averageTotalResidents: Number,
@@ -312,6 +394,17 @@ export const calculatePercentageActivityPerHomePerDay = ({
     );
 };
 
+/**
+ * @memberof ActivityReport
+ * @name getEdgeValues
+ *
+ * Gets top 5 and bottom 5 values by activity levels. Zeros are considered as bottom by default.
+ * If there are greater than 5 records then it will only get top values.
+ *
+ * @param {Array} homes list of homes to filter from
+ *
+ * @returns {Array}
+ */
 export const getEdgeValues = (homes) => {
   /* get unique values */
   const uniqueValues = Array.from(
@@ -344,6 +437,18 @@ export const getEdgeValues = (homes) => {
   };
 };
 
+/**
+ * @memberof ActivityReport
+ * @name getEdgeValuesByPeriod
+ *
+ * Gets top 5 and bottom 5 values by activity levels. It gets values from the selected date
+ * range based on endDate and periodInDays
+ *
+ * @param {Date} endDate date up to which data is to be fetched
+ * @param {NumberConstructor} periodInDays days before the end date to include
+ *
+ * @returns {Array}
+ */
 export const getEdgeValuesByPeriod = ({ endDate, periodInDays }) => {
   return getEdgeValues(
     calculatePercentageActivityPerHomePerDay({
