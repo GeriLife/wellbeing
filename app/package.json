@@ -52,7 +52,9 @@
   },
   "scripts": {
     "test": "BABEL_ENV=COVERAGE COVERAGE=1 COVERAGE_APP_FOLDER=$PWD/ TEST_WATCH=1 meteor test --driver-package meteortesting:mocha --port 8000",
-    "markdown-docs": "node -e \"require('./docToMarkdown.js').init()\""
+    "markdown-docs": "node -e \"require('./docToMarkdown.js').init()\"",
+    "ios": "meteor run ios-device --port 4001",
+    "android": "meteor run android-device  --port 4002"
   },
   "repository": {
     "type": "git",

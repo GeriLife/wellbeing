@@ -1,6 +1,24 @@
 import moment from 'moment';
 const userEmailSchema = require('./userEmailSchema');
 
+AccountsTemplates.configure({
+  // Behavior
+  forbidClientAccountCreation: true,
+  enablePasswordChange: true,
+  showForgotPasswordLink: true,
+});
+
+Accounts.config({
+  passwordEnrollTokenExpirationInDays: 60,
+});
+
+// Configure AccountsTemplates routes
+AccountsTemplates.configureRoute('changePwd');
+AccountsTemplates.configureRoute('enrollAccount');
+AccountsTemplates.configureRoute('forgotPwd');
+AccountsTemplates.configureRoute('resetPwd');
+AccountsTemplates.configureRoute('signIn');
+
 Meteor.startup(function() {
   Migrations.migrateTo('latest');
   const isDemo = process.env.GERILIFE_DEMO === 'true';
