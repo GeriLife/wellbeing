@@ -261,7 +261,7 @@ export default Meteor.methods({
     let allowedGroups = [];
 
     /* If user is admin */
-    const userId = Meteor.userId();
+    const userId = this.userId;
     const userIsAdmin = Roles.userIsInRole(userId, 'admin');
     if (!userIsAdmin) {
       const permissions = Meteor.call(

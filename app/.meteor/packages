@@ -52,3 +52,6 @@ alanning:roles
 jquery
 lmieulet:meteor-coverage
 matb33:collection-hooks
+simple:rest
+simple:json-routes
+simple:rest-accounts-password
