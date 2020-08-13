@@ -72,4 +72,12 @@ Meteor.startup(function() {
   });
 
   Accounts.emailTemplates.from = process.env.FROM_EMAIL;
+
+JsonRoutes.setResponseHeaders({
+  "Cache-Control": "no-store",
+  "Pragma": "no-cache",
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET,POST,HEAD,OPTIONS",
+  "Access-Control-Allow-Headers": "Authorization,Content-Type"
+});
 });
