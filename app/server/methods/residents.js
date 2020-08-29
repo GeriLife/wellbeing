@@ -122,7 +122,7 @@ Meteor.methods({
     }).map(residency => residency.residentId);
   },
   userVisibleResidentNamesGroupedtByHomes() {
-    const userId = Meteor.userId();
+    const userId = this.userId;
 
     // Get list of homes, sorted alphabetically
     const homeIds = Meteor.call("getUserVisibleHomeIds", userId);
