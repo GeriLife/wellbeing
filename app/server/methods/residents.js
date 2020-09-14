@@ -207,9 +207,8 @@ Meteor.methods({
   updateResidentInfo,
 
   getSelectedResidentDetails(residentIds) {
-    const residents = Residents.find({
-      _id: { $in: residentIds },
-    }).fetch();
+    const condition = residentIds && residentIds.length > 0 ? { _id: { $in: residentIds } } : {};
+    const residents = Residents.find(condition).fetch();
     return residents.map((resident) => ({
       ...resident,
       residentFullName: resident.lastInitial

@@ -156,7 +156,7 @@ function aggregateActivitiesAndPopulateAggregateCollection() {
  */
 function saveActivity(formData) {
   const currentUserIsAdmin = Roles.userIsInRole(
-    Meteor.userId(),
+    this.userId,
     'admin'
   );
 
@@ -179,12 +179,42 @@ function saveActivity(formData) {
  * @param {String} activityId
  * @returns returns remove output
  */
-function removeActivity(activityId) {
-  if (!isCurrentUserAdmin()) {
+function removeActivity(activity) {
+
+  if (!isCurrentUserAdmin(this.userId)) {
     throw new Meteor.Error(500, 'Operation not allowed');
   }
 
-  return Activities.remove(activityId);
+  return Activities.remove(typeof activity === 'string' ? activity : activity.id);
+}
+
+/**
+ * @memberof Activities
+ * @name getActivityById
+ * @description Get activity with facilitator and activity details
+ *
+ * @param {String} activityId
+ * @returns {Object} activity by id
+ */
+function getActivityById(activityDetail) {
+  const activity = Activities.findOne({ _id: activityDetail.id });
+  activity.activityType = ActivityTypes.findOne({
+    _id: activity.activityTypeId,
+  });
+  activity.facilitatorRole = Meteor.roles.findOne({
+    _id: activity.facilitatorRoleId,
+  });
+  activity.residents = activity.residentIds.map((resident) => {
+    const residentDetail = Residents.find({
+      _id: resident,
+    }).fetch()[0];
+    return {
+      label: residentDetail.fullName(),
+      value: residentDetail._id,
+    };
+  });
+
+  return activity;
 }
 
 export default Meteor.methods({
@@ -701,6 +731,8 @@ getLatestActivityIds() {
     rowsPerPage,
     activityTypeId,
     residentId,
+    sortBy = 'activityDate',
+    descending = true
   }) {
     if (!this.userId) return;
     const departed = false;
@@ -720,12 +752,39 @@ getLatestActivityIds() {
       residentId,
       userVisibleActiveResidentIds
     );
-    return {
-      rows: Activities.find(condtionForActivities, {
+    const residentFullNameMap = Meteor.call(
+      'getSelectedResidentDetails',
+      []
+    ).reduce(
+      (acc, current) => ({ ...acc, [current._id]: current.residentFullName }),
+      {}
+    );
+    const activityTypeMap = Meteor.call('getAllActivityTypes').reduce(
+      (acc, curr) => ({ ...acc, [curr._id]: curr.name }),
+      {}
+    );
+
+    const activityWithNamesMapped = Activities.find(
+      condtionForActivities,
+      {
         skip: (currentPage - 1) * rowsPerPage,
         limit: rowsPerPage,
-        sort: { activityDate: -1 }
-      }).fetch(),
+        sort: { [sortBy]: descending ? -1 : 1 },
+      }
+    )
+      .fetch()
+      .map((activity) => {
+        return {
+          ...activity,
+          residents: activity.residentIds.map(
+            (r) => residentFullNameMap[r]
+          ).join(', '),
+          type: activityTypeMap[activity.activityTypeId],
+        };
+      });
+
+    return {
+      rows: activityWithNamesMapped,
       count: Activities.find(condtionForActivities).count(),
     };
   },
@@ -845,5 +904,6 @@ getLatestActivityIds() {
 
   saveActivity,
   removeActivity,
+  getActivityById
 });
 

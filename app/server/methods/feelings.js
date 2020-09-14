@@ -37,7 +37,7 @@ Meteor.methods({
   },
 
   addFeeling(feelingData){
-    if (!isCurrentUserAdmin()) {
+    if (!isCurrentUserAdmin(this.userId)) {
       throw new Meteor.Error(500, 'Operation not allowed');
     }
     return Feelings.insert(feelingData);
