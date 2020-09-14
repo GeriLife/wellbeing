@@ -22,6 +22,14 @@ function getEligibleManagerList(idsToFilter) {
 }
 
 Meteor.methods({
+  getUserDetails(){
+    return {
+      details: Meteor.users.findOne(this.userId, {
+        fields: { services: 0 },
+      }),
+      isAdmin: isCurrentUserAdmin(this.userId),
+    };
+  },
   addUser(user) {
     // Add new user
     var userId = Accounts.createUser(user);
