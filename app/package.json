@@ -1,6 +1,6 @@
 {
   "name": "gerilife-wellbeing",
-  "version": "0.13.0",
+  "version": "1.1",
   "description": "Wellbeing instrument and shared log book for staff working in assisted living communities.",
   "main": "index.js",
   "directories": {
@@ -27,28 +27,28 @@
     }
   },
   "dependencies": {
-    "@babel/runtime": "^7.8.7",
+    "@babel/runtime": "^7.11.2",
     "babel-runtime": "^6.26.0",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^4.5.2",
     "chai": "^4.2.0",
-    "core-js": "^3.6.4",
+    "core-js": "^3.6.5",
     "cron": "1.8.2",
-    "d3": "^5.15.0",
+    "d3": "^6.1.1",
     "file-saver": "^2.0.2",
-    "flatpickr": "^4.6.3",
-    "jquery": "^3.4.1",
-    "lodash": "^4.17.15",
-    "meteor-node-stubs": "^1.0.0",
-    "moment": "^2.24.0",
-    "plotly.js-dist": "^1.52.3",
-    "simpl-schema": "^1.5.7",
-    "sinon": "^9.0.1",
-    "slim-select": "^1.25.0",
-    "xlsx": "0.16.0"
+    "flatpickr": "^4.6.6",
+    "jquery": "^3.5.1",
+    "lodash": "^4.17.20",
+    "meteor-node-stubs": "^1.0.1",
+    "moment": "^2.28.0",
+    "plotly.js-dist": "^1.55.2",
+    "simpl-schema": "^1.10.1",
+    "sinon": "^9.0.3",
+    "slim-select": "^1.26.0",
+    "xlsx": "0.16.7"
   },
   "devDependencies": {
     "babel-plugin-istanbul": "6.0.0",
-    "jsdoc-to-markdown": "^5.0.3"
+    "jsdoc-to-markdown": "^6.0.1"
   },
   "scripts": {
     "test": "BABEL_ENV=COVERAGE COVERAGE=1 COVERAGE_APP_FOLDER=$PWD/ TEST_WATCH=1 meteor test --driver-package meteortesting:mocha --port 8000",
