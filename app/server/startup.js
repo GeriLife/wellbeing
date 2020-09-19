@@ -1,7 +1,7 @@
 import moment from 'moment';
 const userEmailSchema = require('./userEmailSchema');
 
-Meteor.startup(function() {
+Meteor.startup(function () {
   Migrations.migrateTo('latest');
   const isDemo = process.env.GERILIFE_DEMO === 'true';
 
@@ -12,9 +12,7 @@ Meteor.startup(function() {
     /* Create mock data */
     Meteor.call(
       'createMockData',
-      moment()
-        .subtract(365, 'days')
-        .toDate()
+      moment().subtract(365, 'days').toDate()
     );
 
     /* Create 2 users. One admin and a normal user */
@@ -32,17 +30,16 @@ Meteor.startup(function() {
     });
   }
 
-  Accounts.onCreateUser(function(options, user) {
-
+  Accounts.onCreateUser(function (options, user) {
     let { deactivateOn } = options;
     _.extend(user, {
       isActive: true,
-      deactivateOn
+      deactivateOn,
     });
     return user;
   });
 
-  Accounts.validateNewUser(function(user) {
+  Accounts.validateNewUser(function (user) {
     const userEmailRecord = { emails: { ...user.emails } };
     try {
       userEmailSchema.validate(userEmailRecord);
@@ -55,7 +52,7 @@ Meteor.startup(function() {
   });
 
   /* Preventing login attempts by inactive users */
-  Accounts.validateLoginAttempt(function(attempt) {
+  Accounts.validateLoginAttempt(function (attempt) {
     if (!attempt.user) {
       throw new Meteor.Error(403, 'Login forbidden');
     }
@@ -73,11 +70,12 @@ Meteor.startup(function() {
 
   Accounts.emailTemplates.from = process.env.FROM_EMAIL;
 
-JsonRoutes.setResponseHeaders({
-  "Cache-Control": "no-store",
-  "Pragma": "no-cache",
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET,POST,HEAD,OPTIONS",
-  "Access-Control-Allow-Headers": "Authorization,Content-Type"
-});
+  JsonRoutes.setResponseHeaders({
+    'Cache-Control': 'no-store',
+    Pragma: 'no-cache',
+    'Access-Control-Allow-Origin': 'http://localhost:8080', // add more URLs per deployment
+    'Access-Control-Allow-Headers':
+      'origin, content-type, accept, authorization',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+  });
 });
