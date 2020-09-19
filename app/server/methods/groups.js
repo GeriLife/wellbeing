@@ -1,7 +1,7 @@
 import { isCurrentUserAdmin } from '../utils/user';
 
 function addOrUpdateAGroup(formData) {
-  if (!isCurrentUserAdmin()) {
+  if (!isCurrentUserAdmin(this.userId)) {
     throw new Meteor.Error(500, 'Operation not allowed');
   }
 
@@ -20,10 +20,10 @@ function canUserAccessGroup(groupId) {
 }
 
 function currentUserGroups() {
-  if (!Meteor.user()) {
+  if (!this.userId) {
     return [];
   }
-  const userId = Meteor.user()._id;
+  const userId = this.userId;
   let unsortedGroups = [];
 
   // Admin users can see all groups
