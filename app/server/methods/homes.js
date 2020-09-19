@@ -18,6 +18,17 @@ function addOrUpdateHome(formData) {
   return Homes.insert(formData);
 }
 
+function getHomesWithActivityLevel(group){
+  const homes = getGroupHomes(group.groupId);
+  return homes.map((home) => ({
+    ...home,
+    activityLevel: Meteor.call(
+      'getActivityPercentageForAGivenHome',
+      home._id
+    ),
+  }));
+}
+
 function getGroupHomes(groupId) {
   return Homes.find({ groupId }).fetch();
 }
@@ -47,10 +58,10 @@ export default Meteor.methods({
 
     return false;
   },
-  getHomeResidentIds: function(homeId) {
+  getHomeResidentIds: function (homeId) {
     // Get all residents of specific home
     const residencies = Homes.find({ homeId }).fetch();
-    return residencies.map(residency => residency.residentId);
+    return residencies.map((residency) => residency.residentId);
   },
   getHomeCurrentResidencies(homeId) {
     /*
@@ -72,12 +83,12 @@ export default Meteor.methods({
       homeId
     );
 
-    return _.map(homeCurrentResidencies, function(residency) {
+    return _.map(homeCurrentResidencies, function (residency) {
       return residency.residentId;
     });
   },
 
-  getHomeCurrentAndActiveResidents: function(
+  getHomeCurrentAndActiveResidents: function (
     homeId,
     onHiatus = false
   ) {
@@ -105,7 +116,7 @@ export default Meteor.methods({
     ).fetch();
   },
 
-  getHomeCurrentAndActiveResidentIds: function(homeId) {
+  getHomeCurrentAndActiveResidentIds: function (homeId) {
     const residents = Meteor.call(
       'getHomeCurrentAndActiveResidents',
       homeId,
@@ -113,11 +124,11 @@ export default Meteor.methods({
     );
 
     // Create an array containing only resident IDs
-    return _.map(residents, function(resident) {
+    return _.map(residents, function (resident) {
       return resident._id;
     });
   },
-  getHomeCurrentAndActiveResidentCount: function(homeId) {
+  getHomeCurrentAndActiveResidentCount: function (homeId) {
     // Get all current residents for specific home (not departed or on hiatus)
     const homeCurrentResidentIds = Meteor.call(
       'getHomeCurrentAndActiveResidentIds',
@@ -127,7 +138,7 @@ export default Meteor.methods({
     // Count the length of current resident IDs list
     return homeCurrentResidentIds.length;
   },
-  getHomeActivities: function(homeId) {
+  getHomeActivities: function (homeId) {
     // Get all resident of this home
     var homeResidentIds = Meteor.call(
       'getHomeCurrentResidentIds',
@@ -145,7 +156,7 @@ export default Meteor.methods({
 
     // Create a custom activities array using collection helpers
     // for resident names, activity type, and time ago
-    return homeActivities.map(function(activity) {
+    return homeActivities.map(function (activity) {
       return {
         residents: activity.residentNames(),
         type: activity.activityType(),
@@ -154,7 +165,7 @@ export default Meteor.methods({
       };
     });
   },
-  getHomeActivityLevelCounts: function(homeId) {
+  getHomeActivityLevelCounts: function (homeId) {
     // Get home residents by calling getHomeResidentIds
     var residentIds = Meteor.call(
       'getHomeCurrentAndActiveResidentIds',
@@ -169,7 +180,7 @@ export default Meteor.methods({
 
     if (residentIds) {
       // Get count of recent active days for each resident
-      _.each(residentIds, function(residentId) {
+      _.each(residentIds, function (residentId) {
         const residentRecentActiveDaysCount = Meteor.call(
           'getResidentRecentActiveDaysCount',
           residentId
@@ -227,7 +238,7 @@ export default Meteor.methods({
 
       // Get activity level for each resident
       // Compare it against the baseline
-      _.each(residentIds, function(residentId) {
+      _.each(residentIds, function (residentId) {
         const result = Meteor.call(
           'getResidentRecentActiveDaysCount',
           residentId,
@@ -269,17 +280,17 @@ export default Meteor.methods({
       );
 
       allowedGroups = (permissions || []).map(
-        permission => permission.groupId
+        (permission) => permission.groupId
       );
     } else {
       // Get all Groups
       const groups = Groups.find().fetch();
-      allowedGroups = _.map(groups, group => group._id);
+      allowedGroups = _.map(groups, (group) => group._id);
     }
 
     // Create select options for Homes input
     // Grouping homes by group
-    return _.map(allowedGroups, function(groupId) {
+    return _.map(allowedGroups, function (groupId) {
       // Find the name of this group
       var groupName = Groups.findOne(groupId).name;
 
@@ -287,7 +298,7 @@ export default Meteor.methods({
       var groupHomes = Homes.find({ groupId: groupId }).fetch();
 
       // Create a homes array with name/ID pairs for label/value
-      var homesOptions = _.map(groupHomes, function(groupHome) {
+      var homesOptions = _.map(groupHomes, function (groupHome) {
         // Combine resident first name and last initial
         var homeName = groupHome.name;
 
@@ -309,13 +320,13 @@ export default Meteor.methods({
       const userPermissions = Permissions.find({ userId }).fetch();
 
       const userGroups = userPermissions.map(
-        permission => permission.groupId
+        (permission) => permission.groupId
       );
 
       selector.groupId = { $in: userGroups };
     }
 
-    return Homes.find(selector).map(home => home._id);
+    return Homes.find(selector).map((home) => home._id);
   },
 
   assignManager({ groupId, users }) {
@@ -340,7 +351,7 @@ export default Meteor.methods({
       throw new Meteor.Error(500, 'Users not selected.');
     }
     /* Even if permission for one user is not updated it will return false */
-    const allPermissionsUpdated = users.every(userId => {
+    const allPermissionsUpdated = users.every((userId) => {
       try {
         /* rowsUpdated=0 means no rows updated */
         const rowsUpdated = makeUserManager(groupId, userId);
@@ -398,7 +409,7 @@ export default Meteor.methods({
     return [];
   },
 
-  getHomeDetails: function(homeId) {
+  getHomeDetails: function (homeId) {
     if (!homeId) {
       throw new Meteor.Error(500, 'Home id is mandatory');
     }
@@ -406,5 +417,6 @@ export default Meteor.methods({
     return Homes.findOne(homeId);
   },
   addOrUpdateHome,
-  getGroupHomes
+  getGroupHomes,
+  getHomesWithActivityLevel
 });
