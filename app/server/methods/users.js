@@ -21,8 +21,20 @@ function getEligibleManagerList(idsToFilter) {
     });
 }
 
+function sendResetEmail({ toEmail }) {
+  try {
+    Accounts.sendResetPasswordEmail(
+      Accounts.findUserByEmail(toEmail)._id
+    );
+    return true;
+  } catch (err) {
+    throw new Meteor.Error(500, err);
+  }
+}
+
 Meteor.methods({
-  getUserDetails(){
+  sendResetEmail,
+  getUserDetails() {
     return {
       details: Meteor.users.findOne(this.userId, {
         fields: { services: 0 },
@@ -156,5 +168,11 @@ Meteor.methods({
     }
 
     return Meteor.users.find().fetch();
+  },
+  userLogout() {
+    return Meteor.users.update(
+      { _id: this.userId },
+      { $set: { 'services.resume.loginTokens': [] } }
+    );
   },
 });
