@@ -32,6 +32,51 @@ function sendResetEmail({ toEmail }) {
   }
 }
 
+SimpleRest.setMethodOptions('userLogout', {
+  url: "/methods/userLogout",
+  getArgsFromRequest: function (request) {
+    return [ request.authToken ];
+  }
+});
+
+function userLogout(token) {
+  try {
+    // Get details of the current user.
+    const user = Meteor.users.findOne({ _id: this.userId });
+
+    // Find current login token that is to be deleted
+    const currentTokenIndex = user.services.resume.loginTokens.findIndex(
+      (obj) => obj.hashedToken === Accounts._hashLoginToken(token)
+    );
+
+    /*
+    Remove token if found.
+    $unset sets the token in array to null. $pull removes all null values from array.
+    */
+    if (currentTokenIndex) {
+      Meteor.users.update(
+        { _id: this.userId },
+        {
+          $unset: {
+            [`services.resume.loginTokens.${
+              currentTokenIndex
+            }`]: 1,
+          },
+        }
+      );
+      Meteor.users.update(
+        { _id: this.userId },
+        { $pull: { 'services.resume.loginTokens': null } }
+      );
+
+      return true;
+    }
+    return false;
+  } catch (err) {
+    throw new Meteor.Error(500, err);
+  }
+}
+
 Meteor.methods({
   sendResetEmail,
   getUserDetails() {
@@ -169,10 +214,5 @@ Meteor.methods({
 
     return Meteor.users.find().fetch();
   },
-  userLogout() {
-    return Meteor.users.update(
-      { _id: this.userId },
-      { $set: { 'services.resume.loginTokens': [] } }
-    );
-  },
+  userLogout
 });
