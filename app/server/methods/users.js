@@ -53,25 +53,20 @@ function userLogout(token) {
     Remove token if found.
     $unset sets the token in array to null. $pull removes all null values from array.
     */
-    if (currentTokenIndex) {
-      Meteor.users.update(
-        { _id: this.userId },
-        {
-          $unset: {
-            [`services.resume.loginTokens.${
-              currentTokenIndex
-            }`]: 1,
-          },
-        }
-      );
-      Meteor.users.update(
-        { _id: this.userId },
-        { $pull: { 'services.resume.loginTokens': null } }
-      );
-
-      return true;
-    }
-    return false;
+    if (currentTokenIndex === -1) return false;
+    Meteor.users.update(
+      { _id: this.userId },
+      {
+        $unset: {
+          [`services.resume.loginTokens.${currentTokenIndex}`]: 1,
+        },
+      }
+    );
+    Meteor.users.update(
+      { _id: this.userId },
+      { $pull: { 'services.resume.loginTokens': null } }
+    );
+    return true;
   } catch (err) {
     throw new Meteor.Error(500, err);
   }
