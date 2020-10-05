@@ -7,7 +7,7 @@ import {
 import { isCurrentUserAdmin } from '../utils/user';
 
 function addOrUpdateHome(formData) {
-  if (!isCurrentUserAdmin()) {
+  if (!isCurrentUserAdmin(this.userId)) {
     throw new Meteor.Error(500, 'Operation not allowed');
   }
 
