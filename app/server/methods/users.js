@@ -72,6 +72,24 @@ function userLogout(token) {
   }
 }
 
+SimpleRest.setMethodOptions('checkIfLoggedIn', {
+  url: '/methods/checkIfLoggedIn',
+  getArgsFromRequest: function (request) {
+    return [request.authToken];
+  },
+});
+function checkIfLoggedIn(token) {
+  if (!token) {
+    return false;
+  }
+
+  var user = Meteor.users.findOne({
+    'services.resume.loginTokens.hashedToken': Accounts._hashLoginToken(token)
+  }, {fields: {_id: 1}});
+
+  return !!user && !!user._id;
+}
+
 Meteor.methods({
   sendResetEmail,
   getUserDetails() {
@@ -209,5 +227,6 @@ Meteor.methods({
 
     return Meteor.users.find().fetch();
   },
-  userLogout
+  userLogout,
+  checkIfLoggedIn
 });
