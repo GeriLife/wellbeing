@@ -34,7 +34,7 @@ Meteor.methods({
   },
   revokeManagerPermission({ groupId, userId }) {
     /* This action allowed if current user is admin*/
-    const currentUserId = Meteor.userId();
+    const currentUserId = this.userId;
     const userIsAdmin = Roles.userIsInRole(currentUserId, "admin");
     if (userIsAdmin) {
       /* Revoke manager right of the given user from the given group */
