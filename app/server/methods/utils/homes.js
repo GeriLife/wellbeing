@@ -60,8 +60,8 @@ export const activityLevelPercentage = function(
   });
 };
 
-export const makeUserManager = function (groupId, userId) {
-  if (!isCurrentUserAdmin()) {
+export const makeUserManager = function (groupId, userId, currentUser) {
+  if (!isCurrentUserAdmin(currentUser)) {
     throw new Meteor.Error(500, 'Operation not allowed');
   }
 
