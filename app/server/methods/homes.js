@@ -331,7 +331,7 @@ export default Meteor.methods({
 
   assignManager({ groupId, users }) {
     // Get current user ID
-    const currentUserId = Meteor.userId();
+    const currentUserId = this.userId;
 
     // Check if current user is Admin
     const currentUserIsAdmin = Roles.userIsInRole(
@@ -354,7 +354,7 @@ export default Meteor.methods({
     const allPermissionsUpdated = users.every((userId) => {
       try {
         /* rowsUpdated=0 means no rows updated */
-        const rowsUpdated = makeUserManager(groupId, userId);
+        const rowsUpdated = makeUserManager(groupId, userId, currentUserId);
         return rowsUpdated >= 0;
       } catch (error) {
         throw new Meteor.Error(500, error.toString());
@@ -366,6 +366,9 @@ export default Meteor.methods({
   },
 
   getCurrentManagers,
+  getCurrentManagersApi({ groupId }) {
+    return getCurrentManagers(groupId);
+  },
   isHomeManagedByUser({ userId, homeId }) {
     const home = Homes.findOne({ _id: homeId });
 
@@ -418,5 +421,5 @@ export default Meteor.methods({
   },
   addOrUpdateHome,
   getGroupHomes,
-  getHomesWithActivityLevel
+  getHomesWithActivityLevel,
 });

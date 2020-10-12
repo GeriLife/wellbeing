@@ -1,7 +1,7 @@
 import { isCurrentUserAdmin } from '../utils/user';
 
-function getEligibleManagerList(idsToFilter) {
-  if (!isCurrentUserAdmin()) {
+function getEligibleManagerList(idsToFilter, userId) {
+  if (!isCurrentUserAdmin(userId)) {
     return [];
   }
 
@@ -220,6 +220,9 @@ Meteor.methods({
     Roles.removeUsersFromRoles(userId, 'admin');
   },
   getEligibleManagerList,
+  getEligibleManagerListApi({ idsToFilter }) {
+    return getEligibleManagerList(idsToFilter, this.userId);
+  },
   getUserList() {
     if (!isCurrentUserAdmin()) {
       return [];
@@ -228,5 +231,5 @@ Meteor.methods({
     return Meteor.users.find().fetch();
   },
   userLogout,
-  checkIfLoggedIn
+  checkIfLoggedIn,
 });
