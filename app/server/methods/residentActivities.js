@@ -87,7 +87,6 @@ export default Meteor.methods({
     residentIds,
     date = new Date(),
   }) {
-    console.log(residentIds)
     return residentIds.map((residentId) =>
       Meteor.call(
         'getResidentRecentActiveDaysAndCount',
