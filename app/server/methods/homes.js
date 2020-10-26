@@ -87,7 +87,13 @@ export default Meteor.methods({
       return residency.residentId;
     });
   },
-
+  getHomeCurrentAndActiveResidentsApi({ homeId, onHiatus = false }) {
+    return Meteor.call(
+      'getHomeCurrentAndActiveResidents',
+      homeId,
+      onHiatus
+    );
+  },
   getHomeCurrentAndActiveResidents: function (
     homeId,
     onHiatus = false
@@ -137,6 +143,9 @@ export default Meteor.methods({
 
     // Count the length of current resident IDs list
     return homeCurrentResidentIds.length;
+  },
+  getHomeActivitiesAPI({ homeId }) {
+    return Meteor.call('getHomeActivities', homeId);
   },
   getHomeActivities: function (homeId) {
     // Get all resident of this home
@@ -203,6 +212,9 @@ export default Meteor.methods({
     }
 
     return residentActivityLevelCounts;
+  },
+  getHomeActivityCountTrendApi({ homeId }) {
+    return Meteor.call('getHomeActivityCountTrend', homeId);
   },
   getHomeActivityCountTrend(homeId) {
     // Get home residents
@@ -354,7 +366,11 @@ export default Meteor.methods({
     const allPermissionsUpdated = users.every((userId) => {
       try {
         /* rowsUpdated=0 means no rows updated */
-        const rowsUpdated = makeUserManager(groupId, userId, currentUserId);
+        const rowsUpdated = makeUserManager(
+          groupId,
+          userId,
+          currentUserId
+        );
         return rowsUpdated >= 0;
       } catch (error) {
         throw new Meteor.Error(500, error.toString());
@@ -418,6 +434,9 @@ export default Meteor.methods({
     }
 
     return Homes.findOne(homeId);
+  },
+  getHomeDetailsApi({ homeId }) {
+    return Meteor.call('getHomeDetails', homeId);
   },
   addOrUpdateHome,
   getGroupHomes,

@@ -82,5 +82,18 @@ export default Meteor.methods({
       recentActiveDays,
       activeDaysCount,
     }
-  }
+  },
+  getSelectedResidentsRecentActiveDaysAndCount({
+    residentIds,
+    date = new Date(),
+  }) {
+    console.log(residentIds)
+    return residentIds.map((residentId) =>
+      Meteor.call(
+        'getResidentRecentActiveDaysAndCount',
+        residentId,
+        date
+      )
+    );
+  },
 });
