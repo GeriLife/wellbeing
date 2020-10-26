@@ -218,16 +218,15 @@ function getActivityById(activityDetail) {
 }
 
 export default Meteor.methods({
-
-/**
- * @memberof Activities
- * @name annotateActivities
- * @description For the given activities, map the activity types ids and facilitator ids to their names
- *
- * @param {Array} activities
- * @returns {Array}
- */
-annotateActivities(activities) {
+  /**
+   * @memberof Activities
+   * @name annotateActivities
+   * @description For the given activities, map the activity types ids and facilitator ids to their names
+   *
+   * @param {Array} activities
+   * @returns {Array}
+   */
+  annotateActivities(activities) {
     /*
     Given an array of Activity objects
     add 'activityTypeName' attribute
@@ -255,7 +254,7 @@ annotateActivities(activities) {
     // add attributes to each
     //  - activityTypeName
     //  - facilitatorRoleName
-    return _.map(activities, function(activity) {
+    return _.map(activities, function (activity) {
       const activityTypeId = activity.activityTypeId;
       const facilitatorRoleId = activity.facilitatorRoleId;
 
@@ -289,18 +288,18 @@ annotateActivities(activities) {
     //  - activity minutes
     return d3
       .nest()
-      .key(function(activity) {
+      .key(function (activity) {
         return activity[aggregateBy];
       })
-      .key(function(activity) {
+      .key(function (activity) {
         return moment(activity.activityDate)
           .startOf(timePeriod)
           .toDate();
       })
-      .rollup(function(dailyActivities) {
+      .rollup(function (dailyActivities) {
         return {
           activity_count: dailyActivities.length,
-          activity_minutes: d3.sum(dailyActivities, function(
+          activity_minutes: d3.sum(dailyActivities, function (
             activity
           ) {
             return parseFloat(activity.duration);
@@ -338,18 +337,16 @@ annotateActivities(activities) {
     //  - activity minutes
     return d3
       .nest()
-      .key(function(activity) {
+      .key(function (activity) {
         return activity.activityTypeName;
       })
-      .key(function(activity) {
-        return moment(activity.activityDate)
-          .startOf('day')
-          .toDate();
+      .key(function (activity) {
+        return moment(activity.activityDate).startOf('day').toDate();
       })
-      .rollup(function(dailyActivities) {
+      .rollup(function (dailyActivities) {
         return {
           activity_count: dailyActivities.length,
-          activity_minutes: d3.sum(dailyActivities, function(
+          activity_minutes: d3.sum(dailyActivities, function (
             activity
           ) {
             return parseFloat(activity.duration);
@@ -359,15 +356,15 @@ annotateActivities(activities) {
       .entries(annotatedActivities);
   },
 
-/**
- * @memberof Activities
- * @name getAggregatedActivities
- *
- * @param {String} timePeriod  time aggregation granularity. (week or monthly)
- * @param {String} aggregateBy aggregate parameter
- * @returns nested array of activities with total count of activities and sum of minutes of activities,
+  /**
+   * @memberof Activities
+   * @name getAggregatedActivities
+   *
+   * @param {String} timePeriod  time aggregation granularity. (week or monthly)
+   * @param {String} aggregateBy aggregate parameter
+   * @returns nested array of activities with total count of activities and sum of minutes of activities,
    * aggregated by time and either activity type or facilitator name
- */
+   */
   getAggregatedActivities(timePeriod, aggregateBy) {
     const activities = getActivityWithHomes();
 
@@ -386,16 +383,16 @@ annotateActivities(activities) {
     );
   },
 
-/**
- * @memberof Activities
- * @name getActivitiesAggregateReport
- * @description Get aggregated homes report from the pre aggregated data.
- * If there aggregation collection is empty populate it.
- *
- * @param {String} timePeriod time aggregation granularity. (week or monthly)
- * @param {String} aggregateBy aggregate parameter
- * @returns {Object} Aggregate report data and last aggregated on date.
- */
+  /**
+   * @memberof Activities
+   * @name getActivitiesAggregateReport
+   * @description Get aggregated homes report from the pre aggregated data.
+   * If there aggregation collection is empty populate it.
+   *
+   * @param {String} timePeriod time aggregation granularity. (week or monthly)
+   * @param {String} aggregateBy aggregate parameter
+   * @returns {Object} Aggregate report data and last aggregated on date.
+   */
   getActivitiesAggregateReport(timePeriod, aggregateBy) {
     if (!aggregateBy)
       throw new Meteor.Error('Required aggregateBy field');
@@ -469,18 +466,15 @@ annotateActivities(activities) {
     );
   },
 
-/**
- * @memberof Activities
- * @name getMonthlyAggregatedHomeResidentActivities
- * @description get monthly aggregate activities
- * @param {String} homeId Home for which activities are to be aggregated
- * @param {String} timePeriod time granularity
- * @returns {Array} list of aggregated activities
- */
-getMonthlyAggregatedHomeResidentActivities(
-    homeId,
-    timePeriod
-  ) {
+  /**
+   * @memberof Activities
+   * @name getMonthlyAggregatedHomeResidentActivities
+   * @description get monthly aggregate activities
+   * @param {String} homeId Home for which activities are to be aggregated
+   * @param {String} timePeriod time granularity
+   * @returns {Array} list of aggregated activities
+   */
+  getMonthlyAggregatedHomeResidentActivities(homeId, timePeriod) {
     // Get all home activities
     const allHomeActivities = Meteor.call(
       'getAllHomeResidentActivities',
@@ -493,13 +487,22 @@ getMonthlyAggregatedHomeResidentActivities(
       allHomeActivities
     );
 
-    const nestedActivities = Meteor.call(
+    return Meteor.call(
       'aggregateActivities',
       annotatedActivities,
       timePeriod
     );
 
-    return nestedActivities;
+  },
+  getMonthlyAggregatedHomeResidentActivitiesApi({
+    homeId,
+    timePeriod,
+  }) {
+    return Meteor.call(
+      'getMonthlyAggregatedHomeResidentActivities',
+      homeId,
+      timePeriod
+    );
   },
 
   /**
@@ -521,7 +524,7 @@ getMonthlyAggregatedHomeResidentActivities(
     // get activities for each resident during residency period
     const homeResidentsActivities = _.flatMap(
       homeResidencies,
-      function(residency) {
+      function (residency) {
         let homeActivitiesQuery = {
           residentIds: residency.residentId,
           activityDate: {
@@ -548,19 +551,16 @@ getMonthlyAggregatedHomeResidentActivities(
     return _.sortBy(homeResidentsActivities, 'activityDate');
   },
 
-/**
- * @memberof Activities
- * @name getResidentLatestActivityIdByType
- * @description get the activity type of the last activity entered in db
- *
- * @param {String} residentId
- * @param {String} activityTypeId
- * @returns {String} activity typeid
- */
-  getResidentLatestActivityIdByType(
-    residentId,
-    activityTypeId
-  ) {
+  /**
+   * @memberof Activities
+   * @name getResidentLatestActivityIdByType
+   * @description get the activity type of the last activity entered in db
+   *
+   * @param {String} residentId
+   * @param {String} activityTypeId
+   * @returns {String} activity typeid
+   */
+  getResidentLatestActivityIdByType(residentId, activityTypeId) {
     /*
     Get the resident's most recent activity by type
     */
@@ -583,14 +583,14 @@ getMonthlyAggregatedHomeResidentActivities(
     }
   },
 
-/**
- * @memberof Activities
- * @name getAllResidentsLatestActivityIdsByType
- * @description get activities of residents done most recently
- *
- * @param {String} activityTypeId
- * @returns {Array} array of resident with latest activity
- */
+  /**
+   * @memberof Activities
+   * @name getAllResidentsLatestActivityIdsByType
+   * @description get activities of residents done most recently
+   *
+   * @param {String} activityTypeId
+   * @returns {Array} array of resident with latest activity
+   */
   getAllResidentsLatestActivityIdsByType(activityTypeId) {
     // Get all resident IDs
     var residentIds = Meteor.call('getAllResidentIds');
@@ -599,7 +599,7 @@ getMonthlyAggregatedHomeResidentActivities(
     var residentsLatestActivityIdsByType = [];
 
     // Loop through all resident IDs
-    residentIds.forEach(function(residentId) {
+    residentIds.forEach(function (residentId) {
       // Return resident latest activity
       var residentLatestActivityId = Meteor.call(
         'getResidentLatestActivityIdByType',
@@ -637,9 +637,7 @@ getMonthlyAggregatedHomeResidentActivities(
     */
 
     // Get date period days ago (converting to JavaScript date)
-    const previousDate = moment()
-      .subtract(period, 'days')
-      .toDate();
+    const previousDate = moment().subtract(period, 'days').toDate();
 
     // Get current resident IDs for given home
     const residentIds = Meteor.call(
@@ -666,19 +664,19 @@ getMonthlyAggregatedHomeResidentActivities(
     const activities = Activities.find(query).fetch();
 
     // Create an array of activity IDs
-    return _.map(activities, function(activity) {
+    return _.map(activities, function (activity) {
       return activity._id;
     });
   },
 
-/**
- * @memberof Activities
- * @name getLatestActivityIds
- * @description gets all latest activities for each activity type
- *
- * @returns {Array} array of activity ids
- */
-getLatestActivityIds() {
+  /**
+   * @memberof Activities
+   * @name getLatestActivityIds
+   * @description gets all latest activities for each activity type
+   *
+   * @returns {Array} array of activity ids
+   */
+  getLatestActivityIds() {
     // Get all activity type IDs
     var activityTypeIds = Meteor.call('getAllActivityTypeIds');
 
@@ -686,7 +684,7 @@ getLatestActivityIds() {
     var latestActivityIds = [];
 
     // Go through all activity types
-    activityTypeIds.forEach(function(activityTypeId) {
+    activityTypeIds.forEach(function (activityTypeId) {
       // Get latest activities for activity type
       var latestActivityIdsByType = Meteor.call(
         'getAllResidentsLatestActivityIdsByType',
@@ -732,7 +730,7 @@ getLatestActivityIds() {
     activityTypeId,
     residentId,
     sortBy = 'activityDate',
-    descending = true
+    descending = true,
   }) {
     if (!this.userId) return;
     const departed = false;
@@ -756,7 +754,10 @@ getLatestActivityIds() {
       'getSelectedResidentDetails',
       []
     ).reduce(
-      (acc, current) => ({ ...acc, [current._id]: current.residentFullName }),
+      (acc, current) => ({
+        ...acc,
+        [current._id]: current.residentFullName,
+      }),
       {}
     );
     const activityTypeMap = Meteor.call('getAllActivityTypes').reduce(
@@ -776,9 +777,9 @@ getLatestActivityIds() {
       .map((activity) => {
         return {
           ...activity,
-          residents: activity.residentIds.map(
-            (r) => residentFullNameMap[r]
-          ).join(', '),
+          residents: activity.residentIds
+            .map((r) => residentFullNameMap[r])
+            .join(', '),
           type: activityTypeMap[activity.activityTypeId],
         };
       });
@@ -820,7 +821,7 @@ getLatestActivityIds() {
       residentIds: residentId,
     }).fetch();
 
-    return residentActivities.map(activity => {
+    return residentActivities.map((activity) => {
       return {
         ...activity,
         activityTypeName: activityTypesMap[activity.activityTypeId],
@@ -830,15 +831,15 @@ getLatestActivityIds() {
     });
   },
 
-/**
- * @memberof Activities
- * @name getCountsByType
- * @description count of activities grouped by type
- *
- * @param {*} residentId activity aggregate of the given resident
- * @param {*} type column of activity
- * @returns {Array} list with count of activity grouped by the given type
- */
+  /**
+   * @memberof Activities
+   * @name getCountsByType
+   * @description count of activities grouped by type
+   *
+   * @param {*} residentId activity aggregate of the given resident
+   * @param {*} type column of activity
+   * @returns {Array} list with count of activity grouped by the given type
+   */
   getCountsByType(residentId, type) {
     if (!type || !residentId) {
       throw new Meteor.Error(
@@ -854,10 +855,10 @@ getLatestActivityIds() {
       );
       return d3
         .nest()
-        .key(function(activity) {
+        .key(function (activity) {
           return activity[type];
         })
-        .rollup(function(activityType) {
+        .rollup(function (activityType) {
           return activityType.length;
         })
         .entries(activities);
@@ -866,14 +867,14 @@ getLatestActivityIds() {
     }
   },
 
-/**
- * @memberof Activities
- * @name getDaywiseActivityDuration
- * @description for a given user get total time in minutes spend daily in each activity
- *
- * @param {String} residentId
- * @returns {Array} list containing dates and corresponding time spend in various activities
- */
+  /**
+   * @memberof Activities
+   * @name getDaywiseActivityDuration
+   * @description for a given user get total time in minutes spend daily in each activity
+   *
+   * @param {String} residentId
+   * @returns {Array} list containing dates and corresponding time spend in various activities
+   */
   getDaywiseActivityDuration(residentId) {
     try {
       const activities = Meteor.call(
@@ -883,15 +884,18 @@ getLatestActivityIds() {
       // Group activities by activity date
       const summedActivities = d3
         .nest()
-        .key(activity => activity.activityDate)
-        .rollup(function(activity) {
+        .key((activity) => activity.activityDate)
+        .rollup(function (activity) {
           return {
-            duration: d3.sum(activity, activity => activity.duration),
+            duration: d3.sum(
+              activity,
+              (activity) => activity.duration
+            ),
           };
         })
         .entries(activities);
 
-      return summedActivities.map(function(activity) {
+      return summedActivities.map(function (activity) {
         return {
           timestamp: new Date(activity.key).getTime(),
           duration: parseInt(activity.value.duration),
@@ -904,6 +908,6 @@ getLatestActivityIds() {
 
   saveActivity,
   removeActivity,
-  getActivityById
+  getActivityById,
 });
 
