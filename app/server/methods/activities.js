@@ -385,6 +385,19 @@ export default Meteor.methods({
 
   /**
    * @memberof Activities
+   * @name getActivitiesAggregateReportApi
+   * @description Api for getActivitiesAggregateReport.
+   *
+   * @param {param[0].String} timePeriod time aggregation granularity. (week or monthly)
+   * @param {param[0].String} aggregateBy aggregate parameter
+   * @returns {Object} Aggregate report data and last aggregated on date.
+   */
+    getActivitiesAggregateReportApi({ timePeriod, aggregateBy }) {
+    return Meteor.call("getActivitiesAggregateReport", timePeriod, aggregateBy, this.userId);
+  },
+
+  /**
+   * @memberof Activities
    * @name getActivitiesAggregateReport
    * @description Get aggregated homes report from the pre aggregated data.
    * If there aggregation collection is empty populate it.
@@ -393,14 +406,10 @@ export default Meteor.methods({
    * @param {String} aggregateBy aggregate parameter
    * @returns {Object} Aggregate report data and last aggregated on date.
    */
-  getActivitiesAggregateReport(timePeriod, aggregateBy) {
+  getActivitiesAggregateReport(timePeriod, aggregateBy, userId) {
     if (!aggregateBy)
       throw new Meteor.Error('Required aggregateBy field');
-
-    const homeIds = Meteor.call(
-      'getUserVisibleHomeIds',
-      Meteor.userId()
-    );
+    const homeIds = Meteor.call('getUserVisibleHomeIds', Meteor.userId() || userId);
 
     /* Key to selected based on time period */
     const fieldSelector =

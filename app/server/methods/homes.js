@@ -144,7 +144,7 @@ export default Meteor.methods({
     // Count the length of current resident IDs list
     return homeCurrentResidentIds.length;
   },
-  getHomeActivitiesAPI({ homeId }) {
+  getHomeActivitiesApi({ homeId }) {
     return Meteor.call('getHomeActivities', homeId);
   },
   getHomeActivities: function (homeId) {
