@@ -188,6 +188,10 @@ Meteor.methods({
       }).fetch();
   },
 
+  getResidentDetailsApi({ residentId }) {
+    return Meteor.call('getResidentDetails', residentId);
+  },
+
   getResidentDetails(residentId) {
     let fields = {
       _id: 1,
