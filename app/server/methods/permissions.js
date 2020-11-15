@@ -23,8 +23,25 @@ Meteor.methods({
 
     return existingUserPermissions.map(permission => permission.groupId);
   },
-  getGroupsManagedByCurrentUser() {
-    const userId = Meteor.userId();
+  getHomesOfCurrentUser() {
+    const permissions = Permissions.find({
+      userId: this.userId,
+    }).fetch();
+    const groupPermissionMap = permissions.reduce(
+      (acc, current) => ({ ...acc, [current.groupId]: current }),
+      {}
+    );
+    return Homes.find({
+      groupId: {
+        $in: Object.keys(groupPermissionMap),
+      },
+    }).map((home) => ({
+      homeId: home._id,
+      ...groupPermissionMap[home.groupId],
+    }));
+  },
+  getGroupsManagedByCurrentUser(user) {
+    const userId = user || Meteor.user();
     const userIsAdmin = Roles.userIsInRole(userId, "admin");
     if (!userIsAdmin) {
       return Permissions.find({
