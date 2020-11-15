@@ -5,10 +5,13 @@ import { hasOtherActiveResidencies } from '../utils/residencies';
 function addNewResidencyWithExistingResident(residencyInfo) {
   const schemaType = 'residency';
   const action = 'insert';
+  residencyInfo.moveIn = new Date(residencyInfo.moveIn);
+  residencyInfo.moveOut = residencyInfo.moveOut ? new Date(residencyInfo.moveOut) : undefined;
+
   const isOperationAllowed = checkUserPermissions({
     schemaType,
     action,
-    userId: Meteor.userId(),
+    userId: this.userId,
     doc: residencyInfo,
   });
 
@@ -38,7 +41,7 @@ function editResidency({ _id, modifier }) {
   const isOperationAllowed = checkUserPermissions({
     schemaType,
     action,
-    userId: Meteor.userId(),
+    userId: this.userId,
     doc: { ...modifier.$set, homeId },
     hasDeparted,
   });
@@ -137,23 +140,24 @@ function buildConditionWhenMoveOutNotExists(moveIn) {
   };
 }
 
-function getResidentsWithHomeAndResidentDetails(includeDeparted) {
+function getResidentsWithHomeAndResidentDetails(includeDeparted, userIdFromApi) {
+  const userId = userIdFromApi || Meteor.userId();
   const groupsManagedByCurrentUser = (
-    Meteor.call('getGroupsManagedByCurrentUser') || []
+    Meteor.call('getGroupsManagedByCurrentUser', userId) || []
   ).map((group) => {
     return group.groupId;
   });
 
   const selector = {};
   const currentUserIsAdmin = Roles.userIsInRole(
-    Meteor.userId(),
+    userId,
     'admin'
   );
 
   if (!currentUserIsAdmin) {
     const userVisibleHomeIds = Meteor.call(
       'getUserVisibleHomeIds',
-      Meteor.userId()
+      userId
     );
     selector.homeId = { $in: userVisibleHomeIds };
   }
@@ -206,8 +210,16 @@ function getResidentsWithHomeAndResidentDetails(includeDeparted) {
 }
 
 export default Meteor.methods({
-  addNewResidentAndResidency(document) {
-    const userId = Meteor.userId();
+  addNewResidentAndResidencyApi({ document }) {
+    return Meteor.call(
+      'addNewResidentAndResidency',
+      document,
+      this.userId
+    );
+  },
+  addNewResidentAndResidency(document, user) {
+    document.moveIn = new Date(document.moveIn);
+    const userId = user || Meteor.userId();
     const userPermission = checkUserPermissions({
       schemaType: 'resident',
       action: 'insert',
@@ -347,7 +359,7 @@ export default Meteor.methods({
       ...condition,
       ...otherActiveResidencyDuringCurrent,
     };
-    
+
     const activeResidencies = Residencies.find(condition).count();
     return activeResidencies > 0;
   },
@@ -370,5 +382,12 @@ export default Meteor.methods({
   },
   addNewResidencyWithExistingResident,
   editResidency,
-  getResidentsWithHomeAndResidentDetails
+  getResidentsWithHomeAndResidentDetailsApi({ includeDeparted }) {
+    return Meteor.call(
+      'getResidentsWithHomeAndResidentDetails',
+      includeDeparted,
+      this.userId
+    );
+  },
+  getResidentsWithHomeAndResidentDetails,
 });
