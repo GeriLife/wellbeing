@@ -68,30 +68,39 @@ export const aggregateActivitiesWithHome = (
   // aggregate activities into daily bins grouped by type
   //  - activity count
   //  - activity minutes
-  return d3
-    .nest()
-    .key(function (activity) {
+  const grouped = d3.groups(
+    annotatedActivities,
+    function (activity) {
       return activity[aggregateBy];
-    })
-    .key(function (activity) {
+    },
+    function (activity) {
       return activity.homeId;
-    })
-    .key(function (activity) {
+    },
+    function (activity) {
       return moment(activity.activityDate)
         .startOf(timePeriod)
         .toDate();
-    })
-    .rollup(function (dailyActivities) {
-      return {
-        activity_count: dailyActivities.length,
-        activity_minutes: d3.sum(dailyActivities, function (
-          activity
-        ) {
-          return parseFloat(activity.duration);
-        }),
-      };
-    })
-    .entries(annotatedActivities);
+    }
+  );
+  return grouped.map(function (dailyActivities) {
+    return {
+      key: dailyActivities[0],
+      values: dailyActivities[1].map((homes) => ({
+        key: homes[0] || 'null',
+        values: homes[1].map((activities) => ({
+          key: new Date(activities[0]),
+          value: {
+            activity_count: activities[1].length,
+            activity_minutes: d3.sum(activities[1], function (
+              activity
+            ) {
+              return parseFloat(activity.duration);
+            }),
+          },
+        })),
+      })),
+    };
+  });
 };
 
 export const mergeHomes = (dataRows, homeIds) => {

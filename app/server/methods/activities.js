@@ -286,27 +286,31 @@ export default Meteor.methods({
     // aggregate activities into daily bins grouped by type
     //  - activity count
     //  - activity minutes
-    return d3
-      .nest()
-      .key(function (activity) {
-        return activity[aggregateBy];
-      })
-      .key(function (activity) {
-        return moment(activity.activityDate)
-          .startOf(timePeriod)
-          .toDate();
-      })
-      .rollup(function (dailyActivities) {
-        return {
-          activity_count: dailyActivities.length,
-          activity_minutes: d3.sum(dailyActivities, function (
-            activity
-          ) {
-            return parseFloat(activity.duration);
-          }),
-        };
-      })
-      .entries(annotatedActivities);
+    const groupedData = d3.groups(annotatedActivities,
+        function (activity) {
+          return activity[aggregateBy];
+        },
+        function (activity) {
+          return moment(activity.activityDate)
+            .startOf(timePeriod)
+            .toDate();
+        }
+      );
+    
+    return groupedData.map(function (dailyActivities) {
+      return {
+        key: dailyActivities[0],
+        values: dailyActivities[1].map((activity) => ({
+          key: activity[0],
+          value: {
+            activity_count: activity[1].length,
+            activity_minutes: d3.sum(activity[1], function (a) {
+              return parseFloat(a.duration);
+            }),
+          },
+        })),
+      };
+    });
   },
 
   getAllHomeReportAggregates,
@@ -335,25 +339,30 @@ export default Meteor.methods({
     // aggregate activities into daily bins grouped by type
     //  - activity count
     //  - activity minutes
-    return d3
-      .nest()
-      .key(function (activity) {
+    const groupedData = d3.groups(
+      annotatedActivities,
+      function (activity) {
         return activity.activityTypeName;
-      })
-      .key(function (activity) {
+      },
+      function (activity) {
         return moment(activity.activityDate).startOf('day').toDate();
-      })
-      .rollup(function (dailyActivities) {
-        return {
-          activity_count: dailyActivities.length,
-          activity_minutes: d3.sum(dailyActivities, function (
-            activity
-          ) {
-            return parseFloat(activity.duration);
-          }),
-        };
-      })
-      .entries(annotatedActivities);
+      }
+    );
+
+    return d3.rollup(groupedData, function (dailyActivities) {
+      return {
+        key: dailyActivities[0],
+        values: dailyActivities[1].map((activity) => ({
+          key: activity[0],
+          value: {
+            activity_count: activity[1].length,
+            activity_minutes: d3.sum(activity[1], function (a) {
+              return parseFloat(a.duration);
+            }),
+          },
+        })),
+      };
+    });
   },
 
   /**
@@ -862,15 +871,15 @@ export default Meteor.methods({
         'getResidentActvitiesWithActivityAndFaciltatorName',
         residentId
       );
-      return d3
-        .nest()
-        .key(function (activity) {
-          return activity[type];
-        })
-        .rollup(function (activityType) {
-          return activityType.length;
-        })
-        .entries(activities);
+      const grouped = d3.groups(activities, function (activity) {
+        return activity[type];
+      });
+      return grouped.map(function (activityType) {
+        return {
+          key: activityType[0],
+          value: activityType[1].length,
+        };
+      });
     } catch (error) {
       throw new Meteor.Error(500, error.toString());
     }
@@ -891,23 +900,14 @@ export default Meteor.methods({
         residentId
       );
       // Group activities by activity date
-      const summedActivities = d3
-        .nest()
-        .key((activity) => activity.activityDate)
-        .rollup(function (activity) {
-          return {
-            duration: d3.sum(
-              activity,
-              (activity) => activity.duration
-            ),
-          };
-        })
-        .entries(activities);
-
+      const summedActivities = d3.groups(
+        activities,
+        (activity) => activity.activityDate
+      );
       return summedActivities.map(function (activity) {
         return {
-          timestamp: new Date(activity.key).getTime(),
-          duration: parseInt(activity.value.duration),
+          timestamp: new Date(activity[0]).getTime(),
+          duration: parseInt(d3.sum(activity[1], (a) => a.duration)),
         };
       });
     } catch (error) {
