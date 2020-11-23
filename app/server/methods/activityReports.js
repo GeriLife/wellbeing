@@ -82,16 +82,37 @@ export const aggregateActivitiesWithHome = (
         .toDate();
     }
   );
+  /* 
+  *  [
+  *    [
+  *      "Itse",
+  *      [
+  *        [
+  *          "jan-2019",
+  *          [
+  *            "FYQCfgxqmPNDBXQm9",
+  *            [
+  *              {
+  *                "activity_count": 1,
+  *                "activity_minutes": 3
+  *              }
+  *            ]
+  *          ]
+  *        ]
+  *      ]
+  *    ]
+  * ]
+  */
   return grouped.map(function (dailyActivities) {
     return {
       key: dailyActivities[0],
       values: dailyActivities[1].map((homes) => ({
         key: homes[0] || 'null',
-        values: homes[1].map((activities) => ({
-          key: new Date(activities[0]),
+        values: homes[1].map((activitiesByDate) => ({
+          key: new Date(activitiesByDate[0]),
           value: {
-            activity_count: activities[1].length,
-            activity_minutes: d3.sum(activities[1], function (
+            activity_count: activitiesByDate[1].length,
+            activity_minutes: d3.sum(activitiesByDate[1], function (
               activity
             ) {
               return parseFloat(activity.duration);

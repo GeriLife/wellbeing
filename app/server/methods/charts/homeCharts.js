@@ -57,15 +57,18 @@ Meteor.methods({
       };
     });
   },
-  getHomeActivitiesFacilitatorRoleMetrics ({ homeId, period }) {
+  getHomeActivitiesFacilitatorRoleMetrics({ homeId, period }) {
     // Get activities for current home (ID) from last Period
-    let activityIds = Meteor.call('getHomeCurrentResidentsActivityIds', { homeId, period });
+    let activityIds = Meteor.call(
+      'getHomeCurrentResidentsActivityIds',
+      { homeId, period }
+    );
 
     // Set up query to get activities by ID
     const query = {
       _id: {
-        $in: activityIds
-      }
+        $in: activityIds,
+      },
     };
 
     // Get activities
@@ -81,25 +84,26 @@ Meteor.methods({
     });
 
     // Group activities by facilitator role
-    const facilitatorRoleCounts = d3.nest()
-      .key(function (activity) {
-        return activity.facilitatorRoleName;
-      })
-      // Count the number & minutes of activies per facilitator role
-      .rollup(function(facilitatorRole) {
-        return {
-          "count": facilitatorRole.length,
-          "minutes": d3.sum(facilitatorRole, function(activity) {
+    const facilitatorRoleCounts = d3.groups(activities, function (
+      activity
+    ) {
+      return activity.facilitatorRoleName;
+    });
+    // Count the number & minutes of activities per facilitator role
+    return facilitatorRoleCounts.map(function (facilitatorRole) {
+      return {
+        key: facilitatorRole[0],
+        value: {
+          count: facilitatorRole[1].length,
+          minutes: d3.sum(facilitatorRole[1], function (activity) {
             return parseFloat(activity.duration);
-          })
-        }
-      })
-      .entries(activities);
-
-    return facilitatorRoleCounts;
+          }),
+        },
+      };
+    });
   },
   getHomeActivityTypeMetrics ({ homeId, period }) {
-    // Get activties for current home (ID) from last period
+    // Get activities for current home (ID) from last period
     let activityIds = Meteor.call('getHomeCurrentResidentsActivityIds', { homeId, period });
 
     // Set up query to get activities by ID
@@ -122,18 +126,20 @@ Meteor.methods({
     });
 
     // Group activities by facilitator role
-    return d3.nest()
-      .key(function(activity) { return activity.activityTypeName })
-      // Count the number & minutes of activies per facilitator role
-      .rollup(function(dailyActivities) {
-        return {
-          "count": dailyActivities.length,
-          "minutes": d3.sum(dailyActivities, function(activity) {
+    const groupedData = d3.groups(activities, function (activity) {
+      return activity.activityTypeName;
+    });
+    // Count the number & minutes of activities per facilitator role
+    return groupedData.map(function (dailyActivities) {
+      return {
+        key: dailyActivities[0],
+        value: {
+          count: dailyActivities[1].length,
+          minutes: d3.sum(dailyActivities[1], function (activity) {
             return parseFloat(activity.duration);
-          })
-        }
-      })
-      .entries(activities);
-
+          }),
+        },
+      };
+    });
   }
 });
