@@ -286,11 +286,30 @@ export default Meteor.methods({
     // aggregate activities into daily bins grouped by type
     //  - activity count
     //  - activity minutes
-    const groupedData = d3.groups(annotatedActivities,
+    /* groupedData = [
+    *      [
+    *        "Itse",
+    *        [
+    *          [
+    *            "jan-2019",
+    *            [
+    *              {
+    *                "activity_count": 1,
+    *                "activity_minutes": 3
+    *              }
+    *            ]
+    *          ]
+    *        ]
+    *      ]
+    *    ]
+    */
+   const groupedData = d3.groups(annotatedActivities,
         function (activity) {
+          /* Whether to group by facilitator or activity type */
           return activity[aggregateBy];
         },
         function (activity) {
+          /* Granularity week or month */
           return moment(activity.activityDate)
             .startOf(timePeriod)
             .toDate();
@@ -339,6 +358,24 @@ export default Meteor.methods({
     // aggregate activities into daily bins grouped by type
     //  - activity count
     //  - activity minutes
+    /* 
+    * groupedData = [
+    *      [
+    *        "Itse",
+    *        [
+    *          [
+    *            "jan-2019",
+    *            [
+    *              {
+    *                "activity_count": 1,
+    *                "activity_minutes": 3
+    *              }
+    *            ]
+    *          ]
+    *        ]
+    *      ]
+    *    ]
+    */
     const groupedData = d3.groups(
       annotatedActivities,
       function (activity) {
@@ -349,14 +386,14 @@ export default Meteor.methods({
       }
     );
 
-    return d3.rollup(groupedData, function (dailyActivities) {
+    return d3.rollup(groupedData, function (activityByAggregate) {
       return {
-        key: dailyActivities[0],
-        values: dailyActivities[1].map((activity) => ({
-          key: activity[0],
+        key: activityByAggregate[0],
+        values: activityByAggregate[1].map((timeAggregate) => ({
+          key: timeAggregate[0],
           value: {
-            activity_count: activity[1].length,
-            activity_minutes: d3.sum(activity[1], function (a) {
+            activity_count: timeAggregate[1].length,
+            activity_minutes: d3.sum(timeAggregate[1], function (a) {
               return parseFloat(a.duration);
             }),
           },
