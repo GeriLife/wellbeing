@@ -5,10 +5,12 @@ import {
 } from '../../both/utils';
 
 function updateResidentInfo(residentInfo) {
+  const userId = this.userId || Meteor.userId();
   const doc = {
     _id: residentInfo._id,
     ...residentInfo.modifier.$set,
   };
+
   const schemaType = 'resident';
   const action = 'update';
   const residentId = doc._id;
@@ -20,7 +22,7 @@ function updateResidentInfo(residentInfo) {
   const isOperationAllow = checkUserPermissions({
     schemaType,
     action,
-    userId: Meteor.userId(),
+    userId,
     doc,
   });
 
