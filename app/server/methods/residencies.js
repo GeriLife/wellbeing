@@ -363,8 +363,11 @@ export default Meteor.methods({
     const activeResidencies = Residencies.find(condition).count();
     return activeResidencies > 0;
   },
-  isResidentManagedByCurrentUser(residentId) {
-    const userId = Meteor.userId();
+  isResidentManagedByCurrentUserApi({ residentId }){
+    return Meteor.call("isResidentManagedByCurrentUser", residentId, this.userId);
+  },
+  isResidentManagedByCurrentUser(residentId, user) {
+    const userId = user || Meteor.userId();
     const isUserAdmin = Roles.userIsInRole(userId, ['admin']);
 
     if (isUserAdmin) return true;

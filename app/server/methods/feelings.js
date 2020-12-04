@@ -26,8 +26,13 @@ Meteor.methods({
       };
     });
   },
-
-  getFeelingsPercentagesByResidentId(residentId) {
+  getFeelingsPercentagesByResidentIdApi({ residentId }) {
+    return Meteor.call(
+      'getFeelingsPercentagesByResidentId',
+      residentId
+    );
+  },
+    getFeelingsPercentagesByResidentId (residentId) {
     // Get all feelings observations for resident
     const residentFeelings = Feelings.find({ residentId }).fetch();
 

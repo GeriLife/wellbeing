@@ -491,6 +491,13 @@ export default Meteor.methods({
       };
     }
   },
+  getResidentAggregatedActivitiesApi({ residentId, timePeriod }) {
+    return Meteor.call(
+      'getResidentAggregatedActivities',
+      residentId,
+      timePeriod
+    );
+  },
 
   /**
    * @memberof Activities
@@ -847,6 +854,10 @@ export default Meteor.methods({
 
   aggregateActivitiesAndPopulateAggregateCollection,
 
+  getResidentActvitiesWithActivityAndFaciltatorNameApi({ residentId }) {
+    return Meteor.call("getResidentActvitiesWithActivityAndFaciltatorName", residentId);
+  },
+
   /**
    * @memberof Activities
    * @name getResidentActvitiesWithActivityAndFaciltatorName
@@ -886,6 +897,10 @@ export default Meteor.methods({
     });
   },
 
+  getCountsByTypeApi({ residentId, type }) {
+    return Meteor.call("getCountsByType", residentId, type);
+  },
+
   /**
    * @memberof Activities
    * @name getCountsByType
@@ -920,6 +935,10 @@ export default Meteor.methods({
     } catch (error) {
       throw new Meteor.Error(500, error.toString());
     }
+  },
+
+  getDaywiseActivityDurationApi({ residentId }) {
+    return Meteor.call("getDaywiseActivityDuration", residentId)
   },
 
   /**
