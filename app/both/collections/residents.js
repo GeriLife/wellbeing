@@ -2,7 +2,6 @@ import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
 SimpleSchema.extendOptions(['autoform']);
 import UserEventLog from '/both/collections/userEventLog';
-import { checkUserPermissions, getActiveResidency } from '../utils';
 
 Residents = new Mongo.Collection('residents');
 
@@ -12,11 +11,11 @@ var ResidentsSchema = new SimpleSchema({
     autoform: {
       readonly() {
         /* For non admin users, editing an existing resident is not allowed */
-        return !isUserAdmin() ? !isEdit(this) : false;
+        return !isUserAdmin() ? !isEdit() : false;
       },
     },
     custom() {
-      if (!isUserAdmin() && isEdit(this)) {
+      if (!isUserAdmin() && isEdit()) {
         return 'notAllowed';
       }
       return undefined;
@@ -28,12 +27,12 @@ var ResidentsSchema = new SimpleSchema({
     autoform: {
       readonly() {
         /* For non admin users, editing an existing resident is not allowed */
-        return !isUserAdmin() ? !isEdit(this) : false;
+        return !isUserAdmin() ? !isEdit() : false;
       },
     },
     custom() {
       /* For non admin users, editing an existing resident is not allowed */
-      if (!isUserAdmin() && isEdit(this)) {
+      if (!isUserAdmin() && isEdit()) {
         return 'notAllowed';
       }
       return undefined;
@@ -152,11 +151,18 @@ function isUserAdmin() {
       A manager can change the onHiatus field but not the name.
       A  normal user can change none
     */
-  const userId = Meteor.userId();
+  let userId;
+  if (Meteor.isServer) {
+    userId = Meteor.call('getCurrentUserId');
+  } else {
+    Meteor.call('getCurrentUserId', (val) => {
+      userId = val;
+    });
+  }
   return Roles.userIsInRole(userId, ['admin']);
 }
 
-function isEdit(that) {
+function isEdit() {
   return !!this.docId;
 }
 

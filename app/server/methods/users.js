@@ -230,6 +230,9 @@ Meteor.methods({
 
     return Meteor.users.find().fetch();
   },
+  getCurrentUserId() {
+    return this.userId || Meteor.userId();
+  },
   userLogout,
   checkIfLoggedIn,
 });
