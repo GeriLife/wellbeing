@@ -1,4 +1,5 @@
 import { isCurrentUserAdmin } from '../utils/user';
+const CryptoJS = require("crypto-js");
 
 function getEligibleManagerList(idsToFilter, userId) {
   if (!isCurrentUserAdmin(userId)) {
@@ -33,10 +34,10 @@ function sendResetEmail({ toEmail }) {
 }
 
 SimpleRest.setMethodOptions('userLogout', {
-  url: "/methods/userLogout",
+  url: '/methods/userLogout',
   getArgsFromRequest: function (request) {
-    return [ request.authToken ];
-  }
+    return [request.authToken];
+  },
 });
 
 function userLogout(token) {
@@ -83,15 +84,41 @@ function checkIfLoggedIn(token) {
     return false;
   }
 
-  var user = Meteor.users.findOne({
-    'services.resume.loginTokens.hashedToken': Accounts._hashLoginToken(token)
-  }, {fields: {_id: 1}});
+  var user = Meteor.users.findOne(
+    {
+      'services.resume.loginTokens.hashedToken': Accounts._hashLoginToken(
+        token
+      ),
+    },
+    { fields: { _id: 1 } }
+  );
 
   return !!user && !!user._id;
 }
 
 Meteor.methods({
   sendResetEmail,
+  changeAccPassword({ currentPassword, newPassword }) {
+    try {
+      currentPassword = CryptoJS.AES.decrypt(
+        currentPassword,
+        process.env.SECRET
+      ).toString(CryptoJS.enc.Utf8);
+      newPassword = CryptoJS.AES.decrypt(
+        newPassword,
+        process.env.SECRET
+      ).toString(CryptoJS.enc.Utf8);
+
+      const isCurrentPasswordValid = Accounts._checkPassword(Meteor.users.findOne({ _id: this.userId }), currentPassword);
+      if (isCurrentPasswordValid.error) {
+        throw new Meteor.Error(500, isCurrentPasswordValid.error);
+      }
+      return Accounts.setPassword(this.userId, newPassword);
+
+    } catch (err) {
+      throw new Meteor.Error(500, err);
+    }
+  },
   getUserDetails() {
     return {
       details: Meteor.users.findOne(this.userId, {

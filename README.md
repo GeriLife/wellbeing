@@ -74,7 +74,7 @@ so that I know they are living an enjoyable life
 1. Install meteor. Follow instructions on https://www.meteor.com/install.
 2. Clone the directory
 3. The meteor app resides inside the wellbeing/app folder. Install npm modules here.
-4. To start the app, run `meteor`.
+4. To start the app, run `npm run dev`.
 
 ### Mock data
 For running app in dev mode, there is a process to generate dummy data and user accounts.
@@ -97,7 +97,7 @@ To be able to use the app, a user account is needed. This can be created in the 
 5. ` ~/.meteor/packages/meteor-tool/1.8.1/mt-os.linux.x86_64/dev_bundle/mongodb/bin/mongod  --dbpath .meteor/local/db --repair`
 
 if necessary run `meteor reset`. Warning: This will clear all collections and user accounts.
-6. `meteor`
+6. `npm run dev`
 
 ## Running tests
 ### Command to run
