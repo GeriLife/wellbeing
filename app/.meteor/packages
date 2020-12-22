@@ -6,7 +6,7 @@
 
 dburles:collection-helpers
 iron:router
-accounts-password@1.6.0
+accounts-password
 useraccounts:bootstrap
 fortawesome:fontawesome
 mrt:flash-messages
