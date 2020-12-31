@@ -30,7 +30,7 @@
     "@babel/runtime": "^7.11.2",
     "babel-runtime": "^6.26.0",
     "bcrypt": "^5.0.0",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "chai": "^4.2.0",
     "core-js": "^3.6.5",
     "cron": "1.8.2",
