@@ -1,6 +1,14 @@
 Meteor.methods({
-  createOrEditTimezoneSettings(selectedTimezone) {
-    if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
+  createOrEditTimezoneSettingsApi({ selectedTimezone }) {
+    return Meteor.call(
+      'createOrEditTimezoneSettings',
+      selectedTimezone,
+      this.userId
+    );
+  },
+
+  createOrEditTimezoneSettings(selectedTimezone, userId) {
+    if (!Roles.userIsInRole(userId || Meteor.userId(), ['admin'])) {
       throw new Meteor.Error(500, 'Operation Not Allowed');
     }
 
@@ -20,7 +28,7 @@ Meteor.methods({
   },
 
   getTimezone() {
-    if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
+    if (!Roles.userIsInRole(this.userId || Meteor.userId(), ['admin'])) {
       throw new Meteor.Error(500, 'Operation Not Allowed');
     }
 
