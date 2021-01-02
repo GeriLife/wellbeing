@@ -25,6 +25,6 @@ Template.dateTimeSettings.events({
 
     // Get selected timezone from form
     var selectedTimezone = $('#timezone-select').val();
-    Meteor.call('createOrEditTimezoneSetting', selectedTimezone);
+    Meteor.call('createOrEditTimezoneSettings', selectedTimezone);
   },
 });
