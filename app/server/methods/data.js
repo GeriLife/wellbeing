@@ -28,10 +28,13 @@ function getMessage(e) {
 Meteor.methods({
   exportAllData() {
     // Get current user ID
-    const currentUserId = Meteor.userId();
+    const currentUserId = this.userId || Meteor.userId();
 
     // Check if current user is Admin
-    const currentUserIsAdmin = Roles.userIsInRole(currentUserId, "admin");
+    const currentUserIsAdmin = Roles.userIsInRole(
+      currentUserId,
+      'admin'
+    );
 
     // If current user is admin, construct and return object with all data
     if (currentUserIsAdmin) {
@@ -44,32 +47,39 @@ Meteor.methods({
         residents: Residents.find().fetch(),
         roles: Meteor.roles.find().fetch(),
         settings: Settings.find().fetch(),
-        users: Meteor.users.find().fetch()
+        users: Meteor.users.find().fetch(),
       };
 
       return exportData;
     }
   },
 
-  JSONFileImport(fileData) {
+  JSONFileImportApi({ fileData }) {
+    return Meteor.call('JSONFileImport', fileData, this.userId);
+  },
+  JSONFileImport(fileData, userId) {
     // Get current user ID
-    const currentUserId = Meteor.userId();
+    const currentUserId = userId || Meteor.userId();
 
     // Check if current user is Admin
-    const currentUserIsAdmin = Roles.userIsInRole(currentUserId, "admin");
+    const currentUserIsAdmin = Roles.userIsInRole(
+      currentUserId,
+      'admin'
+    );
     if (!currentUserIsAdmin)
-      return { error: { message: "Action not allowed" } };
+      return { error: { message: 'Action not allowed' } };
 
-    if (!fileData) return { error: { message: "No Data recieved!!" } };
+    if (!fileData)
+      return { error: { message: 'No Data recieved!!' } };
 
     let jsonData;
     try {
       jsonData = JSON.parse(fileData);
 
-      if (!typeof jsonData === "object" || Array.isArray(jsonData))
-        throw "JSON not in required format";
+      if (!typeof jsonData === 'object' || Array.isArray(jsonData))
+        throw 'JSON not in required format';
 
-      let res = Object.keys(jsonData).map(collectionName => {
+      let res = Object.keys(jsonData).map((collectionName) => {
         try {
           _exportDataToConcernedColection(
             collectionName,
@@ -78,22 +88,22 @@ Meteor.methods({
 
           return {
             collectionName,
-            message: `Data for ${collectionName} imported successfully!`
+            message: `Data for ${collectionName} imported successfully!`,
           };
         } catch (e) {
           return {
             collectionName,
             error: {
               message: `${collectionName}: Error displaying data`,
-              data: getMessage(e)
-            }
+              data: getMessage(e),
+            },
           };
         }
       });
 
       return res;
     } catch (e) {
-      return { error: { message: "Invalid File" } };
+      return { error: { message: 'Invalid File' } };
     }
-  }
+  },
 });
