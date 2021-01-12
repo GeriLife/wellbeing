@@ -134,7 +134,7 @@ Meteor.methods({
     return userId;
   },
   addUsersAndSendEnrollmentEmails(enrollmentDocument) {
-    if (!isCurrentUserAdmin()) {
+    if (!isCurrentUserAdmin(this.userId)) {
       throw new Meteor.Error(500, 'Operation not allowed');
     }
     // original example: https://stackoverflow.com/a/16098693/1191545
@@ -187,6 +187,9 @@ Meteor.methods({
       Accounts.sendEnrollmentEmail(userId);
     });
   },
+  addUserToAdminRoleApi({ userId }) {
+    return Meteor.call('addUserToAdminRole', userId);
+  },
   addUserToAdminRole(userId) {
     // Add user to admin role
     Roles.addUsersToRoles(userId, 'admin');
@@ -204,7 +207,7 @@ Meteor.methods({
       // Make sure user can't delete own Account
       if (currentUserId !== user._id) {
         // If safe, delete provided user Object
-        Meteor.users.remove(user);
+        Meteor.users.remove({ _id: user._id });
         Permissions.remove({ userId: user._id });
       }
     }
@@ -242,6 +245,9 @@ Meteor.methods({
     }
     return userId;
   },
+  removeUserFromAdminRoleApi({ userId }) {
+    return Meteor.call("removeUserFromAdminRole", userId);
+  },
   removeUserFromAdminRole(userId) {
     // Add user to admin role
     Roles.removeUsersFromRoles(userId, 'admin');
@@ -250,8 +256,17 @@ Meteor.methods({
   getEligibleManagerListApi({ idsToFilter }) {
     return getEligibleManagerList(idsToFilter, this.userId);
   },
-  getUserList() {
-    if (!isCurrentUserAdmin()) {
+
+  getUserListApi() {
+    const users = Meteor.call('getUserList', this.userId);
+    return users.map((u) => ({
+      ...u,
+      isAdmin: Roles.userIsInRole(u._id, 'admin'),
+    }));
+  },
+
+  getUserList(userId) {
+    if (!isCurrentUserAdmin(userId)) {
       return [];
     }
 
