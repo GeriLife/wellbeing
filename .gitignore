@@ -6,3 +6,6 @@ node_modules
 *.pyc
 app/.vscode
 app/.cache
+.vscode
+app/public/dist
+app/report*.json
