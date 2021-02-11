@@ -73,7 +73,7 @@ Meteor.startup(function () {
   JsonRoutes.setResponseHeaders({
     'Cache-Control': 'no-store',
     Pragma: 'no-cache',
-    'Access-Control-Allow-Origin': 'http://localhost:8080', // add more URLs per deployment
+    'Access-Control-Allow-Origin': '*', // add more URLs per deployment
     'Access-Control-Allow-Headers':
       'origin, content-type, accept, authorization',
     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
