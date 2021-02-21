@@ -68,6 +68,14 @@ As a family member
 I want to know that my relative is active
 so that I know they are living an enjoyable life
 ```
+
+# Deployment
+
+1. Install npm package `mup` globally
+2. Make sure docker and docker-compose are installed locally
+3. If running locally, update mup.js and dockerfile settings accordingly
+4. Run ` ./node_modules/.bin/concurrently "npm run docker-deploy" "npm run docker-deploy-frontend"` or cd into meteor app and run ` ./node_modules/.bin/concurrently "npm run docker-deploy" "cd <path-to-frontend-app>/wellbeing-client/frontend && npm run docker-deploy"`
+
 # Developer instructions
 ## Dev mode setup
 
