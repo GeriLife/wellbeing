@@ -1,4 +1,0 @@
-[submodule "wellbeing-client"]
-	branch = develop
-	path = wellbeing-client
-	url = git@github.com:GeriLife/wellbeing-client.git
