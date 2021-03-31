@@ -43,12 +43,14 @@ dokku mongo:link mongod-gerilife meteor-gerilife
 ```
 
 ## Configure GeriLife with Buildpack
+Check the current GeriLife configuration:
 ```
-dokku config meteor-gerilife
+dokku config:show meteor-gerilife
 ```
 
+Set Buildpack configuration. Make sure to update your `ROOT_URL`.
 ```
-dokku config:set meteor-gerilife BUILDPACK_URL=https://github.com/AdmitHub/meteor-buildpack-horse.git ROOT_URL=http://95.217.237.33 METEOR_SETTINGS="{\"public\": {}}"
+dokku config:set meteor-gerilife BUILDPACK_URL=https://github.com/AdmitHub/meteor-buildpack-horse.git ROOT_URL=http://123.456.789.000 METEOR_SETTINGS="{\"public\": {}}"
 ```
 
 ## Local configuration
