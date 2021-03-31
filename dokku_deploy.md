@@ -59,6 +59,19 @@ Tell Dokku to use the `main` branch for deployment (instead of `master').
 dokku git:set meteor-gerilife deploy-branch main
 ```
 
+### Set Dokku port map
+In the case where we are hosting the frontend and backend on the same server, the backend should be accessible at a port other than 80 or 443. For example, the backend can be made available on port 5000. By default, Dokku sets up a port mapping to 80, so we will first remove the default mapping.
+
+```
+dokku proxy:ports-clear meteor-gerilife
+```
+
+Then, we configure Dokku to map the desired port to the container port 5000.
+
+```
+dokku proxy:ports-set meteor-gerilife http:5000:5000
+```
+
 ## Local configuration
 Configure your public key on the remote Dokku instance, to allow deploying from local computer. Make sure to replace the server IP in the following command.
 
