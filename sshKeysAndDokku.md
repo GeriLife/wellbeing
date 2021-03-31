@@ -61,6 +61,8 @@ cat ~/.ssh/id_rsa.pub | ssh root@123.456.789.000 sshcommand acl-add dokku deploy
 ```
 
 ## Set up remote Dokku repository
+From within your local GeriLife repository, run the following command to set up a Dokku remote.
+
 ```
 git remote add dokku dokku@95.217.237.33:meteor-gerilife
 ```
