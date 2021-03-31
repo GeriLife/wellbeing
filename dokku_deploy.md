@@ -53,6 +53,12 @@ Set Buildpack configuration. Make sure to update your `ROOT_URL`.
 dokku config:set meteor-gerilife BUILDPACK_URL=https://github.com/AdmitHub/meteor-buildpack-horse.git ROOT_URL=http://123.456.789.000 METEOR_SETTINGS="{\"public\": {}}"
 ```
 
+Tell Dokku to use the `main` branch for deployment (instead of `master').
+
+```
+dokku git:set meteor-gerilife deploy-branch main
+```
+
 ## Local configuration
 Configure your public key on the remote Dokku instance, to allow deploying from local computer. Make sure to replace the server IP in the following command.
 
