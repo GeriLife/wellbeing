@@ -88,7 +88,7 @@ git remote add dokku dokku@123.456.789.000:meteor-gerilife
 
 ### Push changes to remote Dokku repository
 ```
-git push dokku master
+git push dokku main
 ```
 
 # References
