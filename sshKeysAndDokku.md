@@ -54,6 +54,8 @@ dokku config:set meteor-gerilife BUILDPACK_URL=https://github.com/AdmitHub/meteo
 ```
 
 ## Local configuration
+Configure your public key on the remote Dokku instance, to allow deploying from local computer. Make sure to replace the server IP in the following command.
+
 ```
 cat ~/.ssh/id_rsa.pub | ssh root@123.456.789.000 sshcommand acl-add dokku deploy
 ```
