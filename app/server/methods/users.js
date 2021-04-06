@@ -97,6 +97,17 @@ function checkIfLoggedIn(token) {
 }
 
 Meteor.methods({
+ loginHere({
+    email,
+    password
+  }){
+    return HTTP.call('POST', '/users/login', {
+      data: {
+        email,
+        password,
+      },
+    });
+  },
   sendResetEmail,
   changeAccPassword({ currentPassword, newPassword }) {
     try {

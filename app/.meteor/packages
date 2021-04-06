@@ -55,3 +55,4 @@ matb33:collection-hooks
 simple:rest
 simple:json-routes
 simple:rest-accounts-password
+http
