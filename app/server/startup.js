@@ -75,7 +75,7 @@ Meteor.startup(function () {
     Pragma: 'no-cache',
     'Access-Control-Allow-Origin': '*', // add more URLs per deployment
     'Access-Control-Allow-Headers':
-      'origin, content-type, accept, authorization',
+      'Origin, X-Requested-With, Authorization,Content-Type, Accept',
     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
   });
 });
