@@ -230,6 +230,13 @@ function createMockResidency(startingPoint = defaultStartingPoint, percentMovedO
 }
 
 
+function createAggregateReport() {
+  console.log("Creating aggregate activity report");
+
+  Meteor.call('aggregateActivitiesAndPopulateAggregateCollection');
+}
+
+
 Meteor.methods({
   'createMockData': function (start, percentMovedOut) {
     createMockGroups();
@@ -239,7 +246,7 @@ Meteor.methods({
     createMockActivityTypes();
     createMockActivities();
     createMockResidency(start, percentMovedOut);
-    Meteor.call('aggregateActivitiesAndPopulateAggregateCollection')
+    createAggregateReport();
   },
   'createMockGroups': function () {
     createMockGroups();
