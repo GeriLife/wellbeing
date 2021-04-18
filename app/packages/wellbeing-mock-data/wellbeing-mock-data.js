@@ -112,7 +112,7 @@ function createMockHomes() {
 
 function createMockResidents() {
   console.log('Creating mock residents');
-  const amount = 10;
+  const amount = 5;
   const homes = Homes.find().count();
   const firstName = function () { return faker.name.firstName(); };
   const lastInitial = function () { return faker.name.lastName().charAt(0); };
