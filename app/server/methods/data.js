@@ -6,6 +6,7 @@ function _exportDataToConcernedColection(collectionName, data) {
   const collections = {
     activities: Activities,
     activityTypes: ActivityTypes,
+    allHomesActivityReportAggregate: AllHomesActivityReportAggregate, 
     feelings: Feelings,
     groups: Groups,
     homes: Homes,
@@ -45,6 +46,7 @@ Meteor.methods({
       const exportData = {
         activities: Activities.find().fetch(),
         activityTypes: ActivityTypes.find().fetch(),
+        allHomesActivityReportAggregate: AllHomesActivityReportAggregate.find().fetch(),
         feelings: Feelings.find().fetch(),
         groups: Groups.find().fetch(),
         homes: Homes.find().fetch(),
