@@ -112,7 +112,7 @@ function createMockHomes() {
 
 function createMockResidents() {
   console.log('Creating mock residents');
-  const amount = 6;
+  const amount = 10;
   const homes = Homes.find().count();
   const firstName = function () { return faker.name.firstName(); };
   const lastInitial = function () { return faker.name.lastName().charAt(0); };
@@ -132,7 +132,7 @@ function createMockActivityTypes() {
 function createMockActivities() {
   console.log('Creating mock activies');
   // Number of activities to create per resident
-  var amount =  50;
+  var amount =  350;
 
   // Number, in days, for the earliest activity date
   var earliestActivityDate = 365;
@@ -209,8 +209,7 @@ function createMockResidency(startingPoint = defaultStartingPoint, percentMovedO
   const indexWhereMovedOut = residents.length - Math.round(residents.length * percentMovedOut)
   residents.forEach(function(resident, index) {
     let moveInDate = getRandomMoveInDate(startingPoint);
-    resident.homeId = getRandomHomeId()
-    console.log(moveInDate);
+    resident.homeId = getRandomHomeId();
 
     var args = { "residentId": resident._id, 'homeId': resident.homeId, 'moveIn': moveInDate }
     if (index >= indexWhereMovedOut) {
