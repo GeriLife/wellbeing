@@ -1,3 +1,5 @@
+import { UserEventLogCollection } from "../../both/collections/userEventLog";
+
 function _exportDataToConcernedColection(collectionName, data) {
   if (!Array.isArray(data)) throw "Data not in required format";
 
@@ -7,14 +9,16 @@ function _exportDataToConcernedColection(collectionName, data) {
     feelings: Feelings,
     groups: Groups,
     homes: Homes,
+    permissions: Permissions,
     residents: Residents,
     residencies: Residencies,
     roles: Meteor.roles,
     settings: Settings,
-    users: Meteor.users
+    users: Meteor.users,
+    userEventLog: UserEventLog,
   };
   return data.every(function(row) {
-    return collections[collectionName].insert(row);
+    return collections[collectionName].insert(row, {validate: false});
     
   });
 }
@@ -44,10 +48,13 @@ Meteor.methods({
         feelings: Feelings.find().fetch(),
         groups: Groups.find().fetch(),
         homes: Homes.find().fetch(),
+        permissions: Permissions.find().fetch(),
+        residencies: Residencies.find().fetch(),
         residents: Residents.find().fetch(),
         roles: Meteor.roles.find().fetch(),
         settings: Settings.find().fetch(),
         users: Meteor.users.find().fetch(),
+        userEventLog: UserEventLog.find().fetch(),
       };
 
       return exportData;
@@ -88,13 +95,13 @@ Meteor.methods({
 
           return {
             collectionName,
-            message: `Data for ${collectionName} imported successfully!`,
+            message: `Success`,
           };
         } catch (e) {
           return {
             collectionName,
             error: {
-              message: `${collectionName}: Error displaying data`,
+              message: `Error`,
               data: getMessage(e),
             },
           };
