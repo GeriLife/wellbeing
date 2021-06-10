@@ -107,6 +107,6 @@ git remote add dokku dokku@123.456.789.000:gerilife-meteor
 git push dokku main
 ```
 
-# References
+## References
 
 - [Run a Meteor App with MongoDB on Digital Ocean using Dokku](https://medium.com/@ersel_aker/run-a-meteor-app-with-mongodb-on-digital-ocean-using-dokku-8878745d9540) - Also useful for restoring backup from other mongo instances
