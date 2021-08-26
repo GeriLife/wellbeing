@@ -556,6 +556,28 @@ export default Meteor.methods({
     );
 
   },
+
+  getMonthlyAggregatedActivitiesByRoles({homeId, timePeriod}) {
+    // Get all home activities
+    const allHomeActivities = Meteor.call(
+      'getAllHomeResidentActivities',
+      homeId
+    );
+
+    // annotate activities with name and facilitator role
+    const annotatedActivities = Meteor.call(
+      'annotateActivities',
+      allHomeActivities
+    );
+
+    return Meteor.call(
+      'aggregateActivities',
+      annotatedActivities,
+      timePeriod,
+      'facilitatorName'
+    );
+  },
+
   getMonthlyAggregatedHomeResidentActivitiesApi({
     homeId,
     timePeriod,
