@@ -41,7 +41,7 @@
     "jquery": "^3.5.1",
     "lodash": "^4.17.20",
     "meteor-node-stubs": "^1.0.1",
-    "moment": "^2.28.0",
+    "moment": "^2.29.2",
     "plotly.js-dist": "^1.55.2",
     "simpl-schema": "^1.10.1",
     "sinon": "^9.0.3",
